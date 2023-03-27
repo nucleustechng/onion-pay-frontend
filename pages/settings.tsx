@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BusinessLogo from '../Assets/logo/BusinessLogo.svg'
 import EditIcon from '../Assets/icon/EditIcon.svg'
 import CopyIcon from '../Assets/icon/CopyIcon.svg'
@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import { setShowSidebar } from '../redux/sidebarSlice'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
+import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 
 
 
@@ -20,6 +21,27 @@ const Settings = () => {
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+    const  [apiKey,setApiKey]  = useState<string>('')
+
+    const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+
+    useEffect(() =>{
+        if (isSuccess && generateKeyData.success == true){
+            setApiKey(generateKeyData?.live_pub_key)
+        } else{
+            console.log(generateKeyData?.reason)
+        }
+    },[isSuccess,generateKeyData])
+
+    const [showPop, setShowPop] = useState(false);
+
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(apiKey);
+      setShowPop(true);
+      setTimeout(() => {
+        setShowPop(false);
+      }, 2000);
+    };
   return (
     <div className=''>
         <div className='w-auto xl:w-[71.5rem]'>
@@ -64,8 +86,15 @@ const Settings = () => {
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>API Keys:</h1>
                     <div className='flex items-center gap-3'>
-                        <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>xBVZfg8X5ps5jo81nwwrFye2</h2>
-                        <Image src={CopyIcon} alt=''/>
+                        <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{apiKey}</h2>
+                        <div onClick={copyToClipboard}>
+                            <Image src={CopyIcon} alt=''/>
+                        </div>
+                        {showPop && (
+                        <div className="absolute bg-primary text-white px-2 py-1 rounded mt-1 right-0">
+                            Copied to clipboard!
+                        </div>
+                        )}
                     </div>
                 </div>
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>

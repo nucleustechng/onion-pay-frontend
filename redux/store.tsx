@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { generateApiKeys } from '../modules/ApiKeys/generateApiKeys'
 import { AuthApi } from '../modules/auth/api/AuthApi'
 import { businessApi } from '../modules/BusinessPageApi/businessApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
@@ -19,9 +20,10 @@ export const store = configureStore({
     sidebar:sidebarSlice,
     // [seerbitApi.reducerPath]:seerbitApi.reducer,
     [businessApi.reducerPath]:businessApi.reducer,
-    [paymentPageApi.reducerPath]:paymentPageApi.reducer
+    [paymentPageApi.reducerPath]:paymentPageApi.reducer,
+    [generateApiKeys.reducerPath]:generateApiKeys.reducer
   },
-  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,businessApi.middleware,paymentPageApi.middleware )
+  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware )
   
 })
 

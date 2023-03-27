@@ -42,10 +42,10 @@ const Signin = () => {
 
     useEffect(() => {
         if (isSuccess && signInData?.success  == true) {
-            console.log(signInData)
-            if (signInData?.token) {
-                localStorage.setItem('token', signInData.token);
+            if (signInData?.token){
+                localStorage.setItem('loginToken',signInData.token)
             }
+            console.log(signInData)
             toast.success('You have successfully signed in.');
                 router.push('/transactions');
         
