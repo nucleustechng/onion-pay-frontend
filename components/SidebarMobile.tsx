@@ -1,0 +1,130 @@
+import Logo from '../Assets/logo/Logo.svg'
+import SettingIcon from '../Assets/icon/Setting.svg'
+import LogOutIcon from '../Assets/icon/LogOut.svg'
+import Image from 'next/image'
+import HomeItem from './SidebarItems/HomeItem'
+import TransactionItem from './SidebarItems/TransactionItem'
+import CustomersItem from './SidebarItems/CustomersItem'
+import BalanceItem from './SidebarItems/BalanceItem'
+import PaymentItem from './SidebarItems/PaymentItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import BusinessItem from './SidebarItems/BusinessItem'
+import CloseIcon from '../Assets/icon/CloseIcon.svg'
+import { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
+import { setShowSidebar } from '../redux/sidebarSlice'
+import { RootState } from '../redux/store'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+
+
+const SideBarMobile = () =>{
+    const router = useRouter()
+  const dispatch  = useAppDispatch()
+  const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+  const handleClose = (e:any) =>{
+    if(e.target.id === 'wrapper'){
+        dispatch(setShowSidebar(false))                                                   
+    }
+  }
+
+  return (
+    <aside className={` bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem]
+       bg-transparent fixed inset-0 h-full  z-20 transition-all duration-500
+    ${sidebarShow ? 'w-full right-20  bottom-0' : '-left-60 w-60 bottom-0'}
+  `}  id='wrapper' onClick={handleClose}
+  
+  >
+      {/*  */}
+        <div className='flex lg:hidden h-full overflow-y-auto  '>
+        <div className='flex flex-col w-60 bg-white'>
+                <div className='flex items-center justify-between px-5 py-5'>
+                    <div>
+                        <Image
+                            src={Logo}
+                            alt='Onion Pay Logo'
+                        />
+                    </div>
+                    <div className='' onClick={() => {
+                        dispatch(setShowSidebar(false))
+                        }}>
+                        <Image
+                        src={CloseIcon}
+                        alt='Close Icon'
+                        />
+                    </div>
+            </div>
+          <div className='h-[24rem]'>
+            <h1 className='flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm'>
+              Menu
+            </h1>
+            <div className='flex flex-col gap-2 lg:gap-1'>
+                    <div>
+                        <HomeItem/>  
+                    </div>
+                    <div>
+                        <TransactionItem/>
+                    </div>
+                    <div>
+                        <CustomersItem/>
+                    </div>
+                    <div>
+                        <BalanceItem/>
+                    </div>
+                    <div>
+                        <PaymentItem/>
+                    </div>
+                    <div>
+                        <BusinessItem/>
+                    </div>
+                </div>
+            </div>
+            <div className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}>
+            <hr className='border-solid border-[0.068rem] border-[#F5F0F3]'/>
+            <div className='flex lg:flex'>
+                <Link href='/settings'>
+                                <div className='flex justify-center w-60'
+                                >
+                                <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${router.pathname == '/settings' ? 'bg-primary' : 'bg-transparent'}`}/>
+                                    <div className={`flex items-center gap-[0.6rem] w-[13.5rem] h-[2.75rem] mx-4 px-2
+                                    ${router.pathname == '/settings' ? 'bg-[#E7EDFF] rounded-[0.32rem]' : ''}
+                                    `}>
+                                        <div className='flex items-center justify-center bg-[#EEB625] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]'>
+                                            <Image src={SettingIcon}  alt='Customers Icon' className='lg:w-[1.2rem] lg:h-[1.5rem]'/>
+                                        </div>
+                                        <h1 className='text-[#262626] text-base font-WorkSans'>Settings</h1>
+                                    </div>
+                                </div>
+                            </Link>
+                </div>
+                <div className='flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 '>
+                    <div className='flex items-center justify-center bg-[#F31212] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]'>
+                        <Image src={LogOutIcon} alt='Settings' className='lg:w-[1.6rem] lg:h-[1.6rem]'/>
+                    </div>
+                    <h1 className='text-[#262626] text-base leading-[1.19rem] font-WorkSans font-normal'>Log out</h1>
+                </div>
+            <hr className='lg:mt-[0.2rem] border-solid border-[0.068rem] border-[#F5F0F3]' />
+                <div className='flex items-center pl-7 gap-2 lg:gap-2 h-6   lg:pl-7'>
+                    <div className='flex justify-center items-center w-[2rem] h-[2rem]  lg:w-10 lg:h-10 bg-[#61A72C] rounded-full'>
+                        <h1 className='font-Montserrat font-medium text-base text-white leading-5 '>JD</h1>
+                    </div>
+                    <div className='flex items-center gap-[3.7rem]'>
+                        <div className='flex flex-col gap-1'>
+                            <h1 className='text-base text-black font-WorkSans font-normal leading-[1.2rem]'>John Doe</h1>
+                            <h2 className='text-xs text-[#898989] font-WorkSans font-normal  leading-3'>ID: 1002345678</h2>
+                        </div>
+                        <FontAwesomeIcon icon={faEllipsisVertical} className='text-base'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+              {/* Vertical line */}
+              <div className='border-[#CACACA] border-solid border-[0.065rem] h-screen '/>
+        </div>
+    </aside>
+  )
+}
+
+export default SideBarMobile
