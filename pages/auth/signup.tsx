@@ -61,7 +61,9 @@ const SignUp = () => {
     useEffect(() => {
         if (isSuccess && signupData?.success  == true) {
             console.log(signupData)
-        
+            if (signupData?.token) {
+              localStorage.setItem('token', signupData.token);
+              }
             localStorage.setItem('email',email)
             toast.success('You have successfully signed up. Please check your email to verify your account.');
             setTimeout(() => {
