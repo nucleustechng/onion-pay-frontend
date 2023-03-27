@@ -1,10 +1,10 @@
 import React from 'react'
 import PaymentLinks from '../../components/payments/PaymentLinks'
-import SideBar from '../../components/SideBar'
 
-type Props = {}
 
-const paymentlinks = (props: Props) => {
+
+
+const paymentlinks = () => {
   return (
     <div>
       <div>

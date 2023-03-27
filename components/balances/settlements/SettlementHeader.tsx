@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const SettlementHeader = (props: Props) => {
+const SettlementHeader = () => {
   return (
     <div>
     <div className='flex items-center px-4 rounded-[0.32rem] w-[71.5rem] h-[3rem] mt-6 bg-[#F5F5F5]'>

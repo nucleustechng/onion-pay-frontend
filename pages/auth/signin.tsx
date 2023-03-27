@@ -8,10 +8,10 @@ import PaymentItem from '../../components/Navbar/NavbarItems/PaymentItem'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import LadyImage  from '../../assets/img/signin/LadyImage.svg'
-import CloseIcon from '../../assets/icons/CloseIcon.svg'
-import Logo from '../../assets/logo/Logo.svg'
-import Hamburger from '../../assets/icons/Hamburger.svg'
+import LadyImage  from '../../Assets/img/signin/LadyImage.svg'
+import CloseIcon from '../../Assets/icons/CloseIcon.svg'
+import Logo from '../../Assets/logo/Logo.svg'
+import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,9 +19,8 @@ import { useSigninMutation } from '../../modules/auth/api/AuthApi'
 import Loader from '../../components/Loader'
 import { useRouter } from 'next/router'
 
-type Props = {}
 
-const signin = (props: Props) => {
+const Signin = () => {
     const [toggleNav,setToggleNav] = useState<boolean>(false);
 
     const router = useRouter();
@@ -32,7 +31,7 @@ const signin = (props: Props) => {
     const [password,setPassword] = useState<string>('');
     const [email,setEmail] = useState<string>('');
 
-    const [signIn,{data:signInData,isSuccess,isError,error,isLoading}] = useSigninMutation()
+    const [signIn,{data:signInData,isSuccess,isLoading}] = useSigninMutation()
     const handleSubmit = async () => { 
         if (email && password) {
         await signIn({ email,password});
@@ -48,9 +47,8 @@ const signin = (props: Props) => {
                 localStorage.setItem('token', signInData.token);
             }
             toast.success('You have successfully signed in.');
-            setTimeout(() => {
-                router.push('/dashboard');
-              }, 3000);
+                router.push('/transactions');
+        
         }else{
             switch (signInData?.reason) {
                 case 'Invalid Password':
@@ -64,7 +62,7 @@ const signin = (props: Props) => {
                   setEmailError('');
             }
         }
-    },[isSuccess,signInData])
+    },[isSuccess,signInData,router])
 
   return (
     <div>
@@ -211,4 +209,4 @@ const signin = (props: Props) => {
   )
 }
 
-export default signin
+export default Signin

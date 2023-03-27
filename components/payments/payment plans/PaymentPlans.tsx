@@ -6,9 +6,8 @@ import DownloadIcon from '../../../Assets/icon/Download.svg'
 import PaymentPlanHeader from './PaymentPlanHeader'
 import PaymentPlanTable from './PaymentPlanTable'
 
-type Props = {}
 
-const PaymentPlans = (props: Props) => {
+const PaymentPlans = () => {
   return (
     <div>
           <div className='lg:mx-6 lg:mt-6'>

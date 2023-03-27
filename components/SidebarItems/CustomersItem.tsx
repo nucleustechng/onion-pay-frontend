@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import CustomersIcon from '../../Assets/icon/Customers.svg'
 
-type Props = {}
 
-const CustomersItem = (props: Props) => {
+
+const CustomersItem = () => {
     const router = useRouter()
   return (
     <div>

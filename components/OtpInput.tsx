@@ -8,7 +8,7 @@ type Props = {
 const OtpInput = ({fields,onComplete}: Props) => {
     const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
-    const handleInput = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInput = (index: number) => {
       const otp = inputRefs.current
         .filter((input) => input !== null)
         .map((input) => input?.value)
@@ -51,7 +51,7 @@ const OtpInput = ({fields,onComplete}: Props) => {
             max={1}
             inputMode="text"
             autoComplete="off"
-            onChange={(e) => handleInput(index, e)}
+            onChange={() => handleInput(index)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={handlePaste}
             ref={(ref) => {

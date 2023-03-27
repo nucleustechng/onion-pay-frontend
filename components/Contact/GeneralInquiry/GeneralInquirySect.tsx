@@ -6,9 +6,8 @@ import React from 'react'
 import InfoIcon  from '../../../Assets/img/contact/InfoIcon.svg'
 
 
-type Props = {}
 
-const GeneralInquirySect = (props: Props) => {
+const GeneralInquirySect = () => {
   return (
     <div>
         <div>

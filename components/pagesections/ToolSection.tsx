@@ -1,27 +1,26 @@
 import React from 'react'
 import ToolSectionCard from './ToolSectionCard'
-import PaymentLink  from '../../assets/img/PaymentLinkTool.svg'
-import PaymentLinkLarge  from '../../assets/img/PaymentLinkLarge.svg'
-import Receipts  from '../../assets/img/Receipts.svg'
-import ReceiptsLarge  from '../../assets/img/ReceiptsLarge.svg'
-import AcceptPaymentsLarge from '../../assets/img/L-AcceptPayments.svg'
-import CurvedArrowDown from '../../assets/img/CurvedArrowDown.svg'
-import TransfersInnerImage  from '../../assets/img/TransfersInnerImage.svg'
-import AcceptPayments  from '../../assets/img/AcceptPayments.svg'
-import L_OrangeArrowTransfers  from '../../assets/img/L-OrangeArrowTransfers.svg'
-import L_Transfers  from '../../assets/img/L-Transfers.svg'
+import PaymentLink  from '../../Assets/img/PaymentLinkTool.svg'
+import PaymentLinkLarge  from '../../Assets/img/PaymentLinkLarge.svg'
+import Receipts  from '../../Assets/img/Receipts.svg'
+import ReceiptsLarge  from '../../Assets/img/ReceiptsLarge.svg'
+import AcceptPaymentsLarge from '../../Assets/img/L-AcceptPayments.svg'
+import CurvedArrowDown from '../../Assets/img/CurvedArrowDown.svg'
+import TransfersInnerImage  from '../../Assets/img/TransfersInnerImage.svg'
+import AcceptPayments  from '../../Assets/img/AcceptPayments.svg'
+import L_OrangeArrowTransfers  from '../../Assets/img/L-OrangeArrowTransfers.svg'
+import L_Transfers  from '../../Assets/img/L-Transfers.svg'
 import Image from 'next/image'
 import ButtonRegular from '../Buttons/ButtonRegular'
 import LargeToolSectCard from './LargeToolSectCard'
-import BusinessSite  from '../../assets/img/BusinessSiteScreenShot.svg'
-import OrangeCurveArrow from '../../assets/img/L-OrangeCurvedArrow.svg'
-import BlueCurvedArrow from '../../assets/img/L-BlueArrow.svg'
+import BusinessSite  from '../../Assets/img/BusinessSiteScreenShot.svg'
+import OrangeCurveArrow from '../../Assets/img/L-OrangeCurvedArrow.svg'
+import BlueCurvedArrow from '../../Assets/img/L-BlueArrow.svg'
 
 
 
-type Props = {}
 
-const ToolSection = (props: Props) => {
+const ToolSection = () => {
   return (
     <div>
         <div className='flex flex-col bg-white '>

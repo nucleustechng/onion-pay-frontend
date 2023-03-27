@@ -7,9 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 
-type Props = {}
 
-const Balance = (props: Props) => {
+const Balance = () => {
     const [showModal,setShowModal] = useState<boolean>(false)
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)

@@ -6,9 +6,8 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import BalanceIcon from '../../Assets/icon/Balances.svg'
 
-type Props = {}
 
-const BalanceItem = (props: Props) => {
+const BalanceItem = () => {
     const router = useRouter()
     const [balances,setBalances] = useState<boolean>(false)
     const dropBalance = () => {

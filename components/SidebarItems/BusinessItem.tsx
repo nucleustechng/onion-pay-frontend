@@ -6,9 +6,9 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import FolderIcon from '../../Assets/icon/Folder.svg'
 
-type Props = {}
 
-const BusinessItem = (props: Props) => {
+
+const BusinessItem = () => {
     const router = useRouter()
     const [account,setAccount] = useState<boolean>(false)
     const dropAccount = () => {

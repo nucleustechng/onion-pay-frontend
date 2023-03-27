@@ -1,5 +1,3 @@
-import { faChevronLeft  } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import SingleChargeCard from '../../../Assets/img/SingleChargeCard.svg'
@@ -7,9 +5,8 @@ import SubLinkCard from '../../../Assets/img/SubLinkCard.svg'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import  CheckCircle from '../../../Assets/icon/CheckCircle.svg'
 import  Circle from '../../../Assets/icon/Circle.svg'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
+import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import { setSecondStep, setSingleCharge } from '../../../redux/Modal-Processes/paymentLinkSlice'
-import { RootState } from '../../../redux/store'
 
 
 
@@ -19,30 +16,32 @@ interface Props {
     handleShow?:()  => {},
 }
 
-const PaymentLinkModal = ({isVisible,onClose,handleShow}: Props) => {
+const PaymentLinkModal = ({isVisible,onClose}: Props) => {
+    const  [tab,setTab] = useState<number>();
+    const  dispatch = useAppDispatch();
+
+    const handleSelected = () => {
+      switch(tab) {
+          case 1: 
+              dispatch(setSingleCharge(true))
+              break;
+          case 2:
+              dispatch(setSingleCharge(false))
+              break;
+          default:
+              dispatch(setSingleCharge(false))
+      } 
+      dispatch(setSecondStep(true))
+
+    }
+
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
         }
       }
       if (!isVisible) return null;
-      const  [tab,setTab] = useState<number>();
-      const  dispatch = useAppDispatch();
-
-      const handleSelected = () => {
-        switch(tab) {
-            case 1: 
-                dispatch(setSingleCharge(true))
-                break;
-            case 2:
-                dispatch(setSingleCharge(false))
-                break;
-            default:
-                dispatch(setSingleCharge(false))
-        } 
-        dispatch(setSecondStep(true))
-
-      }
+   
 
   return (
     <div>

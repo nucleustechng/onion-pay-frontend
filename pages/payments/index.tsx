@@ -1,13 +1,8 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
 import React from 'react'
-import SideBar from '../../components/SideBar'
-import DownloadIcon from '../Assets/icon/Download.svg'
 import HelpButton from '../../components/HelpButton'
-import TransfersEmpty from '../../components/payments/TransfersEmpty'
-import PaymentLinks from '../../components/payments/PaymentLinks'
-import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
+// import TransfersEmpty from '../../components/payments/TransfersEmpty'
+// import PaymentLinks from '../../components/payments/PaymentLinks'
+// import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
 import SeerbitComponent from '../../components/Checkout/SeerbitComponent'
 
 

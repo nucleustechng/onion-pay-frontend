@@ -1,15 +1,16 @@
 import Image from 'next/image'
-import MoneyDark from '../assets/img/MoneyDark.svg'
-import MoneyLight from '../assets/img/MoneyLight.svg'
-import MoneyLightRight from '../assets/img/MoneyLightRight.svg'
+import MoneyDark from '../Assets/img/MoneyDark.svg'
+import MoneyLight from '../Assets/img/MoneyLight.svg'
+import MoneyLightRight from '../Assets/img/MoneyLightRight.svg'
 import ButtonIcon from '../components/Buttons/ButtonIcon'
-import Herosect from '../assets/img/Herosect.svg'
-import  HeroMan from '../assets/img/HeroMan.svg'
-import  LargeHeroSect from '../assets/img/LargeHeroSect.svg'
+import Herosect from '../Assets/img/Herosect.svg'
+import  HeroMan from '../Assets/img/HeroMan.svg'
+import  LargeHeroSect from '../Assets/img/LargeHeroSect.svg'
 import ToolSection from '../components/pagesections/ToolSection'
-import AfricanLady  from '../assets/img/AfricanLady.svg'
+import AfricanLady  from '../Assets/img/AfricanLady.svg'
 import ApiSection from '../components/pagesections/ApiSection/ApiSection'
 import JoinSection from '../components/pagesections/JoinSection/JoinSection'
+import Link from 'next/link'
 
 
 
@@ -76,9 +77,16 @@ export default function Home() {
              min-[360px]:w-[20rem] xl:mt-4
              sm:w-[30rem] sm:text-3xl
               '>Process payments, manage revenue, and use tools designed to grow your business.</p>
-              <div>
-                <ButtonIcon width='w-[12.25rem] sm:w-[20rem]' height='h-11 sm:h-14' backgroundColor='bg-primary' textSize='text-sm sm:text-xl' color='text-white' mainText='Create a free account'/>
-              </div>
+              <Link href='/auth/signup' className='cursor-pointer'>
+                <ButtonIcon 
+                width='w-[12.25rem] 
+                sm:w-[20rem]' 
+                height='h-11 sm:h-14' 
+                backgroundColor='bg-primary' 
+                textSize='text-sm sm:text-xl' 
+                color='text-white'
+                mainText='Create a free account'/>
+              </Link>
             </div>
               <div className='inline-flex lg:hidden'>
                 <Image src={Herosect} alt='Hero sect' className='w-screen'/>

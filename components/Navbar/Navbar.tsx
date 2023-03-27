@@ -1,19 +1,18 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Logo from '../../assets/logo/Logo.svg'
-import Hamburger from '../../assets/icons/Hamburger.svg'
+import Logo from '../../Assets/logo/Logo.svg'
+import Hamburger from '../../Assets/icons/Hamburger.svg'
 import PaymentItem from './NavbarItems/PaymentItem'
 import CommerceItem from './NavbarItems/CommerceItem'
 import ContactItem from './NavbarItems/ContactItem'
 import DevelopersItem from './NavbarItems/DeveloperItem'
 import ButtonRegular from '../Buttons/ButtonRegular'
-import CloseIcon from '../../assets/icons/CloseIcon.svg'
+import CloseIcon from '../../Assets/icons/CloseIcon.svg'
 import ButtonIcon from '../Buttons/ButtonIcon'
 import Link from 'next/link'
 
-type Props = {}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
 
   return (

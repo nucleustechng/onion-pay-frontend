@@ -1,6 +1,5 @@
 import ButtonIcon from '../../components/Buttons/ButtonIcon'
 import ButtonRegular from '../../components/Buttons/ButtonRegular'
-import Input from '../../components/Input'
 import CommerceItem from '../../components/Navbar/NavbarItems/CommerceItem'
 import ContactItem from '../../components/Navbar/NavbarItems/ContactItem'
 import DevelopersItem from '../../components/Navbar/NavbarItems/DeveloperItem'
@@ -21,7 +20,7 @@ import { useRouter } from 'next/router'
 
 
 
-const verifyemail = () => {
+const Verifyemail = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
 
   const router =  useRouter();
@@ -32,7 +31,7 @@ const verifyemail = () => {
   };
 
   const [verifyEmail,{data:verifyEmailData,isSuccess,isLoading}] = useVerifyemailMutation()
-  const [requestVerifyCode,{data:requestCodeData,isSuccess:requestCodeSuccess,isLoading:requestCodeLoading}] = useRequestVerifyCodeMutation()
+  const [requestVerifyCode,{data:requestCodeData,isSuccess:requestCodeSuccess}] = useRequestVerifyCodeMutation()
 
   const sendCode = async () => {
     const email = localStorage.getItem('email')
@@ -93,7 +92,7 @@ const verifyemail = () => {
             console.log(err)
             console.log(verifyEmailData?.reason)
         }
-    },[isSuccess,verifyEmailData])
+    },[isSuccess,verifyEmailData,router])
 
     useEffect(() => {
         if(requestCodeSuccess) {
@@ -221,4 +220,4 @@ const verifyemail = () => {
   )
 }
 
-export default verifyemail
+export default Verifyemail

@@ -16,7 +16,6 @@ interface Props {
 
 const Input = ({label,placeholder,type,width,height,textSize,errorMessage,name,value,onChange}: Props) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const checkFocus = isFocused ? 'text-primaryText' : 'text-primary'
 
   return (
     <div>

@@ -1,10 +1,10 @@
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
-import { faCheckCircle, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
+import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import { setBankAccount, setMobileMoney, setOnionPay } from '../../../redux/Modal-Processes/paymentSlice'
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 const TransferModal = ({isVisible,onClose}: Props) => {
     const [active,setActive] = useState<number>();
     const dispatch = useAppDispatch()
-    const isBankAccount = useAppSelector((state) => state.payment.isBankAccount)
+    // const isBankAccount = useAppSelector((state) => state.payment.isBankAccount)
     // const [isBankAccount,setBankAccount] = useState<boolean>(false)
     // const [isMobileMoney,setMobileMoney] = useState<boolean>(false)
     // const [isOnionPay,setOnionPay] = useState<boolean>(false)

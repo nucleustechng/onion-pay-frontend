@@ -1,10 +1,9 @@
 import React from 'react'
-import SideBar from '../../components/SideBar'
 import Overview from '../../components/subaccounts/Overview'
 
-type Props = {}
 
-const overview = (props: Props) => {
+
+const overview = () => {
   return (
     <div>
         <div>

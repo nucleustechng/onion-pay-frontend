@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import React from 'react'
-import LoadSpinner from '../assets/LoadSpinner.svg'
+import LoadSpinner from '../Assets/LoadSpinner.svg'
 
 
-type Props = {}
+
 
 const Loader = () => (
     <div className='animate-spin'>

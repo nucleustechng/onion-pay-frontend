@@ -7,7 +7,7 @@ import DevelopersItem from '../../components/Navbar/NavbarItems/DeveloperItem'
 import PaymentItem from '../../components/Navbar/NavbarItems/PaymentItem'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { ChangeEvent, CSSProperties, FormEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BottomImage  from '../../Assets/img/signup/BottomImage.svg'
 import LadyImage  from '../../Assets/img/signup/LadyImage.svg'
 import FamilyImage  from '../../Assets/img/signup/FamilyImage.svg'
@@ -21,20 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import Loader from '../../components/Loader'
 
-interface SignupFormState {
-    f_name:string,
-    l_name:string,
-    phone:string,
-    country:string
-    email: string;
-    password: string;
-  }
 
-const override: CSSProperties = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "red",
-  };
 
 const SignUp = () => {
   
@@ -62,7 +49,7 @@ const SignUp = () => {
   const dob =  Date.now()
   
 
-    const [signUp,{data:signupData,isSuccess,isError,error,isLoading}] = useSignupMutation()
+    const [signUp,{data:signupData,isSuccess,isLoading}] = useSignupMutation()
     const handleSubmit = async () => { 
         if (f_name && l_name && email && phone && country && password && address && dob && nin) {
         await signUp({ f_name, l_name, phone, password, email, country, address, dob, nin });
@@ -101,7 +88,7 @@ const SignUp = () => {
                   setNinError('')
             }
         }
-    },[isSuccess,signupData])
+    },[isSuccess,signupData,email,router])
 
 
   return (
@@ -254,7 +241,7 @@ const SignUp = () => {
                                 color='text-white' mainText={isLoading ? <Loader/> :  'Continue' }  textSize='text-base'
                                 />
                             <div className='w-[21.875rem] lg:w-[25rem] xl:w-[30rem] mt-10'>
-                                <p className='text-center text-[#202020] text-base font-WorkSans leading-5 '>By clicking continue, you agree to Exchange's 
+                                <p className='text-center text-[#202020] text-base font-WorkSans leading-5 '>{`By clicking continue, you agree to Exchange's`} 
                                 <span className='text-[#3063E9]'> Terms of Service</span> and <span>Privacy Policy.</span></p>
                             </div>
                            

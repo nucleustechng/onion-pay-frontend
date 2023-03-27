@@ -1,12 +1,11 @@
 import React from 'react'
 import NavCard from '../NavCard'
-import PaymentLink from '../../../assets/icons/commerce/PaymentLink.svg'
-import Invoices from '../../../assets/icons/commerce/Invoices.svg'
+import PaymentLink from '../../../Assets/icons/commerce/PaymentLink.svg'
+import Invoices from '../../../Assets/icons/commerce/Invoices.svg'
 
 
-type Props = {}
 
-const CommerceItem = (props: Props) => {
+const CommerceItem = () => {
   return (
     <div>
         <div>

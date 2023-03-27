@@ -1,5 +1,5 @@
 import { faCircle } from '@fortawesome/free-regular-svg-icons'
-import { faCheckCircle, faChevronLeft, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'

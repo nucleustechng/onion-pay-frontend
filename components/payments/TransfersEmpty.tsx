@@ -3,17 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import DownloadIcon from '../../Assets/icon/Download.svg'
-import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
-import TransferTypeModal from './modals/bankaccount/TransferTypeModal'
-import SingleMobileTransferModal from './modals/mobilemoney/SingleMobileTransferModal'
-import SingleMobileTansferModal from './modals/mobilemoney/SingleMobileTransferModal'
-import SingleTransferModal from './modals/mobilemoney/SingleTransferModal'
+// import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
+// import TransferTypeModal from './modals/bankaccount/TransferTypeModal'
+// import SingleMobileTransferModal from './modals/mobilemoney/SingleMobileTransferModal'
+// import SingleMobileTansferModal from './modals/mobilemoney/SingleMobileTransferModal'
+// import SingleTransferModal from './modals/mobilemoney/SingleTransferModal'
 import TransferModal from './modals/TransferModal'
 
 
-type Props = {}
 
-const TransfersEmpty = (props: Props) => {
+const TransfersEmpty = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
 
   return (

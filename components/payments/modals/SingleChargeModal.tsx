@@ -1,10 +1,10 @@
-import { faChevronDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
-import { paymentPageApi, useCreatePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
-import { setCompleted, setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
+import { useCreatePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
+import {  setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,6 +18,58 @@ interface Props {
 
 
 const SingleChargeModal = ({isVisible,onClose}: Props) => {
+  const dispatch = useAppDispatch();
+  const [paymentLinkInfo, setPaymentLinkInfo] = useState({
+    title: '',
+    fixed: true,
+    amount: 0,
+    description: '',
+    redirect_url: '',
+  });
+
+  const [createPaymentLink, { data: paymentLinkData, isSuccess, isLoading }] =
+  useCreatePaymentPageMutation();
+
+  const  paymentPages = useLoadPaymentLinksQuery()
+
+
+ 
+const handleCreatePaymentLink = async () => {
+  try {
+    if (
+      paymentLinkInfo.title &&
+      paymentLinkInfo.fixed &&
+      paymentLinkInfo.amount &&
+      paymentLinkInfo.description &&
+      paymentLinkInfo.redirect_url
+    ) {
+      await createPaymentLink(paymentLinkInfo);
+      paymentPages.refetch()
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+useEffect(() => {
+  if (isSuccess && paymentLinkData.success == true) {
+    toast.success('Your payment link has been successfully created!');
+    setTimeout(()=> {
+      onClose()
+    },1000)
+    setPaymentLinkInfo({
+      title: '',
+      fixed: true,
+      amount: 0,
+      description: '',
+      redirect_url: '',
+    });
+  } else {
+    toast.error(paymentLinkData?.reason);
+  }
+}, [isSuccess,onClose,paymentLinkData]);
+
+
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
@@ -25,57 +77,7 @@ const SingleChargeModal = ({isVisible,onClose}: Props) => {
       }
      
     if (!isVisible) return null;
-      const dispatch = useAppDispatch();
-      const [paymentLinkInfo, setPaymentLinkInfo] = useState({
-        title: '',
-        fixed: true,
-        amount: 0,
-        description: '',
-        redirect_url: '',
-      });
-
-      const [createPaymentLink, { data: paymentLinkData, isSuccess, isLoading }] =
-      useCreatePaymentPageMutation();
-
-      const  paymentPages = useLoadPaymentLinksQuery()
-
-
      
-    const handleCreatePaymentLink = async () => {
-      try {
-        if (
-          paymentLinkInfo.title &&
-          paymentLinkInfo.fixed &&
-          paymentLinkInfo.amount &&
-          paymentLinkInfo.description &&
-          paymentLinkInfo.redirect_url
-        ) {
-          await createPaymentLink(paymentLinkInfo);
-          paymentPages.refetch()
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    
-    useEffect(() => {
-      if (isSuccess && paymentLinkData.success == true) {
-        toast.success('Your payment link has been successfully created!');
-        setTimeout(()=> {
-          onClose()
-        },1000)
-        setPaymentLinkInfo({
-          title: '',
-          fixed: true,
-          amount: 0,
-          description: '',
-          redirect_url: '',
-        });
-      } else {
-        toast.error(paymentLinkData?.reason);
-      }
-    }, [isSuccess]);
-
   return (
     <div>
         <ToastContainer/>

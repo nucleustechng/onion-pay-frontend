@@ -1,14 +1,12 @@
 import ButtonRegular from '../../Buttons/ButtonRegular'
 import Image from 'next/image'
 import React from 'react'
-import ApiCards from './ApiCards'
-import BackgroundArrows from '../../../assets/img/apisection/BackgroundArrows.svg'
-import L_BackgroundArrows from '../../../assets/img/apisection/L-BackgroundArrows.svg'
+import BackgroundArrows from '../../../Assets/img/apisection/BackgroundArrows.svg'
+import L_BackgroundArrows from '../../../Assets/img/apisection/L-BackgroundArrows.svg'
 
 
-type Props = {}
 
-const ApiSection = (props: Props) => {
+const ApiSection = () => {
   return (
     <div>
         <div className='flex justify-center mb-6 md:mb-12 md:pt-10'>

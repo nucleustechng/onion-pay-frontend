@@ -11,16 +11,13 @@ import Loader from '../Loader'
 import PaymentLinkModal from './modals/PaymentLinkModal'
 import SingleChargeModal from './modals/SingleChargeModal'
 import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
-import VerifyAccountModal from './modals/VerifyAccountModal'
-import PaymentLinkContainer from './PaymentLinkContainer'
 import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import SideBarMobile from '../SidebarMobile'
 
-type Props = {}
 
-const PaymentLinks = (props: Props) => {
+const PaymentLinks = () => {
   const [showModal, setShowModal] = useState(false);
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
@@ -29,7 +26,7 @@ const PaymentLinks = (props: Props) => {
   const isSingleCharge = useAppSelector((state:RootState) => state.paymentLink.isSingleCharge);
   const isSecondStep = useAppSelector((state:RootState) => state.paymentLink.isSecondStep);
   // const isCompleted  = useAppSelector((state:RootState) => state.paymentLink.isCompleted);
-  const {data:paymentPageData,isSuccess,isLoading,refetch} = useLoadPaymentLinksQuery()
+  const {data:paymentPageData,isSuccess,isLoading} = useLoadPaymentLinksQuery()
 
 
   useEffect(() => {
@@ -37,7 +34,7 @@ const PaymentLinks = (props: Props) => {
       setPaymentLinksArray(paymentPageData.pages)
     }
     console.log('Payment link array',paymentLinksArray)
-  },[isSuccess])
+  },[isSuccess,paymentLinksArray,paymentPageData])
 
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)

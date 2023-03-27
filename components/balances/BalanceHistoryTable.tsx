@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const BalanceHistoryTable = (props: Props) => {
+const BalanceHistoryTable = () => {
   return (
     <div>
         <div className='flex items-center px-4 rounded-[0.32rem] w-[71.5rem] h-[3.75rem] '>

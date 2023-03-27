@@ -1,14 +1,14 @@
 import React from 'react'
 import NavCard from '../NavCard'
-import Inquiry from '../../../assets/icons/contact/Inquiry.svg'
-import Account from '../../../assets/icons/contact/Account.svg'
-import Transactions from '../../../assets/icons/contact/Transactions.svg'
+import Inquiry from '../../../Assets/icons/contact/Inquiry.svg'
+import Account from '../../../Assets/icons/contact/Account.svg'
+import Transactions from '../../../Assets/icons/contact/Transactions.svg'
 
 
 
-type Props = {}
 
-const ContactItem = (props: Props) => {
+
+const ContactItem = () => {
   return (
     <div>
         <div>

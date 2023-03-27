@@ -1,10 +1,8 @@
 import React from 'react'
 import TransactionRefunds from '../../components/refunds/TransactionRefunds'
-import SideBar from '../../components/SideBar'
 
-type Props = {}
 
-const refunds = (props: Props) => {
+const refunds = () => {
   return (
     <div>
         <div>

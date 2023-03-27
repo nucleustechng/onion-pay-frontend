@@ -5,19 +5,15 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import HelpButton from '../HelpButton'
-import CorporateBusinessModal from './modals/CorporateBusinessModal'
 import CreateBusinessModal from './modals/CreateBusinessModal'
-import CreateSubaccountModal from './modals/CreateBusinessModal'
-import IndividualBusinessModal from './modals/IndividualBusinessModal'
 import VerifyAccountModal from './modals/VerifyAccountModal'
-import Verifying from './modals/Verifying'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
 import SideBarMobile from '../SidebarMobile'
 
-type Props = {}
 
-const BusinessSect = (props: Props) => {
+
+const BusinessSect = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
   const isSecondStep = useAppSelector((state:RootState) => state.business.isSecondStep);
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
@@ -30,9 +26,9 @@ const BusinessSect = (props: Props) => {
       <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
       <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Business</h1>
-                {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+                {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
-              </div>}
+              </div> : null}
             </div>
         {/* Button to add subaccounts */}
         <div className='flex justify-end'>
@@ -59,8 +55,8 @@ const BusinessSect = (props: Props) => {
             </div>
           </div>
           <div>
-            {!isSecondStep && <CreateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/>}
-            {isSecondStep && <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/>}
+            {!isSecondStep ? <CreateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> : null}
+            {isSecondStep ? <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/> : null}
             {/* <IndividualBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             {/* <Verifying isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             {/* <CorporateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
