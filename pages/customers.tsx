@@ -8,7 +8,6 @@ import CustomersTab from '../components/customers/CustomersTab'
 import BlackListed from '../components/customers/BlackListed'
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
-import SideBarMobile from '../components/SidebarMobile'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../redux/sidebarSlice'
 
@@ -31,10 +30,6 @@ const Customers = () => {
   return (
     <div>
         <div >
-           {/* Sidebar Mobile */}
-           <div className='inline-flex lg:hidden'>
-            <SideBarMobile />
-          </div>
             {/* Header section */}
             <div className='w-[30rem] md:w-[60rem] xl:w-[71.5rem] mt-5 lg:mx-6 lg:mt-7'>
             <div className='flex flex-col lg:flex lg:flex-row lg:items-center  lg:justify-between'>

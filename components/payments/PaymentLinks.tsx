@@ -14,7 +14,6 @@ import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../SidebarMobile'
 
 
 const PaymentLinks = () => {
@@ -43,9 +42,6 @@ const PaymentLinks = () => {
   
   return (
     <div className='relative'>
-       <div className='inline-flex absolute lg:hidden'>
-            <SideBarMobile />
-          </div>
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[71.5rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment link</h1>

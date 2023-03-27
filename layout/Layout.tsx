@@ -3,6 +3,7 @@ import React from 'react'
 import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar';
+import SideBarMobile from '../components/SidebarMobile';
 
 
 
@@ -29,13 +30,22 @@ const Layout = ({children}:any) => {
           </div>
         </div>}
         {showmerchantLayout &&   
-        <div className='flex'>
+        <div className='hidden  md:flex'>
           <div className=''>
               <SideBar/>
           </div>
             <div className=''>{children}</div>
         </div>
         }
+          {showmerchantLayout &&   
+            <div className=' md:hidden'>
+              <div className=' '>
+                  <SideBarMobile/>
+              </div>
+                <div className=''>{children}</div>
+            </div>
+        }
+        
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
     <div>
-        <div className='relative  bg-[#F5F5F5] w-full
+        <div className='relative z-20  bg-[#F5F5F5] w-full
         lg:h-[53.75rem] pt-[1.875rem] 
         '>
             <div className='relative  h-[17.5rem] mt-[6rem]  ml-5 
@@ -77,7 +77,7 @@ export default function Home() {
              min-[360px]:w-[20rem] xl:mt-4
              sm:w-[30rem] sm:text-3xl
               '>Process payments, manage revenue, and use tools designed to grow your business.</p>
-              <Link href='/auth/signup' className='cursor-pointer'>
+              <Link href='/auth/signup' className='cursor-pointer z-30'>
                 <ButtonIcon 
                 width='w-[12.25rem] 
                 sm:w-[20rem]' 

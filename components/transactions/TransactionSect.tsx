@@ -10,7 +10,6 @@ import SecondStepInvoice from './modals/SecondStepInvoice'
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../SidebarMobile'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
@@ -24,10 +23,7 @@ const TransactionSect = () => {
   return (
     <div>
         <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
-           {/* Sidebar Mobile */}
-          <div className='inline-flex lg:hidden'>
-            <SideBarMobile />
-          </div>
+        
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
             <div className='flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0'>
               <h1 className='inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Transactions</h1>

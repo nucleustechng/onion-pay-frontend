@@ -30,7 +30,7 @@ const SideBarMobile = () =>{
   }
 
   return (
-    <aside className={` bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem]
+    <div className={` bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem]
        bg-transparent fixed inset-0 h-full  z-20 transition-all duration-500
     ${sidebarShow ? 'w-full right-20  bottom-0' : '-left-60 w-60 bottom-0'}
   `}  id='wrapper' onClick={handleClose}
@@ -122,7 +122,7 @@ const SideBarMobile = () =>{
               {/* Vertical line */}
               <div className='border-[#CACACA] border-solid border-[0.065rem] h-screen '/>
         </div>
-    </aside>
+    </div>
   )
 }
 

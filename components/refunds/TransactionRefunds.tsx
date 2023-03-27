@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../../redux/sidebarSlice'
-import SideBarMobile from '../SidebarMobile'
 
 const TransactionRefunds = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
@@ -23,10 +22,6 @@ const TransactionRefunds = () => {
   return (
     <div>
       <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
-         {/* Sidebar Mobile */}
-            <div className='inline-flex lg:hidden'>
-              <SideBarMobile />
-            </div>
         <div className='w-screen  sm:w-[42rem] md:w-screen     overflow-hidden xl:w-[72rem] mx-5 mt-4 lg:mt-7'>
             
           <div className='flex flex-col lg:flex xl:flex xl:flex-row  mx-1 md:mx-3 lg:mx-5 lg:flex-col lg:justify-between'>

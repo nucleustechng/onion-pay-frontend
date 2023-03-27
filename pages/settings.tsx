@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import { setShowSidebar } from '../redux/sidebarSlice'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../components/SidebarMobile'
 
 
 
@@ -24,9 +23,6 @@ const Settings = () => {
   return (
     <div className=''>
         <div className='w-auto xl:w-[71.5rem]'>
-        <div className='inline-flex absolute lg:hidden'>
-            <SideBarMobile />
-          </div>
             <div className='mx-6 my-6'>
             <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Settings</h1>

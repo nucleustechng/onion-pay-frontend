@@ -2,7 +2,6 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import FundBalanceModal from './modals/FundBalanceModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../SidebarMobile'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
@@ -15,10 +14,6 @@ const Balance = () => {
 
   return (
     <div className=''>
-          {/* Sidebar Mobile */}
-          <div className='inline-flex lg:hidden'>
-            <SideBarMobile />
-          </div>
         <div className=' mx-6 mt-6'>
             <div className='flex justify-between items-center mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Balance</h1>

@@ -9,7 +9,6 @@ import CreateBusinessModal from './modals/CreateBusinessModal'
 import VerifyAccountModal from './modals/VerifyAccountModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
-import SideBarMobile from '../SidebarMobile'
 
 
 
@@ -20,9 +19,6 @@ const BusinessSect = () => {
   const dispatch = useAppDispatch();
   return (
     <div>
-          <div className='inline-flex lg:hidden'>
-            <SideBarMobile />
-          </div>
       <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
       <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Business</h1>

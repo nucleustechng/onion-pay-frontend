@@ -1,5 +1,6 @@
 import ButtonIcon from '../../Buttons/ButtonIcon'
 import React from 'react'
+import Link from 'next/link'
 
 
 const JoinSection = () => {
@@ -15,9 +16,9 @@ const JoinSection = () => {
             <p className='text-primaryText text-base text-left font-WorkSans font-normal leading-5 mt-4
             md:text-xl xl:pt-6 xl:w-[35rem] 
             '>Create an account to instantly start accepting payments, and build a successful business.</p>
-            <div className='mt-[1.875rem]'>
+            <Link href='/auth/signup' className='mt-[1.875rem]'>
                 <ButtonIcon width='w-[10.2rem]' height='h-11' mainText='Get started' backgroundColor='bg-primary' color='text-white' textSize='text-base'/>
-            </div>
+            </Link>
         </div>
     </div>
   )
