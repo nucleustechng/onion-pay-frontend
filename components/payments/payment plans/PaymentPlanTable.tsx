@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const PaymentPlanTable = (props: Props) => {
+const PaymentPlanTable = () => {
   return (
     <div>
          <div className='flex items-center px-4 rounded-[0.32rem] w-auto h-[3rem] '>

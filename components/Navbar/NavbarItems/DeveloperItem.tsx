@@ -1,12 +1,11 @@
 import React from 'react'
 import NavCard from '../NavCard'
-import DevelopersIcon from '../../../assets/icons/developers/DevelopersIcon.svg'
+import DevelopersIcon from '../../../Assets/icons/developers/DevelopersIcon.svg'
 
 
 
-type Props = {}
 
-const DevelopersItem = (props: Props) => {
+const DevelopersItem = () => {
   return (
     <div>
         <div>

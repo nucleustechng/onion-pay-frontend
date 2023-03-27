@@ -1,12 +1,11 @@
 import React from 'react'
 import NavCard from '../NavCard'
-import CollectPay from '../../../assets/icons/payment/CollectPay.svg'
-import SendMonney from '../../../assets/icons/payment/SendMoney.svg'
+import CollectPay from '../../../Assets/icons/payment/CollectPay.svg'
+import SendMonney from '../../../Assets/icons/payment/SendMoney.svg'
 
 
-type Props = {}
 
-const PaymentItem = (props: Props) => {
+const PaymentItem = () => {
   return (
     <div>
         <div>

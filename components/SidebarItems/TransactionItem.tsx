@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import SwapIcon from '../../Assets/icon/Swap.svg'
 
-type Props = {}
 
-const TransactionItem = (props: Props) => {
+
+const TransactionItem = () => {
     const router = useRouter()
     const [transaction,setTransaction] = useState<boolean>(false)
 

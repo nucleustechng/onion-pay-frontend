@@ -4,7 +4,7 @@ export const businessApi = createApi({
     reducerPath:'businessApi',
     baseQuery:fetchBaseQuery({
         baseUrl:'https://onion-pay.herokuapp.com',
-        prepareHeaders: (headers, { getState }) => {
+        prepareHeaders: (headers) => {
             // Get the token from local storage
             const token = localStorage.getItem('token');
 

@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import HomeIcon from '../../Assets/icon/Home.svg'
 
-type Props = {}
 
-const HomeItem = (props: Props) => {
+
+const HomeItem = () => {
     const router = useRouter()
   return (
     <div>

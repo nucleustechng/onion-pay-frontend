@@ -5,11 +5,10 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React from 'react'
-import InfoIcon  from '../../../assets/img/contact/InfoIcon.svg'
+import InfoIcon  from '../../../Assets/img/contact/InfoIcon.svg'
 
-type Props = {}
 
-const AccountSect = (props: Props) => {
+const AccountSect = () => {
   return (
     <div>
         <div className='inline-flex lg:hidden'>

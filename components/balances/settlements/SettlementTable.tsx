@@ -4,7 +4,7 @@ type Props = {
     status:string
 }
 
-const SettlementTable = ({status}: Props) => {
+const SettlementTable = ({}: Props) => {
   return (
     <div>
         <div className='flex items-center px-4 rounded-[0.32rem] w-[71.5rem] h-[4.3rem]'>

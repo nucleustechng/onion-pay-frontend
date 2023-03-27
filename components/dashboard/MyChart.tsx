@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bar,Line,Scatter,Bubble } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import {
     Chart as ChartJS,
     registerables
@@ -12,9 +12,9 @@ ChartJS.register(
     ...registerables
 )
 
-type Props = {}
 
-const MyChart = (props: Props) => {
+
+const MyChart = () => {
     const data = {
         labels:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
         datasets: [

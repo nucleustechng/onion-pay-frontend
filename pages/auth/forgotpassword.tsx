@@ -1,21 +1,20 @@
-import ButtonIcon from '@/components/Buttons/ButtonIcon'
-import ButtonRegular from '@/components/Buttons/ButtonRegular'
-import Footer from '@/components/Footer/Footer'
-import Input from '@/components/Input'
-import CommerceItem from '@/components/Navbar/NavbarItems/CommerceItem'
-import ContactItem from '@/components/Navbar/NavbarItems/ContactItem'
-import DevelopersItem from '@/components/Navbar/NavbarItems/DeveloperItem'
-import PaymentItem from '@/components/Navbar/NavbarItems/PaymentItem'
-import CloseIcon from '../../assets/icons/CloseIcon.svg'
-import Logo from '../../assets/logo/Logo.svg'
-import Hamburger from '../../assets/icons/Hamburger.svg'
+import ButtonIcon from '../../components/Buttons/ButtonIcon'
+import ButtonRegular from '../../components/Buttons/ButtonRegular'
+import Footer from '../../components/Footer/Footer'
+import Input from '../../components/Input'
+import CommerceItem from '../../components/Navbar/NavbarItems/CommerceItem'
+import ContactItem from '../../components/Navbar/NavbarItems/ContactItem'
+import DevelopersItem from '../../components/Navbar/NavbarItems/DeveloperItem'
+import PaymentItem from '../../components/Navbar/NavbarItems/PaymentItem'
+import CloseIcon from '../../Assets/icons/CloseIcon.svg'
+import Logo from '../../Assets/logo/Logo.svg'
+import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-type Props = {}
 
-const forgotpassword = (props: Props) => {
+const Forgotpassword = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
 
   return (
@@ -142,4 +141,4 @@ const forgotpassword = (props: Props) => {
   )
 }
 
-export default forgotpassword
+export default Forgotpassword

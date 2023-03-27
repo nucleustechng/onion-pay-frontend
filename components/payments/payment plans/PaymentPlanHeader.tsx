@@ -1,8 +1,8 @@
 import React from 'react'
 
-type Props = {}
 
-const PaymentPlanHeader = (props: Props) => {
+
+const PaymentPlanHeader = () => {
   return (
     <div>
         <div className='flex items-center px-4 rounded-[0.32rem] w-auto h-[3rem] mt-6 bg-[#F5F5F5]'>

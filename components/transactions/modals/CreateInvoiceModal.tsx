@@ -1,7 +1,7 @@
-import { faChevronDown, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 
@@ -14,13 +14,7 @@ interface Props {
 
 const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
 
-    const options = [
-        {label: 'Nigeria',value : 'Nigeria'},
-        {label : 'USA',value : 'USA'},
-        {label : 'Argentina',value : 'Argentina'},
-        {label : 'France',value : 'France'},
-    
-      ]
+
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   

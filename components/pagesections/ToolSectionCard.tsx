@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import ArrowRight  from '../../assets/icons/ArrowRight.svg'
+import ArrowRight  from '../../Assets/icons/ArrowRight.svg'
 
 interface Props {
     header:string,

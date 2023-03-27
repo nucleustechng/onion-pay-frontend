@@ -6,9 +6,8 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import PaymentIcon from '../../Assets/icon/Payment.svg'
 
-type Props = {}
 
-const PaymentItem = (props: Props) => {
+const PaymentItem = () => {
     const router = useRouter();
     const [payments,setPay] = useState<boolean>(false)
     const dropPay = () => {

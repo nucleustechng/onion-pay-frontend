@@ -9,9 +9,8 @@ import TransactionSect from '../../components/Contact/Transaction/TransactionSec
 import GeneralInquirySect from '../../components/Contact/GeneralInquiry/GeneralInquirySect'
 
 
-type Props = {}
 
-const index = (props: Props) => {
+const Contact = () => {
     const [tab,setTab] = useState<number>(1)
 
   return (
@@ -113,4 +112,4 @@ const index = (props: Props) => {
   )
 }
 
-export default index
+export default Contact

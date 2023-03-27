@@ -1,18 +1,11 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import SideBar from '../components/SideBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
-import Calendar from '../Assets/icon/Calendar.svg'
-import DashboardChart from '../components/dashboard/MyChart'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import HelpButton from '../components/HelpButton'
 import SearchIcon from '../Assets/icon/Search.svg'
-import DownloadIcon from '../Assets/icon/Download.svg'
-import CustomersHeader from '../components/customers/CustomersHeader'
-import CustomerTable from '../components/customers/CustomerTable'
 import CustomersTab from '../components/customers/CustomersTab'
 import BlackListed from '../components/customers/BlackListed'
-import dynamic from 'next/dynamic'
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import SideBarMobile from '../components/SidebarMobile'
@@ -20,9 +13,8 @@ import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../redux/sidebarSlice'
 
 
-type Props = {}
 
-const Customers = (props: Props) => {
+const Customers = () => {
   const [tab,setTab] = useState(1);
 
 

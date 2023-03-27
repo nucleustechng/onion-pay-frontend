@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const ChargebackHeader = (props: Props) => {
+const ChargebackHeader = () => {
   return (
     <div>
         <div className='flex items-center rounded-[0.32rem] w-[71.5rem] px-4 h-12 bg-[#F5F5F5]'>

@@ -1,4 +1,4 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React from 'react'
@@ -12,9 +12,8 @@ import { setShowSidebar } from '../../redux/sidebarSlice'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import SideBarMobile from '../SidebarMobile'
 
-type Props = {}
 
-const BalanceHistory = (props: Props) => {
+const BalanceHistory = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   return (

@@ -1,9 +1,8 @@
 import ButtonIcon from '../../Buttons/ButtonIcon'
 import React from 'react'
 
-type Props = {}
 
-const JoinSection = (props: Props) => {
+const JoinSection = () => {
   return (
     <div className='flex justify-center  '>
         <div className='w-[21.875rem] h-[17.125rem] bg-[#F5F5F5] rounded-[1.255rem] p-5

@@ -4,9 +4,9 @@ import React from 'react'
 import HelpButton from '../HelpButton'
 import OverviewTable from './OverviewTable'
 
-type Props = {}
 
-const Overview = (props: Props) => {
+
+const Overview = () => {
   return (
     <div>
       <div className='w-[27rem] sm:w-[40rem] md:w-[45rem] lg:w-[68rem] xl:w-[71.5rem] mt-6 mx-6'> 

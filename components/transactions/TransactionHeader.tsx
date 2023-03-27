@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const TransactionHeader = (props: Props) => {
+const TransactionHeader = () => {
   return (
     <div>
         <div className='w-[55.65rem] flex items-center rounded-[0.32rem] lg:w-auto px-10 h-12 bg-[#F5F5F5]'>

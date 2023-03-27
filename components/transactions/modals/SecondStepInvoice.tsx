@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronLeft, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React from 'react'
@@ -11,13 +11,7 @@ interface Props {
 }
 
 const SecondStepInvoice = ({isVisible,onClose}: Props) => {
-    const options = [
-        {label: 'Nigeria',value : 'Nigeria'},
-        {label : 'USA',value : 'USA'},
-        {label : 'Argentina',value : 'Argentina'},
-        {label : 'France',value : 'France'},
     
-      ]
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   

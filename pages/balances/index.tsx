@@ -2,9 +2,8 @@ import React from 'react'
 import Balance from '../../components/balances/Balance'
 import HelpButton from '../../components/HelpButton'
 
-type Props = {}
 
-const Balances = (props: Props) => {
+const Balances = () => {
   return (
     <div>
         <div className='flex'>

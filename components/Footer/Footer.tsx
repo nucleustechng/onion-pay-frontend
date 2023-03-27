@@ -2,11 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import FooterItem from './FooterItem'
-import LogoWhite from '../../assets/logo/LogoWhite.svg'
+import LogoWhite from '../../Assets/logo/LogoWhite.svg'
 
-type Props = {}
 
-const Footer = (props: Props) => {
+const Footer = () => {
   const productsArray = [
     {mainText:'Collect payment',route:'/'},
     {mainText:'Send money',route:'/'},
@@ -43,14 +42,7 @@ const Footer = (props: Props) => {
     Mondays - Fridays`}
   ]
 
-  const privacyArray = [
-    {mainText:'Privacy policy',route:'/'},
-    {mainText:'Terms of use',route:'/'},
-    {mainText:'Cookie policy',route:'/'},
-    {mainText:'Merchant service agreement',route:'/'},
-    {mainText:'Payment protection promise',route:'/'},
 
-  ]
   return (
     <div>
         <div className='w-full h-auto bg-[#303778]'>

@@ -1,10 +1,7 @@
 import React from 'react'
 import ChargeBacks from '../../components/chargebacks/ChargeBacks'
-import SideBar from '../../components/SideBar'
 
-type Props = {}
-
-const chargebacks = (props: Props) => {
+const chargebacks = () => {
   return (
     <div>
         <div>

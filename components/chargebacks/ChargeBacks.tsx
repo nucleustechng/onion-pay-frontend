@@ -1,7 +1,7 @@
-import { faCalendar, faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React from 'react'
 import HelpButton from '../HelpButton'
 import SearchIcon from '../../Assets/icon/Search.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
@@ -11,10 +11,8 @@ import { setShowSidebar } from '../../redux/sidebarSlice'
 import SideBarMobile from '../SidebarMobile'
 import ChargebackHeader from './ChargebackHeader'
 import ChargebackTable from './ChargebackTable'
-import   DownloadIcon from '../../Assets/icon/Download.svg'
 
 const ChargeBacks = () => {
-  const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 

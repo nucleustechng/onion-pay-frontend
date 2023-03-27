@@ -1,10 +1,8 @@
 import React from 'react'
 import Settlements from '../../components/balances/settlements/Settlements'
-import SideBar from '../../components/SideBar'
 
-type Props = {}
 
-const settlements = (props: Props) => {
+const settlements = () => {
   return (
     <div>
         <div>

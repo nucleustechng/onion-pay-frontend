@@ -1,4 +1,4 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
@@ -7,9 +7,8 @@ import CustomerTable from './CustomerTable'
 import DownloadIcon from '../../Assets/icon/Download.svg'
 import AddCustomerModal from './modals/AddCustomerModal'
 
-type Props = {}
 
-const CustomersTab = (props: Props) => {
+const CustomersTab = () => {
   const [showModal,setShowModal] = useState(false);
 
   return (

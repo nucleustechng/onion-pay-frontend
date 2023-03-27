@@ -1,8 +1,8 @@
 import React from 'react'
 
-type Props = {}
 
-const RefundHeader = (props: Props) => {
+
+const RefundHeader = () => {
   return (
     <div>
         <div className='w-[71.5rem] flex items-center rounded-[0.32rem]  px-6 h-12 bg-[#F5F5F5]'>

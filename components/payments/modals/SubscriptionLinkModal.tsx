@@ -1,10 +1,10 @@
-import { faChevronDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useCreatePaymentPageMutation } from '../../../modules/PaymentPageApi/paymentPageApi'
-import { setCompleted, setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
+import { setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,14 +18,8 @@ interface Props {
 
 
 const SubscriptionLinkModal = ({isVisible,onClose}: Props) => {
-    const handleClose = (e:any) =>{
-        if(e.target.id === 'wrapper'){
-            onClose()                                                   
-        }
-      }
-     
-    if (!isVisible) return null;
-      const dispatch = useAppDispatch();
+
+  const dispatch = useAppDispatch();
       const [paymentLinkInfo, setPaymentLinkInfo] = useState({
         title: '',
         fixed: true,
@@ -66,7 +60,16 @@ const SubscriptionLinkModal = ({isVisible,onClose}: Props) => {
       } else {
         toast.error(paymentLinkData?.reason);
       }
-    }, [isSuccess]);
+    }, [isSuccess,paymentLinkData]);
+
+    const handleClose = (e:any) =>{
+        if(e.target.id === 'wrapper'){
+            onClose()                                                   
+        }
+      }
+     
+    if (!isVisible) return null;
+      
 
   return (
     <div>

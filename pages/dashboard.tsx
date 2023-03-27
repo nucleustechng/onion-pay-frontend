@@ -1,11 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
-import SideBar from '../components/SideBar'
 import Calendar from '../Assets/icon/Calendar.svg'
 import HelpButton from '../components/HelpButton'
-// import DashboardChart from '../components/dashboard/DashboardChart'
-import dynamic from 'next/dynamic'
 import MyChart from '../components/dashboard/MyChart'
 
 

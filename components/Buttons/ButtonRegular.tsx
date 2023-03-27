@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import React from 'react'
-import ArrowRight from '../../assets/icons/ArrowRight.svg'
+
 
 
 interface Props {

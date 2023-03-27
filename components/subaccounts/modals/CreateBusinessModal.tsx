@@ -1,9 +1,7 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
-import { useCreateBusinessMutation } from '../../../modules/BusinessApi/businessApi'
+import { useCreateBusinessMutation } from '../../../modules/BusinessPageApi/businessApi'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,6 +24,54 @@ type BusinessForm = {
 
 const CreateBusinessModal = ({isVisible,onClose}: Props) => {
 
+
+    const dispatch = useAppDispatch()
+
+    const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
+      b_name: '',
+      b_email: '',
+      b_phone: '',
+      b_address: '',
+      website: '',
+    });
+
+
+    const [createBusiness, { data: businessData, isSuccess, isLoading }] =
+    useCreateBusinessMutation();
+  
+  const handleCreateBusiness = async () => {
+    try {
+      if (
+        businessInfo.b_name &&
+        businessInfo.b_email &&
+        businessInfo.b_address &&
+        businessInfo.b_phone &&
+        businessInfo.website
+      ) {
+        await createBusiness(businessInfo);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    if (isSuccess && businessData.success == true) {
+      toast.success('Your business has been successfully created!');
+      setBusinessInfo({
+        b_name: '',
+        b_email: '',
+        b_phone: '',
+        b_address: '',
+        website: '',
+      });
+      dispatch(setSecondStep(true))
+    } else {
+      toast.error(businessData?.reason);
+    }
+  },[isSuccess,businessData,dispatch]);
+
+  
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
@@ -33,50 +79,7 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
       }
       if (!isVisible) return null;
 
-      const dispatch = useAppDispatch()
-
-      const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
-        b_name: '',
-        b_email: '',
-        b_phone: '',
-        b_address: '',
-        website: '',
-      });
       
-      const [createBusiness, { data: businessData, isSuccess, isLoading }] =
-        useCreateBusinessMutation();
-      
-      const handleCreateBusiness = async () => {
-        try {
-          if (
-            businessInfo.b_name &&
-            businessInfo.b_email &&
-            businessInfo.b_address &&
-            businessInfo.b_phone &&
-            businessInfo.website
-          ) {
-            await createBusiness(businessInfo);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      
-      useEffect(() => {
-        if (isSuccess && businessData.success == true) {
-          toast.success('Your business has been successfully created!');
-          setBusinessInfo({
-            b_name: '',
-            b_email: '',
-            b_phone: '',
-            b_address: '',
-            website: '',
-          });
-          dispatch(setSecondStep(true))
-        } else {
-          toast.error(businessData?.reason);
-        }
-      }, [isSuccess]);
       
       
 

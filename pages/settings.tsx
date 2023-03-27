@@ -10,9 +10,8 @@ import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import SideBarMobile from '../components/SidebarMobile'
 
 
-type Props = {}
 
-const settings = (props: Props) => {
+const Settings = () => {
     const settingItems = [
         {title:'Business Name:',subtitle:'Mintfool'},
         {title:'Merchant ID:',subtitle:'OP49867466389'},
@@ -86,4 +85,4 @@ const settings = (props: Props) => {
   )
 }
 
-export default settings
+export default Settings

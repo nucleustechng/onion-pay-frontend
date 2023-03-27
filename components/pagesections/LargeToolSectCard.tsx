@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import ArrowRight  from '../../assets/icons/ArrowRight.svg'
+import ArrowRight  from '../../Assets/icons/ArrowRight.svg'
 
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
     top?:string
 }
 
-const LargeToolSectCard = ({backgroundColor,circleColor,header,img,mainText,alt,height,top,left}: Props) => {
+const LargeToolSectCard = ({backgroundColor,header,img,mainText,height,top,left}: Props) => {
   return (
     <div>
         <div className={`relative xl:w-[21.5rem] xl:h-[22rem] md:h-[20.8rem] md:w-[18rem] ${backgroundColor} hidden md:inline-flex rounded-[0.625rem]`}>

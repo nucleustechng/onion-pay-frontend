@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react'
-import {  useSeerbitPayMutation } from './SeerbitPayment';
+import React from 'react'
+
 import SeerbitCheckout from "seerbit-reactjs"
 
-type Props = {}
 
-const SeerbitComponent = (props: Props) => {
+const SeerbitComponent = () => {
   
 
-  const close = (close:any) => {
-    console.log(close);
-  };
-  const callback = (response:any) => {
-    console.log(response);
-  };
+  // const close = (close:any) => {
+  //   console.log(close);
+  // };
+  // const callback = (response:any) => {
+  //   console.log(response);
+  // };
 
-  const checkProgress = (progress:any) => {
-    console.log(progress);
-  };
+  // const checkProgress = (progress:any) => {
+  //   console.log(progress);
+  // };
 
       const options = {
         "public_key": "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
@@ -31,24 +30,7 @@ const SeerbitComponent = (props: Props) => {
         "callbackurl": "http://localhost:3002"
       };
     
-    const [seerbitPay,{data:payData,isSuccess,error}] = useSeerbitPayMutation()
-
-    const  handleCheckout =  async () => {
-      if (options) {
-        await  seerbitPay(options)
-    } else {
-        console.log("An error occured ")
-    }
-    }
-
-    useEffect(()  =>  {
-        if(isSuccess){
-          console.log(payData)
-        }
-        if(error){
-          console.log(error)
-        }
-    },[])
+   
 
   return (
     <div className='flex justify-center'>
