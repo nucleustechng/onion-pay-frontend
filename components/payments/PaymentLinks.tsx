@@ -14,6 +14,7 @@ import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
+// import Loader as  from "react-js-loader";
 
 
 const PaymentLinks = () => {
@@ -41,6 +42,7 @@ const PaymentLinks = () => {
 
   
   return (
+    <div> 
     <div className='relative'>
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[71.5rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
@@ -108,6 +110,7 @@ const PaymentLinks = () => {
             </div>
 
         </div>
+    </div>
     </div>
   )
 }

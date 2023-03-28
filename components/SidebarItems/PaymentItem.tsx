@@ -47,11 +47,11 @@ const PaymentItem = () => {
                             </div>
                         </div>
                         <div>
-                        <ul className={`${payments ? 'flex flex-col h-20 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.55rem]  mb-3 ${payments ? 'mt-[1.8rem]' : 'mt-[0.5rem]'} mx-6`}>
+                        <ul className={`${payments ? 'flex flex-col h-9 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.55rem]  mb-3 ${payments ? 'mt-[1.8rem]' : 'mt-[0.5rem]'} mx-6`}>
                                     <Link href='/payments'><li className={`text-sm ${transfersRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Transfers</li></Link>
                                     {/* <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Invoices</li> */}
                                    <Link href='/payments/paymentlinks'><li className={`text-sm ${paymentlinksRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Payment links</li></Link>
-                                    <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Payment plans</li>
+                                    {/* <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Payment plans</li> */}
                             </ul>
                         </div>
                     </Link>

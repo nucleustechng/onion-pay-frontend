@@ -16,6 +16,7 @@ import LargeToolSectCard from './LargeToolSectCard'
 import BusinessSite  from '../../Assets/img/BusinessSiteScreenShot.svg'
 import OrangeCurveArrow from '../../Assets/img/L-OrangeCurvedArrow.svg'
 import BlueCurvedArrow from '../../Assets/img/L-BlueArrow.svg'
+import Link from 'next/link'
 
 
 
@@ -122,10 +123,10 @@ const ToolSection = () => {
                     Same way we remind you to let your customers know that you’re there is the same way 
                   <span className='text-primary italic'> we are always going to be here for you!</span></p>
                   
-                  <div>
+                  <Link href='/auth/signin'>
                       <ButtonRegular backgroundColor='bg-primary' color='text-white'  textSize='text-base sm:text-2xl'
                       height='h-11 sm:h-16' mainText={`Let’s get on the road`} width='w-[13.2rem] sm:w-[20rem]'/>
-                  </div>
+                  </Link>
                 </div>
             </div>
         </div>

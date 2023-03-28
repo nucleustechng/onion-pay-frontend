@@ -14,6 +14,11 @@ import Link from 'next/link'
 
 const Navbar = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
+  const linkItems = [
+    {title:'Payment',link:'/'}
+    ,{title:'Commerce',link:'/'}, 
+    {title:'Developer',link:'https://ultra-organization.gitbook.io/onion-pay'}
+  ]
 
   return (
     <div>
@@ -74,10 +79,10 @@ const Navbar = () => {
                   <Image src={Logo} alt='Logo' />
                 </Link>
                 <ul className='hidden lg:flex items-center justify-between w-[20rem]'>
-                  {['Payment', 'Commerce', 'Developer'].map((text) => (
-                    <li key={text} className='text-sm text-primaryText font-WorkSans font-medium leading-4 cursor-pointer'>
-                      {text}
-                    </li>
+                  {linkItems.map((item) => (
+                    <Link href={item.link}><li key={item.title} className='text-sm text-primaryText font-WorkSans font-medium leading-4 cursor-pointer'>
+                      {item.title}
+                    </li></Link>
                   ))}
                   <Link href='/contact'>
                     <li className='text-sm text-primaryText font-WorkSans font-medium leading-4 cursor-pointer'>Contact</li>

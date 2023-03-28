@@ -1,6 +1,7 @@
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import CopyIcon from '../../Assets/icon/CopyIcon.svg'
+import Image from 'next/image';
+import React from 'react'
+import { ToastContainer ,toast } from 'react-toastify';
 
 interface Props  {
     paymentLink:string,
@@ -13,18 +14,15 @@ interface Props  {
 
 const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) => {
   
-    const [showPop, setShowPop] = useState(false);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(paymentLink);
-    setShowPop(true);
-    setTimeout(() => {
-      setShowPop(false);
-    }, 2000);
+  const copyToClipboard = (copyItem:any) => {
+    navigator.clipboard.writeText(copyItem);
+   toast.success('Copied!!',{autoClose:1000})
   };
 
   return (
     <div>
+        <ToastContainer/>
          <div className='flex items-center px-4 rounded-[0.32rem] w-[71.5rem] h-[3.75rem] '>
             <div className='w-[14.25rem]'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{pageName}</h1>
@@ -40,20 +38,12 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) =
             </div>
             <div className="w-[14.3rem] relative">
             <div
-                className="bg-gray-200 rounded p-2 flex items-center"
+                className="w-[17.5rem] flex gap-2 items-center"
             >
                 <p className="flex-grow ">{paymentLink}</p>
-                <button
-                className="bg-gray-700 text-white px-2 py-1 rounded mt-1 ml-2"
-                onClick={copyToClipboard}
-                >
-                <FontAwesomeIcon icon={faCopy} className='text-primary' />
-                </button>
-                {showPop && (
-                <div className="absolute bg-primary text-white px-2 py-1 rounded mt-1 right-0">
-                    Copied to clipboard!
+                <div className='cursor-pointer' onClick={() => copyToClipboard(paymentLink)}>
+                    <Image src={CopyIcon} alt=''/> 
                 </div>
-                )}
             </div>
             </div>
         </div>

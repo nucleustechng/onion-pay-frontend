@@ -8,7 +8,7 @@ export const paymentPageApi = createApi({
         baseUrl:'https://onion-pay.herokuapp.com',
         prepareHeaders: (headers) => {
             // Get the token from local storage
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('loginToken');
 
             
             // If the token is present, set the authorization header

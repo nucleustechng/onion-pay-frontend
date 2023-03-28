@@ -103,11 +103,6 @@ const Settings = () => {
                         <div className='cursor-pointer' onClick={() => copyToClipboard(apiKey)}>
                             <Image src={CopyIcon} alt=''/>
                         </div>
-                        {/* {showPop && (
-                        <div className="absolute bg-primary text-white px-2 py-1 rounded mt-1 right-0">
-                            Copied to clipboard!
-                        </div>
-                        )} */}
                     </div>
                 </div>
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>

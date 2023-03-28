@@ -14,9 +14,9 @@ const JoinSection = () => {
             '>Are you ready to 
             <span className='text-primary'> head in?</span></h1>
             <p className='text-primaryText text-base text-left font-WorkSans font-normal leading-5 mt-4
-            md:text-xl xl:pt-6 xl:w-[35rem] 
+            md:text-xl xl:pt-6 xl:w-[35rem] mb-6 
             '>Create an account to instantly start accepting payments, and build a successful business.</p>
-            <Link href='/auth/signup' className='mt-[1.875rem]'>
+            <Link href='/auth/signup' >
                 <ButtonIcon width='w-[10.2rem]' height='h-11' mainText='Get started' backgroundColor='bg-primary' color='text-white' textSize='text-base'/>
             </Link>
         </div>
