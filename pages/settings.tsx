@@ -8,6 +8,9 @@ import { RootState } from '../redux/store'
 import { setShowSidebar } from '../redux/sidebarSlice'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/router'
 
 
 
@@ -21,9 +24,14 @@ const Settings = () => {
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+    const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+    const router = useRouter()
+
     const  [apiKey,setApiKey]  = useState<string>('')
 
     const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+
+    const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
         if (isSuccess && generateKeyData.success == true){
@@ -33,17 +41,22 @@ const Settings = () => {
         }
     },[isSuccess,generateKeyData])
 
-    const [showPop, setShowPop] = useState(false);
+    // const [showPop, setShowPop] = useState(false);
 
-    const copyToClipboard = () => {
-      navigator.clipboard.writeText(apiKey);
-      setShowPop(true);
-      setTimeout(() => {
-        setShowPop(false);
-      }, 2000);
+    const copyToClipboard = (copyItem:any) => {
+        navigator.clipboard.writeText(copyItem);
+        toast.success('Copied!!',{autoClose:2000})
     };
+
+    if (typeof window !== "undefined") {
+        // import and use next/router here
+        if(!isLoggedIn){
+          router.push('/auth/signin')
+        }
+      }
   return (
     <div className=''>
+        <ToastContainer/>
         <div className='w-auto xl:w-[71.5rem]'>
             <div className='mx-6 my-6'>
             <div className='flex justify-between items-center mr-9 mb-12'>
@@ -87,21 +100,21 @@ const Settings = () => {
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>API Keys:</h1>
                     <div className='flex items-center gap-3'>
                         <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{apiKey}</h2>
-                        <div onClick={copyToClipboard}>
+                        <div className='cursor-pointer' onClick={() => copyToClipboard(apiKey)}>
                             <Image src={CopyIcon} alt=''/>
                         </div>
-                        {showPop && (
+                        {/* {showPop && (
                         <div className="absolute bg-primary text-white px-2 py-1 rounded mt-1 right-0">
                             Copied to clipboard!
                         </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Web hooks:</h1>
                     <div className='flex items-center gap-3'>
-                        <div className='w-[16rem] sm:w-auto flex justify-center text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper</div>
-                        <Image src={CopyIcon} alt=''/>
+                        <div className='w-[16rem] sm:w-auto cursor-pointer flex justify-center text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{webHook}</div>
+                        <Image src={CopyIcon} alt='' className='cursor-pointer' onClick={() => copyToClipboard(webHook)}/>
                     </div>
                 </div>
             </div>

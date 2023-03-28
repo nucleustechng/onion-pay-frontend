@@ -1,9 +1,22 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import Balance from '../../components/balances/Balance'
 import HelpButton from '../../components/HelpButton'
+import { useAppSelector } from '../../redux/redux-hooks/hooks'
+import { RootState } from '../../redux/store'
 
 
 const Balances = () => {
+  const router = useRouter()
+
+  const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+
+  if (typeof window !== "undefined") {
+    // import and use next/router here
+    if(!isLoggedIn){
+      router.push('/auth/signin')
+    }
+  }
   return (
     <div>
         <div className='flex'>

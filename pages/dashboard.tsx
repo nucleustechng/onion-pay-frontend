@@ -4,14 +4,25 @@ import Image from 'next/image'
 import Calendar from '../Assets/icon/Calendar.svg'
 import HelpButton from '../components/HelpButton'
 import MyChart from '../components/dashboard/MyChart'
+import { RootState } from '../redux/store'
+import { useAppSelector } from '../redux/redux-hooks/hooks'
+import { useRouter } from 'next/router'
 
 
 
 export default function Home() {
+  const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+  const router = useRouter()
 
+  if (typeof window !== "undefined") {
+    // import and use next/router here
+    if(!isLoggedIn){
+      router.push('/auth/signin')
+    }
+  }
   return (
     <div>
-      <div>
+     <div>
         <div className='w-[71.5rem] mx-6 lg:mt-7'>
           <div className='flex items-center justify-between '>
             <h1 className='text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Dashboard</h1>

@@ -18,12 +18,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useSigninMutation } from '../../modules/auth/api/AuthApi'
 import Loader from '../../components/Loader'
 import { useRouter } from 'next/router'
+import { setLogin } from '../../redux/loginSlice'
+import { useAppDispatch } from '../../redux/redux-hooks/hooks'
 
 
 const Signin = () => {
     const [toggleNav,setToggleNav] = useState<boolean>(false);
 
     const router = useRouter();
+    const dispatch = useAppDispatch()
 
     const [passwordError,setPasswordError] = useState<string>('');
     const [emailError,setEmailError] = useState<string>('')
@@ -45,6 +48,7 @@ const Signin = () => {
             if (signInData?.token){
                 localStorage.setItem('loginToken',signInData.token)
             }
+            dispatch(setLogin(true))
             console.log(signInData)
             toast.success('You have successfully signed in.');
                 router.push('/transactions');

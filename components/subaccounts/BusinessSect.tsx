@@ -52,7 +52,7 @@ const BusinessSect = () => {
           </div>
           <div>
             {!isSecondStep ? <CreateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> : null}
-            {isSecondStep ? <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/> : null}
+            {/* {isSecondStep ? <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/> : null} */}
             {/* <IndividualBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             {/* <Verifying isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             {/* <CorporateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}

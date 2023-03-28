@@ -17,6 +17,10 @@ import { useRouter } from 'next/router'
 
 const SideBar = () =>{
     const router = useRouter();
+
+    const logoutUser = () => {
+        localStorage.clear()
+    }
     
 
   return (
@@ -75,7 +79,7 @@ const SideBar = () =>{
                                 </div>
                             </Link>
                 </div>
-                <div className='flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 '>
+                <div className='flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 cursor-pointer' onClick={logoutUser}>
                     <div className='flex items-center justify-center bg-[#F31212] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]'>
                         <Image src={LogOutIcon} alt='Settings' className='lg:w-[1.6rem] lg:h-[1.6rem]'/>
                     </div>

@@ -4,9 +4,22 @@ import HelpButton from '../../components/HelpButton'
 // import PaymentLinks from '../../components/payments/PaymentLinks'
 // import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
 import SeerbitComponent from '../../components/Checkout/SeerbitComponent'
+import { useRouter } from 'next/router'
+import { useAppSelector } from '../../redux/redux-hooks/hooks'
+import { RootState } from '../../redux/store'
 
 
 const Payments = () => {
+  const router = useRouter()
+
+  const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+
+  if (typeof window !== "undefined") {
+    // import and use next/router here
+    if(!isLoggedIn){
+      router.push('/auth/signin')
+    }
+  }
   return (
     <div>
         <div>

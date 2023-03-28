@@ -3,6 +3,7 @@ import { generateApiKeys } from '../modules/ApiKeys/generateApiKeys'
 import { AuthApi } from '../modules/auth/api/AuthApi'
 import { businessApi } from '../modules/BusinessPageApi/businessApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
+import loginSlice from './loginSlice'
 import createBusinessSlice from './Modal-Processes/createBusinessSlice'
 import paymentLinkSlice from './Modal-Processes/paymentLinkSlice'
 import paymentSlice from './Modal-Processes/paymentSlice'
@@ -18,6 +19,7 @@ export const store = configureStore({
     business:createBusinessSlice,
     paymentLink:paymentLinkSlice,
     sidebar:sidebarSlice,
+    login:loginSlice,
     // [seerbitApi.reducerPath]:seerbitApi.reducer,
     [businessApi.reducerPath]:businessApi.reducer,
     [paymentPageApi.reducerPath]:paymentPageApi.reducer,
