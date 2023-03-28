@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import Settlements from '../../components/balances/settlements/Settlements'
+import MySettlements  from '../../components/balances/settlements/Settlements'
 import { useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 
 
-const settlements = () => {
+const Settlements = () => {
   const router = useRouter()
 
   const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
@@ -20,11 +20,11 @@ const settlements = () => {
     <div>
         <div>
             <div className='w-[30rem] sm:w-[40rem]  md:w-[47rem] lg:w-[50rem] xl:w-[71.5rem]'>
-                <Settlements/>
+                <MySettlements/>
             </div>
         </div>
     </div>
   )
 }
 
-export default settlements
+export default Settlements

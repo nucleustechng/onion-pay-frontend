@@ -13,7 +13,7 @@ import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 
 
 
-const BalanceHistory = () => {
+const MyBalanceHistory = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   return (
@@ -80,4 +80,4 @@ const BalanceHistory = () => {
   )
 }
 
-export default BalanceHistory
+export default MyBalanceHistory

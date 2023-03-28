@@ -5,7 +5,7 @@ import { useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 
 
-const refunds = () => {
+const Refunds = () => {
   const router = useRouter ()
 
   const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
@@ -27,4 +27,4 @@ const refunds = () => {
   )
 }
 
-export default refunds
+export default Refunds

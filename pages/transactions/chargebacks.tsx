@@ -4,7 +4,7 @@ import ChargeBacks from '../../components/chargebacks/ChargeBacks'
 import { useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 
-const chargebacks = () => {
+const Chargebacks = () => {
   const router = useRouter()
 
   const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
@@ -26,4 +26,4 @@ const chargebacks = () => {
   )
 }
 
-export default chargebacks
+export default Chargebacks

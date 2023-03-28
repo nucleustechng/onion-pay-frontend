@@ -7,7 +7,7 @@ import { RootState } from '../../redux/store'
 
 
 
-const paymentlinks = () => {
+const Paymentlinks = () => {
   const router = useRouter()
 
   const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
@@ -29,4 +29,4 @@ const paymentlinks = () => {
   )
 }
 
-export default paymentlinks
+export default Paymentlinks

@@ -6,7 +6,7 @@ import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import HelpButton from '../HelpButton'
 import CreateBusinessModal from './modals/CreateBusinessModal'
-import VerifyAccountModal from './modals/VerifyAccountModal'
+// import VerifyAccountModal from './modals/VerifyAccountModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
 

@@ -12,7 +12,7 @@ import { RootState } from '../../../redux/store'
 import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
 import HelpButton from '../../HelpButton'
 
-const Settlements = () => {
+const MySettlements = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
@@ -112,4 +112,4 @@ const Settlements = () => {
   )
 }
 
-export default Settlements
+export default MySettlements

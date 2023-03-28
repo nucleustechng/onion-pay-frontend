@@ -6,7 +6,7 @@ import OverviewTable from './OverviewTable'
 
 
 
-const Overview = () => {
+const MyOverview = () => {
   return (
     <div>
       <div className='w-[27rem] sm:w-[40rem] md:w-[45rem] lg:w-[68rem] xl:w-[71.5rem] mt-6 mx-6'> 
@@ -32,4 +32,4 @@ const Overview = () => {
   )
 }
 
-export default Overview
+export default MyOverview
