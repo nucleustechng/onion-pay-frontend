@@ -20,6 +20,7 @@ const SideBar = () =>{
 
     const logoutUser = () => {
         localStorage.clear()
+        router.push('/auth/signin')
     }
     
 
