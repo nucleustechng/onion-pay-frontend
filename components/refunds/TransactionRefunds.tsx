@@ -7,17 +7,20 @@ import SearchIcon from '../../Assets/icon/Search.svg'
 import RefundHeader from './RefundHeader'
 import RefundTable from './RefundTable'
 import DownloadIcon from '../../Assets/icon/Download.svg'
-import LogRefundModal from './modals/LogRefundModal'
 // import SingleRefundModal from './modals/SingleRefundModal'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../../redux/sidebarSlice'
+import dynamic from 'next/dynamic'
 
 const TransactionRefunds = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+
+  const LogRefundModal = dynamic(() => import('./modals/LogRefundModal'));
+
 
   return (
     <div>

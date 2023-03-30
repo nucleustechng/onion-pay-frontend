@@ -80,7 +80,7 @@ const Navbar = () => {
                 </Link>
                 <ul className='hidden lg:flex items-center justify-between w-[20rem]'>
                   {linkItems.map((item) => (
-                    <Link href={item.link}><li key={item.title} className='text-sm text-primaryText font-WorkSans font-medium leading-4 cursor-pointer'>
+                    <Link href={item.link} key={item.title}><li key={item.title} className='text-sm text-primaryText font-WorkSans font-medium leading-4 cursor-pointer'>
                       {item.title}
                     </li></Link>
                   ))}

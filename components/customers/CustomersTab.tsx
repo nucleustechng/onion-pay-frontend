@@ -5,11 +5,13 @@ import React, { useState } from 'react'
 import CustomersHeader from './CustomersHeader'
 import CustomerTable from './CustomerTable'
 import DownloadIcon from '../../Assets/icon/Download.svg'
-import AddCustomerModal from './modals/AddCustomerModal'
+import dynamic from 'next/dynamic'
 
 
 const CustomersTab = () => {
   const [showModal,setShowModal] = useState(false);
+  const AddCustomerModal = dynamic(() => import('./modals/AddCustomerModal'));
+
 
   return (
     <div>

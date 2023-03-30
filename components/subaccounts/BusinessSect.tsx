@@ -5,10 +5,10 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import HelpButton from '../HelpButton'
-import CreateBusinessModal from './modals/CreateBusinessModal'
 // import VerifyAccountModal from './modals/VerifyAccountModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
 
 
@@ -17,6 +17,9 @@ const BusinessSect = () => {
   const isSecondStep = useAppSelector((state:RootState) => state.business.isSecondStep);
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   const dispatch = useAppDispatch();
+
+  const CreateBusinessModal = dynamic(() => import('./modals/CreateBusinessModal'));
+
   return (
     <div>
       <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 

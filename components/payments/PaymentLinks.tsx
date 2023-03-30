@@ -8,18 +8,24 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import Loader from '../Loader'
-import PaymentLinkModal from './modals/PaymentLinkModal'
-import SingleChargeModal from './modals/SingleChargeModal'
-import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
+// import PaymentLinkModal from './modals/PaymentLinkModal'
+// import SingleChargeModal from './modals/SingleChargeModal'
+// import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-// import Loader as  from "react-js-loader";
+import dynamic from 'next/dynamic'
 
 
 const PaymentLinks = () => {
   const [showModal, setShowModal] = useState(false);
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
+
+  const PaymentLinkModal = dynamic(() => import('./modals/PaymentLinkModal'));
+  const SingleChargeModal = dynamic(() => import('./modals/SingleChargeModal'));
+  const SubscriptionLinkModal = dynamic(() => import('./modals/SubscriptionLinkModal'));
+
+
 
 
  

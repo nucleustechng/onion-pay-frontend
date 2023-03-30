@@ -1,16 +1,19 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import FundBalanceModal from './modals/FundBalanceModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
+import dynamic from 'next/dynamic'
 
 
 const Balance = () => {
     const [showModal,setShowModal] = useState<boolean>(false)
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+
+  const FundBalanceModal = dynamic(() => import('./modals/FundBalanceModal'));
+
 
   return (
     <div className=''>
