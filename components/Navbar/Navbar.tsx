@@ -15,7 +15,7 @@ import Link from 'next/link'
 const Navbar = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
   const linkItems = [
-    {title:'Payment',link:'/'}
+    {title:'Payment',link:'/collect-payments'}
     ,{title:'Commerce',link:'/'}, 
     {title:'Developer',link:'https://ultra-organization.gitbook.io/onion-pay'}
   ]

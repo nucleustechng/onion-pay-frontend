@@ -11,17 +11,17 @@ interface Props{
 const TransactionTable = ({status}: Props) => {
   return (
     <div>
-        <div className='w-[55.65rem] flex items-center px-4 h-12'>
-            <div className='w-[22.5rem] lg:w-[22.5rem]'>
-              <h1 className='text-sm '>Payment from ID: 1234567854</h1>
+     <div className='flex items-center px-4 w-[71.5rem] h-12'>
+            <div className='w-[22.5rem]'>
+              <h1>Payment from ID: 1234567854</h1>
             </div>
-            <div className='w-[10.45rem]  pl-4 lg:w-[10.45rem] lg:pl-4'>
+            <div className='w-[10.45rem]'>
               <h1>NGN 300.00</h1>
             </div>
-            <div className='w-[9.4rem] pl-5'>
+            <div className='w-[9.4rem]'>
               <h1>Card</h1>
             </div>
-            <div className='w-[18.8rem] pl-5'>
+            <div className='w-[18.8rem]'>
               <h1>Nov 19, 2022 - 10:28 AM</h1>
             </div>
             <div className='w-[10.45rem]'>

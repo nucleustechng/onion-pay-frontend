@@ -17,7 +17,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) =
 
   const copyToClipboard = (copyItem:any) => {
     navigator.clipboard.writeText(copyItem);
-   toast.success('Copied!!',{autoClose:1000})
+   toast.success('Copied!!',{autoClose:100,})
   };
 
   return (

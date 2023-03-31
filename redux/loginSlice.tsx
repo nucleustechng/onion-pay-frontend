@@ -1,32 +1,52 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { AppThunk } from './redux-hooks/hooks'
 import type { RootState } from './store'
 
-// Define a type for the slice state
-interface LoginState {
-    isLoggedIn:boolean
+
+// authSlice.ts
+
+
+// import { AppThunk } from ''
+
+interface AuthState {
+  isAuthenticated: boolean
 }
 
-// Define the initial state using that type
-const initialState: LoginState = {
-    isLoggedIn:false,
+const initialState: AuthState = {
+  isAuthenticated: false,
 }
 
-export const loginSlice = createSlice({
+const loginSlice = createSlice({
   name: 'login',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setLogin: (state,action) =>{
-        state.isLoggedIn = action.payload
-        console.log(action.payload)
+    setAuthenticated(state) {
+      state.isAuthenticated = true
     },
-  
+    setUnauthenticated(state) {
+      state.isAuthenticated = false
+    },
   },
 })
 
-export const { setLogin } = loginSlice.actions
+export const { setAuthenticated, setUnauthenticated } = loginSlice.actions
 
-// Other code such as selectors can use the imported `RootState` type
+
+// export const checkAuthentication = (): AppThunk => async (dispatch) => {
+//   // read authentication token from cookie or localStorage
+//   const token = document.cookie.replace(
+//     /(?:(?:^|.*;\s*)authToken\s*\=\s*([^;]*).*$)|^.*$/,
+//     '$1'
+//   )
+//   // or const token = localStorage.getItem('authToken')
+
+//   if (token) {
+//     dispatch(setAuthenticated())
+//   } else {
+//     dispatch(setUnauthenticated())
+//   }
+// }
+
 export const selectLogin = (state: RootState) => state.login
 
 export default loginSlice.reducer

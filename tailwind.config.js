@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     fontFamily: {
       'WorkSans': ['Work Sans', 'sans-serif'],
-      'Montserrat': ['Montserrat', 'sans-serif']
+      'Montserrat': ['Montserrat', 'sans-serif'],
+      'SpaceGrotesk': ['Space  Grotesk', 'sans-serif']
+
 
     },
     colors: {

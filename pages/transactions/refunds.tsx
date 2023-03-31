@@ -6,16 +6,17 @@ import { RootState } from '../../redux/store'
 
 
 const Refunds = () => {
-  const router = useRouter ()
+  const router  = useRouter();
 
-  const  isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+  const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
 
   if (typeof window !== "undefined") {
     // import and use next/router here
-    if(!isLoggedIn){
+    if(!isAuthenticated){
       router.push('/auth/signin')
     }
   }
+
   return (
     <div>
         <div>

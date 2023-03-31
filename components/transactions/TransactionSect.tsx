@@ -94,7 +94,7 @@ const TransactionSect = () => {
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
-          <div className='flex flex-col gap-4 mt-6 overflow-x-scroll ml-5 lg:ml-0'>
+          <div className='flex flex-col gap-4 mt-6 overflow-x-auto ml-5 lg:ml-0'>
              <TransactionHeader/>
              <TransactionTable status='Successful'/>
              <TransactionTable status='Pending'/>
