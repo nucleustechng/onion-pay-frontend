@@ -13,12 +13,16 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import dynamic from 'next/dynamic'
+import CreateInvoiceModal from './modals/CreateInvoiceModal'
+import CompleteInvoiceModal from './modals/CompletInvoiceModal'
 
 
 const TransactionSect = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+  const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
+
 
   const SecondStepInvoice = dynamic(() => import('./modals/SecondStepInvoice'));
   
@@ -101,8 +105,8 @@ const TransactionSect = () => {
           </div>
           <div>
             <div>
-              {/* <CreateInvoiceModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
-              <SecondStepInvoice isVisible={showModal} onClose={async () => setShowModal(false)}/>
+              <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/>
+              {isSecondStep && <CompleteInvoiceModal  isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
             </div>
         </div>
         </div>

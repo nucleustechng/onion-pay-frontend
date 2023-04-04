@@ -11,29 +11,43 @@ import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
+import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
+import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
 
 
 
 const Settings = () => {
-    const settingItems = [
-        {title:'Business Name:',subtitle:'Mintfool'},
-        {title:'Merchant ID:',subtitle:'OP49867466389'},
-        {title:'Business Type:',subtitle:'Cooperate'},
-        {title:'CAC Registration Number:',subtitle:'23456FSK90'},
-    ]
+    
+    const [showModal,setShowModal] =  useState<boolean>(false)
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-    const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+    const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
     const router = useRouter()
 
+    // if (typeof window !== "undefined") {
+    //     // import and use next/router here
+    //     if(!isAuthenticated){
+    //       router.push('/auth/signin')
+    //     }
+    //   }
+
     const  [apiKey,setApiKey]  = useState<string>('')
+    const  [businessData,setBusinessData] = useState<any>()
 
     const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+    const {data:settingsData,isSuccess:settingSuccess} = useLoadSettingsQuery()
+
 
     const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
+        if (settingSuccess && settingsData.success == true) {
+            setBusinessData(settingsData['business'])
+            console.log(settingsData['business'])
+        } else {
+            console.log(settingsData?.reason)
+        }
         if (isSuccess && generateKeyData.success == true){
             setApiKey(generateKeyData?.live_pub_key)
         } else{
@@ -48,12 +62,9 @@ const Settings = () => {
         toast.success('Copied!!',{autoClose:2000})
     };
 
-    if (typeof window !== "undefined") {
-        // import and use next/router here
-        if(!isLoggedIn){
-          router.push('/auth/signin')
-        }
-      }
+
+  
+  
   return (
     <div className=''>
         <ToastContainer/>
@@ -82,11 +93,49 @@ const Settings = () => {
                         </div>
                     </div>
                 </div>
+                    <div className='flex justify-end'>
+                        <div onClick={() => {setShowModal(true)}} className='flex justify-center items-center cursor-pointer w-[10rem] md:w-[12.5625rem] h-11 gap-[0.625rem] rounded-[0.3125rem] bg-[#61A72C]'>
+                            <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit account details</h1>
+                            <Image src={EditIcon} alt='Edit Icon'/>
+                        </div>
+                    </div>
                 <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
-                {settingItems.map((item) => (<div key={item.title} className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                        <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>{item.title}</h1>
-                        <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{item.subtitle}</h2>
-                    </div>))}
+                {/* {businessData.map((item:any) => ( */}
+                    <div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business name</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.name}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business email</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.email}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business phone</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.phone}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business address</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.address}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet name</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletName}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet number</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletNumber}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet ID</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletID}</h2>
+                        </div>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business website</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.website}</h2>
+                        </div>
+                    </div>
+                {/* ))} */}
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
@@ -113,6 +162,9 @@ const Settings = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <UpdateDetailsModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
         </div>
     </div>
   )

@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useCreatePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
 import {  setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
-import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader'
+import { RootState } from '../../../redux/store'
 
 interface Props {
     isVisible:boolean
@@ -19,6 +20,12 @@ interface Props {
 
 const SingleChargeModal = ({isVisible,onClose}: Props) => {
   const dispatch = useAppDispatch();
+
+
+
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+
   const [paymentLinkInfo, setPaymentLinkInfo] = useState({
     title: '',
     fixed: true,
@@ -31,6 +38,7 @@ const SingleChargeModal = ({isVisible,onClose}: Props) => {
   useCreatePaymentPageMutation();
 
   const  paymentPages = useLoadPaymentLinksQuery()
+  
 
 
  
@@ -49,14 +57,14 @@ const handleCreatePaymentLink = async () => {
   } catch (err) {
     console.log(err);
   }
+  dispatch(setSecondStep(false))
+  onClose()
 };
 
 useEffect(() => {
   if (isSuccess && paymentLinkData.success == true) {
-    toast.success('Your payment link has been successfully created!');
-    setTimeout(()=> {
-      onClose()
-    },1000)
+    setShowSuccessToast(true);
+    onClose()
     setPaymentLinkInfo({
       title: '',
       fixed: true,
@@ -65,9 +73,19 @@ useEffect(() => {
       redirect_url: '',
     });
   } else {
-    toast.error(paymentLinkData?.reason);
+    setShowErrorToast(true);
   }
-}, [isSuccess,onClose,paymentLinkData]);
+}, [isSuccess,paymentLinkData]);
+
+useEffect(() => {
+  if (showSuccessToast) {
+    toast.success('Your payment link has been successfully created!');
+    setShowSuccessToast(false);
+  } else if (showErrorToast) {
+    toast.error(paymentLinkData?.reason);
+    setShowErrorToast(false);
+  }
+}, [showSuccessToast, showErrorToast, paymentLinkData]);
 
 
     const handleClose = (e:any) =>{

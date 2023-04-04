@@ -2,7 +2,10 @@ import { configureStore } from '@reduxjs/toolkit'
 import { generateApiKeys } from '../modules/ApiKeys/generateApiKeys'
 import { AuthApi } from '../modules/auth/api/AuthApi'
 import { businessApi } from '../modules/BusinessPageApi/businessApi'
+import { invoiceApi } from '../modules/Invoices/invoiceApi'
+import { settingsApi } from '../modules/LoadSettings/settingsApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
+import invoiceSlice from './invoiceSlice'
 import loginSlice from './loginSlice'
 import createBusinessSlice from './Modal-Processes/createBusinessSlice'
 import paymentLinkSlice from './Modal-Processes/paymentLinkSlice'
@@ -20,12 +23,16 @@ export const store = configureStore({
     paymentLink:paymentLinkSlice,
     sidebar:sidebarSlice,
     login:loginSlice,
+    invoice:invoiceSlice,
     // [seerbitApi.reducerPath]:seerbitApi.reducer,
     [businessApi.reducerPath]:businessApi.reducer,
     [paymentPageApi.reducerPath]:paymentPageApi.reducer,
-    [generateApiKeys.reducerPath]:generateApiKeys.reducer
+    [generateApiKeys.reducerPath]:generateApiKeys.reducer,
+    [settingsApi.reducerPath]:settingsApi.reducer,
+    [invoiceApi.reducerPath]:invoiceApi.reducer
   },
-  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware )
+  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,
+  businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,invoiceApi.middleware)
   
 })
 

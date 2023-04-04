@@ -48,7 +48,8 @@ const Signin = () => {
             console.log(signInData)
             toast.success('You have successfully signed in.');
             if (signInData.token) {
-                document.cookie = `authToken=${signInData?.token}; path=/`
+                // document.cookie = `authToken=${signInData?.token}; path=/`
+                localStorage.setItem('loginToken',signInData.token)
                 dispatch(setAuthenticated())
                 router.push('/transactions/');
 
@@ -69,7 +70,7 @@ const Signin = () => {
                   setEmailError('');
             }
         }
-    },[isSuccess,signInData,router,dispatch,setAuthenticated])
+    },[isSuccess,signInData,router,dispatch])
 
   return (
     <div>

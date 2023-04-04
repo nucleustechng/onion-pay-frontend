@@ -15,15 +15,18 @@ import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import dynamic from 'next/dynamic'
+import PaymentLinkModal from './modals/PaymentLinkModal'
+import SingleChargeModal from './modals/SingleChargeModal'
+import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 
 
 const PaymentLinks = () => {
   const [showModal, setShowModal] = useState(false);
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
-  const PaymentLinkModal = dynamic(() => import('./modals/PaymentLinkModal'));
-  const SingleChargeModal = dynamic(() => import('./modals/SingleChargeModal'));
-  const SubscriptionLinkModal = dynamic(() => import('./modals/SubscriptionLinkModal'));
+  // const PaymentLinkModal = dynamic(() => import('./modals/PaymentLinkModal'));
+  // const SingleChargeModal = dynamic(() => import('./modals/SingleChargeModal'));
+  // const SubscriptionLinkModal = dynamic(() => import('./modals/SubscriptionLinkModal'));
 
 
 
