@@ -10,6 +10,7 @@ import { RootState } from '../../../redux/store'
 import { Order } from '../../../redux/interfaces/OrderInterface'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import Loader from '../../Loader'
 
 
 
@@ -34,67 +35,56 @@ interface Props {
 //   }
 
 const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
-    const dispatch = useAppDispatch()
-    const  invoicePrevData = useAppSelector((state:RootState) => state.invoice.invoices)
-    const ref = invoicePrevData.ref
-    const full_name = invoicePrevData.full_name
-    const email = invoicePrevData.email
-    const phone = invoicePrevData.phone
-    const address = invoicePrevData.address
-
-
-
-
-
+    const dispatch = useAppDispatch();
+    const invoicePrevData = useAppSelector((state: RootState) => state.invoice.invoices);
+  
+    const { ref, full_name, email, phone, address } = invoicePrevData;
+  
     const [invoiceData, setInvoiceData] = useState<any>({
-        ref: ref,
-        full_name: full_name,
-        email: email,
-        phone: phone,
-        address: address,
-        order: [{name:'',quantity:0,price:0}]  
-
+      ref,
+      full_name,
+      email,
+      phone,
+      address,
+      order: [],
     });
-
+  
     const [order, setOrder] = useState({
-        name: '',
-        quantity: 0,
-        price: 0
-      });
-      
-    const addOrder = () => {
-        const newOrder = {name: 'Trouser', quantity: 2, price: 400};
-        setInvoiceData({
-          ...invoiceData,
-          order: [...invoiceData.order, newOrder]
-        });
-      };
-      
-
-    const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] =
-    useCreateInvoiceMutation();
+      name: '',
+      quantity: 0,
+      price: 0,
+    });
   
-  const handleCreateInvoice = async () => {
-    // try {
-    //     if (Object.values(invoiceData).every((value) => value !== undefined)) {
-    //         await createInvoice(invoiceData);
-    //       }          
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    console.log(invoiceData)
-    // dispatch(setSecondStep(false))
-    onClose()
-  };
-
+    const addOrder = (newOrder: any) => {
+      const allOrders = [...invoiceData.order, newOrder];
+      setInvoiceData({ ...invoiceData, order: allOrders });
+      setOrder({ name: '', quantity: 0, price: 0 })
+      console.log('All orders', allOrders);
+    };
   
-  useEffect(() => {
-    if (isSuccess && creatInvoiceData?.success) {
-        console.log(creatInvoiceData)
-    } else {
-        console.log('An error occurred')
-    }
-  },[]);
+    const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
+  
+    const handleCreateInvoice = async () => {
+      try {
+        if (Object.values(invoiceData).every((value) => value !== undefined)) {
+          await createInvoice(invoiceData);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+  
+      console.log(invoiceData);
+      dispatch(setSecondStep(false))
+      onClose();
+    };
+  
+    useEffect(() => {
+      if (isSuccess && creatInvoiceData?.success) {
+        console.log(creatInvoiceData);
+      } else {
+        console.log('An error occurred');
+      }
+    }, [isSuccess, creatInvoiceData]);
 
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
@@ -129,28 +119,32 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]'
                         name='name'
-                        value={invoiceData.order[0]?.name}
-                        onChange={(e) => setInvoiceData({
-                            ...invoiceData,
-                            order: [{...invoiceData.order[0],
-                                    name: e.target.value
-                                }
-                            ]
-                        })}
+                        // value={invoiceData.order[0]?.name}
+                        value={order.name}
+                        onChange={(e) => setOrder({...order, name: e.target.value})} 
+                        // onChange={(e) => setInvoiceData({
+                        //     ...invoiceData,
+                        //     order: [{...invoiceData.order[0],
+                        //             name: e.target.value
+                        //         }
+                        //     ]
+                        // })}
                         type='text' 
                         label='Item name' 
                         placeholder='Item name'/>
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
                         name='quantity'
-                        value={invoiceData.order[0]?.quantity}
-                        onChange={(e) => setInvoiceData({
-                            ...invoiceData,
-                            order: [{...invoiceData.order[0],
-                                    quantity: e.target.value
-                                }
-                            ]
-                        })}
+                        value={order.quantity.toString()}
+                        onChange={(e) => setOrder({...order, quantity: parseInt(e.target.value)})} 
+                        // value={invoiceData.order[0]?.quantity}
+                        // onChange={(e) => setInvoiceData({
+                        //     ...invoiceData,
+                        //     order: [{...invoiceData.order[0],
+                        //             quantity: e.target.value
+                        //         }
+                        //     ]
+                        // })}
                         type='number' 
                         label='Quantity' 
                         placeholder='1'/>
@@ -158,18 +152,20 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
                         inputMode='numeric'
                         name='price'
-                        value={invoiceData.order[0]?.price}
-                        onChange={(e) => setInvoiceData({
-                            ...invoiceData,
-                            order: [{...invoiceData.order[0],
-                                    price: e.target.value
-                                }
-                            ]
-                        })}
+                        value={order.price.toString()}
+                        onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
+                        // value={invoiceData.order[0]?.price}
+                        // onChange={(e) => setInvoiceData({
+                        //     ...invoiceData,
+                        //     order: [{...invoiceData.order[0],
+                        //             price: e.target.value
+                        //         }
+                        //     ]
+                        // })}
                         type='number'  
                         label='Price' 
                         placeholder='0.00'/>
-                        <div onClick={addOrder} className='flex justify-end items-center gap-2 cursor-pointer'>
+                        <div onClick={() => addOrder(order)} className='flex justify-end items-center gap-2 cursor-pointer'>
                             <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Add item</h1>
                             <FontAwesomeIcon  icon={faPlus} className='text-primary'/>
                         </div>
@@ -177,11 +173,11 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
-                            <button onClick={() => {
+                            <div onClick={() => {
                                 handleCreateInvoice()
-                                }} className='w-[6.5rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                            Continue
-                            </button>
+                                }} className='w-[6.5rem] h-11 flex justify-center items-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                                    {isLoading ? <Loader/> : 'Continue'}
+                            </div>
                         </div>
                     </div>
                 </div>
