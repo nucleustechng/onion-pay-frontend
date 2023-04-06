@@ -6,15 +6,7 @@ import { RootState } from '../../redux/store'
 
 
 const Businness = () => {
-  const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
-  const router = useRouter()
 
-  if (typeof window !== "undefined") {
-      // import and use next/router here
-      if(!isAuthenticated){
-        router.push('/auth/signin')
-      }
-    }
   return (
     <div>
         <div>

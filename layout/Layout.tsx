@@ -34,7 +34,7 @@ const Layout = ({children}:any) => {
           <div className=''>
               <SideBar/>
           </div>
-            <div className=''>{children}</div>
+            <div className='h-screen overflow-y-auto scrollbar-hide'>{children}</div>
         </div>
         }
           {showmerchantLayout &&   
@@ -42,7 +42,7 @@ const Layout = ({children}:any) => {
               <div className=' '>
                   <SideBarMobile/>
               </div>
-                <div className=''>{children}</div>
+                <div className='h-screen overflow-y-auto scrollbar-hide'>{children}</div>
             </div>
         }
         

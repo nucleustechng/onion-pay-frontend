@@ -11,9 +11,9 @@ const TransactionHeader = () => {
             <div className='w-[10.45rem]'>
               <h1>Amount</h1>
             </div>
-            <div className='w-[9.4rem]'>
+            {/* <div className='w-[9.4rem]'>
               <h1>Payment type</h1>
-            </div>
+            </div> */}
             <div className='w-[18.8rem]'>
               <h1>Date</h1>
             </div>

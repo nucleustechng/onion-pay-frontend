@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const invoiceApi = createApi({
     reducerPath:'invoiceApi',
-    // tagTypes:["paymentpages"],
+    tagTypes:["invoices"],
     baseQuery:fetchBaseQuery({
         baseUrl:'https://onion-pay.herokuapp.com',
         prepareHeaders: (headers) => {
@@ -29,13 +29,13 @@ export const invoiceApi = createApi({
                     body,
                 };
             },
-            // invalidatesTags: ["paymentpages"]
+            invalidatesTags: ["invoices"]
         }),
-        // loadPaymentLinks:builder.query<any,void>({
-        //     query:() => '/api/v1/payment-pages',
-        //     // providesTags:["paymentpages"]
-        // })
+        loadInvoices:builder.query<any,void>({
+            query:() => '/api/v1/invoices',
+            providesTags:["invoices"]
+        })
     })
 });
 
-export const { useCreateInvoiceMutation } = invoiceApi
+export const { useCreateInvoiceMutation, useLoadInvoicesQuery } = invoiceApi

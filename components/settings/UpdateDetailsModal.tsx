@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../Assets/icon/CloseIcon.svg'
-import { useCreateBusinessMutation } from '../../modules/BusinessPageApi/businessApi'
 import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader'
 import { setSecondStep } from '../../redux/Modal-Processes/createBusinessSlice'
 import { useAppDispatch } from '../../redux/redux-hooks/hooks'
+import { useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
 
 interface Props {
     isVisible:boolean
@@ -15,11 +15,11 @@ interface Props {
 }
 
 type BusinessForm = {
-    b_name:string,
-    b_email:string,
-    b_phone:string,
-    b_address:string,
-    website:string
+    email:string,
+    phone:string,
+    address:string,
+    website:string,
+    bvn:string
 }
 
 const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
@@ -28,27 +28,27 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
     const dispatch = useAppDispatch()
 
     const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
-      b_name: '',
-      b_email: '',
-      b_phone: '',
-      b_address: '',
+      email: '',
+      phone: '',
+      address: '',
       website: '',
+      bvn:''
     });
 
 
-    const [createBusiness, { data: businessData, isSuccess, isLoading }] =
-    useCreateBusinessMutation();
+    const [updateBusinessDetails, { data: businessData, isSuccess, isLoading }] =
+    useUpdateBusinessInfoMutation();
   
   const handleCreateBusiness = async () => {
     try {
       if (
-        businessInfo.b_name &&
-        businessInfo.b_email &&
-        businessInfo.b_address &&
-        businessInfo.b_phone &&
-        businessInfo.website
+        businessInfo.email &&
+        businessInfo.address &&
+        businessInfo.phone &&
+        businessInfo.website &&
+        businessInfo.bvn
       ) {
-        await createBusiness(businessInfo);
+        await updateBusinessDetails(businessInfo);
       }
     } catch (err) {
       console.log(err);
@@ -57,15 +57,15 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
-      toast.success('Your business has been successfully created!');
+      toast.success('Your business details have been successfully updated!');
       setBusinessInfo({
-        b_name: '',
-        b_email: '',
-        b_phone: '',
-        b_address: '',
+        email: '',
+        phone: '',
+        address: '',
         website: '',
+        bvn:''
       });
-      dispatch(setSecondStep(true))
+      onClose()
     } else {
       toast.error(businessData?.reason);
     }
@@ -102,28 +102,18 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                     </div>
                     <div className='flex flex-col gap-4 mt-6'>
                         <Input 
-                        name='b_name'
-                        value={businessInfo.b_name}
-                        onChange={(e) => setBusinessInfo({...businessInfo, b_name: e.target.value})}
-                        placeholder='Business name'
-                        label='Business name' 
-                        type='text' 
-                        width='w-[26rem] md:w-[30rem]'
-                        height='h-[3.13rem]'
-                        />
-                        <Input 
-                        name='b_email'
-                        value={businessInfo.b_email}
-                        onChange={(e) => setBusinessInfo({...businessInfo, b_email: e.target.value})}
+                        name='email'
+                        value={businessInfo.email}
+                        onChange={(e) => setBusinessInfo({...businessInfo, email: e.target.value})}
                         placeholder='Business email'
                         label='Business email' 
                         type='text' 
                         width='w-[26rem] md:w-[30rem]'
                         height='h-[3.13rem]'/>
                         <Input 
-                        name='b_phone'
-                        value={businessInfo.b_phone}
-                        onChange={(e) => setBusinessInfo({...businessInfo, b_phone: e.target.value})}
+                        name='phone'
+                        value={businessInfo.phone}
+                        onChange={(e) => setBusinessInfo({...businessInfo, phone: e.target.value})}
                         placeholder='+234'
                         label='Business phone' 
                         type='tel' 
@@ -131,9 +121,9 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                         height='h-[3.13rem]'
                         />
                         <Input 
-                        name='b_address'
-                        value={businessInfo.b_address}
-                        onChange={(e) => setBusinessInfo({...businessInfo, b_address: e.target.value})}
+                        name='address'
+                        value={businessInfo.address}
+                        onChange={(e) => setBusinessInfo({...businessInfo, address: e.target.value})}
                         placeholder='Business address'
                         label='Business address' 
                         type='text' 
@@ -150,30 +140,16 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                         width='w-[26rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Country</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nigeria</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Bank name</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>United Bank of Africa</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                      
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Split type</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Percentage</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div>
-                        <Input label='Your share of the payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' />
-                        <Input label='Subaccount’s share of payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' /> */}
+                        <Input 
+                        name='bvn'
+                        value={businessInfo.bvn}
+                        onChange={(e) => setBusinessInfo({...businessInfo, bvn: e.target.value})}
+                        placeholder=''
+                        label='Bank Verification Number' 
+                        type='url' 
+                        width='w-[26rem] md:w-[30rem]'
+                        height='h-[3.13rem]'
+                        />
                     </div>
                     <div className='flex items-center justify-end gap-4 mt-6'>
                         <button onClick={()=>{
@@ -182,7 +158,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                         Cancel
                         </button>
                         <button onClick={handleCreateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Create business'}</div>
+                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Update details'}</div>
                         </button>
                     </div>
                 </div>

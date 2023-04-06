@@ -23,7 +23,7 @@ const Transactions = () => {
   return (
     <div>
       <div>
-        <div className='w-[20rem] lg:w-[72rem]'>
+        <div className='w-[20rem] lg:w-[74rem]'>
           <TransactionSect/>
           {/* <Refunds/> */}
           {/* <ChargeBacks/> */}

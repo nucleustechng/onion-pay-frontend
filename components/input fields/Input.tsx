@@ -11,7 +11,7 @@ interface Props  {
     name?:string,
     value?:string,
     onChange?:(event: ChangeEvent<HTMLInputElement>) => void;
-    inputMode?:string
+    inputMode?:string,
 }
 
 const Input = ({label,placeholder,type,width,horizontalPadding,height,errorMessage,value,name,onChange,inputMode}: Props) => {
@@ -25,6 +25,7 @@ const Input = ({label,placeholder,type,width,horizontalPadding,height,errorMessa
             font-WorkSans font-normal leading-4`}>{label}</label>
             <input 
             inputMode={inputMode}
+            required
             type={type}
             name={name}
             value={value}

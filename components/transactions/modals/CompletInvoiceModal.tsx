@@ -4,10 +4,10 @@ import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep } from '../../../redux/invoiceSlice'
 import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
-import { toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { useCreateInvoiceMutation } from '../../../modules/Invoices/invoiceApi'
 import { RootState } from '../../../redux/store'
-import { Order } from '../../../redux/interfaces/OrderInterface'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../../Loader'
@@ -19,24 +19,12 @@ interface Props {
     onClose:()=>{}
 }
 
-// interface OrderItem {
-//     name: string;
-//     quantity: number;
-//     price: number;
-//   }
-  
-//   interface Order {
-//     ref: string;
-//     full_name: string;
-//     email: string;
-//     phone: string;
-//     address: string;
-//     order: OrderItem[];
-//   }
+
 
 const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
     const dispatch = useAppDispatch();
     const invoicePrevData = useAppSelector((state: RootState) => state.invoice.invoices);
+    const [itemsCount,setItemsCount] = useState<number>(0)
   
     const { ref, full_name, email, phone, address } = invoicePrevData;
   
@@ -56,30 +44,44 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
     });
   
     const addOrder = (newOrder: any) => {
-      const allOrders = [...invoiceData.order, newOrder];
-      setInvoiceData({ ...invoiceData, order: allOrders });
-      setOrder({ name: '', quantity: 0, price: 0 })
-      console.log('All orders', allOrders);
+      // this creates a shallow copy  of the invoiceData order and adds the neworder to it
+      if (newOrder.name != '' && newOrder.quantity != 0 && newOrder.price != 0) {
+        const allOrders = [...invoiceData.order, newOrder];
+        setItemsCount(allOrders.length)
+
+          // here we now add the allOrders to the invoiceData  as an order
+        setInvoiceData({ ...invoiceData, order: allOrders });
+        // Here we set any new order we create
+        setOrder({ name: '', quantity: 0, price: 0 })
+        console.log('All orders', allOrders);
+      } else {
+        toast.error('Fill in item  information');
+      }
+     
     };
   
     const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
   
     const handleCreateInvoice = async () => {
       try {
+        //Here we check that no value passed into the invoiceData object is undefined
         if (Object.values(invoiceData).every((value) => value !== undefined)) {
-          await createInvoice(invoiceData);
+          if (invoiceData.order.length >= 1) {
+            await createInvoice(invoiceData) 
+          } else {
+             toast.error('Fill in item information');
+          }
         }
       } catch (err) {
         console.log(err);
       }
-  
-      console.log(invoiceData);
-      dispatch(setSecondStep(false))
-      onClose();
+
     };
   
     useEffect(() => {
       if (isSuccess && creatInvoiceData?.success) {
+        dispatch(setSecondStep(false))
+        onClose();
         console.log(creatInvoiceData);
       } else {
         console.log('An error occurred');
@@ -95,6 +97,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   
   return (
     <div>
+      <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] z-40
         0 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
             <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[33.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
@@ -119,16 +122,8 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]'
                         name='name'
-                        // value={invoiceData.order[0]?.name}
                         value={order.name}
                         onChange={(e) => setOrder({...order, name: e.target.value})} 
-                        // onChange={(e) => setInvoiceData({
-                        //     ...invoiceData,
-                        //     order: [{...invoiceData.order[0],
-                        //             name: e.target.value
-                        //         }
-                        //     ]
-                        // })}
                         type='text' 
                         label='Item name' 
                         placeholder='Item name'/>
@@ -137,14 +132,6 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         name='quantity'
                         value={order.quantity.toString()}
                         onChange={(e) => setOrder({...order, quantity: parseInt(e.target.value)})} 
-                        // value={invoiceData.order[0]?.quantity}
-                        // onChange={(e) => setInvoiceData({
-                        //     ...invoiceData,
-                        //     order: [{...invoiceData.order[0],
-                        //             quantity: e.target.value
-                        //         }
-                        //     ]
-                        // })}
                         type='number' 
                         label='Quantity' 
                         placeholder='1'/>
@@ -154,20 +141,15 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         name='price'
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
-                        // value={invoiceData.order[0]?.price}
-                        // onChange={(e) => setInvoiceData({
-                        //     ...invoiceData,
-                        //     order: [{...invoiceData.order[0],
-                        //             price: e.target.value
-                        //         }
-                        //     ]
-                        // })}
                         type='number'  
                         label='Price' 
                         placeholder='0.00'/>
-                        <div onClick={() => addOrder(order)} className='flex justify-end items-center gap-2 cursor-pointer'>
-                            <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Add item</h1>
-                            <FontAwesomeIcon  icon={faPlus} className='text-primary'/>
+                        <div className='flex justify-between items-center'>
+                          <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{itemsCount} item(s)</h1>
+                          <div onClick={() => addOrder(order)} className='flex justify-end items-center gap-2 cursor-pointer'>
+                              <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Add item</h1>
+                              <FontAwesomeIcon  icon={faPlus} className='text-primary'/>
+                          </div>
                         </div>
                         <div className='flex items-center justify-end gap-4 mt-2'>
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
@@ -175,7 +157,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                             </button>
                             <div onClick={() => {
                                 handleCreateInvoice()
-                                }} className='w-[6.5rem] h-11 flex justify-center items-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                                }} className='w-[6.5rem] cursor-pointer h-11 flex justify-center items-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
                                     {isLoading ? <Loader/> : 'Continue'}
                             </div>
                         </div>

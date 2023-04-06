@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const settingsApi = createApi({
     reducerPath:'settingsApi',
+    tagTypes:['Details'],
     baseQuery:fetchBaseQuery({
         baseUrl:'https://onion-pay.herokuapp.com',
         prepareHeaders: (headers) => {
@@ -21,8 +22,19 @@ export const settingsApi = createApi({
     endpoints: (builder) => ({
         loadSettings:builder.query<any,void>({
             query:() => '/api/v1/settings',
-        })
+            providesTags:['Details']
+        }),
+        updateBusinessInfo:builder.mutation({
+            query: (body:{email:string,phone:string,address:string,website:string,bvn:string}) => {
+                return {
+                    url:'/api/v1/update-business',
+                    method:'post',
+                    body,
+                };
+            },
+            invalidatesTags: ['Details']
+        }),
     })
 });
 
-export const { useLoadSettingsQuery } = settingsApi
+export const { useLoadSettingsQuery, useUpdateBusinessInfoMutation } = settingsApi

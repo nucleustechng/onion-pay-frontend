@@ -1,11 +1,10 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep, setSliceInvoice } from '../../../redux/invoiceSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
+import Loader from '../../Loader'
 
 
 
@@ -25,6 +24,7 @@ type InvoiceForm = {
 const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
     // const [invoices, setInvoices] = useState<InvoiceForm[]>([]);
     const dispatch = useAppDispatch();
+    const [isLoading,setIsloading] = useState<boolean>();
 
     const [invoiceInfo, setInvoiceInfo] = useState<InvoiceForm>({
         full_name: '',
@@ -37,9 +37,6 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
 
 
       const handleSubmit = () => {
-        // Create a new array with the current invoiceInfo and add it to the invoices array
-        // setInvoices([...invoices, invoiceInfo]);
-        // Reset the form to its initial state
         setInvoiceInfo({
           full_name: '',
           email: '',
@@ -48,8 +45,18 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
           ref:''
         });
         dispatch(setSliceInvoice(invoiceInfo))
-        dispatch(setSecondStep(true))
+    
+        setIsloading(true)
+        setTimeout(() => {
+            setIsloading(false)
+            dispatch(setSecondStep(true))
+        },1000)
       };
+
+      useEffect(() => {
+
+      },[])
+      
 
   
 
@@ -62,7 +69,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
   
   return (
     <div>
-        <div className='fixed inset-0 bg-[#262626] z-4
+        <div className='fixed inset-0 bg-[#262626] z-40
         0 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
             <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[37.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='mx-4 lg:mx-6 mt-7'>
@@ -122,9 +129,9 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
-                            <button onClick={handleSubmit} className='w-[6.5rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                            Continue
-                            </button>
+                            <div onClick={handleSubmit} className='w-[6.5rem] h-11 cursor-pointer flex items-center justify-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                            {isLoading ? <Loader/> : 'Continue'}
+                            </div>
                         </div>
                     </div>
                 </div>

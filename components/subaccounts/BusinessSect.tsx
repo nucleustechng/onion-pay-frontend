@@ -20,6 +20,8 @@ const BusinessSect = () => {
 
   const CreateBusinessModal = dynamic(() => import('./modals/CreateBusinessModal'));
 
+  
+
   return (
     <div>
       <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 

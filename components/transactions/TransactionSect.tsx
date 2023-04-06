@@ -1,7 +1,7 @@
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HelpButton from '../HelpButton'
 import TransactionHeader from './TransactionHeader'
 import TransactionTable from './TransactionTable'
@@ -12,9 +12,9 @@ import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
-import dynamic from 'next/dynamic'
 import CreateInvoiceModal from './modals/CreateInvoiceModal'
 import CompleteInvoiceModal from './modals/CompletInvoiceModal'
+import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 
 const TransactionSect = () => {
@@ -23,8 +23,19 @@ const TransactionSect = () => {
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
+  const [invoicesArray,setInvoicesArray] = useState<any>([])
 
-  const SecondStepInvoice = dynamic(() => import('./modals/SecondStepInvoice'));
+
+  const {data:invoiceData,isSuccess,isLoading} = useLoadInvoicesQuery()
+
+
+  useEffect(() => {
+    if (isSuccess && invoiceData.success == true) {
+      setInvoicesArray(invoiceData['invoices'])
+    } else {
+      console.log('An error occured')
+    }
+  },[isSuccess,invoicesArray,invoiceData])
   
 
   return (
@@ -98,17 +109,31 @@ const TransactionSect = () => {
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
-          <div className='flex flex-col gap-4 mt-6 overflow-x-auto ml-5 lg:ml-0'>
-             <TransactionHeader/>
-             <TransactionTable status='Successful'/>
-             <TransactionTable status='Pending'/>
-          </div>
-          <div>
-            <div>
-              <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/>
-              {isSecondStep && <CompleteInvoiceModal  isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+          <div className='xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
+                  <div className="relative">
+                    <div className="sticky top-0 z-10 bg-white"> 
+                      <TransactionHeader/>
+                    </div>
+                    <div className="mt-5">
+                      {invoicesArray.map((invoice:any) => (
+                      <div key={invoice.i_id}>
+                          <TransactionTable 
+                          status={invoice.paid ? 'Successful' : 'Pending...'}
+                          amount={invoice.amount_string ? invoice.amount_string : '--'}
+                          date={invoice.paid_on ? invoice.paid_on : '--'}
+                          paymentId={invoice.i_id ? invoice.i_id : '---'}
+                          />
+                      </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              <div>
+                <div>
+                  <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/>
+                  {isSecondStep && <CompleteInvoiceModal  isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+                </div>
             </div>
-        </div>
         </div>
     </div>
   )
