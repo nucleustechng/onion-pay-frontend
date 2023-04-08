@@ -20,7 +20,7 @@ const Refunds = () => {
   return (
     <div>
         <div>
-            <div className='w-[20rem] xl:w-[71.5rem]'>
+            <div className='w-[20rem] xl:w-[74.5rem]'>
                 <TransactionRefunds/>
             </div>
         </div>

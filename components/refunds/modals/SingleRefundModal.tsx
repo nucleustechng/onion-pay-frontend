@@ -1,8 +1,12 @@
 import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
+import { useRequestRefundMutation } from '../../../modules/Refunds/refundApi'
+import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 
 
@@ -11,7 +15,55 @@ interface Props {
     onClose:()=>{}
 }
 
+type RefundForm = {
+    t_id:string,
+    partial:boolean,
+    amount:number,
+    reason:string
+}
+
 const SingleRefundModal = ({isVisible,onClose}: Props) => {
+    const dispatch = useAppDispatch()
+
+    const [refundInfo, setRefundInfo] = useState<RefundForm>({
+        t_id:'',
+        partial:true,
+        amount:0,
+        reason:''
+    });
+
+
+    const [requestRefund, { data: refundData, isSuccess, isLoading }] =
+    useRequestRefundMutation();
+  
+  const handleRequestRefund = async () => {
+    try {
+      if (
+        refundInfo.t_id &&
+        refundInfo.partial &&
+        refundInfo.amount &&
+        refundInfo.reason 
+      ) {
+        await requestRefund(refundInfo);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    if (isSuccess && refundData.success == true) {
+      toast.success('Your business has been successfully created!');
+      setRefundInfo({
+        t_id:'',
+        partial:true,
+        amount:0,
+        reason:''
+      });
+    } else {
+      toast.error(refundData?.reason);
+    }
+  },[isSuccess,refundData,dispatch]);
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
@@ -21,13 +73,14 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
   
   return (
     <div>
+        <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
-            <div className='w-[33rem] h-[54rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
+            <div className='w-[33rem] h-[28rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center gap-2'>
-                            <FontAwesomeIcon icon={faChevronLeft}/>
-                            <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Single refund</h1>
+                            {/* <FontAwesomeIcon icon={faChevronLeft}/> */}
+                            <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Log refund</h1>
                         </div>
                         <div>
                             <Image src={CloseIcon} className='cursor-pointer' onClick={()=>{
@@ -36,49 +89,59 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 mt-6'>
-                        <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Customer</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Customer name</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div>
-                        <div className='flex flex-col gap-2 '>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Email address</h1>
-                            <div className='flex items-center justify-between bg-[#F5F5F5] px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Select customer</h1>
-                                {/* <FontAwesomeIcon icon={faChevronDown}/> */}
-                            </div>
-                        </div>
-                        <div className='flex flex-col'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Transaction date</h1>
-                                <div className='flex gap-[0.38rem] items-center'>
-                                    <Input width='w-[14.82rem]' type='number'  placeholder='Start date'/>
-                                    <Input width='w-[14.82rem]' horizontalPadding='px-6' type='number' placeholder='End date'/>
-                                </div>
-                        </div>
-                        <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Transaction reference</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Enter or select your transaction reference</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
+                        <div>
+                            <Input 
+                            name='t_id'
+                            value={refundInfo.t_id}
+                            onChange={(e) => setRefundInfo({...refundInfo, t_id: e.target.value})}
+                            placeholder='Transaction id'
+                            label='Transaction ID' 
+                            type='text' 
+                            width='w-[26rem] md:w-[30rem]'
+                            height='h-[3.13rem]'
+                            />
                         </div>
                         <div>
-                            <Input width='w-[30rem]' type='number' label='How much do you want to refund'  placeholder='0.00'/>
+                            <Input
+                            name='amount'
+                            value={refundInfo.amount.toString()}
+                            onChange={(e) => setRefundInfo({...refundInfo, amount: parseInt(e.target.value)})}
+                            width='w-[26rem] md:w-[30rem]'
+                            height='h-[3.13rem]'
+                            type='number' 
+                            label='How much do you want to refund'  
+                            placeholder='0.00'
+                            />
                         </div>
                         <div className='flex flex-col'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Comments</h1>
+                            <Input
+                            name='reason'
+                            value={refundInfo.reason}
+                            onChange={(e) => setRefundInfo({...refundInfo, reason: e.target.value})}
+                            width='w-[26rem] md:w-[30rem]'
+                            height='h-[3.13rem]'
+                            type='text' 
+                            label='Comments'  
+                            placeholder='Explain the reason for logging this refund'
+                            />
+                            {/* <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Comments</h1>
                             <div className='relative'>
-                                <textarea className='w-[30rem] h-[11.07rem] rounded-[0.313rem] pl-6 pt-4 pr-20 border-[0.07rem] border-solid border-[#CACACA] outline-none text-[#898989] text-sm font-WorkSans font-normal leading-4' placeholder='Explain the reason for logging this refund '></textarea>
+                                <textarea 
+                                
+                                className='w-[30rem] h-[11.07rem] 
+                                rounded-[0.313rem] pl-6 pt-4 pr-20 
+                                border-[0.07rem] border-solid border-[#CACACA] 
+                                outline-none text-[#898989] text-sm 
+                                font-WorkSans font-normal leading-4' 
+                                placeholder='Explain the reason for logging this refund '></textarea>
                                 <h1 className='absolute bottom-[9.4rem] left-[25rem] text-[#898989] text-sm font-WorkSans font-normal leading-4'>0 / 255</h1>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='flex items-center justify-end gap-4 mt-2'>
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
-                            <button className='w-[9.4rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                            <button onClick={handleRequestRefund} className='w-[9.4rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
                             Process refund
                             </button>
                         </div>

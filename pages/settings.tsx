@@ -23,6 +23,9 @@ const Settings = () => {
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
     const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
+    const businessUpdated = useAppSelector((state:RootState) => state.business.businessUpdated)
+    const [refetch,setRefetch] = useState<boolean>();
+
     const router = useRouter()
 
     if (typeof window !== "undefined") {
@@ -38,12 +41,16 @@ const Settings = () => {
     const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
     const {data:settingsData,isSuccess:settingSuccess} = useLoadSettingsQuery()
 
+    const [hasBusiness,setHasBusiness] = useState<boolean>(false);
+
 
     const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
+        businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true) {
-            setBusinessData(settingsData['business'])
+            setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
+            settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
         } else {
             console.log(settingsData?.reason)
         }
@@ -52,7 +59,7 @@ const Settings = () => {
         } else{
             console.log(generateKeyData?.reason)
         }
-    },[isSuccess,generateKeyData])
+    },[isSuccess,generateKeyData,refetch])
 
     // const [showPop, setShowPop] = useState(false);
 
@@ -102,49 +109,56 @@ const Settings = () => {
                 {/* {businessData.map((item:any) => ( */}
                     <div>
                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business name</h1>
-                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.name ? businessData?.name : '--'}</h2>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>
+                            {hasBusiness ? 'Business' : 'Merchant'} name</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>
+                            {hasBusiness ? businessData?.name ? businessData?.name : '--' : 
+                            businessData?.f_name  ? businessData?.f_name + businessData?.l_name : '--'}</h2>
                         </div>
                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business email</h1>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> {hasBusiness ? 'Business' : 'Merchant'} email</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.email ? businessData?.email : '--'}</h2>
                         </div>
                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business phone</h1>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> {hasBusiness ? 'Business' : 'Merchant'} phone</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.phone ? businessData?.phone : '--'}</h2>
                         </div>
                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business address</h1>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> {hasBusiness ? 'Business' : 'Merchant'} address</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.address ? businessData?.address : '--'}</h2>
                         </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        {hasBusiness && <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet name</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletName ? businessData?.walletName : '--'}</h2>
-                        </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        </div>}
+                        {hasBusiness && <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet number</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletNumber ? businessData?.walletNumber : '--'}</h2>
-                        </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        </div>}
+                        {hasBusiness && <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet ID</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletId ? businessData?.walletId : '--'}</h2>
-                        </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        </div>}
+                        {hasBusiness && <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business website</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.website ? businessData?.website : '--'}</h2>
-                        </div>
+                        </div>}
                     </div>
                 {/* ))} */}
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
+                {!hasBusiness && <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
+                    <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>NIN:</h1>
+                    <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.nin ? businessData?.nin : '--'}</h2>
+                </div>}
+                {hasBusiness && <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
-                </div>
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                </div>}
+                {hasBusiness && <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Sign-up Date:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nov 19, 2019 - 10:28 AM</h2>
-                </div>
-                <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                </div>}
+                {hasBusiness && <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />}
+               {hasBusiness && <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>API Keys:</h1>
                     <div className='flex items-center gap-3'>
                         <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{apiKey}</h2>
@@ -152,14 +166,14 @@ const Settings = () => {
                             <Image src={CopyIcon} alt=''/>
                         </div>
                     </div>
-                </div>
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                </div>}
+                {hasBusiness && <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Web hooks:</h1>
                     <div className='flex items-center gap-3'>
                         <div className='w-[16rem] sm:w-auto cursor-pointer flex justify-center text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{webHook}</div>
                         <Image src={CopyIcon} alt='' className='cursor-pointer' onClick={() => copyToClipboard(webHook)}/>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
         <div>

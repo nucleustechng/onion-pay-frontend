@@ -150,30 +150,7 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
                         width='w-[26rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Country</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nigeria</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Bank name</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>United Bank of Africa</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                      
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Split type</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Percentage</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div>
-                        <Input label='Your share of the payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' />
-                        <Input label='Subaccount’s share of payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' /> */}
+                        
                     </div>
                     <div className='flex items-center justify-end gap-4 mt-6'>
                         <button onClick={()=>{

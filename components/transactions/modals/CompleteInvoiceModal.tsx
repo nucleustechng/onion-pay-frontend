@@ -66,7 +66,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
       try {
         //Here we check that no value passed into the invoiceData object is undefined
         if (Object.values(invoiceData).every((value) => value !== undefined)) {
-          if (invoiceData.order.length >= 1) {
+          if (invoiceData != undefined) {
             await createInvoice(invoiceData) 
           } else {
              toast.error('Fill in item information');
@@ -84,7 +84,9 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
         onClose();
         console.log(creatInvoiceData);
       } else {
-        console.log('An error occurred');
+        toast.error(creatInvoiceData?.reason,{autoClose:1000})
+        dispatch(setSecondStep(false))
+        onClose()
       }
     }, [isSuccess, creatInvoiceData]);
 

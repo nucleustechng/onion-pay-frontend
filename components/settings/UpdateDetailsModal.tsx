@@ -5,9 +5,9 @@ import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader'
-import { setSecondStep } from '../../redux/Modal-Processes/createBusinessSlice'
+import { setBusinessUpdated } from '../../redux/Modal-Processes/createBusinessSlice'
 import { useAppDispatch } from '../../redux/redux-hooks/hooks'
-import { useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
+import { useLoadSettingsQuery, useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
 
 interface Props {
     isVisible:boolean
@@ -39,7 +39,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
     const [updateBusinessDetails, { data: businessData, isSuccess, isLoading }] =
     useUpdateBusinessInfoMutation();
   
-  const handleCreateBusiness = async () => {
+  const handleUpdateBusiness = async () => {
     try {
       if (
         businessInfo.email &&
@@ -53,11 +53,16 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
     } catch (err) {
       console.log(err);
     }
+    dispatch(setBusinessUpdated(true))
+
   };
+
+  const businessDetails = useLoadSettingsQuery()
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
       toast.success('Your business details have been successfully updated!');
+    businessDetails.refetch()
       setBusinessInfo({
         email: '',
         phone: '',
@@ -68,8 +73,9 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
       onClose()
     } else {
       toast.error(businessData?.reason);
+      dispatch(setBusinessUpdated(false))
     }
-  },[isSuccess,businessData,dispatch]);
+  },[isSuccess,businessData,dispatch,businessDetails]);
 
   
     const handleClose = (e:any) =>{
@@ -93,7 +99,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
             <div className='w-[29rem] md:w-[33rem] h-[38rem] mt-36 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6 '>
                     <div className='flex items-center justify-between'>
-                       <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5'>Create business</h1>
+                       <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5'>Update business details</h1>
                        <div className='cursor-pointer'  onClick={()=>{
                         onClose()
                         }}>
@@ -157,7 +163,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                         }} className='flex items-center cursor-pointer justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                         Cancel
                         </button>
-                        <button onClick={handleCreateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                        <button onClick={handleUpdateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
                         <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Update details'}</div>
                         </button>
                     </div>

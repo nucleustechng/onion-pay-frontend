@@ -13,6 +13,7 @@ import { RootState } from '../../redux/store'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import dynamic from 'next/dynamic'
+import SingleRefundModal from './modals/SingleRefundModal'
 
 const TransactionRefunds = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
@@ -124,9 +125,9 @@ const TransactionRefunds = () => {
               </div>
           </div>
           <div>
-            <LogRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+            {/* <LogRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             
-             {/* <SingleRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
+             <SingleRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
           
           </div>
         </div>
