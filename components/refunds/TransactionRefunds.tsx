@@ -21,10 +21,59 @@ const TransactionRefunds = () => {
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
   const LogRefundModal = dynamic(() => import('./modals/LogRefundModal'));
+  const  [showEmpty,setShowEmpty] = useState<boolean>(true)
+  const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
 
   return (
     <div>
+      {showEmpty ? 
+
+<div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
+<div className='flex justify-between items-center mr-9 mb-12'>
+          <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Refunds</h1>
+          {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+          <Image src={Hamburger} alt='Hamburger Icon' />
+        </div> : null}
+      </div>
+  {/* Button to add subaccounts */}
+  <div className='flex justify-end'>
+    <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
+      setShowModal(true)
+      }}>
+      <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Log a refund</h1>
+      <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+    </div>
+  </div>
+  <div className='flex flex-col gap-5 mt-6'>
+    <div className='w-[27.65rem]'>
+      <h1 className='text-[2rem] text-[#262626] font-WorkSans font-normal leading-9'>You do not have any refunds yet.</h1>
+    </div>
+    <div className='w-[27.65rem]'>
+      <p className='text-base text-[#262626] font-WorkSans font-normal leading-5'>You will see the record of all your refunds to your customers here when you log a refund.</p>
+    </div>
+    <div>
+      <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] cursor-pointer'  onClick={()=>{
+      setShowModal(true)
+      }}>
+        <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Log a refund</h1>
+        <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+      </div>
+    </div>
+    <div>
+        {/* <LogRefundModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/> */}
+         <SingleRefundModal  isVisible={showModal} onClose={async () => setShowModal(false)}/>
+    </div>
+  </div>
+  <div className='fixed left-auto top-3/4 right-0 mr-7 z-30 mt-[8.5rem]'>
+    <HelpButton/>
+  </div>
+</div>
+    
+    :
+      
+
+      
       <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         <div className='w-screen  sm:w-[42rem] md:w-screen     overflow-hidden xl:w-[72rem] mx-5 mt-4 lg:mt-7'>
             
@@ -127,11 +176,11 @@ const TransactionRefunds = () => {
           <div>
             {/* <LogRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             
-             <SingleRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+             {/* <SingleRefundModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
           
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

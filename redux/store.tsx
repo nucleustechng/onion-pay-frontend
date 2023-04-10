@@ -5,6 +5,7 @@ import { businessApi } from '../modules/BusinessPageApi/businessApi'
 import { invoiceApi } from '../modules/Invoices/invoiceApi'
 import { settingsApi } from '../modules/LoadSettings/settingsApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
+import { passwordApi } from '../modules/ResetPassword/passwordApi'
 import invoiceSlice from './invoiceSlice'
 import loginSlice from './loginSlice'
 import createBusinessSlice from './Modal-Processes/createBusinessSlice'
@@ -17,7 +18,6 @@ import sidebarSlice from './sidebarSlice'
 
 export const store = configureStore({
   reducer: {
-    [AuthApi.reducerPath]:AuthApi.reducer,
     payment:paymentSlice,
     business:createBusinessSlice,
     paymentLink:paymentLinkSlice,
@@ -29,9 +29,11 @@ export const store = configureStore({
     [paymentPageApi.reducerPath]:paymentPageApi.reducer,
     [generateApiKeys.reducerPath]:generateApiKeys.reducer,
     [settingsApi.reducerPath]:settingsApi.reducer,
-    [invoiceApi.reducerPath]:invoiceApi.reducer
+    [invoiceApi.reducerPath]:invoiceApi.reducer,
+    [AuthApi.reducerPath]:AuthApi.reducer,
+    [passwordApi.reducerPath]:passwordApi.reducer
   },
-  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,
+  middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,passwordApi.middleware,
   businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,invoiceApi.middleware)
   
 })
