@@ -86,7 +86,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                             <h1 className='text-[#3063E9] text-sm font-WorkSans font-normal leading-4'>Step 1 of 2</h1>
                         </div>
                         <div>
-                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Your company information</h1>
+                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Client information</h1>
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 mt-6 '>
@@ -96,8 +96,8 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                         value={invoiceInfo.full_name}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, full_name: e.target.value})}
                         type='text' 
-                        label='Business name' 
-                        placeholder='Business name'
+                        label='Client name' 
+                        placeholder='Client name'
                         />
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
@@ -105,7 +105,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                         value={invoiceInfo.email}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, email: e.target.value})}
                         type='email' 
-                        label='Business email' 
+                        label='Client email' 
                         placeholder='email@example.com'
                         />
                         <Input 
@@ -114,7 +114,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                         value={invoiceInfo.phone}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, phone: e.target.value})}
                         type='text' 
-                        label='Business phone' 
+                        label='Client phone' 
                         placeholder='+234'
                         />
                         <Input 
@@ -122,7 +122,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
                         value={invoiceInfo.address}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, address: e.target.value})} 
                         name='address'
-                        type='text' label='Business address' 
+                        type='text' label='Client address' 
                         />
                         
                         <div className='flex items-center justify-end gap-4 mt-2'>

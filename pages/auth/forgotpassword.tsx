@@ -211,6 +211,7 @@ const Forgotpassword = () => {
         :
 
         <div className='flex  justify-center mb-[5rem] lg:mb-[16rem] '>
+            
             <div className= 'flex flex-col pt-32 lg:pb-20'>
                 <div className='flex flex-col gap-10'>
                     <h1 className='w-[21.875rem] sm:w-[25rem] xl:w-[70rem]  text-center text-[#303778] text-5xl font-SpaceGrotesk font-bold leading-[3.375rem]

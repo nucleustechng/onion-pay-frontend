@@ -24,42 +24,55 @@ const Settings = () => {
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
     const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
     const businessUpdated = useAppSelector((state:RootState) => state.business.businessUpdated)
-    const [refetch,setRefetch] = useState<boolean>();
+    // const [refetch,setRefetch] = useState<boolean>();
 
     const router = useRouter()
 
-    if (typeof window !== "undefined") {
-        // import and use next/router here
-        if(!isAuthenticated){
-          router.push('/auth/signin')
-        }
-      }
+    // if (typeof window !== "undefined") {
+    //     // import and use next/router here
+    //     if(!isAuthenticated){
+    //       router.push('/auth/signin')
+    //     }
+    //   }
 
     const  [apiKey,setApiKey]  = useState<string>('')
     const  [businessData,setBusinessData] = useState<any>()
 
     const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
-    const {data:settingsData,isSuccess:settingSuccess} = useLoadSettingsQuery()
+    const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
 
     const [hasBusiness,setHasBusiness] = useState<boolean>(false);
+    const [successMessage,setSuccessMessage] = useState<string>('')
 
 
     const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
-        businessUpdated ? setRefetch(true) :   setRefetch(false)
+        // businessUpdated ? setRefetch(true) :   setRefetch(false)
+      console.log(businessUpdated)
         if (settingSuccess && settingsData.success == true) {
             setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
             settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
         } else {
             console.log(settingsData?.reason)
         }
+
+    
+    },[settingSuccess])
+    useEffect(() => {
+        if (businessUpdated) {
+            refetch();
+            router.reload()
+        }
+    }, [businessUpdated]);
+
+    useEffect(() => {
         if (isSuccess && generateKeyData.success == true){
             setApiKey(generateKeyData?.live_pub_key)
         } else{
             console.log(generateKeyData?.reason)
         }
-    },[isSuccess,generateKeyData,refetch])
+    },[isSuccess,generateKeyData])
 
     // const [showPop, setShowPop] = useState(false);
 

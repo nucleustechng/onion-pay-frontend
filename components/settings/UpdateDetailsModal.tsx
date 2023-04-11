@@ -53,16 +53,14 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
     } catch (err) {
       console.log(err);
     }
-    dispatch(setBusinessUpdated(true))
 
   };
 
-  const businessDetails = useLoadSettingsQuery()
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
       toast.success('Your business details have been successfully updated!');
-    businessDetails.refetch()
+      dispatch(setBusinessUpdated(true))
       setBusinessInfo({
         email: '',
         phone: '',
@@ -75,7 +73,8 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
       toast.error(businessData?.reason);
       dispatch(setBusinessUpdated(false))
     }
-  },[isSuccess,businessData,dispatch,businessDetails]);
+    
+  },[isSuccess]);
 
   
     const handleClose = (e:any) =>{

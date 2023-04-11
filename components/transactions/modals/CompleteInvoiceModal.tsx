@@ -144,7 +144,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
                         type='number'  
-                        label='Price' 
+                        label='Unit price' 
                         placeholder='0.00'/>
                         <div className='flex justify-between items-center'>
                           <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{itemsCount} item(s)</h1>
