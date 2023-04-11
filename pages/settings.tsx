@@ -10,7 +10,6 @@ import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/router'
 import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
 
@@ -22,18 +21,10 @@ const Settings = () => {
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-    const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
     const businessUpdated = useAppSelector((state:RootState) => state.business.businessUpdated)
     // const [refetch,setRefetch] = useState<boolean>();
 
-    const router = useRouter()
-
-    // if (typeof window !== "undefined") {
-    //     // import and use next/router here
-    //     if(!isAuthenticated){
-    //       router.push('/auth/signin')
-    //     }
-    //   }
+  
 
     const  [apiKey,setApiKey]  = useState<string>('')
     const  [businessData,setBusinessData] = useState<any>()
@@ -42,7 +33,7 @@ const Settings = () => {
     const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
 
     const [hasBusiness,setHasBusiness] = useState<boolean>(false);
-    const [successMessage,setSuccessMessage] = useState<string>('')
+
 
 
     const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
@@ -58,13 +49,12 @@ const Settings = () => {
         }
 
     
-    },[settingSuccess])
+    },[settingSuccess,businessUpdated,settingsData])
     useEffect(() => {
         if (businessUpdated) {
             refetch();
-            router.reload()
         }
-    }, [businessUpdated]);
+    }, [businessUpdated,refetch]);
 
     useEffect(() => {
         if (isSuccess && generateKeyData.success == true){

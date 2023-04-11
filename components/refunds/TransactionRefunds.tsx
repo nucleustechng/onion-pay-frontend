@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../../redux/sidebarSlice'
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import SingleRefundModal from './modals/SingleRefundModal'
 
 const TransactionRefunds = () => {
@@ -20,9 +20,9 @@ const TransactionRefunds = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
-  const LogRefundModal = dynamic(() => import('./modals/LogRefundModal'));
-  const  [showEmpty,setShowEmpty] = useState<boolean>(true)
-  const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
+  // const LogRefundModal = dynamic(() => import('./modals/LogRefundModal'));
+  const  [showEmpty] = useState<boolean>(true)
+  // const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
 
   return (

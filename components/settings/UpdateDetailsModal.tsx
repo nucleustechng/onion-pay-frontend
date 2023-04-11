@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader'
 import { setBusinessUpdated } from '../../redux/Modal-Processes/createBusinessSlice'
 import { useAppDispatch } from '../../redux/redux-hooks/hooks'
-import { useLoadSettingsQuery, useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
+import {  useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
 
 interface Props {
     isVisible:boolean
@@ -74,7 +74,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess]);
+  },[isSuccess,businessData,dispatch,onClose]);
 
   
     const handleClose = (e:any) =>{

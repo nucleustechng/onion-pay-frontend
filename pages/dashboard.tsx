@@ -4,22 +4,22 @@ import Image from 'next/image'
 import Calendar from '../Assets/icon/Calendar.svg'
 import HelpButton from '../components/HelpButton'
 import MyChart from '../components/dashboard/MyChart'
-import { RootState } from '../redux/store'
-import { useAppSelector } from '../redux/redux-hooks/hooks'
-import { useRouter } from 'next/router'
+// import { RootState } from '../redux/store'
+// import { useAppSelector } from '../redux/redux-hooks/hooks'
+// import { useRouter } from 'next/router'
 
 
 
 export default function Home() {
-  const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
-  const router = useRouter()
+  // const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
+  // const router = useRouter()
 
-  if (typeof window !== "undefined") {
-    // import and use next/router here
-    if(!isLoggedIn){
-      router.push('/auth/signin')
-    }
-  }
+  // if (typeof window !== "undefined") {
+  //   // import and use next/router here
+  //   if(!isLoggedIn){
+  //     router.push('/auth/signin')
+  //   }
+  // }
   return (
     <div>
      <div>

@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useCreatePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
 import {  setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
+import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader'
-import { RootState } from '../../../redux/store'
+// import { RootState } from '../../../redux/store'
 
 interface Props {
     isVisible:boolean
@@ -75,7 +75,7 @@ useEffect(() => {
   } else {
     setShowErrorToast(true);
   }
-}, [isSuccess,paymentLinkData]);
+}, [isSuccess,paymentLinkData,onClose]);
 
 useEffect(() => {
   if (showSuccessToast) {

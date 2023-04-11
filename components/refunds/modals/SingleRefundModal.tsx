@@ -1,5 +1,3 @@
-import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
@@ -33,7 +31,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
     });
 
 
-    const [requestRefund, { data: refundData, isSuccess, isLoading }] =
+    const [requestRefund, { data: refundData, isSuccess }] =
     useRequestRefundMutation();
   
   const handleRequestRefund = async () => {

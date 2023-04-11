@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../redux/sidebarSlice'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 
 
@@ -25,15 +25,10 @@ const Customers = () => {
 
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-  const isLoggedIn = useAppSelector((state:RootState) => state.login.isLoggedIn)
-  const router = useRouter()
 
-  if (typeof window !== "undefined") {
-    // import and use next/router here
-    if(!isLoggedIn){
-      router.push('/auth/signin')
-    }
-  }
+  // const router = useRouter()
+
+
  
 
 

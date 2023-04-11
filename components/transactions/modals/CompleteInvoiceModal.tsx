@@ -88,7 +88,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
         dispatch(setSecondStep(false))
         onClose()
       }
-    }, [isSuccess, creatInvoiceData]);
+    }, [isSuccess, creatInvoiceData,dispatch,onClose]);
 
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
@@ -139,7 +139,6 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
                         placeholder='1'/>
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
-                        inputMode='numeric'
                         name='price'
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}

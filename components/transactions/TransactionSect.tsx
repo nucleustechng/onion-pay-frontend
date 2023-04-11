@@ -26,7 +26,7 @@ const TransactionSect = () => {
   const [invoicesArray,setInvoicesArray] = useState<any>([])
 
 
-  const {data:invoiceData,isSuccess,isLoading} = useLoadInvoicesQuery()
+  const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
   const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
