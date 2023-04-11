@@ -11,6 +11,7 @@ import loginSlice from './loginSlice'
 import createBusinessSlice from './Modal-Processes/createBusinessSlice'
 import paymentLinkSlice from './Modal-Processes/paymentLinkSlice'
 import paymentSlice from './Modal-Processes/paymentSlice'
+import passwordResetSlice from './passwordResetSlice'
 import sidebarSlice from './sidebarSlice'
 // import { seerbitApi } from '../components/Checkout/SeerbitPayment'
 
@@ -24,6 +25,7 @@ export const store = configureStore({
     sidebar:sidebarSlice,
     login:loginSlice,
     invoice:invoiceSlice,
+    email:passwordResetSlice,
     // [seerbitApi.reducerPath]:seerbitApi.reducer,
     [businessApi.reducerPath]:businessApi.reducer,
     [paymentPageApi.reducerPath]:paymentPageApi.reducer,

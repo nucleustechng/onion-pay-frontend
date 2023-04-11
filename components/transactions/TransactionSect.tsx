@@ -27,10 +27,10 @@ const TransactionSect = () => {
 
 
   const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
-  const  [showEmpty,setShowEmpty] = useState<boolean>(true)
+  // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
-    invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
+    // invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
@@ -42,7 +42,7 @@ const TransactionSect = () => {
 
   return (
     <div>
-        {showEmpty ?
+        {/* {showEmpty ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
@@ -50,9 +50,9 @@ const TransactionSect = () => {
           {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
-      </div>
+      </div> */}
   {/* Button to add subaccounts */}
-   <div className='flex justify-end'>
+   {/* <div className='flex justify-end'>
     <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
       setShowModal(true)
       }}>
@@ -86,7 +86,7 @@ const TransactionSect = () => {
   </div>
 </div>
     
-          : 
+          :  */}
           <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
@@ -177,11 +177,11 @@ const TransactionSect = () => {
                 </div>
               <div>
                 <div>
-                  {/* <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/> */}
-                  <CompleteInvoiceModal  isVisible={showModal} onClose={async () => setShowModal(false)}/>
+                <CreateInvoiceModal isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+              <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
                 </div>
             </div>
-        </div>}
+        </div>
     </div>
   )
 }

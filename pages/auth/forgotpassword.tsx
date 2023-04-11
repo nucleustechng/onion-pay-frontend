@@ -16,6 +16,10 @@ import { useForgotPasswordMutation, useResetPasswordMutation } from '../../modul
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader'
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
+import { setMyEmail } from '../../redux/passwordResetSlice'
+import { RootState } from '../../redux/store'
+import { useRouter } from 'next/router'
 
 interface IResetInfo {
     email:string,
@@ -27,8 +31,11 @@ interface IResetInfo {
 const Forgotpassword = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
   const [resetpassword,setResetPassword] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const  newEmail = useAppSelector((state:RootState) => state.email.email);
 
-  const [email,setEmail] = useState<string>();
+  const [email,setEmail] = useState<string>('');
 
   const  [resetInfo,setResetInfo] = useState<IResetInfo>({
     email:'',
@@ -49,7 +56,7 @@ const Forgotpassword = () => {
   }
 
   const  handleResetPass = async () => {
-    if (resetInfo.email && resetInfo.code && resetInfo.n_pass) {
+    if (resetInfo?.email && resetInfo?.code && resetInfo?.n_pass) {
         await resetPassword(resetInfo)
     } else {
         toast.error(forgotPassData?.reason,{autoClose:1500})
@@ -57,28 +64,39 @@ const Forgotpassword = () => {
   }
 
   useEffect(() => {
-        const forgotPass = () => {
+       
             if (forgotPassSuccess && forgotPassData?.success) {
                 toast.success(forgotPassData?.reason,{autoClose:1000})
                 setResetPassword(true)
+                dispatch(setMyEmail(email))
+                setResetInfo({...resetInfo,email: newEmail})
             } else {
                 toast.error(forgotPassData?.reason,{autoClose:1500})
             }
-        }
-        const resetPass = () => {
-            if (isSuccess && data?.success) {
-                toast.success(data?.reason,{autoClose:1000})
-                setResetInfo({
-                    email:'',
-                    code:'',
-                    n_pass:""
-                })
-            }
-        }
 
-        forgotPass();
-        resetPass();
-  },[resetpassword,forgotPassSuccess,forgotPassData,data,isSuccess])
+    
+  },[forgotPassSuccess,forgotPassData])
+
+  useEffect(() => {
+
+        if (isSuccess && data?.success) {
+            toast.success('You have successfuly changed your password!!',{autoClose:1000})
+            setTimeout(() => {
+                router.push('/auth/signin')
+            },1500)
+            console.log('Success message',data?.reason)
+            setResetInfo({
+                email:'',
+                code:'',
+                n_pass:""
+            })
+            // dispatch(setMyEmail(''))
+        } else {
+            toast.error(data?.reason,{autoClose:1500})
+        }
+    
+
+  },[data,isSuccess])
   
 
 
@@ -219,11 +237,11 @@ const Forgotpassword = () => {
                     '>Change Password<span className='text-[#FF9635]'>!</span></h1>
                 </div>
                 <div className='flex justify-center'>
-                        <div className='bg-white  w-[33rem] h-[34.575rem] mt-[3.75rem] rounded-[0.625rem]'>
+                        <div className='lg:bg-white  md:w-[33rem] h-[34.575rem] mt-[3.75rem] rounded-[0.625rem]'>
                             <h2 className='mt-6 text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5'>Fill in your information to change password</h2>
                             <div className='flex justify-center mt-10 '>
                                 <div className='flex flex-col gap-6'>
-                                    <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                    {/* <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
                                     height='h-[3.125rem]' 
                                     name='email'
                                     value={resetInfo.email}
@@ -232,7 +250,7 @@ const Forgotpassword = () => {
                                     textSize='text-sm' 
                                     placeholder='example@email.com'
                                     type='email'
-                                    />
+                                    /> */}
                                     <Input 
                                     name='code'
                                     value={resetInfo.code}

@@ -88,7 +88,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
         dispatch(setSecondStep(false))
         onClose()
       }
-    }, [isSuccess, creatInvoiceData,dispatch,onClose]);
+    }, [isSuccess, creatInvoiceData,invoiceData]);
 
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){

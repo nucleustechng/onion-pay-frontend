@@ -27,6 +27,8 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
 
     const dispatch = useAppDispatch()
 
+    const [successMessage] = useState('Your business details have been successfully updated!')
+
     const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
       email: '',
       phone: '',
@@ -59,7 +61,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
-      toast.success('Your business details have been successfully updated!');
+      toast.success(successMessage);
       dispatch(setBusinessUpdated(true))
       setBusinessInfo({
         email: '',
