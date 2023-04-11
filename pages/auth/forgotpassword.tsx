@@ -75,7 +75,7 @@ const Forgotpassword = () => {
             }
 
     
-  },[forgotPassSuccess,forgotPassData])
+  },[forgotPassSuccess,forgotPassData,resetInfo])
 
   useEffect(() => {
 
