@@ -9,16 +9,16 @@ import { RootState } from '../../redux/store'
 
 
 const Transactions = () => {
-  const router  = useRouter();
+  // const router  = useRouter();
 
-  const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
+  // const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
 
-  if (typeof window !== "undefined") {
-    // import and use next/router here
-    if(!isAuthenticated){
-      router.push('/auth/signin')
-    }
-  }
+  // if (typeof window !== "undefined") {
+  //   // import and use next/router here
+  //   if(!isAuthenticated){
+  //     router.push('/auth/signin')
+  //   }
+  // }
 
   return (
     <div>

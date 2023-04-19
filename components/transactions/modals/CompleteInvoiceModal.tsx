@@ -22,73 +22,84 @@ interface Props {
 
 
 const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
-    const dispatch = useAppDispatch();
-    const invoicePrevData = useAppSelector((state: RootState) => state.invoice.invoices);
-    const [itemsCount,setItemsCount] = useState<number>(0)
+  const dispatch = useAppDispatch();
+  const invoicePrevData = useAppSelector((state: RootState) => state.invoice?.invoices);
+  const [itemsCount, setItemsCount] = useState<number>(0);
   
-    const { ref, full_name, email, phone, address } = invoicePrevData;
+  // const _ref = invoicePrevData?.ref ?? '';
+  // const _full_name = invoicePrevData?.full_name ?? '';
+  // const _email = invoicePrevData?.email ?? '';
+  // const _phone = invoicePrevData?.phone ?? '';
+  // const _address = invoicePrevData?.address ?? '';
   
-    const [invoiceData, setInvoiceData] = useState<any>({
-      ref,
-      full_name,
-      email,
-      phone,
-      address,
-      order: [],
-    });
+  const [invoiceData, setInvoiceData] = useState<any>({
+    ref: invoicePrevData?.ref,
+    full_name: invoicePrevData?.full_name ,
+    email: invoicePrevData?.email ,
+    phone: invoicePrevData?.phone ,
+    address: invoicePrevData?.address ,
+    order: [],
+  });
   
-    const [order, setOrder] = useState({
-      name: '',
-      quantity: 0,
-      price: 0,
-    });
+  const [order, setOrder] = useState({
+    name: '',
+    quantity: 0,
+    price: 0,
+  });
   
-    const addOrder = (newOrder: any) => {
-      // this creates a shallow copy  of the invoiceData order and adds the neworder to it
-      if (newOrder.name != '' && newOrder.quantity != 0 && newOrder.price != 0) {
-        const allOrders = [...invoiceData.order, newOrder];
-        setItemsCount(allOrders.length)
-
-          // here we now add the allOrders to the invoiceData  as an order
-        setInvoiceData({ ...invoiceData, order: allOrders });
-        // Here we set any new order we create
-        setOrder({ name: '', quantity: 0, price: 0 })
-        console.log('All orders', allOrders);
+  const addOrder = (newOrder: any) => {
+    if (newOrder.name !== '' && newOrder.quantity !== 0 && newOrder.price !== 0) {
+      const allOrders = [...invoiceData.order, newOrder];
+      setItemsCount(allOrders.length);
+      setInvoiceData({ ...invoiceData, order: allOrders });
+      setOrder({ name: '', quantity: 0, price: 0 });
+      toast.success('You have successfully added an item')
+    } else {
+      toast.error('Fill in item information');
+    }
+    console.log(invoiceData);
+  };
+  
+  const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
+  
+  const handleCreateInvoice = async () => {
+    try {
+      let dataToSend = { ...invoiceData };
+      if (invoiceData.order.length === 0) {
+        // If there is no order in the invoiceData, add the order in the state to the order array
+        dataToSend.order.push(order);
+      }
+      if (dataToSend.order.length > 0 && Object.values(dataToSend).every((value) => value !== undefined)) {
+        await createInvoice(dataToSend);
       } else {
-        toast.error('Fill in item  information');
+        toast.error('Please add at least one item to the order and fill in all invoice information');
       }
-     
-    };
+    } catch (err) {
+      console.log(err);
+    }
+  };
   
-    const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
-  
-    const handleCreateInvoice = async () => {
-      try {
-        //Here we check that no value passed into the invoiceData object is undefined
-        if (Object.values(invoiceData).every((value) => value !== undefined)) {
-          if (invoiceData != undefined) {
-            await createInvoice(invoiceData) 
-          } else {
-             toast.error('Fill in item information');
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
+  useEffect(() => {
+    
+    if (isSuccess && creatInvoiceData?.success) {
+      toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:2000});
 
-    };
+      setTimeout(() => {
+      dispatch(setSecondStep(false));
+      },2500)
+      // setInvoiceData({
+      //   ref: '',
+      //   full_name: '',
+      //   email: '',
+      //   phone: '',
+      //   address: '',
+      //   order: [],
+      // });
+    } else {
+      toast.error(creatInvoiceData?.reason, { autoClose: 1000 });
+    }
+  }, [isSuccess, creatInvoiceData]);
   
-    useEffect(() => {
-      if (isSuccess && creatInvoiceData?.success) {
-        dispatch(setSecondStep(false))
-        onClose();
-        console.log(creatInvoiceData);
-      } else {
-        toast.error(creatInvoiceData?.reason,{autoClose:1000})
-        dispatch(setSecondStep(false))
-        onClose()
-      }
-    }, [isSuccess, creatInvoiceData,invoiceData]);
 
       const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){

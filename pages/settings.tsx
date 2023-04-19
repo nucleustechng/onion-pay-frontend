@@ -10,7 +10,7 @@ import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
+import { useLoadSettingsQuery, useUpdateBusinessLogoMutation } from '../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
 
 
@@ -40,7 +40,7 @@ const Settings = () => {
 
     useEffect(() =>{
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
-      console.log(businessUpdated)
+      console.log(businessData)
         if (settingSuccess && settingsData.success == true) {
             setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
             settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
@@ -71,8 +71,30 @@ const Settings = () => {
         toast.success('Copied!!',{autoClose:2000})
     };
 
+    const hiddenFileInput:any = React.useRef(null);
+    const handleClick = (event:any) => {
+            hiddenFileInput.current?.click();
+      };
 
+    // const [updateLogo,{isSuccess:updateLogoSuccess,isLoading,data:updateData}] = useUpdateBusinessLogoMutation()
+//     const [selectedFile, setSelectedFile] = useState<string>('');
+// //   const [uploadFile, { isLoading }] = useMutation(apiSlice.endpoints.uploadFile);
+
+//   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const logo:any = event.target.files?.[0];
+//     console.log(logo)
+//     setSelectedFile(logo);
+
+//     if (logo) {
+//       await updateLogo({ logo });
+//     }
+//   };
   
+//     useEffect(() => {
+//         if (updateLogoSuccess && updateData?.success) {
+//             console.log('Weird',updateData)
+//         }
+//     },[updateData])
   
   return (
     <div className=''>
@@ -87,8 +109,8 @@ const Settings = () => {
             </div>
                 <div className='w-auto flex justify-between items-center pt-12'>
                     <div className='flex items-center gap-4'>
-                        <div className='w-[4rem] h-[4rem]  lg:w-[6.25rem] lg:h-[6.25rem]'>
-                            <Image src={BusinessLogo} alt=''/>
+                        <div className='w-[4rem] h-[4rem]  lg:w-[4rem] lg:h-[4rem] object-fill rounded-full'>
+                            <Image src={businessData?.logo_uri} width={100} height={100} className="w-[4rem] h-[4rem]  lg:w-[4rem] lg:h-[4rem] object-fill"  alt=''/>
                         </div>
                         <div className='flex flex-col gap-1 md:gap-[0.375rem]'>
                             <h1 className='text-sm md:text-base text-[#1B1A1A] font-WorkSans font-medium leading-5'>Mintfool</h1>
@@ -96,9 +118,12 @@ const Settings = () => {
                         </div>
                     </div>
                     <div>
-                        <div className='flex justify-center items-center w-[6rem] md:w-[7.5625rem] h-11 gap-[0.625rem] rounded-[0.3125rem] bg-primary'>
-                            <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit logo</h1>
-                            <Image src={EditIcon} alt='Edit Icon'/>
+                        <div>
+                            <div onClick={handleClick} className='flex justify-center items-center cursor-pointer w-[6rem] md:w-[7.5625rem] h-11 gap-[0.625rem] rounded-[0.3125rem] bg-primary'>
+                                <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit logo</h1>
+                                <Image src={EditIcon} alt='Edit Icon'/>
+                            </div>
+                            <input type='file' name='logo'  className='hidden' ref={hiddenFileInput}/> 
                         </div>
                     </div>
                 </div>

@@ -42,24 +42,24 @@ const SideBar = () =>{
               Menu
             </h1>
             <div className='flex flex-col gap-2 lg:gap-1'>
-                    <div>
+                    {/* <div>
                         <HomeItem/>  
-                    </div>
+                    </div> */}
                     <div>
                         <TransactionItem/>
                     </div>
-                    <div>
+                    {/* <div>
                         <CustomersItem/>
                     </div>
                     <div>
                         <BalanceItem/>
-                    </div>
-                    <div>
+                    </div> */}
+                     <div>
                         <PaymentItem/>
                     </div>
                     <div>
                         <BusinessItem/>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}>

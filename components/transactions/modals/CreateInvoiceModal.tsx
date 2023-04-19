@@ -5,6 +5,10 @@ import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep, setSliceInvoice } from '../../../redux/invoiceSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Loader from '../../Loader'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -37,6 +41,14 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
 
 
       const handleSubmit = () => {
+        const { full_name, email, phone, address, ref } = invoiceInfo;
+
+
+        if (!full_name || !email || !phone || !address || !ref) {
+            toast.error('Please fill in all fields');
+            return;
+          }
+
         setInvoiceInfo({
           full_name: '',
           email: '',
@@ -50,7 +62,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
         setTimeout(() => {
             setIsloading(false)
             dispatch(setSecondStep(true))
-        },1000)
+        },500)
       };
 
       useEffect(() => {
@@ -69,6 +81,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
   
   return (
     <div>
+        <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] z-40
         0 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
             <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[37.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>

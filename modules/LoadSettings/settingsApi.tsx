@@ -34,7 +34,16 @@ export const settingsApi = createApi({
             },
             invalidatesTags: ['Details']
         }),
+        updateBusinessLogo:builder.mutation({
+            query:(body:{logo:string}) => {
+                return {
+                    url:'/api/v1/update-business-logo',
+                    method:'post',
+                    body
+                }
+            }
+        })
     })
 });
 
-export const { useLoadSettingsQuery, useUpdateBusinessInfoMutation } = settingsApi
+export const { useLoadSettingsQuery, useUpdateBusinessInfoMutation, useUpdateBusinessLogoMutation } = settingsApi

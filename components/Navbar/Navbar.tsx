@@ -30,7 +30,7 @@ const Navbar = () => {
                 `}
               >
                 <div className="flex justify-end mt-[1.875rem] cursor-pointer" onClick={() => setToggleNav(!toggleNav)}>
-                  <Image src={CloseIcon} alt="Close Icon" />
+                  <Image src={CloseIcon} alt="Close Icon"/>
                 </div>
 
                 {/* CTA buttons */}

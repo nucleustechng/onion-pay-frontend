@@ -24,7 +24,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) =
     <div>
         <ToastContainer/>
          <div className='flex items-center  rounded-[0.32rem] w-[71.5rem] h-[3.75rem] '>
-            <div className='w-[14.25rem]'>
+            <div className='w-[10.25rem]'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{pageName}</h1>
             </div>
             <div className='w-[12.3rem]'>
@@ -38,7 +38,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) =
             </div>
             <div className="w-[14.3rem] relative">
             <div
-                className="w-[17.5rem] flex gap-2 items-center "
+                className="w-[20rem] flex gap-2 items-center "
             >
                 <p className="flex-grow ">{paymentLink}</p>
                 <div className='cursor-pointer' onClick={() => copyToClipboard(paymentLink)}>

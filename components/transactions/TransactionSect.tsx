@@ -34,6 +34,7 @@ const TransactionSect = () => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
+      console.log(invoicesArray)
     } else {
       console.log('An error occured')
     }
@@ -163,7 +164,16 @@ const TransactionSect = () => {
                     </div>
                     <div className="mt-5">
                       {invoicesArray.map((invoice:any) => (
-                      <div key={invoice.i_id}>
+                          <TransactionTable
+                          status={invoice.paid ? 'Successful' : 'Pending...'}
+                          amount={invoice.amount_string}
+                          date={invoice.paid_on ? invoice.paid_on : '--'}
+                          createdOn={invoice.created_on ? invoice.created_on : '--'}
+                          paymentId={invoice.i_id}
+                          />
+                      ))}
+                      {/* {invoicesArray.map((invoice:any,index:number) => (
+                      <div key={index}>
                           <TransactionTable 
                           status={invoice.paid ? 'Successful' : 'Pending...'}
                           amount={invoice.amount_string ? invoice.amount_string : '--'}
@@ -171,7 +181,7 @@ const TransactionSect = () => {
                           paymentId={invoice.i_id ? invoice.i_id : '---'}
                           />
                       </div>
-                      ))}
+                      ))} */}
                     </div>
                   </div>
                 </div>
