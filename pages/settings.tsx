@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import BusinessLogo from '../Assets/logo/BusinessLogo.svg'
 import EditIcon from '../Assets/icon/EditIcon.svg'
 import CopyIcon from '../Assets/icon/CopyIcon.svg'
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
@@ -10,7 +9,7 @@ import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoadSettingsQuery, useUpdateBusinessLogoMutation } from '../modules/LoadSettings/settingsApi'
+import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
 
 
@@ -40,7 +39,6 @@ const Settings = () => {
 
     useEffect(() =>{
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
-      console.log(businessData)
         if (settingSuccess && settingsData.success == true) {
             setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
             settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
@@ -72,7 +70,7 @@ const Settings = () => {
     };
 
     const hiddenFileInput:any = React.useRef(null);
-    const handleClick = (event:any) => {
+    const handleClick = () => {
             hiddenFileInput.current?.click();
       };
 

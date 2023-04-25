@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import DeleteIcon from '../../../Assets/icon/DeleteIcon.svg'
 import { useDeletePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,12 +14,8 @@ interface Props {
     pageName:string
   }
 
-const DeleteLinkModal = ({isVisible,onClose,pageID,amount,pageName}: Props) => {
-    const [deleteLinkInfo,setDeleteLinkInfo] = useState({
-        title:'',
-        amount:0,
-        p_id:''
-    })
+const DeleteLinkModal = ({isVisible,onClose,pageID}: Props) => {
+
 
     const [deletePaymentLink, { data: deleteLinkData, isSuccess, isLoading }] =
   useDeletePaymentPageMutation();
@@ -50,7 +46,7 @@ const handleDeletePaymentLink = async () => {
         } else {
             toast.error(deleteLinkData?.reason)
         }
-    },[isSuccess,deleteLinkData,deleteLinkInfo])
+    },[isSuccess,deleteLinkData])
 
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){

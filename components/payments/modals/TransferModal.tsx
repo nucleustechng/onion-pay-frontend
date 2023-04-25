@@ -5,7 +5,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
-import { setBankAccount, setMobileMoney, setOnionPay } from '../../../redux/Modal-Processes/paymentSlice'
+import { setBankAccount, setOnionPay } from '../../../redux/Modal-Processes/paymentSlice'
 
 interface Props {
     isVisible:boolean

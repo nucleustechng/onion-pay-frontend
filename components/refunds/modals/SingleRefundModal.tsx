@@ -66,7 +66,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
     } else {
       toast.error(refundData?.reason);
     }
-  },[isSuccess,refundData,dispatch]);
+  },[isSuccess,refundData,dispatch,onClose]);
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   

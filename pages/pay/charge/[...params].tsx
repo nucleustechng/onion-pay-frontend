@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 import SeerbitCheckout from "seerbit-reactjs"
-import Input from '../../../components/Input'
 import { useLoadOrderQuery, useVerifyPaymentQuery } from '../../../modules/Client/usersApi'
 
 type OrderData = {
@@ -61,23 +60,23 @@ const DirectCharge = () => {
 
 
   useEffect(() => {
-    // if (verifyPaySuccess && verifyPayData.success) {
+    if (verifyPaySuccess && verifyPayData.success) {
       console.log('Weird',verifyPayData)
-    //     if (verifyPayData?.paid == true) {
-    //       router.push('/pay/charge/direct')
-    //     } 
-    // }
-    // if (isSuccess && orderData.success) {
-    //   setFullName(orderData ?  orderData['order']['customer']?.name : '');
-    //   setEmail(orderData ? orderData['order']['customer']?.email : '');
-    //   setAmount(orderData ? orderData['order']?.amount : '')
-    //   setRedirectUrl(orderData ? orderData['order']?.redirect_url : '');
-    //   console.log(orderData)
-    //   console.log('Name',fullName)
-    // }
-    // console.log(params)
+        if (verifyPayData?.paid == true) {
+          router.push('/pay/charge/direct')
+        } 
+    }
+    if (isSuccess && orderData.success) {
+      setFullName(orderData ?  orderData['order']['customer']?.name : '');
+      setEmail(orderData ? orderData['order']['customer']?.email : '');
+      setAmount(orderData ? orderData['order']?.amount : '')
+      setRedirectUrl(orderData ? orderData['order']?.redirect_url : '');
+      console.log(orderData)
+      console.log('Name',fullName)
+    }
+    console.log(params)
   
-  },[isSuccess,orderData,verifyPaySuccess,verifyPayData,amount,email,redirect_url,fullName])
+  },[isSuccess,orderData,verifyPaySuccess,verifyPayData,amount,email,redirect_url,fullName,params,router])
  
 
 

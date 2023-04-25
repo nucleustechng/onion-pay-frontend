@@ -71,7 +71,7 @@ useEffect(() => {
   } else {
     setShowErrorToast(true);
   }
-}, [isSuccess,updateLinkData,pageID,onClose]);
+}, [isSuccess,updateLinkData,pageID,onClose,paymentLinkInfo]);
 
 useEffect(() => {
   if (showSuccessToast) {
@@ -81,14 +81,13 @@ useEffect(() => {
     toast.error(updateLinkData?.reason);
     setShowErrorToast(false);
   }
-}, [showSuccessToast, showErrorToast]);
+}, [showSuccessToast, showErrorToast,updateLinkData]);
 
   const handleClose = (e:any) =>{
     if(e.target.id === 'wrapper'){
         onClose()                                                   
     }
 };
-
 
   if (!isVisible) return null;
   return (

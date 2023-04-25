@@ -164,6 +164,7 @@ const InvoiceSect = () => {
                     </div>
                     <div className="mt-5">
                       {invoicesArray.map((invoice:any) => (
+                        <div key={invoice.i_id}>
                           <TransactionTable
                           status={invoice.paid ? 'Successful' : 'Pending...'}
                           amount={invoice.amount_string}
@@ -171,6 +172,7 @@ const InvoiceSect = () => {
                           createdOn={invoice.created_on ? invoice.created_on : '--'}
                           paymentId={invoice.i_id}
                           />
+                        </div>
                       ))}
                       {/* {invoicesArray.map((invoice:any,index:number) => (
                       <div key={index}>

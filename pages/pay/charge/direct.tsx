@@ -91,6 +91,7 @@ const DirectCharge = () => {
   }
 
   // const router = useRouter()
+  const router = useRouter();
 
 
 
@@ -99,11 +100,9 @@ const DirectCharge = () => {
       console.log(retrievedData)
       router.push(retrievedData?.link)
     }
-    console.log(params)
 
-  },[isSuccess])
-  const router = useRouter();
-  const { params } = router.query;
+  },[isSuccess,retrievedData,router])
+
 
 
     

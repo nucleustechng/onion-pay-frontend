@@ -98,7 +98,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
     } else {
       toast.error(creatInvoiceData?.reason, { autoClose: 1000 });
     }
-  }, [isSuccess, creatInvoiceData]);
+  }, [isSuccess, creatInvoiceData, dispatch]);
   
 
       const handleClose = (e:any) =>{

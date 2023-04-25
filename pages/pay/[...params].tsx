@@ -6,7 +6,7 @@ import Input from '../../components/Input'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 
-const invoice = () => {
+const Invoice = () => {
   
 
   // const close = (close:any) => {
@@ -109,4 +109,4 @@ const invoice = () => {
   )
 }
 
-export default invoice
+export default Invoice

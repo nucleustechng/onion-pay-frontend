@@ -51,7 +51,7 @@ const TransactionTable = ({status,date,paymentId,amount,createdOn}: Props) => {
       const convertedDate = formatDate(createdOn)
       setMydate(convertedDate)      
     }
-  },[])
+  },[createdOn,date,status])
 
  const [myDate,setMydate] = useState<string>('')
 

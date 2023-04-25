@@ -61,8 +61,8 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
-      // setSucccessMessage('Your business details have been successfully updated!')
-      // toast.success(successMessage ? successMessage : '');
+      setSucccessMessage('Your business details have been successfully updated!')
+      toast.success(successMessage ? successMessage : '');
       dispatch(setBusinessUpdated(true))
       setBusinessInfo({
         email: '',
@@ -77,7 +77,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,businessData,dispatch,onClose]);
+  },[isSuccess,businessData,dispatch,onClose,successMessage]);
 
   
     const handleClose = (e:any) =>{
