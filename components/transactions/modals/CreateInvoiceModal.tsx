@@ -41,13 +41,13 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
 
 
       const handleSubmit = () => {
-        const { full_name, email, phone, address, ref } = invoiceInfo;
+        // const { full_name, email, phone, address, ref } = invoiceInfo;
 
 
-        if (!full_name || !email || !phone || !address || !ref) {
-            toast.error('Please fill in all fields');
-            return;
-          }
+        // if (!full_name || !email || !phone || !address || !ref) {
+        //     toast.error('Please fill in all fields');
+        //     return;
+        //   }
 
         setInvoiceInfo({
           full_name: '',

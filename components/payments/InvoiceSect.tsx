@@ -92,7 +92,7 @@ const InvoiceSect = () => {
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
             <div className='flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0'>
-              <h1 className='inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Transactions</h1>
+              <h1 className='inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Invoices</h1>
               {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
               </div>}
