@@ -7,19 +7,17 @@ import LogoWhite from '../../Assets/logo/LogoWhite.svg'
 
 const Footer = () => {
   const productsArray = [
-    {mainText:'Collect payment',route:'/'},
-    {mainText:'Send money',route:'/'},
-    {mainText:'Payment links',route:'/'},
-    {mainText:'Invoices',route:'/'},
-    {mainText:'Capital',route:'/'},
+    {mainText:'Collect payment',route:'/collect-payment'},
+    {mainText:'Send money',route:'/sendmoney'},
+    {mainText:'Payment links',route:'/acceptpaymentlinks'},
+    {mainText:'Invoices',route:'/detail-invoices'},
   ]
 
   const resourcesArray = [
     {mainText:'Pricing',route:'/'},
-    {mainText:'Support',route:'/'},
+    {mainText:'Support',route:'/contact'},
     {mainText:'Integrations',route:'/'},
     {mainText:'Why you got charged',route:'/'},
-    {mainText:'Capital',route:'/'},
   ]
 
   const developersArray = [

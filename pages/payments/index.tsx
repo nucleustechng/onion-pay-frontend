@@ -7,6 +7,7 @@ import SeerbitComponent from '../../components/Checkout/SeerbitComponent'
 import { useRouter } from 'next/router'
 import { useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
+import TransfersEmpty from '../../components/payments/TransfersEmpty'
 
 
 const Payments = () => {
@@ -23,9 +24,9 @@ const Payments = () => {
   return (
     <div>
         <div>
-            <div className='w-[71.5rem]'>
-                {/* <TransfersEmpty/> */}
-                <SeerbitComponent/>
+            <div className='w-[74rem]'>
+                <TransfersEmpty/>
+                {/* <SeerbitComponent/> */}
                 {/* <PaymentLinks/> */}
                 {/* <PaymentPlans/> */}
             </div>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PaymentIcon from '../../Assets/icon/Payment.svg'
 
 
@@ -16,9 +16,17 @@ const PaymentItem = () => {
     
     const transfersRoute = router.pathname == '/payments'
     const paymentlinksRoute = router.pathname == '/payments/paymentlinks'
+    const invoicesRoute = router.pathname == '/payments/invoices'
+
 
     const isPaymentRoute = paymentlinksRoute;
-    const isActiveRoute = paymentlinksRoute || transfersRoute;
+    const isActiveRoute = paymentlinksRoute || transfersRoute || invoicesRoute;
+
+    useEffect(() => {
+        if (!isActiveRoute) {
+            setPay(false)
+        }
+    },[isActiveRoute])
 
   return (
     <div>
@@ -47,10 +55,11 @@ const PaymentItem = () => {
                             </div>
                         </div>
                         <div>
-                        <ul className={`${payments ? 'flex flex-col h-9 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.55rem]  mb-3 ${payments ? 'mt-[1.8rem]' : 'mt-[0.5rem]'} mx-6`}>
+                        <ul className={`${payments ? 'flex flex-col h-12 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.55rem]  mb-3 ${payments ? 'mt-[1.8rem]' : 'mt-[0.5rem]'} mx-6`}>
                                     <Link href='/payments'><li className={`text-sm ${transfersRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Transfers</li></Link>
                                     {/* <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Invoices</li> */}
                                    <Link href='/payments/paymentlinks'><li className={`text-sm ${paymentlinksRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Payment links</li></Link>
+                                   <Link href='/payments/invoices'><li className={`text-sm ${invoicesRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Invoices</li></Link>
                                     {/* <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Payment plans</li> */}
                             </ul>
                         </div>

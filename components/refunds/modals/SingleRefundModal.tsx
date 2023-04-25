@@ -6,6 +6,7 @@ import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useRequestRefundMutation } from '../../../modules/Refunds/refundApi'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
+import Loader from '../../Loader';
 
 
 interface Props {
@@ -31,7 +32,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
     });
 
 
-    const [requestRefund, { data: refundData, isSuccess }] =
+    const [requestRefund, { data: refundData, isSuccess, isLoading }] =
     useRequestRefundMutation();
   
   const handleRequestRefund = async () => {
@@ -51,7 +52,11 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && refundData.success == true) {
-      toast.success('Your business has been successfully created!');
+      toast.success('You have successfully logged a refund.We will get back to you after 2 business days.');
+      console.log('Refund',refundData)
+      setTimeout(() => {
+        onClose()
+      },1500)
       setRefundInfo({
         t_id:'',
         partial:true,
@@ -139,9 +144,9 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
-                            <button onClick={handleRequestRefund} className='w-[9.4rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                            Process refund
-                            </button>
+                            <div onClick={handleRequestRefund} className='flex justify-center items-center cursor-pointer w-[9.4rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
+                             {isLoading ? <Loader/> : <h1>Process refund</h1>}
+                            </div>
                         </div>
                     </div>
 

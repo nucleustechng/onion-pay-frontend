@@ -1,25 +1,67 @@
 import CopyIcon from '../../Assets/icon/CopyIcon.svg'
 import Image from 'next/image';
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ToastContainer ,toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import EditIcon from '../../Assets/icons/Edit.svg'
+import TrashIcon from '../../Assets/icon/TrashIcon.svg'
+import EditLinkModal from './modals/EditLinkModal';
+import DeleteLinkModal from './modals/DeleteLinkModal';
+
+
 
 interface Props  {
     paymentLink:string,
     pageName:string,
     amount:number,
     description?:string,
-    pageId:string
+    pageId:string,
+    onEllipsisClick: (paymentLink: string) => void;
     
 }
 
-const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) => {
-  
+const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsisClick}: Props) => {
+    const [selectedLinkId, setSelectedLinkId] = useState<string>('');
+    const [selectedTitle, setSelectedTitle] = useState<string>('');
+    const [selectedAmount, setSelectedAmount] = useState<number | any>();
 
-  const copyToClipboard = (copyItem:any) => {
-    navigator.clipboard.writeText(copyItem);
-   toast.success('Copied!!',{autoClose:100,})
-  };
+    const [isEdit,setEdit] = useState<boolean>(false)
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleEllipsisClick = () => {
+        setShowPopover(true)
+        setSelectedLinkId(pageId)
+        setSelectedTitle(pageName)
+        setSelectedAmount(amount)
+
+        onEllipsisClick(paymentLink);
+        console.log('Works',pageName,pageId,amount)
+     };
+
+    const copyToClipboard = (copyItem:any) => {
+        navigator.clipboard.writeText(copyItem);
+        toast.success('Copied!!',{autoClose:100,})
+     };
+
+     const [showPopover, setShowPopover] = useState<boolean>(false);
+     const popoverRef = useRef<HTMLDivElement>(null);
+
+     const handleClickOutsidePopover = (event: MouseEvent) => {
+        if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+          setShowPopover(false);
+          setSelectedLinkId('');
+        }
+      };
+    
+      useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutsidePopover);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutsidePopover);
+        };
+      }, []);
+    
   return (
     <div>
         <ToastContainer/>
@@ -36,17 +78,50 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description}: Props) =
             <div className='w-[14.3rem]'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{description}</h1>
             </div>
-            <div className="w-[14.3rem] relative">
-            <div
-                className="w-[20rem] flex gap-2 items-center "
-            >
-                <p className="flex-grow ">{paymentLink}</p>
-                <div className='cursor-pointer' onClick={() => copyToClipboard(paymentLink)}>
-                    <Image src={CopyIcon} alt=''/> 
+            <div className="flex items-center justify-between w-[22.3rem]  ">
+                <div className="w-[20rem]  flex gap-14 items-center " >
+                    <p className="w-[15rem]">{paymentLink}</p>
+                    <div className='cursor-pointer' onClick={() => copyToClipboard(paymentLink)}>
+                        <Image src={CopyIcon} alt='Copy Icon' /> 
+                    </div>
                 </div>
+                    <div className='w-6 flex justify-center items-center' onClick={handleEllipsisClick}>
+                        <FontAwesomeIcon icon={faEllipsisV}/>
+                    </div>
             </div>
-            </div>
+            {showPopover && selectedLinkId && (
+                <div
+                className="absolute drop-shadow-lg  w-40 h-[5rem] left-[59rem] bg-white rounded-md"
+                ref={popoverRef}
+                style={{
+                    top: `calc(${popoverRef.current?.parentElement?.getBoundingClientRect().top}px + 2rem)`,
+                    left: `calc(${popoverRef.current?.parentElement?.getBoundingClientRect().left}px + 2rem)`,
+                }}
+                >
+                    <div className='flex flex-col gap-4 px-[0.625rem] py-4'>
+                        <div className='flex justify-between items-center' onClick={() => {
+                            setEdit(true)
+                            setShowModal(true)
+                            setShowPopover(false)
+                            }}>
+                            <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Edit</h1>
+                            <Image src={EditIcon} alt='Edit Icon' width={16} height={16}/>
+                        </div>
+                        <div className='flex justify-between items-center' onClick={() => {
+                                setEdit(false)
+                                setShowModal(true)
+                                setShowPopover(false)
+                        }}>
+                            <h1 className='text-sm text-[#DE0040] font-WorkSans font-normal leading-4'>Delete</h1>
+                            <Image src={TrashIcon} alt='Edit Icon' width={16} height={16}/>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
+        {isEdit && <EditLinkModal isVisible={showModal}  onClose={async () => setShowModal(false)} pageID={selectedLinkId}/>}
+        {!isEdit && <DeleteLinkModal amount={selectedAmount} pageName={selectedTitle}  isVisible={showModal}  onClose={async () => setShowModal(false)} pageID={selectedLinkId}/>}
+
     </div>
   )
 }

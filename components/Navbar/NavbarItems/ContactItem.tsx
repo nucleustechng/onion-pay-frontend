@@ -15,11 +15,11 @@ const ContactItem = () => {
             <h1 className='text-primary text-sm font-WorkSans font-medium leading-4 uppercase'>Contact</h1>
             <div className='flex flex-col gap-[1.625rem] mt-[1.625rem]'>
                 <NavCard header='General inquiries' mainText='Contact us about any issue you may have' icon={Inquiry} 
-                alt='Inquiries Icon' backgroundColor='bg-[#FFF3C8]' link='/'/>
+                alt='Inquiries Icon' backgroundColor='bg-[#FFF3C8]' link='/contact'/>
                 <NavCard header='Account' mainText='Keep your account on track and safes' icon={Account} 
-                alt='Invoice Icon' backgroundColor='bg-[#E7EDFF]' link='/'/>
+                alt='Invoice Icon' backgroundColor='bg-[#E7EDFF]' link='/contact'/>
                 <NavCard header='Transactions' mainText='Having any issues with transactions?' icon={Transactions} 
-                alt='Invoice Icon' backgroundColor='bg-[#F5F0F3]' link='/'/>
+                alt='Invoice Icon' backgroundColor='bg-[#F5F0F3]' link='/contact'/>
             </div>
         </div>
     </div>

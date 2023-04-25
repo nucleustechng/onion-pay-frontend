@@ -31,6 +31,26 @@ export const paymentPageApi = createApi({
             },
             invalidatesTags: ["paymentpages"]
         }),
+        updatePaymentPage:builder.mutation({
+            query: (body:{title:string,p_id:string,amount:number,
+                description:string,redirect_url:string}) => {
+                return {
+                    url:'/api/v1/update-payment-page',
+                    method:'post',
+                    body,
+                };
+            },
+            invalidatesTags: ["paymentpages"]
+        }),
+        deletePaymentPage:builder.mutation({
+            query: (pageId) => {
+                return {
+                    url:`/api/v1/remove-payment-page/${pageId}`,
+                    method:'DELETE',
+                };
+            },
+            invalidatesTags: ["paymentpages"]
+        }),
         loadPaymentLinks:builder.query<any,void>({
             query:() => '/api/v1/payment-pages',
             providesTags:["paymentpages"]
@@ -38,4 +58,4 @@ export const paymentPageApi = createApi({
     })
 });
 
-export const { useCreatePaymentPageMutation, useLoadPaymentLinksQuery } = paymentPageApi
+export const { useCreatePaymentPageMutation, useLoadPaymentLinksQuery, useUpdatePaymentPageMutation, useDeletePaymentPageMutation } = paymentPageApi

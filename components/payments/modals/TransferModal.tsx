@@ -36,7 +36,7 @@ const TransferModal = ({isVisible,onClose}: Props) => {
   return (
     <div>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-20 flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[27.7rem] h-[43.4rem] rounded-[0.63rem] bg-white'>
+            <div className='w-[27.7rem] h-[32.75rem] rounded-[0.63rem] bg-white'>
                 <div className='mx-6 my-6'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Make a transfer</h1>
@@ -67,7 +67,7 @@ const TransferModal = ({isVisible,onClose}: Props) => {
                             </div>
                         </div>
                         {/* Second card */}
-                        <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
+                        {/* <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
                             handleActive(2)
                             active === 2 ? dispatch(setMobileMoney(true)) : dispatch(setMobileMoney(false))
                             }}>
@@ -81,18 +81,18 @@ const TransferModal = ({isVisible,onClose}: Props) => {
                                 </div>
                                 <p className='text-base  text-[#262626] font-WorkSans font-normal leading-5'>Send money to a mobile phone number seamlessly using Mobile Money Transfer. Bulk transfer options also available.</p>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Third card */}
-                        <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 3 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
-                            handleActive(3)
-                            active === 3 ? dispatch(setOnionPay(true)) : dispatch(setOnionPay(false))
+                        <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
+                            handleActive(2)
+                            active === 2 ? dispatch(setOnionPay(true)) : dispatch(setOnionPay(false))
                             }}>
                             <div className='mx-6 my-6'>
                                 <div className='flex items-center justify-between mb-3'>
                                     <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Onion Pay account</h1>
                                     <div className='flex justify-end w-6 h-6'>
-                                    {active === 3 ? <FontAwesomeIcon icon={faCheckCircle} className='text-2xl  text-[#3063E9]'/> : 
+                                    {active === 2 ? <FontAwesomeIcon icon={faCheckCircle} className='text-2xl  text-[#3063E9]'/> : 
                                         <FontAwesomeIcon icon={faCircle} className='text-2xl  text-[#CACACA] '/>}
                                     </div>
                                 </div>
@@ -100,8 +100,8 @@ const TransferModal = ({isVisible,onClose}: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-end mt-6'>
-                        <button className='w-[8.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
+                    <div className='flex justify-center mt-6'>
+                        <button className='w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
                             Start transfer
                         </button>
                     </div>

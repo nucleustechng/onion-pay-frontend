@@ -2,18 +2,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import ButtonIcon from '../components/Buttons/ButtonIcon'
-import SendmoneyImg from '../Assets/img/sendmoney/Sendmoney.svg'
-import CurvedArrow from '../Assets/img/sendmoney/CurvedArrow.svg'
+import CollectPayments from '../Assets/img/collect-payments/CollectPayment.svg'
 
 
 
-
-const Sendmoney = () => {
-
+const AcceptPaymentLinks = () => {
     const listData = [
-        {header:"Select the type of transfer you want to make",subText:'There are three types of transfer; Transfer to Bank account, transfer to Mobile money and transfer to Onion Pay account.'},
-        {header:'Select who you would like to make a transfer to',subText:'Transfer to an individual, or transfer to Multiple people.'},
-        {header:'Fill out the transfer form and send!',subText:'Fill out the details on the form provided and complete the transfer.'}
+        {header:"Select a payment link type",subText:'You can create a payment link based on your need.'},
+        {header:'Fill out the payment link form and send!',subText:'Fill out the details on the form provided and start accepting money.'},
     ]
 
     type Props = {
@@ -34,28 +30,25 @@ const Sendmoney = () => {
     </div>
     )
   return (
-    <div className='relative  mb-[45rem] xl:mb-[60rem]'>
-        <div className='hidden lg:absolute xl:left-[43rem] xl:bottom-[22rem]'>
-            <Image src={CurvedArrow} alt='Curved arrow'/>
-        </div>
-           <div className='h-[30rem] md:h-[50rem] mt-32'>
+    <div>
+        <div className='h-[30rem] md:h-[50rem] mt-32 mb-[35rem] lg:mb-[60rem]'>
             <div  className='lg:flex lg:justify-between '>
-                <div className='flex flex-col gap-6  w-[22rem] md:w-[35rem] mx-4 md:pt-32 md:ml-[5rem] lg:ml-[4rem] xl:ml-[9.375rem]'>
-                    <h1 className='text-[3.2rem] md:text-[5rem]
+                <div className='flex flex-col gap-6  w-[10rem] mx-4 md:pt-32 md:ml-[5rem] lg:ml-[4rem] xl:ml-[9.375rem]'>
+                    <h1 className='text-[4rem] md:text-[5rem]
                     text-[#303778] font-SpaceGrotesk 
-                    font-bold leading-[3.5rem] md:leading-[5rem]'>Send money to <span className='text-[#FF9635]'>anyone</span> or <span className='text-[#FF9635]'>any business<span className='italic'>!</span></span></h1>
-                    <p className='w-[22rem] md:w-[35rem] h-[1.875rem] text-lg  md:text-2xl text-[#1B1A1A] font-WorkSans font-normal  leading-[1.875rem]'>Make single or bulk transfers to bank accounts from your Onion Pay dashboard.</p>
-                    <Link href='/auth/signup' className='mt-16 md:mt-8' >
+                    font-bold leading-[4.5rem] md:leading-[5rem]'>Accept payments <span className='text-[#FF9635]'>without code<span className='italic'>!</span></span></h1>
+                    <p className='w-[22rem] md:w-[26.125rem] h-[1.875rem] text-xl  md:text-2xl text-[#1B1A1A] font-WorkSans font-normal  leading-[1.875rem]'>Accept one-time or recurring payments from anyone, anywhere and anytime, with your unique payment link.</p>
+                    <Link href='/auth/signup' className='mt-20 md:mt-28' >
                         <ButtonIcon width='w-[10.2rem]' height='h-11' mainText='Get started' backgroundColor='bg-primary' color='text-white' textSize='text-base'/>
                     </Link>
                 </div>
                 <div className='hidden lg:flex lg:items-center'>
-                    <Image src={SendmoneyImg} alt='Collect Payments Illustration'/>
+                    <Image src={CollectPayments} alt='Collect Payments Illustration'/>
                 </div>
-
             </div>
             <div className='mx-4 md:mx-[5rem]  xl:mx-[9.375rem] mt-6 md:mt-16 lg:mt-[3.325rem]'>
-                <h1 className='text-[#1B1A1A] text-4xl lg:text-[5rem] font-WorkSans font-normal leading-9 lg:leading-[4rem] xl:leading-[5.875rem]'>Here are basic steps on Sending money</h1>
+                <h1 className='text-[#1B1A1A] text-4xl lg:text-[5rem] font-WorkSans font-normal leading-9 lg:leading-[4rem] xl:leading-[5.875rem]'>Create a payment link
+in just minutes</h1>
             </div>
 
                 {listData.map((item,index) => (
@@ -72,15 +65,16 @@ const Sendmoney = () => {
                     <ButtonIcon
                     backgroundColor='bg-primary'
                     color='text-white'
-                    width='w-[12.325rem]'
+                    width='w-[14.325rem]'
                     height='h-11'
-                    mainText='Make a transfer'
+                    mainText='Create a payment link'
                     />
                 </Link>
             </div>
+
         </div>
     </div>
   )
 }
 
-export default Sendmoney 
+export default AcceptPaymentLinks

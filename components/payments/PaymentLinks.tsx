@@ -24,10 +24,11 @@ const PaymentLinks = () => {
   const [showModal, setShowModal] = useState(false);
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
-  // const PaymentLinkModal = dynamic(() => import('./modals/PaymentLinkModal'));
-  // const SingleChargeModal = dynamic(() => import('./modals/SingleChargeModal'));
-  // const SubscriptionLinkModal = dynamic(() => import('./modals/SubscriptionLinkModal'));
 
+  const handleEllipsisClick = (paymentLink: string) => {
+    console.log(`Clicked ellipsis for payment link ${paymentLink}`);
+    // Do whatever you need to with the clicked payment link data
+  };
 
 
 
@@ -104,7 +105,13 @@ const PaymentLinks = () => {
                     <div className="pl-2 mt-5">
                       {paymentLinksArray?.map((item:any) => 
                       <div  key={item?.url}>
-                        <PaymentTable amount={item?.amount} description={item?.description}  pageId={item?.p_id} pageName={item?.title} paymentLink={item?.url}/>
+                        <PaymentTable 
+                        amount={item?.amount} 
+                        description={item?.description}  
+                        pageId={item?.p_id} pageName={item?.title}
+                        paymentLink={item?.url} 
+                        onEllipsisClick={handleEllipsisClick}
+                        />
                         <hr className='border-[#F5F5F5] border-[1px]'/>
                       </div>)}
                     </div>
@@ -127,3 +134,4 @@ const PaymentLinks = () => {
 }
 
 export default PaymentLinks
+

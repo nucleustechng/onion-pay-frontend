@@ -48,10 +48,10 @@ const SideBar = () =>{
                     <div>
                         <TransactionItem/>
                     </div>
-                    {/* <div>
+                    <div>
                         <CustomersItem/>
                     </div>
-                    <div>
+                    {/* <div>
                         <BalanceItem/>
                     </div> */}
                      <div>

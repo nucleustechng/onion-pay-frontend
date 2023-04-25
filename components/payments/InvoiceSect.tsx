@@ -3,20 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import HelpButton from '../HelpButton'
-import TransactionHeader from './TransactionHeader'
-import TransactionTable from './TransactionTable'
+import TransactionHeader from '../transactions/TransactionHeader'
+import TransactionTable from '../transactions/TransactionTable'
 import SearchIcon from '../../Assets/icon/Search.svg'
+// import CreateInvoiceModal from './modals/CreateInvoiceModal'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
-import CreateInvoiceModal from './modals/CreateInvoiceModal'
-import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
+import CreateInvoiceModal from '../transactions/modals/CreateInvoiceModal'
+import CompleteInvoiceModal from '../transactions/modals/CompleteInvoiceModal'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 
-const TransactionSect = () => {
+const InvoiceSect = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
@@ -195,4 +196,4 @@ const TransactionSect = () => {
   )
 }
 
-export default TransactionSect
+export default InvoiceSect
