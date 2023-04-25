@@ -5,7 +5,7 @@ import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep, setSliceInvoice } from '../../../redux/invoiceSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Loader from '../../Loader'
-import { toast, ToastContainer } from 'react-toastify'
+import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
 

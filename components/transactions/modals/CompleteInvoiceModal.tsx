@@ -69,11 +69,11 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
         // If there is no order in the invoiceData, add the order in the state to the order array
         dataToSend.order.push(order);
       }
-      if (dataToSend.order.length > 0 && Object.values(dataToSend).every((value) => value !== undefined)) {
+      // if (dataToSend.order.length > 0 && Object.values(dataToSend).every((value) => value !== undefined)) {
         await createInvoice(dataToSend);
-      } else {
-        toast.error('Please add at least one item to the order and fill in all invoice information');
-      }
+      // } else {
+      //   toast.error('Please add at least one item to the order and fill in all invoice information');
+      // }
     } catch (err) {
       console.log(err);
     }
