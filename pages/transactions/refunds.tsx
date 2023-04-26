@@ -1,21 +1,9 @@
-import { useRouter } from 'next/router'
 import React from 'react'
 import TransactionRefunds from '../../components/refunds/TransactionRefunds'
-import { useAppSelector } from '../../redux/redux-hooks/hooks'
-import { RootState } from '../../redux/store'
 
 
 const Refunds = () => {
-  const router  = useRouter();
-
-  const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
-
-  if (typeof window !== "undefined") {
-    // import and use next/router here
-    if(!isAuthenticated){
-      router.push('/auth/signin')
-    }
-  }
+  
 
   return (
     <div>

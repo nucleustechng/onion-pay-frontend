@@ -8,6 +8,7 @@ import { invoiceApi } from '../modules/Invoices/invoiceApi'
 import { settingsApi } from '../modules/LoadSettings/settingsApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
 import { passwordApi } from '../modules/ResetPassword/passwordApi'
+import { transationsApi } from '../modules/TransactionsApi/transactionsApi'
 import invoiceSlice from './invoiceSlice'
 import loginSlice from './loginSlice'
 import createBusinessSlice from './Modal-Processes/createBusinessSlice'
@@ -37,10 +38,12 @@ export const store = configureStore({
     [invoiceApi.reducerPath]:invoiceApi.reducer,
     [AuthApi.reducerPath]:AuthApi.reducer,
     [passwordApi.reducerPath]:passwordApi.reducer,
-    [retrieveLinkApi.reducerPath]:retrieveLinkApi.reducer
+    [retrieveLinkApi.reducerPath]:retrieveLinkApi.reducer,
+    [transationsApi.reducerPath]:transationsApi.reducer
   },
   middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,passwordApi.middleware,
-  businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware)
+  businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,
+  invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware,transationsApi.middleware)
   
 })
 

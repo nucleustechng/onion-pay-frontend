@@ -14,6 +14,7 @@ import { RootState } from '../../redux/store'
 import CreateInvoiceModal from './modals/CreateInvoiceModal'
 import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
+import { useLoadSingleTransactionQuery, useLoadTransactionsQuery } from '../../modules/TransactionsApi/transactionsApi'
 
 
 const TransactionSect = () => {
@@ -22,22 +23,33 @@ const TransactionSect = () => {
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
-  const [invoicesArray,setInvoicesArray] = useState<any>([])
+  const [transactionID,setTransactionID] = useState<string>('')
+  const [mytransaction,setMyTransaction] = useState<any>()
 
 
-  const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
+  const [transactionsArray,setTransactionsArray] = useState<any>([])
+
+
+  const {data:transactionsData,isSuccess} = useLoadTransactionsQuery()
+
+  const {data:transaction,isSuccess:transactionSuccess} = useLoadSingleTransactionQuery(transactionID)
+
   // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
     // invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
+    if (transactionSuccess ) {
+      setMyTransaction(transaction['transaction'])
+      // console.log('My transaction',transction)
+    }
 
-    if (isSuccess && invoiceData.success == true) {
-      setInvoicesArray(invoiceData['invoices'])
-      console.log(invoicesArray)
+    if (isSuccess && transactionsData.success == true) {
+      setTransactionsArray(transactionsData['transactions'])
+      // console.log(transactionsArray[6]['events'][0].status)
     } else {
       console.log('An error occured')
     }
-  },[isSuccess,invoicesArray,invoiceData])
+  },[isSuccess,transactionsArray,transactionsData,transaction,mytransaction,transactionID,transactionSuccess])
   
 
   return (
@@ -102,7 +114,11 @@ const TransactionSect = () => {
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
                   {/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
-                  <input type="text" className='w-screen h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
+                  <input type="text" 
+                  name='t_id'
+                  value={transactionID}
+                  onChange={(e) => setTransactionID(e.target.value)}
+                  className='w-screen h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
             </div>
             <div className='flex flex-row gap-3 mt-4 md:pl-5 lg:gap-3 lg:mt-0'>
                 <div className='hidden md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]'>
@@ -130,7 +146,7 @@ const TransactionSect = () => {
                   </div>
                 </div>
                 {/* Create invoice button for small screens */}
-                <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
+                {/* <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
                     setShowModal(true)
                   }}>
                     <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
@@ -139,11 +155,11 @@ const TransactionSect = () => {
                       Create an Invoice
                       <FontAwesomeIcon icon={faPlus}/>  
                     </div>
-                  </div>
+                  </div> */}
               </div>
           </div>
 
-          <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
+          {/* <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
             setShowModal(true)
           }}>
             <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
@@ -152,7 +168,7 @@ const TransactionSect = () => {
               Create an Invoice
               <FontAwesomeIcon icon={faPlus}/>  
             </div>
-          </div>
+          </div> */}
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
@@ -162,14 +178,25 @@ const TransactionSect = () => {
                       <TransactionHeader/>
                     </div>
                     <div className="mt-5">
-                      {invoicesArray.map((invoice:any) => (
-                        <div key={invoice.i_id}>
+                      {mytransaction ? 
+                           <TransactionTable
+                               status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
+                               amount={mytransaction.amount_string}
+                               createdOn={mytransaction.created_on ? mytransaction.created_on : '--'}
+                               transactionID={mytransaction.t_id}
+                               type={mytransaction?.type}
+                               />
+                                
+                               :
+
+                      transactionsArray.map((transaction:any,index:any) => (
+                        <div key={transaction.i_id}>
                           <TransactionTable
-                          status={invoice.paid ? 'Successful' : 'Pending...'}
-                          amount={invoice.amount_string}
-                          date={invoice.paid_on ? invoice.paid_on : '--'}
-                          createdOn={invoice.created_on ? invoice.created_on : '--'}
-                          paymentId={invoice.i_id}
+                          status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
+                          amount={transaction.amount_string}
+                          createdOn={transaction.created_on ? transaction.created_on : '--'}
+                          transactionID={transaction.t_id}
+                          type={transaction?.type}
                           />
                         </div>
                       ))}

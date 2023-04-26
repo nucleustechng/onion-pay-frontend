@@ -25,6 +25,12 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   const dispatch = useAppDispatch();
   const invoicePrevData = useAppSelector((state: RootState) => state.invoice?.invoices);
   const [itemsCount, setItemsCount] = useState<number>(0);
+
+  const [ref, setRef] = useState<string>('');
+  const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
   
   // const _ref = invoicePrevData?.ref ?? '';
   // const _full_name = invoicePrevData?.full_name ?? '';
@@ -33,11 +39,11 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   // const _address = invoicePrevData?.address ?? '';
   
   const [invoiceData, setInvoiceData] = useState<any>({
-    ref: invoicePrevData?.ref,
-    full_name: invoicePrevData?.full_name ,
-    email: invoicePrevData?.email ,
-    phone: invoicePrevData?.phone ,
-    address: invoicePrevData?.address ,
+    ref: ref,
+    full_name: fullName ,
+    email: email,
+    phone: phone,
+    address: address,
     order: [],
   });
   
@@ -50,7 +56,7 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   const addOrder = (newOrder: any) => {
     if (newOrder.name !== '' && newOrder.quantity !== 0 && newOrder.price !== 0) {
       const allOrders = [...invoiceData.order, newOrder];
-      setItemsCount(allOrders.length);
+      setItemsCount(invoiceData.order.length);
       setInvoiceData({ ...invoiceData, order: allOrders });
       setOrder({ name: '', quantity: 0, price: 0 });
       toast.success('You have successfully added an item')
@@ -60,28 +66,40 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
     console.log(invoiceData);
   };
   
-  const [createInvoice, { data: creatInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
+  const [createInvoice, { data: createInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
   
   const handleCreateInvoice = async () => {
+    console.log(invoiceData?.full_name)
     try {
       let dataToSend = { ...invoiceData };
       if (invoiceData.order.length === 0) {
         // If there is no order in the invoiceData, add the order in the state to the order array
         dataToSend.order.push(order);
       }
-      // if (dataToSend.order.length > 0 && Object.values(dataToSend).every((value) => value !== undefined)) {
+      if (dataToSend.order.length > 0 && Object.values(dataToSend).every((value) => value !== undefined)) {
         await createInvoice(dataToSend);
-      // } else {
-      //   toast.error('Please add at least one item to the order and fill in all invoice information');
-      // }
+      } else {
+        toast.error('Please add at least one item to the order and fill in all invoice information');
+      }
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    
+    if (invoicePrevData !== undefined) {
+      setRef(invoicePrevData.ref || '');
+      setFullName(invoicePrevData.full_name || '');
+      setEmail(invoicePrevData.email || '');
+      setPhone(invoicePrevData.phone || '');
+      setAddress(invoicePrevData.address || '');
+    }
+  }, [invoicePrevData,fullName,email,ref,address,phone]);
   
   useEffect(() => {
     
-    if (isSuccess && creatInvoiceData?.success) {
+    if (isSuccess && createInvoiceData?.success) {
       toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:2000});
 
       setTimeout(() => {
@@ -96,9 +114,9 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
       //   order: [],
       // });
     } else {
-      toast.error(creatInvoiceData?.reason, { autoClose: 1000 });
+      toast.error(createInvoiceData?.reason, { autoClose: 1000 });
     }
-  }, [isSuccess, creatInvoiceData, dispatch]);
+  }, [isSuccess, createInvoiceData, dispatch]);
   
 
       const handleClose = (e:any) =>{

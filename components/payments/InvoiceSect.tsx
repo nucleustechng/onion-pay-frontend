@@ -15,6 +15,8 @@ import { RootState } from '../../redux/store'
 import CreateInvoiceModal from '../transactions/modals/CreateInvoiceModal'
 import CompleteInvoiceModal from '../transactions/modals/CompleteInvoiceModal'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
+import InvoiceHeader from './InvoiceHeader'
+import InvoiceTable from './InvoiceTable'
 
 
 const InvoiceSect = () => {
@@ -34,7 +36,6 @@ const InvoiceSect = () => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
-      console.log(invoicesArray)
     } else {
       console.log('An error occured')
     }
@@ -160,17 +161,18 @@ const InvoiceSect = () => {
           <div className='xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
                   <div className="relative">
                     <div className="sticky top-0 z-10 bg-white"> 
-                      <TransactionHeader/>
+                      <InvoiceHeader/>
                     </div>
                     <div className="mt-5">
                       {invoicesArray.map((invoice:any) => (
                         <div key={invoice.i_id}>
-                          <TransactionTable
+                          <InvoiceTable
                           status={invoice.paid ? 'Successful' : 'Pending...'}
                           amount={invoice.amount_string}
                           date={invoice.paid_on ? invoice.paid_on : '--'}
                           createdOn={invoice.created_on ? invoice.created_on : '--'}
                           paymentId={invoice.i_id}
+                          
                           />
                         </div>
                       ))}

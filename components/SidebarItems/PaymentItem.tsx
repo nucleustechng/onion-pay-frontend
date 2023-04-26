@@ -19,7 +19,7 @@ const PaymentItem = () => {
     const invoicesRoute = router.pathname == '/payments/invoices'
 
 
-    const isPaymentRoute = paymentlinksRoute;
+    const isPaymentRoute = paymentlinksRoute || invoicesRoute;
     const isActiveRoute = paymentlinksRoute || transfersRoute || invoicesRoute;
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const PaymentItem = () => {
             </div>
         </div> */}
         <div>
-        <Link href={isPaymentRoute ? router.pathname : '/payments/paymentlinks'}>
+        <Link href={isPaymentRoute ? router.pathname : '/payments'}>
                         <div className='flex justify-center h-6 lg:w-60' >
                               <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${isActiveRoute ? 'bg-primary' : 'bg-transparent'}`}/>
                             <div className={`flex items-center gap-[0.67em] w-[13.5rem] h-[2.75rem] 

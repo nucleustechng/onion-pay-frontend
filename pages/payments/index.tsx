@@ -3,23 +3,11 @@ import HelpButton from '../../components/HelpButton'
 // import TransfersEmpty from '../../components/payments/TransfersEmpty'
 // import PaymentLinks from '../../components/payments/PaymentLinks'
 // import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
-import { useRouter } from 'next/router'
-import { useAppSelector } from '../../redux/redux-hooks/hooks'
-import { RootState } from '../../redux/store'
 import TransfersEmpty from '../../components/payments/TransfersEmpty'
 
 
 const Payments = () => {
-  const router  = useRouter();
-
-  const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
-
-  if (typeof window !== "undefined") {
-    // import and use next/router here
-    if(!isAuthenticated){
-      router.push('/auth/signin')
-    }
-  }
+ 
   return (
     <div>
         <div>

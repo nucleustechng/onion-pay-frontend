@@ -37,7 +37,7 @@ const TransactionItem = () => {
         </div> */}
         <div>
                   
-                    <Link href={isTransactionRoute ? router.pathname : '/transactions/refunds'}>
+                    <Link href={isTransactionRoute ? router.pathname : '/transactions'}>
                         <div className='flex lg:justify-center  w-60 mb-2 h-6 lg:w-60' >
                              <div className={`
                                     w-[0.26rem]
@@ -60,8 +60,8 @@ const TransactionItem = () => {
                             </div>
                         </div>
                         <ul className={`${transaction ? 'flex flex-col h-16 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.63rem]  mb-0 ${transaction ? 'mt-[1.8rem]' : 'mt-[1.2rem]'} mx-6`}>
-                                    {/* <Link href='/transactions'><li className={`text-sm 
-                                   ${transactionsRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Transactions</li></Link> */}
+                                    <Link href='/transactions'><li className={`text-sm 
+                                   ${transactionsRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Transactions</li></Link>
                                    <Link href='/transactions/refunds'><li className={`text-sm 
                                    ${refundsRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Refunds</li></Link> 
                                    <Link href='/transactions/chargebacks'><li className={`text-sm 

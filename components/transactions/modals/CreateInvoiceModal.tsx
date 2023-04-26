@@ -56,6 +56,7 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
           address: '',
           ref:''
         });
+        localStorage.setItem('myObject',JSON.stringify(invoiceInfo))
         dispatch(setSliceInvoice(invoiceInfo))
     
         setIsloading(true)
