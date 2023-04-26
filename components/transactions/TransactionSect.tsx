@@ -1,4 +1,4 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +13,6 @@ import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import CreateInvoiceModal from './modals/CreateInvoiceModal'
 import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
-import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 import { useLoadSingleTransactionQuery, useLoadTransactionsQuery } from '../../modules/TransactionsApi/transactionsApi'
 
 
@@ -39,7 +38,8 @@ const TransactionSect = () => {
   useEffect(() => {
     // invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
     if (transactionSuccess ) {
-      setMyTransaction(transaction['transaction'])
+      const strIndex:any = 'transaction' 
+      setMyTransaction(transaction[strIndex])
       // console.log('My transaction',transction)
     }
 

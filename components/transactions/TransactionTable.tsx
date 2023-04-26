@@ -28,7 +28,7 @@ const TransactionTable = ({status,transactionID,amount,createdOn,type}: Props) =
     
     const formattedDate = formatDate(createdOn);
     setFormattedDate(formattedDate)
-  }, [])
+  }, [createdOn])
 
   return (
     <div>
