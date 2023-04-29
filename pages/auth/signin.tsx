@@ -81,7 +81,7 @@ const Signin = () => {
               <div  className={`px-5 overflow-y-scroll w-screen   bg-[#F5F5F5] fixed inset-0 h-full z-50 transition-all duration-500
               ${toggleNav ? "right-20" : "left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[65rem] lg:left-[85rem] xl:left-[95rem] min-[280px]:left-[25rem] min-[412px]:left-[30rem]"}`}>
                     <div className='flex justify-end mt-[1.875rem] cursor-pointer' onClick={() => setToggleNav(!toggleNav)}>
-                        <Image src={CloseIcon} alt='Close Icon'/>
+                        <Image src={CloseIcon} loading='lazy' alt='Close Icon'/>
                     </div>
                     {/* CTA buttons */}
                     <div className='flex flex-col gap-6 mt-[1.875rem]'>
@@ -125,7 +125,7 @@ const Signin = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} alt='Logo'/>
+                      <Image src={Logo} loading='lazy' alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>
@@ -149,7 +149,7 @@ const Signin = () => {
                             </Link>
                     </div>
                     <div className='flex items-center cursor-pointer lg:hidden' onClick={() => setToggleNav(!toggleNav)}>
-                      <Image src={Hamburger} alt='Hamburger Icon'/>
+                      <Image src={Hamburger} loading='lazy' alt='Hamburger Icon'/>
                     </div>
                   </div>
             </div>
@@ -203,11 +203,11 @@ const Signin = () => {
                 </div>
             </div>
             <div className='hidden lg:absolute lg:flex justify-center lg:top-[42rem] lg:h-[30rem]  '>
-                <Image src={LadyImage} className='w-[22.4rem]'   alt=''/>
+                <Image src={LadyImage} loading='lazy' className='w-[22.4rem]'   alt=''/>
             </div>
         </div>
             <div className='relative flex justify-center top-[12rem] bottom-0  lg:hidden  '>
-                <Image src={LadyImage} className='w-[22.4rem]'   alt=''/>
+                <Image src={LadyImage} loading='lazy' className='w-[22.4rem]'   alt=''/>
             </div>
       
         <div className='relative z-20'>

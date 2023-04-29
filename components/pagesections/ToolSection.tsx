@@ -34,12 +34,12 @@ const ToolSection = () => {
                 '>Modern tools.</h1>
             </div>
                   <div  className='hidden lg:absolute xl:top-[90rem] xl:right-[51.5rem] lg:top-[91.5rem] lg:right-[51.5rem]'>
-                      <Image src={OrangeCurveArrow}   alt='Curved arrrow'/>
+                      <Image src={OrangeCurveArrow} loading='lazy'   alt='Curved arrrow'/>
                   </div>
                   <div className='hidden xl:absolute xl:top-[100rem] xl:left-[51rem]
                   lg:absolute lg:top-[99rem] lg:left-[39rem]
                   '>
-                      <Image src={BlueCurvedArrow}   alt='Curved arrrow'/>
+                      <Image src={BlueCurvedArrow} loading='lazy'   alt='Curved arrrow'/>
                   </div>
             <div className=' flex justify-between md:w-[68rem] lg:w-[62rem]  xl:w-[79.5rem]'>
               <div className='relative md:w-[40rem] flex flex-col gap-5 mt-6 md:inline-flex'>
@@ -67,13 +67,13 @@ const ToolSection = () => {
                   <div className='absolute left-[13rem] bottom-o top-[25.5rem] 
                   sm:left-[20rem] sm:top-[30rem] md:hidden 
                   '>
-                  <Image src={CurvedArrowDown} alt='Curved ArrowDown'/>
+                  <Image src={CurvedArrowDown} loading='lazy' alt='Curved ArrowDown'/>
                 </div>
               </div>
                 <div className='hidden md:relative md:flex md:justify-end md:right-0 xl:justify-end sm:mt-6 xl:relative xl:right-0 xl:bottom-44  z-0
                 lg:relative lg:right-0 lg:bottom-52 lg:flex lg:justify-end lg:w-[60rem] 
                 '>
-                      <Image src={BusinessSite} alt='Business site screenshot'/>
+                      <Image src={BusinessSite} loading='lazy' alt='Business site screenshot'/>
                 </div>
             </div>
             <div className='flex flex-col gap-[0.375rem] mt-[2.7rem] md:hidden'>
@@ -106,7 +106,7 @@ const ToolSection = () => {
                     <div className='xl:absolute xl:top-[35.5rem] xl:left-[36rem]
                     lg:absolute lg:top-[35.5rem] lg:left-[28rem]
                     '>
-                      <Image src={L_OrangeArrowTransfers} alt=''/>
+                      <Image src={L_OrangeArrowTransfers} loading='lazy' alt=''/>
                     </div>
                     <div className='xl:absolute xl:left-[50rem] xl:top-[35.8rem] lg:absolute lg:left-[41rem] lg:top-[35.8rem]'>
                       <LargeToolSectCard header='Transfers'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#FF9635]' 

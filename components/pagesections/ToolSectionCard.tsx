@@ -32,11 +32,11 @@ const ToolSectionCard = ({backgroundColor,circleColor,header,img,mainText,alt,he
             </div>
             <div className='flex justify-end mr-3 '>
                 <div className={`flex items-center justify-center w-[3.375rem] h-[3.375rem] ${circleColor} rounded-full`}>
-                    <Image src={ArrowRight} alt='Right arrow icon'  className='w-9 h-9'/>
+                    <Image src={ArrowRight} loading='lazy' alt='Right arrow icon'  className='w-9 h-9'/>
                 </div>
             </div>
             <div className={`absolute bottom-0 left-4 ${height}`}>
-                <Image src={img} alt={alt}/>
+                <Image src={img} loading='lazy' alt={alt}/>
             </div>
         </div>
     </div>

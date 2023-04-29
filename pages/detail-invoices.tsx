@@ -43,7 +43,7 @@ const DetailInvoices = () => {
                     </Link>
                 </div>
                 <div className='hidden lg:flex lg:items-center'>
-                    <Image src={CollectPayments} alt='Collect Payments Illustration'/>
+                    <Image src={CollectPayments} loading='lazy' alt='Collect Payments Illustration'/>
                 </div>
             </div>
             <div className='mx-4 md:mx-[5rem]  xl:mx-[9.375rem] mt-6 md:mt-16 lg:mt-[3.325rem]'>

@@ -50,7 +50,7 @@ const Sendmoney = () => {
                     </Link>
                 </div>
                 <div className='hidden lg:flex lg:items-center'>
-                    <Image src={SendmoneyImg} alt='Collect Payments Illustration'/>
+                    <Image src={SendmoneyImg} loading='lazy' alt='Collect Payments Illustration'/>
                 </div>
 
             </div>
