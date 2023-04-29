@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import ButtonIcon from '../components/Buttons/ButtonIcon'
-import CollectPayments from '../Assets/img/collect-payments/CollectPayment.svg'
+import CollectPayments from '../Assets/img/collect-payments/CollectPayment.png'
 
 
 
