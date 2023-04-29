@@ -7,7 +7,7 @@ import LoadSpinner from '../Assets/LoadSpinner.svg'
 
 const Loader = () => (
     <div className='animate-spin'>
-        <Image  src={LoadSpinner} alt='Loader'/>
+        <Image  src={LoadSpinner} loading='eager' alt='Loader'/>
     </div>
 )
 
