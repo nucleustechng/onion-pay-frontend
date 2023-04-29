@@ -45,7 +45,6 @@ const PaymentLinks = () => {
     } else {
       console.log('An error occured')
     }
-    console.log('Payment link array',paymentLinksArray)
   },[isSuccess,paymentLinksArray,paymentPageData])
 
   const dispatch = useAppDispatch();
