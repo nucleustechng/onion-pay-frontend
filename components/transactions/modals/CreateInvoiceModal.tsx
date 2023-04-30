@@ -5,8 +5,7 @@ import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep, setSliceInvoice } from '../../../redux/invoiceSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Loader from '../../Loader'
-import {  ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -14,7 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
     isVisible:boolean
-    onClose:()=>{}
+    onClose:()=>{},
+    onSubmit:(data:any)=>void
 }
 
 type InvoiceForm = {
@@ -22,11 +22,11 @@ type InvoiceForm = {
     email:string,
     phone:string,
     address:string,
-    ref:string
+    ref:string,
+    [key: string]: any;
 }
 
-const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
-    // const [invoices, setInvoices] = useState<InvoiceForm[]>([]);
+const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
     const dispatch = useAppDispatch();
     const [isLoading,setIsloading] = useState<boolean>();
 
@@ -35,39 +35,45 @@ const CreateInvoiceModal = ({isVisible,onClose}: Props) => {
         email: '',
         phone: '',
         address: '',
-        ref:''
+        ref:'-'
       });
 
+      const validateForm = () => {
+        for (const key in invoiceInfo) {
+          if (!invoiceInfo[key]) {
+            toast.error(`Please fill ${key.replace("_", " ")} field`);
+            return false;
+          }
+        }
+        return true;
+      };
 
 
       const handleSubmit = () => {
-        // const { full_name, email, phone, address, ref } = invoiceInfo;
-
-
-        // if (!full_name || !email || !phone || !address || !ref) {
-        //     toast.error('Please fill in all fields');
-        //     return;
-        //   }
+        if (!validateForm()) {
+            return;
+          }
 
         setInvoiceInfo({
           full_name: '',
           email: '',
           phone: '',
           address: '',
-          ref:''
+          ref:'-'
         });
-        localStorage.setItem('myObject',JSON.stringify(invoiceInfo))
-        dispatch(setSliceInvoice(invoiceInfo))
+        // localStorage.setItem('myObject',JSON.stringify(invoiceInfo))
+        invoiceInfo &&  dispatch(setSliceInvoice(invoiceInfo));
     
         setIsloading(true)
         setTimeout(() => {
             setIsloading(false)
             dispatch(setSecondStep(true))
-        },500)
+        },1000)
+        onSubmit(invoiceInfo)
       };
 
       useEffect(() => {
-
+            console.log(invoiceInfo)
       },[])
       
 

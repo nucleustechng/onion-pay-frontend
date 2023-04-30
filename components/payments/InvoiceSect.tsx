@@ -18,6 +18,12 @@ import InvoiceTable from './InvoiceTable'
 
 
 const InvoiceSect = () => {
+  const [outputData, setOutputData] = useState('');
+
+  const handleDataSubmit = (data:any) => {
+    setOutputData(data);
+  };
+
   const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
@@ -130,10 +136,10 @@ const InvoiceSect = () => {
                   </div>
                 </div>
                 {/* Create invoice button for small screens */}
-                <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
+                <div className='flex justify-end lg:hidden cursor-pointer'>
+                    <div   onClick={()=>{
                     setShowModal(true)
-                  }}>
-                    <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
+                  }} className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
                     w-[12rem] h-9 text-sm md:w-[12rem] md:h-11
                     lg:hidden font-WorkSans font-normal leading-4'>
                       Create an Invoice
@@ -143,10 +149,10 @@ const InvoiceSect = () => {
               </div>
           </div>
 
-          <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
+          <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' >
+            <div onClick={()=>{
             setShowModal(true)
-          }}>
-            <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
+          }} className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
             w-[10rem] h-9 text-sm
             lg:w-[13.4rem] lg:h-11 lg:text-base font-WorkSans font-normal leading-4'>
               Create an Invoice
@@ -189,8 +195,8 @@ const InvoiceSect = () => {
                 </div>
               <div>
                 <div>
-                <CreateInvoiceModal isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
-              <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+                <CreateInvoiceModal onSubmit={handleDataSubmit} isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+              <CompleteInvoiceModal data={outputData} isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ const Navbar = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
   const linkItems = [
     {title:'Payment',link:'/collect-payment'}
-    ,{title:'Commerce',link:'/'}, 
+    ,{title:'Invoices',link:'/detail-invoices'}, 
     {title:'Developer',link:'https://ultra-organization.gitbook.io/onion-pay'}
   ]
 

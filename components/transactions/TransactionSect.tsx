@@ -11,16 +11,16 @@ import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
-import CreateInvoiceModal from './modals/CreateInvoiceModal'
-import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
+// import CreateInvoiceModal from './modals/CreateInvoiceModal'
+// import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import { useLoadSingleTransactionQuery, useLoadTransactionsQuery } from '../../modules/TransactionsApi/transactionsApi'
 
 
 const TransactionSect = () => {
-  const [showModal,setShowModal] = useState<boolean>(false);
+  // const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-  const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
+  // const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
   const [transactionID,setTransactionID] = useState<string>('')
   const [mytransaction,setMyTransaction] = useState<any>()
@@ -215,8 +215,8 @@ const TransactionSect = () => {
                 </div>
               <div>
                 <div>
-                <CreateInvoiceModal isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
-              <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+                {/* <CreateInvoiceModal isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+              <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/> */}
                 </div>
             </div>
         </div>

@@ -1,61 +1,33 @@
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Hamburger from 'hamburger-react'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DownloadIcon from '../../Assets/icon/Download.svg'
-import { useLoadPaymentLinksQuery } from '../../modules/PaymentPageApi/paymentPageApi'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
-import Loader from '../Loader'
-// import PaymentLinkModal from './modals/PaymentLinkModal'
-// import SingleChargeModal from './modals/SingleChargeModal'
-// import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
-import PaymentsHeader from './PaymentsHeader'
-import PaymentTable from './PaymentTable'
-import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-// import dynamic from 'next/dynamic'
 import PaymentLinkModal from './modals/PaymentLinkModal'
 import SingleChargeModal from './modals/SingleChargeModal'
 import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
-import PaymentLinksEmpty from './PaymentLinksEmpty'
 
 
-const PaymentLinks = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
 
-  const handleEllipsisClick = (paymentLink: string) => {
-    console.log(`Clicked ellipsis for payment link ${paymentLink}`);
-    // Do whatever you need to with the clicked payment link data
-  };
 
+const PaymentLinksEmpty = () => {
+  const [showModal,setShowModal] = useState<boolean>(false);
+  const dispatch:any = useAppDispatch();
+  const sidebarShow:any = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
 
  
   const isSingleCharge = useAppSelector((state:RootState) => state.paymentLink.isSingleCharge);
   const isSecondStep = useAppSelector((state:RootState) => state.paymentLink.isSecondStep);
-  // const isCompleted  = useAppSelector((state:RootState) => state.paymentLink.isCompleted);
-  const {data:paymentPageData,isSuccess,isLoading} = useLoadPaymentLinksQuery()
 
-
-  useEffect(() => {
-    if (isSuccess && paymentPageData.success == true) {
-      setPaymentLinksArray(paymentPageData.pages)
-    } else {
-      console.log('An error occured')
-    }
-  },[isSuccess,paymentLinksArray,paymentPageData])
-
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-
-
-  
   return (
-    <div> 
-    {paymentLinksArray.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
+    <div>
+<div className='relative'>
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment link</h1>
@@ -94,31 +66,19 @@ const PaymentLinks = () => {
                 </div>
             </div>
             </div>
-              <div className='mt-6'>
-                {isLoading ? <div className='flex justify-center'><Loader/></div>
-                :  
-                <div className='xl:w-[71.5rem] h-[40rem] overflow-y-auto scrollbar-hide'>
-                  <div className="relative">
-                    <div className="sticky top-0 z-10 bg-white"> 
-                      <PaymentsHeader/>
+                  <div className='lg:mt-6 w-[31.5rem] h-16 '>
+                <h1 className='text-[2rem] text-[#262626] font-WorkSans font-normal leading-9 mb-4'>You do not have any current
+payment links.</h1>
+                    <p className='text-sm font-WorkSans font-normal leading-4'>This is the best way to receive money from your clients.</p>
+                <div className='flex mt-6  items-center lg:w-[14rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                    <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
+                    setShowModal(true)
+                    }}>
+                      <h1 className='text-base font-WorkSans font-normal text-white'>New payment link</h1>
+                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
                     </div>
-                    <div className="pl-2 mt-5">
-                      {paymentLinksArray?.map((item:any) => 
-                      <div  key={item?.url}>
-                        <PaymentTable 
-                        amount={item?.amount} 
-                        description={item?.description}  
-                        pageId={item?.p_id} pageName={item?.title}
-                        paymentLink={item?.url} 
-                        onEllipsisClick={handleEllipsisClick}
-                        />
-                        <hr className='border-[#F5F5F5] border-[1px]'/>
-                      </div>)}
-                    </div>
-                  </div>
                 </div>
-                }
-              </div>
+            </div>
             <div>
               <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/>
               {isSingleCharge && <SingleChargeModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
@@ -128,10 +88,9 @@ const PaymentLinks = () => {
             </div>
 
         </div>
-    </div>}
+    </div>
     </div>
   )
 }
 
-export default PaymentLinks
-
+export default PaymentLinksEmpty

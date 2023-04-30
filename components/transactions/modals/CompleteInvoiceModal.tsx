@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep } from '../../../redux/invoiceSlice'
-import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
+import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useCreateInvoiceMutation } from '../../../modules/Invoices/invoiceApi'
-import { RootState } from '../../../redux/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../../Loader'
@@ -16,34 +15,23 @@ import Loader from '../../Loader'
 
 interface Props {
     isVisible:boolean
-    onClose:()=>{}
+    onClose:()=>{},
+    data:any
 }
 
 
 
-const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
+const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
   const dispatch = useAppDispatch();
-  const invoicePrevData = useAppSelector((state: RootState) => state.invoice?.invoices);
   const [itemsCount, setItemsCount] = useState<number>(0);
+  const retrievedData:any = data;
 
-  const [ref, setRef] = useState<string>('');
-  const [fullName, setFullName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [address, setAddress] = useState<string>('');
-  
-  // const _ref = invoicePrevData?.ref ?? '';
-  // const _full_name = invoicePrevData?.full_name ?? '';
-  // const _email = invoicePrevData?.email ?? '';
-  // const _phone = invoicePrevData?.phone ?? '';
-  // const _address = invoicePrevData?.address ?? '';
-  
   const [invoiceData, setInvoiceData] = useState<any>({
-    ref: ref,
-    full_name: fullName ,
-    email: email,
-    phone: phone,
-    address: address,
+    ref: '',
+    full_name: '' ,
+    email: '',
+    phone: '',
+    address: '',
     order: [],
   });
   
@@ -56,14 +44,14 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   const addOrder = (newOrder: any) => {
     if (newOrder.name !== '' && newOrder.quantity !== 0 && newOrder.price !== 0) {
       const allOrders = [...invoiceData.order, newOrder];
-      setItemsCount(invoiceData.order.length);
+      setItemsCount(invoiceData.order.length + 1);
       setInvoiceData({ ...invoiceData, order: allOrders });
       setOrder({ name: '', quantity: 0, price: 0 });
       toast.success('You have successfully added an item')
     } else {
       toast.error('Fill in item information');
     }
-    console.log(invoiceData);
+    console.log('Items',invoiceData);
   };
   
   const [createInvoice, { data: createInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
@@ -87,36 +75,36 @@ const CompleteInvoiceModal = ({isVisible,onClose}: Props) => {
   };
 
   useEffect(() => {
-    
-    if (invoicePrevData !== undefined) {
-      setRef(invoicePrevData.ref || '');
-      setFullName(invoicePrevData.full_name || '');
-      setEmail(invoicePrevData.email || '');
-      setPhone(invoicePrevData.phone || '');
-      setAddress(invoicePrevData.address || '');
-    }
-  }, [invoicePrevData,fullName,email,ref,address,phone]);
+    setInvoiceData({
+      ref: retrievedData?.ref,
+      full_name: retrievedData?.full_name,
+      email: retrievedData?.email,
+      phone: retrievedData?.phone,
+      address: retrievedData?.address,
+      order: invoiceData.order // preserve the previous order property
+    });
+  }, [data,itemsCount,retrievedData]);
   
   useEffect(() => {
-    
     if (isSuccess && createInvoiceData?.success) {
       toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:2000});
 
       setTimeout(() => {
       dispatch(setSecondStep(false));
+      // onClose()
       },2500)
-      // setInvoiceData({
-      //   ref: '',
-      //   full_name: '',
-      //   email: '',
-      //   phone: '',
-      //   address: '',
-      //   order: [],
-      // });
+      setInvoiceData({
+        ref: '',
+        full_name: '',
+        email: '',
+        phone: '',
+        address: '',
+        order: []
+      })
     } else {
       toast.error(createInvoiceData?.reason, { autoClose: 1000 });
     }
-  }, [isSuccess, createInvoiceData, dispatch]);
+  }, [isSuccess, createInvoiceData, dispatch,itemsCount]);
   
 
       const handleClose = (e:any) =>{
