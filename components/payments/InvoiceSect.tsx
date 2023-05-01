@@ -15,6 +15,7 @@ import CompleteInvoiceModal from '../transactions/modals/CompleteInvoiceModal'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 import InvoiceHeader from './InvoiceHeader'
 import InvoiceTable from './InvoiceTable'
+import Loader from '../Loader'
 
 
 const InvoiceSect = () => {
@@ -32,7 +33,7 @@ const InvoiceSect = () => {
   const [invoicesArray,setInvoicesArray] = useState<any>([])
 
 
-  const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
+  const {data:invoiceData,isSuccess,isLoading} = useLoadInvoicesQuery()
   // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
@@ -167,6 +168,10 @@ const InvoiceSect = () => {
                     <div className="sticky top-0 z-10 bg-white"> 
                       <InvoiceHeader/>
                     </div>
+                    {isLoading ? <div className='  h-56 flex justify-center items-center'>
+                                    <Loader width='w-16' height='h-16'/>
+                        </div> 
+                                    :
                     <div className="mt-5">
                       {invoicesArray.map((invoice:any) => (
                         <div key={invoice.i_id}>
@@ -190,7 +195,7 @@ const InvoiceSect = () => {
                           />
                       </div>
                       ))} */}
-                    </div>
+                    </div>}
                   </div>
                 </div>
               <div>

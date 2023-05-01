@@ -14,6 +14,7 @@ import { RootState } from '../../redux/store'
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
 // import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import { useLoadSingleTransactionQuery, useLoadTransactionsQuery } from '../../modules/TransactionsApi/transactionsApi'
+import Loader from '../Loader'
 
 
 const TransactionSect = () => {
@@ -29,7 +30,7 @@ const TransactionSect = () => {
   const [transactionsArray,setTransactionsArray] = useState<any>([])
 
 
-  const {data:transactionsData,isSuccess} = useLoadTransactionsQuery()
+  const {data:transactionsData,isSuccess,isLoading} = useLoadTransactionsQuery()
 
   const {data:transaction,isSuccess:transactionSuccess} = useLoadSingleTransactionQuery(transactionID)
 
@@ -177,7 +178,11 @@ const TransactionSect = () => {
                     <div className="sticky top-0 z-10 bg-white"> 
                       <TransactionHeader/>
                     </div>
-                    <div className="mt-5">
+                    {isLoading ? <div className='  h-56 flex justify-center items-center'>
+                                    <Loader width='w-16' height='h-16'/>
+                        </div> 
+                                    :
+                      <div className="mt-5">
                       {mytransaction ? 
                            <TransactionTable
                                status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
@@ -210,7 +215,7 @@ const TransactionSect = () => {
                           />
                       </div>
                       ))} */}
-                    </div>
+                    </div>}
                   </div>
                 </div>
               <div>

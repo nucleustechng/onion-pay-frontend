@@ -3,11 +3,15 @@ import React from 'react'
 import LoadSpinner from '../Assets/LoadSpinner.svg'
 
 
+interface Props {
+    width?:string
+    height?:string
+}
 
 
-const Loader = () => (
+const Loader = ({width,height}:Props) => (
     <div className='animate-spin'>
-        <Image  src={LoadSpinner} loading='eager' alt='Loader'/>
+        <Image  src={LoadSpinner} loading='eager' className={`${width} ${height} `}  alt='Loader'/>
     </div>
 )
 

@@ -102,7 +102,10 @@ const PaymentLinks = () => {
                     <div className="sticky top-0 z-10 bg-white"> 
                       <PaymentsHeader/>
                     </div>
-                    <div className="pl-2 mt-5">
+                    {isLoading ? <div className='  h-56 flex justify-center items-center'>
+                                    <Loader width='w-16' height='h-16'/>
+                        </div> 
+                                    : <div className="pl-2 mt-5">
                       {paymentLinksArray?.map((item:any) => 
                       <div  key={item?.url}>
                         <PaymentTable 
@@ -114,7 +117,7 @@ const PaymentLinks = () => {
                         />
                         <hr className='border-[#F5F5F5] border-[1px]'/>
                       </div>)}
-                    </div>
+                    </div>}
                   </div>
                 </div>
                 }
