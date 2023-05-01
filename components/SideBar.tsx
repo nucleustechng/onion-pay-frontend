@@ -12,6 +12,11 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import BusinessItem from './SidebarItems/BusinessItem'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+// import Switch from 'react-js-switch'
+// import { useEffect, useState } from 'react'
+// import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
+// import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -22,10 +27,47 @@ const SideBar = () =>{
         localStorage.clear()
         router.push('/auth/signin')
     }
+
+    // const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
+    // const { data, isSuccess } = useToggleModeQuery(isSwitchOn);
+    // const [newData, setNewData] = useState<any>();
+    
+    // const switch_onChange_handle = () => {
+    //   setIsSwitchOn((prevState) => !prevState);
+    // };
+    
+    // useEffect(() => {
+    //   if (isSuccess && newData?.live !== undefined) {
+    //     setIsSwitchOn(newData?.live);
+    //     console.log(newData?.live);
+    //   } else {
+    //     toast.success('We are having trouble switching your environment')
+    //   }
+    // }, [isSuccess, newData]);
+    
+    // useEffect(() => {
+    //   if (data !== newData) {
+    //     setNewData(data);
+    //   }
+    // }, [data, newData]);
+    
+    // useEffect(() => {
+    //   if (isSuccess) {
+    //     // do something
+    //   }
+    // }, [isSuccess]);
+    
+    // useToggleModeQuery(isSwitchOn);
+    
+    
+
+    
+    
     
 
   return (
     <div>
+        {/* <ToastContainer/> */}
       {/*  */}
         <div className='hidden lg:flex  h-screen lg:h-screen  '>
         <div className='flex flex-col w-60 h-screen'>
@@ -60,9 +102,19 @@ const SideBar = () =>{
                     <div>
                         <BusinessItem/>
                     </div> 
+                   
                 </div>
             </div>
             <div className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}>
+            {/* <div className='flex justify-between items-center mx-6'>
+                <h1 className='text-base text-[#1B1A1A] font-WorkSans font-normal leading-5'>{isSwitchOn ? 'Live mode' : 'Test mode'}</h1>
+                <Switch 
+                value={isSwitchOn} 
+                onChange={switch_onChange_handle} 
+                backgroundColor={{on: '#3063E9',off:'#F5F0F3'}}
+                borderColor={{on:'#3063E9',off:'#F5F0F3'}}
+                />
+            </div> */}
             <hr className='border-solid border-[0.068rem] border-[#F5F0F3]'/>
             <div className='flex lg:flex'>
                 <Link href='/settings'>

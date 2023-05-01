@@ -34,6 +34,17 @@ export const settingsApi = createApi({
             },
             invalidatesTags: ['Details']
         }),
+        updateAccountDetails:builder.mutation({
+            query: (body:{ f_name:string,l_name:string,o_name:string
+                email:string,phone:string,address:string,dob:string}) => {
+                return {
+                    url:'/api/v1/update-account-details',
+                    method:'post',
+                    body,
+                };
+            },
+            invalidatesTags: ['Details']
+        }),
         updateBusinessLogo:builder.mutation({
             query:(body:{logo:string}) => {
                 return {
@@ -46,4 +57,4 @@ export const settingsApi = createApi({
     })
 });
 
-export const { useLoadSettingsQuery, useUpdateBusinessInfoMutation, useUpdateBusinessLogoMutation } = settingsApi
+export const { useLoadSettingsQuery, useUpdateBusinessInfoMutation, useUpdateBusinessLogoMutation, useUpdateAccountDetailsMutation } = settingsApi

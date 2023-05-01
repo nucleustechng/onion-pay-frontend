@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CloseIcon from '../../Assets/icon/CloseIcon.svg'
 import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
@@ -27,7 +27,6 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
 
     const dispatch = useAppDispatch()
 
-    const [successMessage,setSucccessMessage] = useState('')
 
     const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
       email: '',
@@ -58,11 +57,14 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
 
   };
 
+  const [showToast, setShowToast] = useState(false);
+  const showToastRef = useRef(false);
   
   useEffect(() => {
-    if (isSuccess && businessData.success == true) {
-      setSucccessMessage('Your business details have been successfully updated!')
-      toast.success(successMessage ? successMessage : '');
+    if (isSuccess && businessData.success == true && !showToastRef.current) {
+      toast.success('Your business details have been successfully updated!');
+      setShowToast(true);
+      showToastRef.current = true;
       dispatch(setBusinessUpdated(true))
       setBusinessInfo({
         email: '',
@@ -77,7 +79,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,businessData,dispatch,onClose,successMessage]);
+  },[isSuccess,businessData,dispatch,onClose,showToast,showToastRef]);
 
   
     const handleClose = (e:any) =>{

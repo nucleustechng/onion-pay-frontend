@@ -4,6 +4,7 @@ import { AuthApi } from '../modules/auth/api/AuthApi'
 import { businessApi } from '../modules/BusinessPageApi/businessApi'
 import { usersApi } from '../modules/Client/usersApi'
 import { retrieveLinkApi } from '../modules/Developers/retrieveLinkApi'
+import { switchEnvironment } from '../modules/Environment/switchEnvironment'
 import { invoiceApi } from '../modules/Invoices/invoiceApi'
 import { settingsApi } from '../modules/LoadSettings/settingsApi'
 import { paymentPageApi } from '../modules/PaymentPageApi/paymentPageApi'
@@ -39,11 +40,12 @@ export const store = configureStore({
     [AuthApi.reducerPath]:AuthApi.reducer,
     [passwordApi.reducerPath]:passwordApi.reducer,
     [retrieveLinkApi.reducerPath]:retrieveLinkApi.reducer,
-    [transationsApi.reducerPath]:transationsApi.reducer
+    [transationsApi.reducerPath]:transationsApi.reducer,
+    [switchEnvironment.reducerPath]:switchEnvironment.reducer,
   },
   middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,passwordApi.middleware,
   businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,
-  invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware,transationsApi.middleware)
+  invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware,transationsApi.middleware,switchEnvironment.middleware)
   
 })
 
