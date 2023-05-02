@@ -8,19 +8,19 @@ import HelpButton from '../HelpButton'
 // import VerifyAccountModal from './modals/VerifyAccountModal'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
-import VerifyAccountModal from './modals/VerifyAccountModal'
+// import dynamic from 'next/dynamic'
+// import VerifyAccountModal from './modals/VerifyAccountModal'
 import IndividualBusinessModal from './modals/IndividualBusinessModal'
 
 
 
 const BusinessSect = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
-  const isSecondStep = useAppSelector((state:RootState) => state.business.isSecondStep);
+  // const isSecondStep = useAppSelector((state:RootState) => state.business.isSecondStep);
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   const dispatch = useAppDispatch();
 
-  const CreateBusinessModal = dynamic(() => import('./modals/CreateBusinessModal'));
+  // const CreateBusinessModal = dynamic(() => import('./modals/CreateBusinessModal'));
 
   
 
