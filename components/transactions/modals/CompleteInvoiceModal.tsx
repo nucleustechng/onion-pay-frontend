@@ -176,7 +176,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                             <div onClick={() => {
                                 handleCreateInvoice()
                                 }} className='w-[6.5rem] cursor-pointer h-11 flex justify-center items-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                                    {isLoading ? <Loader/> : 'Continue'}
+                                    {isLoading ? <Loader isWhite={true}/> : 'Continue'}
                             </div>
                         </div>
                     </div>

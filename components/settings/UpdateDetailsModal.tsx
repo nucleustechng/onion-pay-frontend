@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../Assets/icon/CloseIcon.svg'
 import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,8 +10,13 @@ import { useAppDispatch } from '../../redux/redux-hooks/hooks'
 import {  useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/settingsApi';
 
 interface Props {
-    isVisible:boolean
-    onClose:()=>{}
+    isVisible:boolean,
+    onClose:()=>{},
+    email:string,
+    phone:string,
+    address:string,
+    website:string,
+    bvn:string
 }
 
 type BusinessForm = {
@@ -22,18 +27,18 @@ type BusinessForm = {
     bvn:string
 }
 
-const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
+const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}: Props) => {
 
 
     const dispatch = useAppDispatch()
 
 
     const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
-      email: '',
-      phone: '',
-      address: '',
-      website: '',
-      bvn:''
+      email: email,
+      phone: phone,
+      address: address,
+      website: website,
+      bvn: bvn
     });
 
 
@@ -57,29 +62,29 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
 
   };
 
-  const [showToast, setShowToast] = useState(false);
-  const showToastRef = useRef(false);
+  // const [showToast, setShowToast] = useState(false);
+  // const showToastRef = useRef(false);
   
   useEffect(() => {
-    if (isSuccess && businessData.success == true && !showToastRef.current) {
-      toast.success('Your business details have been successfully updated!');
-      setShowToast(true);
-      showToastRef.current = true;
+    if (isSuccess) {
+    
       dispatch(setBusinessUpdated(true))
-      setBusinessInfo({
-        email: '',
-        phone: '',
-        address: '',
-        website: '',
-        bvn:''
-      });
+
       onClose()
     } else {
       // toast.error(businessData?.reason);
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,businessData,dispatch,onClose,showToast,showToastRef]);
+  },[isSuccess,businessData,dispatch]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Your business details have been successfully updated!',{autoClose:700});
+    } else {
+      toast.error(businessData?.reason);
+    }
+  },[businessData])
 
   
     const handleClose = (e:any) =>{
@@ -168,7 +173,7 @@ const UpdateDetailsModal = ({isVisible,onClose}: Props) => {
                         Cancel
                         </button>
                         <button onClick={handleUpdateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Update details'}</div>
+                        <div className='flex justify-center items-center'>{isLoading ? <Loader isWhite={true}/> : 'Update details'}</div>
                         </button>
                     </div>
                 </div>

@@ -15,7 +15,6 @@ import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 // import dynamic from 'next/dynamic'
-import PaymentLinkModal from './modals/PaymentLinkModal'
 import SingleChargeModal from './modals/SingleChargeModal'
 import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentLinksEmpty from './PaymentLinksEmpty'
@@ -109,6 +108,7 @@ const PaymentLinks = () => {
                       {paymentLinksArray?.map((item:any) => 
                       <div  key={item?.url}>
                         <PaymentTable 
+                        redirectUrl={item?.redirect_url}
                         amount={item?.amount} 
                         description={item?.description}  
                         pageId={item?.p_id} pageName={item?.title}
@@ -123,8 +123,8 @@ const PaymentLinks = () => {
                 }
               </div>
             <div>
-              <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/>
-              {isSingleCharge && <SingleChargeModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+              {/* <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/> */}
+              <SingleChargeModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
               {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
               
                {/* <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}

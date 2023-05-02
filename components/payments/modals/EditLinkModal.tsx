@@ -10,22 +10,26 @@ import { useLoadPaymentLinksQuery, useUpdatePaymentPageMutation } from '../../..
 interface Props {
   isVisible:boolean
   onClose:()=>{},
-  pageID:string
+  prevPageID:string,
+  prevPageName:string,
+  prevAmount:number,
+  prevDescription:string,
+  prevRedirect:string
 }
 
-const EditLinkModal = ({isVisible,onClose,pageID}: Props) => {
+const EditLinkModal = ({isVisible,onClose,prevPageID,prevPageName,prevAmount,prevDescription,prevRedirect}: Props) => {
 
 
 
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
-  const [showErrorToast, setShowErrorToast] = useState(false);
+  // const [showSuccessToast, setShowSuccessToast] = useState(false);
+  // const [showErrorToast, setShowErrorToast] = useState(false);
 
   const [paymentLinkInfo, setPaymentLinkInfo] = useState({
-    title: '',
-    p_id: '',
-    amount: 0,
-    description: '',
-    redirect_url: '',
+    title: prevPageName && prevPageName,
+    p_id: prevPageID && prevPageName,
+    amount: prevAmount && prevAmount,
+    description: prevDescription && prevDescription,
+    redirect_url: prevRedirect && prevRedirect,
   });
 
   const [updatePaymentLink, { data: updateLinkData, isSuccess, isLoading }] =
@@ -57,31 +61,32 @@ const handleUpdatePaymentLink = async () => {
 };
 
 useEffect(() => {
-  setPaymentLinkInfo({...paymentLinkInfo, p_id: pageID})
-  if (isSuccess && updateLinkData.success == true) {
-    setShowSuccessToast(true);
-    onClose()
-    setPaymentLinkInfo({
-      title: '',
-      p_id: '',
-      amount: 0,
-      description: '',
-      redirect_url: '',
-    });
-  } else {
-    setShowErrorToast(true);
-  }
-}, [isSuccess,updateLinkData,pageID,onClose,paymentLinkInfo]);
+  setPaymentLinkInfo({...paymentLinkInfo, p_id: prevPageID})
+  if (isSuccess) {
+    // setShowSuccessToast(true);
+    // toast.success('You have successfully edited your paymentlink!');
+
+    // setTimeout(() => {
+      onClose()
+    // },500)
+    // setPaymentLinkInfo({
+    //   title: '',
+    //   p_id: '',
+    //   amount: 0,
+    //   description: '',
+    //   redirect_url: '',
+    // });
+  } 
+}, [isSuccess]);
 
 useEffect(() => {
-  if (showSuccessToast) {
+  if (isSuccess) {
     toast.success('You have successfully edited your paymentlink!');
-    setShowSuccessToast(false);
-  } else if (showErrorToast) {
+
+  } else {
     toast.error(updateLinkData?.reason);
-    setShowErrorToast(false);
   }
-}, [showSuccessToast, showErrorToast,updateLinkData]);
+}, [isSuccess,updateLinkData]);
 
   const handleClose = (e:any) =>{
     if(e.target.id === 'wrapper'){
@@ -94,7 +99,7 @@ useEffect(() => {
     <div>
       <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] z-30 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center '  id='wrapper' onClick={handleClose}>
-            <div className='w-[33.26rem] h-[39rem] mt-32 rounded-[0.63rem] bg-white'>
+            <div className='w-[33.26rem] h-[35rem] mt-32 rounded-[0.63rem] bg-white'>
               <div className='mx-6 mt-6'>
                   <div className='flex justify-between items-center'>
                     <div className='flex items-center '>
@@ -110,17 +115,17 @@ useEffect(() => {
                         name='title'
                         value={paymentLinkInfo.title}
                         onChange={(e) => setPaymentLinkInfo({...paymentLinkInfo, title: e.target.value})}
-                        label='Title'
+                        label='Page name'
                         type='text'
                         width='w-[26rem] md:w-[30rem]' 
                         placeholder='' 
                         height='h-[3.125rem]' 
                         textSize={''}
                         />
-                        <div className='flex flex-col gap-4'>
+                        {/* <div className='flex flex-col gap-4'>
                             <h1 className={`text-sm  text-[#1B1A1A] font-WorkSans font-normal leading-4 `}>Page ID</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-semibold'>{pageID}</h2>
-                        </div>
+                        </div> */}
                         <div className='flex flex-col '>
                             <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4 mb-2'>Amount</h1>
                             <div className='flex items-center justify-between'>
@@ -166,7 +171,7 @@ useEffect(() => {
                   {/* Action buttons */}
                   <div className='flex items-center justify-end gap-4 mt-5'>
                     <div onClick={handleUpdatePaymentLink} className='flex justify-center cursor-pointer items-center w-[5rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                       {isLoading ? <Loader/> : <h1>Done</h1>}
+                       {isLoading ? <Loader isWhite={true}/> : <h1>Done</h1>}
                     </div>
                   </div>
               </div>

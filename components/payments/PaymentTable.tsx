@@ -17,11 +17,12 @@ interface Props  {
     amount:number,
     description?:string,
     pageId:string,
+    redirectUrl:string
     onEllipsisClick: (paymentLink: string) => void;
     
 }
 
-const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsisClick}: Props) => {
+const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsisClick,redirectUrl}: Props) => {
     const [selectedLinkId, setSelectedLinkId] = useState<string>('');
     const [selectedTitle, setSelectedTitle] = useState<string>('');
     const [selectedAmount, setSelectedAmount] = useState<number | any>();
@@ -76,7 +77,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{pageId}</h1>
             </div>
             <div className='w-[14.3rem]'>
-                <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{description}</h1>
+                <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem] truncate'>{description}</h1>
             </div>
             <div className="flex items-center justify-between w-[22.3rem]  ">
                 <div className="w-[20rem]  flex gap-14 items-center " >
@@ -119,7 +120,15 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
                 </div>
             )}
         </div>
-        {isEdit && <EditLinkModal isVisible={showModal}  onClose={async () => setShowModal(false)} pageID={selectedLinkId}/>}
+        {isEdit && <EditLinkModal
+                     isVisible={showModal}  
+                     onClose={async () => setShowModal(false)} 
+                     prevPageID={selectedLinkId}
+                     prevPageName={pageName}
+                     prevAmount={amount}
+                     prevDescription={description ? description : ''}
+                     prevRedirect={redirectUrl}
+                     />}
         {!isEdit && <DeleteLinkModal amount={selectedAmount} pageName={selectedTitle}  isVisible={showModal}  onClose={async () => setShowModal(false)} pageID={selectedLinkId}/>}
 
     </div>

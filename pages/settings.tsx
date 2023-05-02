@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import EditIcon from '../Assets/icon/EditIcon.svg'
-import CopyIcon from '../Assets/icon/CopyIcon.svg'
+// import CopyIcon from '../Assets/icon/CopyIcon.svg'
 import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import { setShowSidebar } from '../redux/sidebarSlice'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
-import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
-import { toast, ToastContainer } from 'react-toastify'
+// import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
+import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
@@ -26,17 +26,17 @@ const Settings = () => {
 
   
 
-    const  [apiKey,setApiKey]  = useState<string>('')
+    // const  [apiKey,setApiKey]  = useState<string>('')
     const  [businessData,setBusinessData] = useState<any>()
 
-    const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+    // const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
     const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
 
     const [hasBusiness,setHasBusiness] = useState<boolean>(false);
 
 
 
-    const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
+    // const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
@@ -55,20 +55,20 @@ const Settings = () => {
         }
     }, [businessUpdated,refetch]);
 
-    useEffect(() => {
-        if (isSuccess && generateKeyData.success == true){
-            setApiKey(generateKeyData?.live_pub_key)
-        } else{
-            console.log(generateKeyData?.reason)
-        }
-    },[isSuccess,generateKeyData])
+    // useEffect(() => {
+    //     if (isSuccess && generateKeyData.success == true){
+    //         setApiKey(generateKeyData?.live_pub_key)
+    //     } else{
+    //         console.log(generateKeyData?.reason)
+    //     }
+    // },[isSuccess,generateKeyData])
 
     // const [showPop, setShowPop] = useState(false);
 
-    const copyToClipboard = (copyItem:any) => {
-        navigator.clipboard.writeText(copyItem);
-        toast.success('Copied!!',{autoClose:2000})
-    };
+    // const copyToClipboard = (copyItem:any) => {
+    //     navigator.clipboard.writeText(copyItem);
+    //     toast.success('Copied!!',{autoClose:2000})
+    // };
 
     const hiddenFileInput:any = React.useRef(null);
     const handleClick = () => {
@@ -98,7 +98,7 @@ const Settings = () => {
   return (
     <div className=''>
         <ToastContainer/>
-        {hasBusiness ? <MerchantSettings/> :
+        {!hasBusiness ? <MerchantSettings/> :
             <div className='w-auto xl:w-[71.5rem]'>
             <div className='mx-6 my-6'>
             <div className='flex justify-between items-center mr-9 mb-12'>
@@ -129,7 +129,7 @@ const Settings = () => {
                 </div>
                     <div className='flex justify-end'>
                         <div onClick={() => {setShowModal(true)}} className='flex justify-center items-center cursor-pointer w-[10rem] md:w-[12.5625rem] h-11 gap-[0.625rem] rounded-[0.3125rem] bg-[#61A72C]'>
-                            <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit account details</h1>
+                            <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit business details</h1>
                             <Image src={EditIcon} alt='Edit Icon'/>
                         </div>
                     </div>
@@ -155,7 +155,7 @@ const Settings = () => {
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> {hasBusiness ? 'Business' : 'Merchant'} address</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.address ? businessData?.address : '--'}</h2>
                         </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        {/* <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet name</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletName ? businessData?.walletName : '--'}</h2>
                         </div>
@@ -166,27 +166,27 @@ const Settings = () => {
                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet ID</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletId ? businessData?.walletId : '--'}</h2>
-                        </div>
+                        </div> */}
                          <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business website</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.website ? businessData?.website : '--'}</h2>
                         </div>
                     </div>
 
-               <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
+               {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>NIN:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.nin ? businessData?.nin : '--'}</h2>
-                </div>
+                </div> */}
                 <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
                 </div>
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Sign-up Date:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nov 19, 2019 - 10:28 AM</h2>
-                </div>
-                <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
-               <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                </div> */}
+                {/* <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' /> */}
+               {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>API Keys:</h1>
                     <div className='flex items-center gap-3'>
                         <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{apiKey}</h2>
@@ -194,18 +194,26 @@ const Settings = () => {
                             <Image src={CopyIcon} alt=''/>
                         </div>
                     </div>
-                </div>
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                </div> */}
+                {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Web hooks:</h1>
                     <div className='flex items-center gap-3'>
                         <div className='w-[16rem] sm:w-auto cursor-pointer flex justify-center text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{webHook}</div>
                         <Image src={CopyIcon} alt='' className='cursor-pointer' onClick={() => copyToClipboard(webHook)}/>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>}
         <div>
-            <UpdateDetailsModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+            <UpdateDetailsModal 
+            isVisible={showModal} 
+            onClose={async () => setShowModal(false)}
+            email={businessData?.email}
+            phone={businessData?.phone}
+            address={businessData?.address}
+            website={businessData?.website}
+            bvn={businessData?.bvn}
+            />
         </div>
     </div>
   )

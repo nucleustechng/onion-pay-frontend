@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../Assets/icon/CloseIcon.svg'
 import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +12,13 @@ import {  useUpdateAccountDetailsMutation } from '../../modules/LoadSettings/set
 interface Props {
     isVisible:boolean
     onClose:()=>{}
+    f_name:string,
+    l_name:string,
+    o_name:string
+    email:string,
+    phone:string,
+    address:string,
+    dob:string
 }
 
 type MerchantForm = {
@@ -24,21 +31,20 @@ type MerchantForm = {
     dob:string
 }
 
-const EditAccountDetails = ({isVisible,onClose}: Props) => {
+const EditAccountDetails = ({isVisible,onClose,f_name,l_name,o_name,email,phone,address,dob}: Props) => {
 
 
     const dispatch = useAppDispatch()
 
-    // const [successMessage,setSucccessMessage] = useState('')
 
     const [merchantInfo, setMerchantInfo] = useState<MerchantForm>({
-    f_name:'',
-    l_name:'',
-    o_name:'-',
-    email: '',
-    phone: '',
-    address: '',
-    dob:Date.now().toString()
+    f_name: f_name,
+    l_name:l_name,
+    o_name:o_name,
+    email: email,
+    phone: phone,
+    address: address,
+    dob: dob
      
     });
 
@@ -74,34 +80,27 @@ const EditAccountDetails = ({isVisible,onClose}: Props) => {
 
   };
 
-  const [showToast, setShowToast] = useState(false);
-  const showToastRef = useRef(false);
+
   
   useEffect(() => {
-    if (isSuccess && merchantData.success == true && !showToastRef.current) {
-      toast.success('Your account details have been successfully updated!');
-      setShowToast(true);
-      showToastRef.current = true;
+    if (isSuccess) {
+
       dispatch(setBusinessUpdated(true))
-      setTimeout(() => {
-        setMerchantInfo({
-          f_name:'',
-          l_name:'',
-          o_name:'',
-          email: '',
-          phone: '',
-          address: '',
-          dob: ''
-        });
-        onClose();
-      }, 100);
+      onClose()
     } 
     else {
-      toast.error(merchantData?.reason);
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,merchantData,dispatch,onClose,showToastRef,showToast,merchantInfo]);
+  },[isSuccess,dispatch]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Your account details have been successfully updated!');
+    } else {
+      toast.error(merchantData?.reason);
+    }
+  },[isSuccess,merchantData])
 
   
     const handleClose = (e:any) =>{
@@ -189,7 +188,7 @@ const EditAccountDetails = ({isVisible,onClose}: Props) => {
                         Cancel
                         </button>
                         <button onClick={handleUpdateAccountDetails} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Update details'}</div>
+                        <div className='flex justify-center items-center'>{isLoading ? <Loader isWhite={true}/> : 'Update details'}</div>
                         </button>
                     </div>
                 </div>

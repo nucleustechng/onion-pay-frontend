@@ -38,8 +38,8 @@ const handleDeletePaymentLink = async () => {
 };
 
     useEffect(() => {
-        if (isSuccess && deleteLinkData?.success) {
-            toast.success(deleteLinkData?.reason)
+        if (isSuccess ) {
+            toast.success('You have successfully deleted the payment link!',{autoClose:800})
             // setTimeout(() => {
             //     onClose()
             // },1500)
@@ -76,7 +76,7 @@ const handleDeletePaymentLink = async () => {
                         <h1>{`No, don’t delete`}</h1>
                     </div>
                     <div onClick={handleDeletePaymentLink} className='bg-primary cursor-pointer flex justify-center items-center w-[8.125rem] h-11 rounded-[0.3125rem] text-sm text-white font-WorkSans font-normal leading-4'>
-                        {isLoading ? <Loader/> : <h1>Yes, Delete</h1>}
+                        {isLoading ? <Loader isWhite={true}/> : <h1>Yes, Delete</h1>}
                     </div>
                 </div>
             </div>

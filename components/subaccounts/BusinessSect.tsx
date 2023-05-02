@@ -9,6 +9,8 @@ import HelpButton from '../HelpButton'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import VerifyAccountModal from './modals/VerifyAccountModal'
+import IndividualBusinessModal from './modals/IndividualBusinessModal'
 
 
 
@@ -56,9 +58,9 @@ const BusinessSect = () => {
             </div>
           </div>
           <div>
-            {!isSecondStep ? <CreateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> : null}
-            {/* {isSecondStep ? <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/> : null} */}
-            {/* <IndividualBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
+            {/* {!isSecondStep ? <CreateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> : null} */}
+            {/* { <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(isSecondStep)}/> } */}
+            <IndividualBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
             {/* <Verifying isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             {/* <CorporateBusinessModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
           </div>

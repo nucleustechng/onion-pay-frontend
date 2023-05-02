@@ -59,7 +59,7 @@ const InvoiceTable = ({status,date,paymentId,amount,createdOn}: Props) => {
     <div>
      <div className='flex items-center px-4 w-[71.5rem] h-16'>
             <div className='w-[22.5rem]'>
-              <h1>Payment from ID:  {paymentId}</h1>
+              <h1>{paymentId}</h1>
             </div>
             <div className='w-[10.45rem]'>
               <h1>NGN {slicedAmount}</h1>

@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -23,8 +23,7 @@ const SingleChargeModal = ({isVisible,onClose}: Props) => {
 
 
 
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
-  const [showErrorToast, setShowErrorToast] = useState(false);
+ 
 
   const [paymentLinkInfo, setPaymentLinkInfo] = useState({
     title: '',
@@ -62,8 +61,7 @@ const handleCreatePaymentLink = async () => {
 };
 
 useEffect(() => {
-  if (isSuccess && paymentLinkData.success == true) {
-    setShowSuccessToast(true);
+  if (isSuccess) {
     onClose()
     setPaymentLinkInfo({
       title: '',
@@ -72,20 +70,16 @@ useEffect(() => {
       description: '',
       redirect_url: '',
     });
-  } else {
-    setShowErrorToast(true);
-  }
-}, [isSuccess,paymentLinkData,onClose]);
+  } 
+}, [isSuccess]);
 
 useEffect(() => {
-  if (showSuccessToast) {
+  if (isSuccess) {
     toast.success('Your payment link has been successfully created!');
-    setShowSuccessToast(false);
-  } else if (showErrorToast) {
+  } else {
     toast.error(paymentLinkData?.reason);
-    setShowErrorToast(false);
   }
-}, [showSuccessToast, showErrorToast, paymentLinkData]);
+}, [isSuccess,paymentLinkData]);
 
 
     const handleClose = (e:any) =>{
@@ -100,12 +94,11 @@ useEffect(() => {
     <div>
         <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-20 flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[29rem] md:w-[33.01rem] h-[35rem] md:h-[41.54rem] rounded-[0.63rem] bg-white'>
+            <div className='w-[29rem] md:w-[33.01rem] h-[32rem] md:h-[35.54rem] rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-2 cursor-pointer'  onClick={() => dispatch(setSecondStep(false))}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
-                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>Single charge</h1>
+                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>New payment link</h1>
                         </div>
                         <div className='cursor-pointer' onClick={()=>{
                             onClose()
@@ -181,7 +174,7 @@ useEffect(() => {
                             Cancel
                             </button>
                             <button onClick={handleCreatePaymentLink} className='w-[7.5rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                                <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Create Link'}</div>
+                                <div className='flex justify-center items-center'>{isLoading ? <Loader isWhite={true}/> : 'Create Link'}</div>
                             </button>
                         </div>
                         

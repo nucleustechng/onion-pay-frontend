@@ -26,6 +26,15 @@ export const businessApi = createApi({
                 };
             }
         }),
+        authorizeBusiness:builder.mutation({
+            query:(body:{bus_type:string,doc_type:string,file:any,bvn:string}) => {
+                return {
+                    url:'/api/v1/authorise-business',
+                    method:'post',
+                    body
+                }
+            }
+        })
      
     })
 });

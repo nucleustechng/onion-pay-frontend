@@ -12,7 +12,7 @@ interface Props {
   }
 
 const VerifyAccountModal = ({isVisible,onClose}: Props) => {
-    const [tab,setTab] = useState<number>();
+    const [tab,setTab] = useState<number>(0);
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   

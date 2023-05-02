@@ -52,7 +52,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && refundData.success == true) {
-      toast.success('You have successfully logged a refund.We will get back to you after 2 business days.');
+      toast.success('You have successfully logged a refund.We will get back to you after 2 business days.',{autoClose:700});
       console.log('Refund',refundData)
       setTimeout(() => {
         onClose()
@@ -141,11 +141,11 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                             </div> */}
                         </div>
                         <div className='flex items-center justify-end gap-4 mt-2'>
-                            <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
+                            <button onClick={() => onClose()} className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
                             <div onClick={handleRequestRefund} className='flex justify-center items-center cursor-pointer w-[9.4rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                             {isLoading ? <Loader/> : <h1>Process refund</h1>}
+                             {isLoading ? <Loader isWhite={true}/> : <h1>Process refund</h1>}
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { setSecondStep, setSliceInvoice } from '../../../redux/invoiceSlice'
@@ -72,9 +72,9 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
         onSubmit(invoiceInfo)
       };
 
-      useEffect(() => {
-            console.log(invoiceInfo)
-      },[])
+      // useEffect(() => {
+      //       console.log(invoiceInfo)
+      // },[])
       
 
   
@@ -146,11 +146,11 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                         />
                         
                         <div className='flex items-center justify-end gap-4 mt-2'>
-                            <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
+                            <button onClick={() => onClose()} className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
                             <div onClick={handleSubmit} className='w-[6.5rem] h-11 cursor-pointer flex items-center justify-center bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                            {isLoading ? <Loader/> : 'Continue'}
+                            {isLoading ? <Loader isWhite={true}/> : 'Continue'}
                             </div>
                         </div>
                     </div>

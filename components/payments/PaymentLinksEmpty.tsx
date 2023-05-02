@@ -1,11 +1,11 @@
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Hamburger from 'hamburger-react'
+// import Hamburger from 'hamburger-react'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import DownloadIcon from '../../Assets/icon/Download.svg'
-import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
-import { setShowSidebar } from '../../redux/sidebarSlice'
+import {  useAppSelector } from '../../redux/redux-hooks/hooks'
+// import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import PaymentLinkModal from './modals/PaymentLinkModal'
 import SingleChargeModal from './modals/SingleChargeModal'
@@ -17,8 +17,8 @@ import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 
 const PaymentLinksEmpty = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
-  const dispatch:any = useAppDispatch();
-  const sidebarShow:any = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
+  // const dispatch:any = useAppDispatch();
+  // const sidebarShow:any = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
 
  
@@ -31,9 +31,9 @@ const PaymentLinksEmpty = () => {
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment link</h1>
-                {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+                {/* {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
-              </div>}
+              </div>} */}
             </div>
             <div>
             <div className='flex gap-4 justify-end md:justify-end items-center mt-[3.2rem]'>
