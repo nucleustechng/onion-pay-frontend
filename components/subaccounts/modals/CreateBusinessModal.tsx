@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 interface Props {
     isVisible:boolean
     onClose:()=>{}
+    handlerFunc:() => void
 }
 
 type BusinessForm = {
@@ -22,7 +23,7 @@ type BusinessForm = {
     website:string
 }
 
-const CreateBusinessModal = ({isVisible,onClose}: Props) => {
+const CreateBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
 
 
     const dispatch = useAppDispatch()
@@ -40,6 +41,8 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
     useCreateBusinessMutation();
   
   const handleCreateBusiness = async () => {
+    handlerFunc()
+
     try {
       if (
         businessInfo.b_name &&
@@ -57,7 +60,10 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
-      toast.success('Your business has been successfully created!');
+      // toast.success('Your business has been successfully created!');
+      setTimeout(() => {
+        handlerFunc()
+      },1500)
       setBusinessInfo({
         b_name: '',
         b_email: '',
@@ -159,7 +165,7 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
                         Cancel
                         </button>
                         <button onClick={handleCreateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Create business'}</div>
+                        <div className='flex justify-center items-center'>{isLoading ? <Loader isWhite={true}/> : 'Create business'}</div>
                         </button>
                     </div>
                 </div>

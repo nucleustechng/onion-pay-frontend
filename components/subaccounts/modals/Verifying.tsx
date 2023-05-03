@@ -40,7 +40,7 @@ const Verifying = ({isVisible,onClose}: Props) => {
                         </p>
                     </div>
                     <div className='flex justify-center mt-6'>
-                        <button className='w-[22rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
+                        <button onClick={() => onClose()} className='w-[22rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
                             Continue
                         </button>
                     </div>

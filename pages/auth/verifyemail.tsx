@@ -206,7 +206,7 @@ const Verifyemail = () => {
                     backgroundColor='bg-primary'
                     color='text-white'
                     height='h-11'
-                    mainText={isLoading ? <Loader/> : 'Verify OTP'}
+                    mainText={isLoading ? <Loader isWhite={true}/> : 'Verify OTP'}
                     textSize='text-base'
                     width='w-[21.875rem] md:w-[30rem]'
                     />

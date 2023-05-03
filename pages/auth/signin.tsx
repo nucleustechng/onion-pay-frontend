@@ -195,7 +195,7 @@ const Signin = () => {
                         <div className='mt-4'>
                             <ButtonRegular width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-11'
                             backgroundColor='bg-primary' borderWidth='0.313rem' handlerFunc={handleSubmit}
-                            color='text-white' mainText={isLoading ? <Loader/> : 'Continue'}  textSize='text-base'
+                            color='text-white' mainText={isLoading ? <Loader isWhite={true}/> : 'Continue'}  textSize='text-base'
                             />
                         </div>
                     </div>

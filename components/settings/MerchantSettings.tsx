@@ -41,11 +41,9 @@ const MerchantSettings = () => {
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true) {
             setMerchantData(settingsData['merchant'])
-            console.log(merchantData)
         } else {
             console.log(settingsData?.reason)
         }
-
     
     },[settingSuccess,businessUpdated,settingsData])
     useEffect(() => {

@@ -8,16 +8,15 @@ import CAC from '../../../Assets/img/CAC.svg'
 interface Props {
     isVisible:boolean
     onClose:()=>{}
+    handlerFunc:(nextstep:string) => void
   }
 
-const CorporateBusinessModal = ({isVisible,onClose}: Props) => {
+const CorporateBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
         }
       };
-    
-    
       if (!isVisible) return null;
   return (
     <div>
@@ -25,9 +24,9 @@ const CorporateBusinessModal = ({isVisible,onClose}: Props) => {
             <div className='w-[33rem] h-[40rem] rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex items-center justify-between'>
-                        <div className='flex items-center gap-[0.85rem]'>
-                            <FontAwesomeIcon icon={faChevronLeft}/>
-                            <h1 className='text-[#1B1A1A] text-lg font-semibold font-WorkSans leading-5'>Individual business</h1>
+                        <div onClick={() => handlerFunc('business-type')} className='flex items-center cursor-pointer gap-[0.85rem]'>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                            <h1 className='text-[#1B1A1A] text-lg font-semibold font-WorkSans leading-5'>Corporate business</h1>
                         </div>
                         <div className='cursor-pointer' onClick={() => {
                             onClose()
@@ -61,7 +60,7 @@ const CorporateBusinessModal = ({isVisible,onClose}: Props) => {
                                 </div>
                     </div>
                     {/* Call to action button */}
-                    <div className='flex justify-center mt-6'>
+                    <div onClick={() => handlerFunc('verify')} className='flex justify-center mt-6'>
                         <button className='w-[12.5rem] h-11 bg-primary rounded-[0.313rem] text-white text-base font-WorkSans leading-5'>Start verification</button>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ export const settingsApi = createApi({
     reducerPath:'settingsApi',
     tagTypes:['Details'],
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
             const token = localStorage.getItem('loginToken');

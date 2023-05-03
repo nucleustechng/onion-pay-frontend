@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const AuthApi = createApi({
     reducerPath:'AuthApi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
             const token = localStorage.getItem('token');

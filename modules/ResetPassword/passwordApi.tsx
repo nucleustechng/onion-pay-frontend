@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const passwordApi = createApi({
     reducerPath:'passwordApi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
     }),
     endpoints: (builder) => ({
         forgotPassword:builder.mutation({

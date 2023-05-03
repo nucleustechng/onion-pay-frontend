@@ -1,4 +1,4 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -15,13 +15,21 @@ import { RootState } from '../../redux/store'
 // import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import { useLoadSingleTransactionQuery, useLoadTransactionsQuery } from '../../modules/TransactionsApi/transactionsApi'
 import Loader from '../Loader'
+import CreateInvoiceModal from './modals/CreateInvoiceModal'
+import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 
 
 const TransactionSect = () => {
   // const [showModal,setShowModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const [outputData, setOutputData] = useState('');
+
+  const handleDataSubmit = (data:any) => {
+    setOutputData(data);
+  };
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-  // const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
+  const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
+  const  [showModal,setShowModal] = useState<boolean>(false)
 
   const [transactionID,setTransactionID] = useState<string>('')
   const [mytransaction,setMyTransaction] = useState<any>()
@@ -55,7 +63,7 @@ const TransactionSect = () => {
 
   return (
     <div>
-        {/* {showEmpty ?
+        {transactionsArray.length == 0 ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
@@ -63,9 +71,9 @@ const TransactionSect = () => {
           {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
-      </div> */}
+      </div> 
   {/* Button to add subaccounts */}
-   {/* <div className='flex justify-end'>
+   <div className='flex justify-end'>
     <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
       setShowModal(true)
       }}>
@@ -90,8 +98,16 @@ const TransactionSect = () => {
       </div>
     </div>
     <div>
-        <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/>
-        {isSecondStep && <CompleteInvoiceModal  isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+        <CreateInvoiceModal 
+          onSubmit={handleDataSubmit} 
+          isVisible={isSecondStep ?  false : showModal} 
+          onClose={async () => setShowModal(false)}
+        />
+        {<CompleteInvoiceModal  
+        data={outputData} 
+        isVisible={!isSecondStep ?  false : showModal} 
+        onClose={async () => setShowModal(false)}
+        />}
     </div>
   </div>
   <div className='fixed left-auto top-3/4 right-0 mr-7 z-30 mt-[8.5rem]'>
@@ -99,7 +115,7 @@ const TransactionSect = () => {
   </div>
 </div>
     
-          :  */}
+          : 
           <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
@@ -147,7 +163,7 @@ const TransactionSect = () => {
                   </div>
                 </div>
                 {/* Create invoice button for small screens */}
-                {/* <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
+                <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
                     setShowModal(true)
                   }}>
                     <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
@@ -156,11 +172,11 @@ const TransactionSect = () => {
                       Create an Invoice
                       <FontAwesomeIcon icon={faPlus}/>  
                     </div>
-                  </div> */}
+                  </div>
               </div>
           </div>
 
-          {/* <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
+          <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
             setShowModal(true)
           }}>
             <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
@@ -169,7 +185,7 @@ const TransactionSect = () => {
               Create an Invoice
               <FontAwesomeIcon icon={faPlus}/>  
             </div>
-          </div> */}
+          </div>
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
@@ -195,7 +211,7 @@ const TransactionSect = () => {
                                :
 
                       transactionsArray.map((transaction:any,index:any) => (
-                        <div key={transaction.i_id}>
+                        <div key={index}>
                           <TransactionTable
                           status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
                           amount={transaction.amount_string}
@@ -224,7 +240,7 @@ const TransactionSect = () => {
               <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/> */}
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
   )
 }

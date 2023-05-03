@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const retrieveLinkApi = createApi({
     reducerPath:'retrieveLinkApi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
             const token = 'OPTESTSECK_081c4a5fa1349e7e055f6cb6d40e0e31-1679943067667'

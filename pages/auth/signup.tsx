@@ -28,6 +28,7 @@ const SignUp = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
   const  router = useRouter();
 
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [passwordError,setPasswordError] = useState<string>('');
   const [emailError,setEmailError] = useState<string>('')
   const [phoneError,setPhoneError] = useState<string>('');
@@ -41,12 +42,16 @@ const SignUp = () => {
   const [email,setEmail] = useState<string>('');
   const [address,setAddress] = useState<string>(''); 
   const [nin,setNin] = useState<string>(''); //National Identification number
+  const [dateOfBirth,setDateOfBirth] = useState<any>(null);
+  
+  const date = new Date(dateOfBirth)
+  const dob = date.getTime()
   
 
 
   const country = 'NG'
 //   const o_name = ''
-  const dob =  Date.now()
+
   
 
     const [signUp,{data:signupData,isSuccess,isLoading}] = useSignupMutation()
@@ -59,6 +64,7 @@ const SignUp = () => {
     }
 
     useEffect(() => {
+      console.log('Date of birth',dob)
         if (isSuccess && signupData?.success  == true) {
             console.log(signupData)
             if (signupData?.token) {
@@ -90,7 +96,7 @@ const SignUp = () => {
                   setNinError('')
             }
         }
-    },[isSuccess,signupData,email,router])
+    },[isSuccess,signupData,email,router,dob])
 
 
   return (
@@ -213,6 +219,21 @@ const SignUp = () => {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         />
+                        <div className='flex flex-col gap-[0.375rem]'>
+                          <h1 className={`text-sm ${(!isFocused) && 'text-primaryText'} 
+                          ${(isFocused) && 'text-primary'} font-WorkSans font-normal leading-4 `}>Date of birth</h1>
+                            <input 
+                            name='dob'
+                            type='date'
+                            onChange={(e) =>setDateOfBirth(e.target.value)}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                            className='w-[21.875rem] lg:w-[25rem] xl:w-[30rem] h-[3.125rem]
+                            focus:caret-primary  focus:border-primary outline-none 
+                            text-[#898989] font-WorkSans font-normal leading-4 p-6
+                            rounded-[0.313rem] border-[0.0625rem] border-[#CACACA]
+                            '/>
+                        </div>
                          <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-[3.125rem]' 
                         label='Address' textSize='text-sm' placeholder='Address'
                         type='text'
@@ -240,7 +261,7 @@ const SignUp = () => {
                                 <ButtonRegular width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-11'
                                 backgroundColor='bg-primary' borderWidth='0.313rem'
                                 handlerFunc={() => handleSubmit()}
-                                color='text-white' mainText={isLoading ? <Loader/> :  'Continue' }  textSize='text-base'
+                                color='text-white' mainText={isLoading ? <Loader isWhite={true}/> :  'Continue' }  textSize='text-base'
                                 />
                             <div className='w-[21.875rem] lg:w-[25rem] xl:w-[30rem] mt-10'>
                                 <p className='text-center text-[#202020] text-base font-WorkSans leading-5 '>{`By clicking continue, you agree to Exchange's`} 

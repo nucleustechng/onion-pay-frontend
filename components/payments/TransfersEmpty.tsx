@@ -3,17 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import DownloadIcon from '../../Assets/icon/Download.svg'
+import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
 // import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
 // import TransferTypeModal from './modals/bankaccount/TransferTypeModal'
 // import SingleMobileTransferModal from './modals/mobilemoney/SingleMobileTransferModal'
 // import SingleMobileTansferModal from './modals/mobilemoney/SingleMobileTransferModal'
 // import SingleTransferModal from './modals/mobilemoney/SingleTransferModal'
-import TransferModal from './modals/TransferModal'
+// import TransferModal from './modals/TransferModal'
 
 
 
 const TransfersEmpty = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
+  // const [isSecondStep,setSecondStep] = useState<boolean>(false);
 
   return (
     <div>
@@ -74,9 +76,9 @@ const TransfersEmpty = () => {
             </div>
             </div>
             <div>
-              <TransferModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+              {/* <TransferModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
               {/* <TransferTypeModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
-              {/* <SingleAccountModal isVisible={showModal} onClose={async () => setShowModal(false)} /> */}
+              <SingleAccountModal isVisible={showModal} onClose={async () => setShowModal(false)} />
               {/* <SingleTransferModal isVisible={showModal} onClose={async () => setShowModal(false)} /> */}
               {/* <SingleMobileTransferModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             </div>

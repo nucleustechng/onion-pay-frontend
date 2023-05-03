@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const switchEnvironment = createApi({
     reducerPath: "switchEnvironment",
     baseQuery: fetchBaseQuery({
-      baseUrl: "https://onion-pay.herokuapp.com",
+      baseUrl: process.env.NEXT_PUBLIC_URL,
       prepareHeaders: (headers) => {
         const token = localStorage.getItem("loginToken");
         if (token) {

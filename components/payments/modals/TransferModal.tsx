@@ -9,10 +9,11 @@ import { setBankAccount, setOnionPay } from '../../../redux/Modal-Processes/paym
 
 interface Props {
     isVisible:boolean
-    onClose:()=>{}
+    onClose:()=>{},
+    handlerFunc:() => void
 }
 
-const TransferModal = ({isVisible,onClose}: Props) => {
+const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
     const [active,setActive] = useState<number>();
     const dispatch = useAppDispatch()
     // const isBankAccount = useAppSelector((state) => state.payment.isBankAccount)
@@ -100,7 +101,7 @@ const TransferModal = ({isVisible,onClose}: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-center mt-6'>
+                    <div className='flex justify-center mt-6' onClick={handlerFunc}>
                         <button className='w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
                             Start transfer
                         </button>
