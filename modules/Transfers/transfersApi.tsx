@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
-export const transationsApi = createApi({
+export const transfersApi = createApi({
     reducerPath:'transationsApi',
     baseQuery:fetchBaseQuery({
         baseUrl:process.env.NEXT_PUBLIC_URL,
@@ -19,13 +19,16 @@ export const transationsApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        loadTransactions:builder.query<any,void>({
-            query:() => '/api/v1/transactions',
+        transfer:builder.mutation({
+            query: (body:{isWallet:boolean,acc_num:string,acc_bank:string,amount:number}) => {
+                return {
+                    url:'/api/v1/transfer',
+                    method:'post',
+                    body,
+                };
+            },
         }),
-        loadSingleTransaction:builder.query<string,any>({
-            query:(transId:string) => `/api/v1/transaction/${transId}`,
-        })
     })
 });
 
-export const { useLoadTransactionsQuery,  useLoadSingleTransactionQuery } = transationsApi
+export const { useTransferMutation } = transfersApi
