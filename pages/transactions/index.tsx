@@ -8,16 +8,6 @@ import useAuth from '../../useAuth'
 
 const Transactions = () => {
   useAuth()
-  // const router  = useRouter();
-
-  // const isAuthenticated = useAppSelector((state:RootState) => state.login.isAuthenticated)
-
-  // if (typeof window !== "undefined") {
-  //   // import and use next/router here
-  //   if(!isAuthenticated){
-  //     router.push('/auth/signin')
-  //   }
-  // }
 
   return (
     <div>

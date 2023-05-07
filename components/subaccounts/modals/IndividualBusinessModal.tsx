@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
+import {  faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useAuthorizeBusinessMutation } from '../../../modules/BusinessPageApi/businessApi'
+import CustomToggle from '../../CustomToggle'
 import Input from '../../Input'
 import Loader from '../../Loader'
 
@@ -13,39 +14,41 @@ interface Props {
     isVisible:boolean
     onClose:()=>{}
     handlerFunc:(nextstep:string) => void
-    businessType:string
   }
 
   interface IBusinessForm {
-    bus_type:string,
-    doc_type:string,
-    file:any,
-    bvn:string
+    bvn:string,
+    pep:boolean
   }
 
-const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: Props) => {
+const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
+    const [togglePep,setTogglePep] = useState<boolean>(false)
+
+    const handleToggle = () => {
+        setTogglePep(!togglePep)
+    }
     // const  [selectedID,setSelectedID] = useState<string>('')
-    const [dropDown,setDropDown] = useState<boolean>(false)
-    const [dropDownInfo,setDropDownInfo] = useState<string>('')
+    // const [dropDown,setDropDown] = useState<boolean>(false)
+    // const [dropDownInfo,setDropDownInfo] = useState<string>('')
 
-    const hiddenFileInput:any = React.useRef(null);
-    const handleClick = () => {
-            hiddenFileInput.current?.click();
-      };
+    // const hiddenFileInput:any = React.useRef(null);
+    // const handleClick = () => {
+    //         hiddenFileInput.current?.click();
+    //   };
 
-      const [selectedImage, setSelectedImage] = useState<any>();
+    //   const [selectedImage, setSelectedImage] = useState<any>();
  
     // This function will be triggered when the file field change
-    const imageChange = (e:any) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const selectedFile = e.target.files[0];
-            setSelectedImage(selectedFile);
-            setBusinessInfo(prevState => ({
-                ...prevState,
-                file: selectedFile
-            }));
-        }
-    };
+    // const imageChange = (e:any) => {
+    //     if (e.target.files && e.target.files.length > 0) {
+    //         const selectedFile = e.target.files[0];
+    //         setSelectedImage(selectedFile);
+    //         setBusinessInfo(prevState => ({
+    //             ...prevState,
+    //             file: selectedFile
+    //         }));
+    //     }
+    // };
  
      
     // This function will be triggered when the "Remove This Image" button is clicked
@@ -54,28 +57,19 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
     // };
 
     const [businessInfo,setBusinessInfo] = useState<IBusinessForm>({
-        bus_type: businessType,
-        doc_type: '',
-        file: null,
-        bvn: ''
+        bvn: '',
+        pep:togglePep
     })
 
     const [authoriseBusiness,{isSuccess,isLoading,data:businessData}] = useAuthorizeBusinessMutation()
 
     const handleAuthorizeBusiness = async ()  => {
-        const {bus_type,doc_type,file,bvn} = businessInfo
+        const {bvn,pep} = businessInfo
         console.log('Business info',businessInfo)
         
         try {
-            if (bus_type && doc_type && file && bvn) {
-                const formData = new FormData();
-                formData.append("bus_type", bus_type);
-                formData.append("doc_type", doc_type);
-                formData.append("file", file);
-                formData.append("bvn", bvn);
-
-                await authoriseBusiness(formData)
-             
+            if (pep && bvn) {
+                await authoriseBusiness({pep ,bvn})
             } else {
                 toast.error('All fields are required')
             }
@@ -94,13 +88,13 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
             setTimeout(() => {
                 handlerFunc('verify')
             },1500)
-            console.log('Business data',businessData)
+            // console.log('Business data',businessData)
         } else if (!toastShown) {
             toastShown = true; // Set the flag to true to indicate that toast has been shown
             toast.error(businessData?.reason)
         }
 
-    },[businessInfo,selectedImage,businessType,businessData])
+    },[businessData])
 
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
@@ -114,10 +108,10 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
     <div>
         <ToastContainer/>
          <form method="post" encType="multipart/form-data" action="/upload" onSubmit={handleAuthorizeBusiness} className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className={`w-[33rem] ${selectedImage ? 'h-[49rem]' : 'h-[32rem]'} rounded-[0.63rem] bg-white`}>
+            <div className={`w-[33rem]  h-[20rem] rounded-[0.63rem] bg-white`}>
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex items-center justify-between'>
-                        <div onClick={() => handlerFunc('business-type')} className='flex items-center cursor-pointer gap-[0.85rem]'>
+                        <div onClick={() => handlerFunc('create-business')} className='flex items-center cursor-pointer gap-[0.85rem]'>
                             <FontAwesomeIcon icon={faChevronLeft} />
                             <h1 className='text-[#1B1A1A] text-lg font-semibold font-WorkSans leading-5'>Individual business</h1>
                         </div>
@@ -151,8 +145,15 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
                                     textSize=''
                                 />
                             </div>
+                            <div className='flex justify-between items-center'>
+                                <h1 className={`text-base ${togglePep ? 'text-primary' : 'text-[#1B1A1A]'} font-WorkSans font-normal leading-5`}>Politically Exposed Person</h1>
+                                <CustomToggle 
+                                value={togglePep}
+                                onChange={handleToggle}
+                                />
+                            </div>
                             {/*  */}
-                            <div className='relative flex flex-col gap-2'>
+                            {/* <di className='relative flex flex-col gap-2'>
                                 <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Select ID</h1>
                                 <div onClick={() => setDropDown(!dropDown)} className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
                                     <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{dropDownInfo ? dropDownInfo : "Select identification"}</h1>
@@ -190,9 +191,9 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
                                         setDropDownInfo('International Passport')
                                         }}>International Passport</h1>
                                 </div>}
-                            </div>
+                            </di> */}
                     </div>
-                    {selectedImage && <div className='w-[30rem] h-[16.5rem] bg-[#F5F5F5] rounded-[0.313rem] mt-6'>
+                    {/* {selectedImage && <div className='w-[30rem] h-[16.5rem] bg-[#F5F5F5] rounded-[0.313rem] mt-6'>
                             <div className='flex justify-center mt-4'>
                                 <h1>Uploaded file preview</h1>
                             </div>
@@ -207,7 +208,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
                                     <FontAwesomeIcon icon={faPlus}/>
                                 </div>
                             <input type='file' name='file'  className='hidden' onChange={imageChange} ref={hiddenFileInput}/> 
-                    </div>
+                    </div> */}
                     {/* Call to action button */}
                     <div className='flex justify-center mt-6' >
                         <div className='w-[12.5rem] h-11 cursor-pointer bg-primary rounded-[0.313rem] flex justify-center items-center ' onClick={handleAuthorizeBusiness}>

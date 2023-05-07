@@ -11,9 +11,7 @@ import Image from 'next/image'
 // import dynamic from 'next/dynamic'
 // import VerifyAccountModal from './modals/VerifyAccountModal'
 import IndividualBusinessModal from './modals/IndividualBusinessModal'
-import VerifyAccountModal from './modals/VerifyAccountModal'
 import CreateBusinessModal from './modals/CreateBusinessModal'
-import CorporateBusinessModal from './modals/CorporateBusinessModal'
 import Verifying from './modals/Verifying'
 
 
@@ -70,25 +68,24 @@ const BusinessSect = () => {
             {isSecondStep == 'create-business' ? <CreateBusinessModal 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
-            handlerFunc={() => setSecondStep('business-type')}
+            handlerFunc={() => setSecondStep('individual')}
             /> : null}
-            {isSecondStep == 'business-type' && <VerifyAccountModal 
+            {/* {isSecondStep == 'business-type' && <VerifyAccountModal 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
             handlerFunc={(nextstep:string) => setSecondStep(nextstep)}
-            />}
+            />} */}
             {isSecondStep == 'individual' && <IndividualBusinessModal 
-            businessType='i'
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
             handlerFunc={(nextstep:string) => setSecondStep(nextstep)}
             />}
-            {isSecondStep == 'cooperate' && 
+            {/* {isSecondStep == 'cooperate' && 
             <CorporateBusinessModal 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
             handlerFunc={(nextstep:string) => setSecondStep(nextstep)}
-            />}
+            />} */}
             
             {isSecondStep == 'verify' && <Verifying isVisible={showModal} onClose={async () => setShowModal(false)}/>}
           </div>

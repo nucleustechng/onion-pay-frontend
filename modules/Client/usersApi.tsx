@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import Cookies from 'js-cookie';
 
 
 export const usersApi = createApi({
@@ -7,7 +8,7 @@ export const usersApi = createApi({
         baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
-            const token = localStorage.getItem('token');
+            const token = Cookies.get('token');
             
             // If the token is present, set the authorization header
             if (token) {

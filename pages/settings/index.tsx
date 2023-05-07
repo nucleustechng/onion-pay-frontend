@@ -7,9 +7,9 @@ import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 // import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
-import {  ToastContainer } from 'react-toastify'
+import {  toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoadSettingsQuery } from '../../modules/LoadSettings/settingsApi'
+import { useLoadSettingsQuery, useUpdateBusinessLogoMutation } from '../../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../../components/settings/UpdateDetailsModal'
 import useAuth from '../../useAuth'
 
@@ -47,16 +47,12 @@ const Settings = () => {
             setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
             settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
         } else {
-            console.log(settingsData?.reason)
+            toast.error(settingsData?.reason)
         }
 
     
     },[settingSuccess,businessUpdated,settingsData])
-    useEffect(() => {
-        if (businessUpdated) {
-            refetch();
-        }
-    }, [businessUpdated,refetch]);
+   
 
     // useEffect(() => {
     //     if (isSuccess && generateKeyData.success == true){
@@ -73,30 +69,47 @@ const Settings = () => {
     //     toast.success('Copied!!',{autoClose:2000})
     // };
 
+
     const hiddenFileInput:any = React.useRef(null);
     const handleClick = () => {
             hiddenFileInput.current?.click();
       };
+      
+      const [updateLogo, { isSuccess: updateLogoSuccess, data: updateData }] = useUpdateBusinessLogoMutation();
+      const [updatedImage, setUpdatedImage] = useState<boolean>(false);
+    
+      const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+          const selectedFile = e.target.files[0];
 
-    // const [updateLogo,{isSuccess:updateLogoSuccess,isLoading,data:updateData}] = useUpdateBusinessLogoMutation()
-//     const [selectedFile, setSelectedFile] = useState<string>('');
-// //   const [uploadFile, { isLoading }] = useMutation(apiSlice.endpoints.uploadFile);
-
-//   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const logo:any = event.target.files?.[0];
-//     console.log(logo)
-//     setSelectedFile(logo);
-
-//     if (logo) {
-//       await updateLogo({ logo });
-//     }
-//   };
+    
+          const logo = selectedFile;
+          if (logo) {
+            const formData = new FormData();
+            formData.append('logo', logo);
+    
+            try {
+              await updateLogo(formData);
+            } catch (error) {
+              console.error('Error updating logo:', error);
+            }
+          }
+        }
+      };
+    
   
-//     useEffect(() => {
-//         if (updateLogoSuccess && updateData?.success) {
-//             console.log('Weird',updateData)
-//         }
-//     },[updateData])
+    useEffect(() => {
+        if (updateLogoSuccess && updateData?.success) {
+           setUpdatedImage(true)
+        } else {
+            setUpdatedImage(false)
+        }
+    },[updateLogoSuccess,updatedImage])
+    useEffect(() => {
+        if (businessUpdated || updatedImage) {
+            refetch();
+        }
+    }, [businessUpdated,refetch,updatedImage]);
   
   return (
     <div className=''>
@@ -126,7 +139,7 @@ const Settings = () => {
                                 <h1 className='text-xs md:text-sm text-white font-WorkSans font-normal leading-4'>Edit logo</h1>
                                 <Image src={EditIcon} alt='Edit Icon'/>
                             </div>
-                            <input type='file' name='logo'  className='hidden' ref={hiddenFileInput}/> 
+                            <input type='file' name='logo' onChange={handleFileChange}  className='hidden' ref={hiddenFileInput}/> 
                         </div>
                     </div>
                 </div>

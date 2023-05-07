@@ -41,7 +41,6 @@ const CreateBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
     useCreateBusinessMutation();
   
   const handleCreateBusiness = async () => {
-    handlerFunc()
 
     try {
       if (

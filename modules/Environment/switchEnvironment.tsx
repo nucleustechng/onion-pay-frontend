@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import Cookies from 'js-cookie';
 
 
 export const switchEnvironment = createApi({
@@ -6,7 +7,8 @@ export const switchEnvironment = createApi({
     baseQuery: fetchBaseQuery({
       baseUrl: process.env.NEXT_PUBLIC_URL,
       prepareHeaders: (headers) => {
-        const token = localStorage.getItem("loginToken");
+        const token = Cookies.get('token');
+
         if (token) {
           headers.set("Authorization", `Bearer ${token}`);
         }
