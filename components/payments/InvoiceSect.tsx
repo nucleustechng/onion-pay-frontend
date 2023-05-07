@@ -49,7 +49,7 @@ const InvoiceSect = () => {
 
   return (
     <div>
-        {/* {showEmpty ?
+        {invoicesArray.length == 0  ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
@@ -57,9 +57,9 @@ const InvoiceSect = () => {
           {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
-      </div> */}
+      </div>
   {/* Button to add subaccounts */}
-   {/* <div className='flex justify-end'>
+   <div className='flex justify-end'>
     <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
       setShowModal(true)
       }}>
@@ -84,8 +84,8 @@ const InvoiceSect = () => {
       </div>
     </div>
     <div>
-        <CreateInvoiceModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/>
-        {isSecondStep && <CompleteInvoiceModal  isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+        <CreateInvoiceModal onSubmit={handleDataSubmit} isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
+      <CompleteInvoiceModal  data={outputData} isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
     </div>
   </div>
   <div className='fixed left-auto top-3/4 right-0 mr-7 z-30 mt-[8.5rem]'>
@@ -93,7 +93,7 @@ const InvoiceSect = () => {
   </div>
 </div>
     
-          :  */}
+          : 
           <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
@@ -204,7 +204,7 @@ const InvoiceSect = () => {
               <CompleteInvoiceModal data={outputData} isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
   )
 }
