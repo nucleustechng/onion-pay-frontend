@@ -20,6 +20,7 @@ import Loader from '../../components/Loader'
 import { useRouter } from 'next/router'
 import { setAuthenticated, setUnauthenticated } from '../../redux/loginSlice'
 import { useAppDispatch } from '../../redux/redux-hooks/hooks'
+import Cookies from 'js-cookie'
 
 
 const Signin = () => {
@@ -48,10 +49,12 @@ const Signin = () => {
             console.log(signInData)
             toast.success('You have successfully signed in.');
             if (signInData.token) {
-                // document.cookie = `authToken=${signInData?.token}; path=/`
-                localStorage.setItem('loginToken',signInData.token)
+                Cookies.set('token',signInData?.token)
+
                 dispatch(setAuthenticated())
-                router.push('/transactions/');
+                setTimeout(() => {
+                    router.push('/transactions/');
+                },1000)
 
             } else {
                 dispatch(setUnauthenticated())

@@ -11,11 +11,15 @@ import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useLoadSettingsQuery } from '../../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../../components/settings/UpdateDetailsModal'
+import useAuth from '../../useAuth'
 
 
 
 
 const Settings = () => {
+
+    useAuth()
+
     
     const [showModal,setShowModal] =  useState<boolean>(false)
 
@@ -36,7 +40,6 @@ const Settings = () => {
 
 
 
-    // const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
 
     useEffect(() =>{
         // businessUpdated ? setRefetch(true) :   setRefetch(false)

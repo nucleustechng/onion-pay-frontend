@@ -10,11 +10,14 @@ import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
 import { RootState } from '../redux/store'
 import Hamburger from '../Assets/icon/HamburgerIcon.svg'
 import { setShowSidebar } from '../redux/sidebarSlice'
+import useAuth from '../useAuth'
 // import { useRouter } from 'next/router'
 
 
 
 const Customers = () => {
+  useAuth()
+
   const [tab,setTab] = useState(1);
 
 

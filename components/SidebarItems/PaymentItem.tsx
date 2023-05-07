@@ -14,7 +14,7 @@ const PaymentItem = () => {
         payments ? setPay(false) : setPay(true);
       };
     
-    const transfersRoute = router.pathname == '/payments'
+    const transfersRoute = router.pathname == '/payments/transfers'
     const paymentlinksRoute = router.pathname == '/payments/paymentlinks'
     const invoicesRoute = router.pathname == '/payments/invoices'
 
@@ -36,7 +36,7 @@ const PaymentItem = () => {
             </div>
         </div> */}
         <div>
-        <Link href={isPaymentRoute ? router.pathname : '/payments'}>
+        <Link href={isPaymentRoute ? router.pathname : '/payments/transfers'}>
                         <div className='flex justify-center h-6 lg:w-60' >
                               <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${isActiveRoute ? 'bg-primary' : 'bg-transparent'}`}/>
                             <div className={`flex items-center gap-[0.67em] w-[13.5rem] h-[2.75rem] 

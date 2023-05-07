@@ -53,8 +53,7 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
       toast.success('Your transfer was successful!')
       setTimeout(() => {
         onClose()
-      },1000)
-      console.log("Transfer Data",transferData)
+      },1200)
     } else {
       toast.error(transferData?.reason)
     }

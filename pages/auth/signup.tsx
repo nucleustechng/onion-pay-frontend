@@ -20,6 +20,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router'
 import Loader from '../../components/Loader'
+import Cookies from 'js-cookie'
 
 
 
@@ -67,7 +68,7 @@ const SignUp = () => {
       console.log('Date of birth',dob)
         if (isSuccess && signupData?.success  == true) {
             if (signupData?.token) {
-              localStorage.setItem('token', signupData.token);
+              Cookies.set('token',signupData?.token)
               }
             localStorage.setItem('email',email)
             toast.success('You have successfully signed up. Please check your email to verify your account.');

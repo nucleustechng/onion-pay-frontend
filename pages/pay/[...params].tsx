@@ -3,49 +3,23 @@ import { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import SeerbitCheckout from "seerbit-reactjs"
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
+import useAuth from '../../useAuth';
 
 
 const Invoice = () => {
   
+  useAuth()
 
-  // const close = (close:any) => {
-  //   console.log(close);
-  // };
-  // const callback = (response:any) => {
-  //   console.log(response);
-  // };
-
-  // const checkProgress = (progress:any) => {
-  //   console.log(progress);
-  // };
 
   const [invoicesArray,setInvoicesArray] = useState<any>([])
 
-  // const [fullName,setFullName] = useState<string>('')
-  // const [email,setEmail] = useState<string>('')
-  // const [isValidEmail, setIsValidEmail] = useState(false);
-
-  // const handleEmailChange = (e:any) => {
-  //   const newEmail = e.target.value;
-  //   setEmail(newEmail);
-  //   setIsValidEmail(validateEmail(newEmail));
-  // };
-
-  // const validateEmail = (email:any) => {
-  //   // Email validation logic
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
-
 
   const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
-  // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
-      // console.log('Amount',invoicesArray[4]?.amount)
     } else {
       console.log('An error occured')
     }
@@ -64,8 +38,6 @@ const Invoice = () => {
 
       const options = {
         "public_key": "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
-        // "full_name": fullName,
-        // "email": email,
         "tranref": 'invoice-' + merchantId + '-' + invoiceId,
         "currency": "NGN",
         "country": "NG",

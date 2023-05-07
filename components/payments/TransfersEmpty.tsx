@@ -5,12 +5,7 @@ import React, { useState } from 'react'
 import DownloadIcon from '../../Assets/icon/Download.svg'
 import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
 import TransferModal from './modals/TransferModal'
-// import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
-// import TransferTypeModal from './modals/bankaccount/TransferTypeModal'
-// import SingleMobileTransferModal from './modals/mobilemoney/SingleMobileTransferModal'
-// import SingleMobileTansferModal from './modals/mobilemoney/SingleMobileTransferModal'
-// import SingleTransferModal from './modals/mobilemoney/SingleTransferModal'
-// import TransferModal from './modals/TransferModal'
+
 
 
 

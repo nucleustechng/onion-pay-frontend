@@ -28,18 +28,6 @@ type OrderData = {
 const DirectCharge = () => {
   
 
-  // const close = (close:any) => {
-  //   console.log(close);
-  // };
-  // const callback = (response:any) => {
-  //   console.log(response);
-  // };
-
-  // const checkProgress = (progress:any) => {
-  //   console.log(progress);
-  // };
-
-
   const router = useRouter();
   const { params } = router.query;
   const orderId = params ? params[0] : '';
@@ -50,8 +38,7 @@ const DirectCharge = () => {
   const {data:verifyPayData, isSuccess:verifyPaySuccess} = useVerifyPaymentQuery<any>(orderId)
 
 
-  const [fullName,setFullName] = useState<string>('');
-  const [email,setEmail] = useState<string>('');
+
   const [amount,setAmount] = useState<number>(0);
   const [redirect_url,setRedirectUrl] = useState<string>('');
 
@@ -61,22 +48,16 @@ const DirectCharge = () => {
 
   useEffect(() => {
     if (verifyPaySuccess && verifyPayData.success) {
-      console.log('Weird',verifyPayData)
         if (verifyPayData?.paid == true) {
           router.push('/pay/charge/direct')
         } 
     }
     if (isSuccess && orderData.success) {
-      setFullName(orderData ?  orderData['order']['customer']?.name : '');
-      setEmail(orderData ? orderData['order']['customer']?.email : '');
       setAmount(orderData ? orderData['order']?.amount : '')
       setRedirectUrl(orderData ? orderData['order']?.redirect_url : '');
-      console.log(orderData)
-      console.log('Name',fullName)
     }
-    console.log(params)
   
-  },[isSuccess,orderData,verifyPaySuccess,verifyPayData,amount,email,redirect_url,fullName,params,router])
+  },[isSuccess,orderData,verifyPaySuccess,verifyPayData,amount,redirect_url,params,router])
  
 
 
@@ -85,8 +66,6 @@ const DirectCharge = () => {
 
       const options = {
         "public_key": "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
-        "full_name": fullName,
-        "email": email,
         "tranref": 'charge-' + orderId ,
         "currency": "NGN",
         "country": "NG",
@@ -104,8 +83,6 @@ const DirectCharge = () => {
         <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-8 mb-48'>
           <SeerbitCheckout
               public_key= {options.public_key}
-              full_name= {options.full_name}
-              email= {options.email}
               tranref= {options.tranref}
               currency= {options.currency}
               country= {options.country}

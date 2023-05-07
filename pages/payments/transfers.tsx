@@ -4,9 +4,11 @@ import HelpButton from '../../components/HelpButton'
 // import PaymentLinks from '../../components/payments/PaymentLinks'
 // import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
 import TransfersEmpty from '../../components/payments/TransfersEmpty'
+import useAuth from '../../useAuth'
 
 
-const Payments = () => {
+const Transfers = () => {
+  useAuth()
  
   return (
     <div>
@@ -26,4 +28,4 @@ const Payments = () => {
   )
 }
 
-export default Payments
+export default Transfers

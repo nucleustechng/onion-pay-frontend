@@ -49,12 +49,10 @@ const TransactionSect = () => {
     if (transactionSuccess ) {
       const strIndex:any = 'transaction' 
       setMyTransaction(transaction[strIndex])
-      // console.log('My transaction',transction)
     }
 
     if (isSuccess && transactionsData.success == true) {
       setTransactionsArray(transactionsData['transactions'])
-      // console.log(transactionsArray[6]['events'][0].status)
     } else {
       console.log('An error occured')
     }

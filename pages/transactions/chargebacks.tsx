@@ -1,8 +1,10 @@
 import React from 'react'
 import ChargeBacks from '../../components/chargebacks/ChargeBacks'
+import useAuth from '../../useAuth'
 
 
 const Chargebacks = () => {
+  useAuth()
 
   return (
     <div>

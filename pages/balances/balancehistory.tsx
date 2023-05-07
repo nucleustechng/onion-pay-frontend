@@ -1,9 +1,11 @@
 import React from 'react'
 import MyBalanceHistory from '../../components/balances/BalanceHistory'
+import useAuth from '../../useAuth'
 
 
 
 const Balancehistory = () => {
+  useAuth()
 
 
   return (

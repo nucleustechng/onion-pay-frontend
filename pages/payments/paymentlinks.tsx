@@ -1,11 +1,13 @@
 import React from 'react'
 import PaymentLinks from '../../components/payments/PaymentLinks'
+import useAuth from '../../useAuth'
 
 
 
 
 
 const Paymentlinks = () => {
+  useAuth()
 
   return (
     <div>

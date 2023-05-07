@@ -1,8 +1,11 @@
 import React from 'react'
 import MySettlements  from '../../components/balances/settlements/Settlements'
+import useAuth from '../../useAuth'
 
 
 const Settlements = () => {
+  useAuth()
+
   return (
     <div>
         <div>

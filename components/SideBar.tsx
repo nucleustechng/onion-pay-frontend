@@ -8,22 +8,22 @@ import CustomersItem from './SidebarItems/CustomersItem'
 import PaymentItem from './SidebarItems/PaymentItem'
 import BusinessItem from './SidebarItems/BusinessItem'
 // import Link from 'next/link'
-import { useRouter } from 'next/router'
 // import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react'
 import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
 import CustomToggle from './CustomToggle'
 import SettingsItem from './SidebarItems/SettingsItem'
+import LogoutConfirmation from './LogoutConfirmation'
 
 
 
 const SideBar = () =>{
-    const router = useRouter();
+    const [showModal,setShowModal] = useState<boolean>(false)
+    
 
     const logoutUser = () => {
-        localStorage.clear()
-        router.push('/auth/signin')
+        setShowModal(true)
     }
 
     const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
@@ -136,6 +136,10 @@ const SideBar = () =>{
               {/* Vertical line */}
               <div className='border-[#CACACA] border-solid border-[0.065rem] h-screen '/>
         </div>
+        <LogoutConfirmation
+        isVisible={showModal}  
+        onClose={async () => setShowModal(false)} 
+        />
     </div>
   )
 }

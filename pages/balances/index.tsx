@@ -1,10 +1,12 @@
 import React from 'react'
 import Balance from '../../components/balances/Balance'
 import HelpButton from '../../components/HelpButton'
+import useAuth from '../../useAuth'
 
 
 
 const Balances = () => {
+  useAuth()
 
   return (
     <div>

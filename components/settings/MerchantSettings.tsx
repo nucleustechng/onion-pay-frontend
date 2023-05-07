@@ -5,11 +5,12 @@ import EditIcon from '../../Assets/icon/EditIcon.svg'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useLoadSettingsQuery } from '../../modules/LoadSettings/settingsApi'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import EditAccountDetails from './EditAccountDetails'
+import {  toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -42,7 +43,7 @@ const MerchantSettings = () => {
         if (settingSuccess && settingsData.success == true) {
             setMerchantData(settingsData['merchant'])
         } else {
-            console.log(settingsData?.reason)
+            toast.error(settingsData?.reason)
         }
     
     },[settingSuccess,businessUpdated,settingsData])

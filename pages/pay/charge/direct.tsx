@@ -7,20 +7,6 @@ import { useRetrieveLinkMutation } from '../../../modules/Developers/retrieveLin
 
 
 const DirectCharge = () => {
-  
-
-  // const close = (close:any) => {
-  //   console.log(close);
-  // };
-  // const callback = (response:any) => {
-  //   console.log(response);
-  // };
-
-  // const checkProgress = (progress:any) => {
-  //   console.log(progress);
-  // };
-
-
 
 
   const [data, setData] = useState({
@@ -97,8 +83,7 @@ const DirectCharge = () => {
 
   useEffect(() => {
     if (isSuccess &&  retrievedData.success) {
-      console.log(retrievedData)
-      router.push(retrievedData?.link)
+      router.push(retrievedData?.link ? retrievedData.link : '/')
     }
 
   },[isSuccess,retrievedData,router])
