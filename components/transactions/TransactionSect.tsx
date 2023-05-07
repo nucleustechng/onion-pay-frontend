@@ -175,7 +175,7 @@ const TransactionSect = () => {
                   </div>
               </div>
           </div>
-
+{/* 
           <div className='hidden lg:flex lg:justify-end lg:mt-12 cursor-pointer' onClick={()=>{
             setShowModal(true)
           }}>
@@ -185,7 +185,7 @@ const TransactionSect = () => {
               Create an Invoice
               <FontAwesomeIcon icon={faPlus}/>  
             </div>
-          </div>
+          </div> */}
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>

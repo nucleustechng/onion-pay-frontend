@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useCreateInvoiceMutation } from '../../../modules/Invoices/invoiceApi'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../../Loader'
 
 
@@ -25,6 +25,14 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
   const dispatch = useAppDispatch();
   const [itemsCount, setItemsCount] = useState<number>(0);
   const retrievedData:any = data;
+  const [open, setOpen] = useState<any>([]);
+
+  const toggleOpen = (index:any) => {
+    const updatedOpen = [...open];
+    updatedOpen[index] = !updatedOpen[index];
+    setOpen(updatedOpen);
+  };
+  
 
   const [invoiceData, setInvoiceData] = useState<any>({
     ref: '',
@@ -86,13 +94,13 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
   }, [data,itemsCount,retrievedData]);
   
   useEffect(() => {
+    console.log('Length',invoiceData?.order.length)
     if (isSuccess && createInvoiceData?.success) {
       toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:2000});
 
       setTimeout(() => {
       dispatch(setSecondStep(false));
-      // onClose()
-      },2500)
+      onClose()
       setInvoiceData({
         ref: '',
         full_name: '',
@@ -100,7 +108,10 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
         phone: '',
         address: '',
         order: []
-      })
+      });
+      setItemsCount(0); 
+      },2500)
+
     } else {
       toast.error(createInvoiceData?.reason, { autoClose: 1000 });
     }
@@ -119,7 +130,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
       <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] z-40
         0 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
-            <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[33.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
+            <div className={`w-[22.5rem] md:w-[27rem]  lg:w-[33rem] ${invoiceData?.order.length > 0 ? 'h-[45rem]' : 'h-[39.71rem]'} mt-32 mb-6 rounded-[0.63rem] bg-white`}>
                 <div className='mx-4 lg:mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an invoice</h1>
@@ -137,9 +148,20 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                             <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Item information</h1>
                         </div>
                     </div>
-                    <div className='flex flex-col gap-6 mt-6 '>
+                    <div className={`${invoiceData?.order.length > 0 ? 'h-[29rem]' : 'h-[26rem]'} scrollbar-hide overflow-y-scroll`}>
+                    <div className={`flex flex-col px-4 py-3 gap-6 mt-6 w-auto h-[22rem]  border-[0.0625rem] border-primary rounded-md`}>
+                    <div className="flex items-center justify-between ">
+                      <div>Item 1</div>
+                      {/* <FontAwesomeIcon 
+                        icon={faChevronDown}
+                        className="h-5 w-5 cursor-pointer"
+                        onClick={toggleOpen}
+                        aria-hidden="true"
+                      /> */}
+                    </div>
+                       <div className='flex flex-col gap-6 '>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]'
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]'
                         name='name'
                         value={order.name}
                         onChange={(e) => setOrder({...order, name: e.target.value})} 
@@ -147,7 +169,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Item name' 
                         placeholder='Item name'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
                         name='quantity'
                         value={order.quantity.toString()}
                         onChange={(e) => setOrder({...order, quantity: parseInt(e.target.value)})} 
@@ -155,21 +177,86 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Quantity' 
                         placeholder='1'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
                         name='price'
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
                         type='number'  
                         label='Unit price' 
                         placeholder='0.00'/>
-                        <div className='flex justify-between items-center'>
+                        </div>
+                    </div>
+
+                    {invoiceData.order.map((item:any,index:any) => (<div key={index} className={`flex flex-col px-4 py-3 gap-6 mt-6 w-auto ${
+                      open[index] ? 'h-[22rem] transition-all duration-500 ease-in' : 'h-[3.25rem] transition-all ease-out duration-500'
+                      }  border-[0.0625rem] border-primary rounded-md`}>
+                    <div className="flex items-center justify-between ">
+                      <div>Item {index + 2}</div>
+                      <FontAwesomeIcon 
+                        icon={faChevronDown}
+                        className="h-5 w-5 cursor-pointer"
+                        onClick={() => toggleOpen(index)}
+                        aria-hidden="true"
+                      />
+                    </div>
+                      {open[index] && <div className='flex flex-col gap-6 '>
+                        <Input 
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]'
+                        name='name'
+                        value={item.name}
+                        onChange={(e) => {
+                          const updatedItems = [...invoiceData.order];
+                          updatedItems[index].name = e.target.value;
+                          setInvoiceData({ ...invoiceData, order: updatedItems });
+                        }}
+              
+                        type='text' 
+                        label='Item name' 
+                        placeholder='Item name'/>
+                        <Input 
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        name='quantity'
+                        value={item.quantity.toString()}
+                        onChange={(e) => {
+                          const updatedItems = [...invoiceData.order];
+                          updatedItems[index].quantity = parseInt(e.target.value);
+                          setInvoiceData({ ...invoiceData, order: updatedItems });
+                        }}
+                        type='number' 
+                        label='Quantity' 
+                        placeholder='1'/>
+                        <Input 
+                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        name='price'
+                        value={item.price.toString()}
+                        onChange={(e) => {
+                          const updatedItems = [...invoiceData.order];
+                          updatedItems[index].price = parseInt(e.target.value);
+                          setInvoiceData({ ...invoiceData, order: updatedItems });
+                        }}
+                        type='number'  
+                        label='Unit price' 
+                        placeholder='0.00'/>
+                        </div>}
+                    </div>))}
+                    </div>
+                    {/* <div className="flex items-center justify-between ">
+                      <div>Collapsed Content</div>
+                      <FontAwesomeIcon 
+                        icon={faChevronDown}
+                        className="h-5 w-5 cursor-pointer"
+                        // onClick={toggleOpen}
+                        aria-hidden="true"
+                      />
+                    </div> */}
+                    <div className={`flex justify-between items-center ${invoiceData?.order.length > 0 ? 'mt-6' : 'mt-2'}`}>
                           <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{itemsCount} item(s)</h1>
                           <div onClick={() => addOrder(order)} className='flex justify-end items-center gap-2 cursor-pointer'>
                               <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Add item</h1>
                               <FontAwesomeIcon  icon={faPlus} className='text-primary'/>
                           </div>
                         </div>
-                        <div className='flex items-center justify-end gap-4 mt-2'>
+                        <div className='flex items-center justify-end gap-4 mt-6'>
                             <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
@@ -179,7 +266,6 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                                     {isLoading ? <Loader isWhite={true}/> : 'Continue'}
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

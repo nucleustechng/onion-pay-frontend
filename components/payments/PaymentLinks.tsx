@@ -16,7 +16,6 @@ import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 // import dynamic from 'next/dynamic'
 import SingleChargeModal from './modals/SingleChargeModal'
-import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentLinksEmpty from './PaymentLinksEmpty'
 
 
@@ -33,8 +32,7 @@ const PaymentLinks = () => {
 
 
  
-  const isSingleCharge = useAppSelector((state:RootState) => state.paymentLink.isSingleCharge);
-  const isSecondStep = useAppSelector((state:RootState) => state.paymentLink.isSecondStep);
+  // 
   // const isCompleted  = useAppSelector((state:RootState) => state.paymentLink.isCompleted);
   const {data:paymentPageData,isSuccess,isLoading} = useLoadPaymentLinksQuery()
 
@@ -125,7 +123,7 @@ const PaymentLinks = () => {
             <div>
               {/* <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/> */}
               <SingleChargeModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
-              {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+              {/* {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>} */}
               
                {/* <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             </div>

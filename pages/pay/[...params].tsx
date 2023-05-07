@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import SeerbitCheckout from "seerbit-reactjs"
-import Input from '../../components/Input'
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 
@@ -22,14 +21,28 @@ const Invoice = () => {
 
   const [invoicesArray,setInvoicesArray] = useState<any>([])
 
-  const [fullName,setFullName] = useState<string>('')
-  const [email,setEmail] = useState<string>('')
+  // const [fullName,setFullName] = useState<string>('')
+  // const [email,setEmail] = useState<string>('')
+  // const [isValidEmail, setIsValidEmail] = useState(false);
+
+  // const handleEmailChange = (e:any) => {
+  //   const newEmail = e.target.value;
+  //   setEmail(newEmail);
+  //   setIsValidEmail(validateEmail(newEmail));
+  // };
+
+  // const validateEmail = (email:any) => {
+  //   // Email validation logic
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
 
 
   const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
   // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
+
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
       // console.log('Amount',invoicesArray[4]?.amount)
@@ -51,8 +64,8 @@ const Invoice = () => {
 
       const options = {
         "public_key": "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
-        "full_name": fullName,
-        "email": email,
+        // "full_name": fullName,
+        // "email": email,
         "tranref": 'invoice-' + merchantId + '-' + invoiceId,
         "currency": "NGN",
         "country": "NG",
@@ -66,7 +79,8 @@ const Invoice = () => {
 
   return (
     <div className='flex justify-center'>
-      <div className='mt-32'>
+      {/* <ToastContainer/> */}
+      {/* <div className='mt-32'>
       <h2 className='text-lg text-center text-[#1B1A1A] font-WorkSans font-semibold leading-5 mb-10'>Fill in your details to pay</h2>
           <div className='flex flex-col gap-4'>
             <Input
@@ -83,18 +97,18 @@ const Invoice = () => {
             width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]'
             name='full_name'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
             type='email'
             label='Email'
             placeholder='example@gmail.com' 
             height='h-[3.13rem]'
-            textSize='text-base'/>
-          </div>
-        <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-8 mb-48'>
+            textSize='text-base'/> */}
+          {/* </div> */}
+        <div  className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-28 mb-48'>
           <SeerbitCheckout
               public_key= {options.public_key}
-              full_name= {options.full_name}
-              email= {options.email}
               tranref= {options.tranref}
               currency= {options.currency}
               country= {options.country}
@@ -104,7 +118,7 @@ const Invoice = () => {
               callbackurl= {options.callbackurl}
           />
         </div>
-      </div> 
+      {/* </div>  */}
     </div>
   )
 }

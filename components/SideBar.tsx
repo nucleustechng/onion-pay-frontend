@@ -1,5 +1,4 @@
 import Logo from '../Assets/logo/Logo.svg'
-import SettingIcon from '../Assets/icon/Setting.svg'
 import LogOutIcon from '../Assets/icon/LogOut.svg'
 import Image from 'next/image'
 // import HomeItem from './SidebarItems/HomeItem'
@@ -7,16 +6,15 @@ import TransactionItem from './SidebarItems/TransactionItem'
 import CustomersItem from './SidebarItems/CustomersItem'
 // import BalanceItem from './SidebarItems/BalanceItem'
 import PaymentItem from './SidebarItems/PaymentItem'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import BusinessItem from './SidebarItems/BusinessItem'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useRouter } from 'next/router'
 // import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react'
 import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
 import CustomToggle from './CustomToggle'
+import SettingsItem from './SidebarItems/SettingsItem'
 
 
 
@@ -97,8 +95,9 @@ const SideBar = () =>{
                 />
             </div>
             <hr className='border-solid border-[0.068rem] border-[#F5F0F3]'/>
-            <div className='flex lg:flex'>
-                <Link href='/settings'>
+            <div className='flex lg:flex  mt-7'>
+                <SettingsItem/>
+                {/* <Link href='/settings'>
                                 <div className='flex justify-center w-60'
                                 >
                                 <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${router.pathname == '/settings' ? 'bg-primary' : 'bg-transparent'}`}/>
@@ -111,7 +110,7 @@ const SideBar = () =>{
                                         <h1 className='text-[#262626] text-base font-WorkSans'>Settings</h1>
                                     </div>
                                 </div>
-                            </Link>
+                            </Link> */}
                 </div>
                 <div className='flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 cursor-pointer' onClick={logoutUser}>
                     <div className='flex items-center justify-center bg-[#F31212] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]'>
@@ -119,7 +118,7 @@ const SideBar = () =>{
                     </div>
                     <h1 className='text-[#262626] text-base leading-[1.19rem] font-WorkSans font-normal'>Log out</h1>
                 </div>
-            <hr className='lg:mt-[0.2rem] border-solid border-[0.068rem] border-[#F5F0F3]' />
+            {/* <hr className='lg:mt-[0.2rem] border-solid border-[0.068rem] border-[#F5F0F3]' />
                 <div className='flex items-center pl-7 gap-2 lg:gap-2 h-6   lg:pl-7'>
                     <div className='flex justify-center items-center w-[2rem] h-[2rem]  lg:w-10 lg:h-10 bg-[#61A72C] rounded-full'>
                         <h1 className='font-Montserrat font-medium text-base text-white leading-5 '>JD</h1>
@@ -131,7 +130,7 @@ const SideBar = () =>{
                         </div>
                         <FontAwesomeIcon icon={faEllipsisVertical} className='text-base'/>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
               {/* Vertical line */}

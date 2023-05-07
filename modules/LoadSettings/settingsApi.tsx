@@ -25,7 +25,7 @@ export const settingsApi = createApi({
             providesTags:['Details']
         }),
         updateBusinessInfo:builder.mutation({
-            query: (body:{email:string,phone:string,address:string,website:string,bvn:string}) => {
+            query: (body:{name:string,email:string,phone:string,address:string,website:string,bvn:string}) => {
                 return {
                     url:'/api/v1/update-business',
                     method:'post',

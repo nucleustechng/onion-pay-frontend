@@ -1,17 +1,17 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import EditIcon from '../Assets/icon/EditIcon.svg'
+import EditIcon from '../../Assets/icon/EditIcon.svg'
 // import CopyIcon from '../Assets/icon/CopyIcon.svg'
-import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
-import { RootState } from '../redux/store'
-import { setShowSidebar } from '../redux/sidebarSlice'
-import Hamburger from '../Assets/icon/HamburgerIcon.svg'
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
+import { RootState } from '../../redux/store'
+import { setShowSidebar } from '../../redux/sidebarSlice'
+import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 // import { useGenerateKeysQuery } from '../modules/ApiKeys/generateApiKeys'
 import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
-import UpdateDetailsModal from '../components/settings/UpdateDetailsModal'
-import MerchantSettings from '../components/settings/MerchantSettings'
+import { useLoadSettingsQuery } from '../../modules/LoadSettings/settingsApi'
+import UpdateDetailsModal from '../../components/settings/UpdateDetailsModal'
+
 
 
 
@@ -98,7 +98,7 @@ const Settings = () => {
   return (
     <div className=''>
         <ToastContainer/>
-        {!hasBusiness ? <MerchantSettings/> :
+        
             <div className='w-auto xl:w-[71.5rem]'>
             <div className='mx-6 my-6'>
             <div className='flex justify-between items-center mr-9 mb-12'>
@@ -203,16 +203,17 @@ const Settings = () => {
                     </div>
                 </div> */}
             </div>
-        </div>}
+        </div>
         <div>
             <UpdateDetailsModal 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
-            email={businessData?.email}
-            phone={businessData?.phone}
-            address={businessData?.address}
-            website={businessData?.website}
-            bvn={businessData?.bvn}
+            r_name={businessData?.name}
+            r_email={businessData?.email}
+            r_phone={businessData?.phone}
+            r_address={businessData?.address}
+            r_website={businessData?.website}
+            r_bvn={businessData?.bvn}
             />
         </div>
     </div>

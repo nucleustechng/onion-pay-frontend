@@ -12,14 +12,16 @@ import {  useUpdateBusinessInfoMutation } from '../../modules/LoadSettings/setti
 interface Props {
     isVisible:boolean,
     onClose:()=>{},
-    email:string,
-    phone:string,
-    address:string,
-    website:string,
-    bvn:string
+    r_name:string,
+    r_email:string,
+    r_phone:string,
+    r_address:string,
+    r_website:string,
+    r_bvn:string
 }
 
 type BusinessForm = {
+    name:string
     email:string,
     phone:string,
     address:string,
@@ -27,18 +29,19 @@ type BusinessForm = {
     bvn:string
 }
 
-const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}: Props) => {
+const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r_website,r_name}: Props) => {
 
 
     const dispatch = useAppDispatch()
 
 
     const [businessInfo, setBusinessInfo] = useState<BusinessForm>({
-      email: email,
-      phone: phone,
-      address: address,
-      website: website,
-      bvn: bvn
+      name:r_name,
+      email: r_email,
+      phone: r_phone,
+      address: r_address,
+      website: r_website,
+      bvn: r_bvn
     });
 
 
@@ -48,6 +51,7 @@ const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}:
   const handleUpdateBusiness = async () => {
     try {
       if (
+        businessInfo.name &&
         businessInfo.email &&
         businessInfo.address &&
         businessInfo.phone &&
@@ -66,17 +70,25 @@ const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}:
   // const showToastRef = useRef(false);
   
   useEffect(() => {
+    setBusinessInfo({
+      name: r_name,
+      email: r_email,
+      phone: r_phone,
+      address: r_address,
+      website: r_website,
+      bvn: r_bvn
+    })
     if (isSuccess) {
     
       dispatch(setBusinessUpdated(true))
-
       onClose()
+      console.log(businessData)
     } else {
       // toast.error(businessData?.reason);
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,businessData,dispatch]);
+  },[isSuccess,businessData,dispatch,r_address,r_bvn,r_website,r_phone,r_email,r_name]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -105,7 +117,7 @@ const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}:
         <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
             {/* h-[57.2rem] */}
-            <div className='w-[29rem] md:w-[33rem] h-[38rem] mt-36 mb-6 rounded-[0.63rem] bg-white'>
+            <div className='w-[29rem] md:w-[33rem] h-[42rem] mt-36 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6 '>
                     <div className='flex items-center justify-between'>
                        <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5'>Update business details</h1>
@@ -116,6 +128,15 @@ const UpdateDetailsModal = ({isVisible,onClose,email,phone,address,website,bvn}:
                        </div>
                     </div>
                     <div className='flex flex-col gap-4 mt-6'>
+                        <Input 
+                        name='name'
+                        value={businessInfo?.name}
+                        onChange={(e) => setBusinessInfo({...businessInfo, name: e.target.value})}
+                        placeholder='Business name'
+                        label='Business name' 
+                        type='text' 
+                        width='w-[26rem] md:w-[30rem]'
+                        height='h-[3.13rem]'/>
                         <Input 
                         name='email'
                         value={businessInfo.email}

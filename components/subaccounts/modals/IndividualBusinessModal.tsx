@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
-import IdCard from '../../../Assets/img/IdentificationCard.svg'
 import { useAuthorizeBusinessMutation } from '../../../modules/BusinessPageApi/businessApi'
 import Input from '../../Input'
 import Loader from '../../Loader'
@@ -74,8 +73,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
                 formData.append("doc_type", doc_type);
                 formData.append("file", file);
                 formData.append("bvn", bvn);
-                console.log('form data',formData)
-                  
+
                 await authoriseBusiness(formData)
              
             } else {
@@ -89,18 +87,19 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
     }
 
     useEffect(() => {
-        if (isSuccess && businessData?.success) {
+        let toastShown = false;
+        if (isSuccess && businessData?.success && !toastShown) {
+            toastShown = true; // Set the flag to true to indicate that toast has been shown
             toast.success(businessData?.reason)
             setTimeout(() => {
                 handlerFunc('verify')
             },1500)
             console.log('Business data',businessData)
-        } else {
+        } else if (!toastShown) {
+            toastShown = true; // Set the flag to true to indicate that toast has been shown
             toast.error(businessData?.reason)
-            console.log(businessData)
         }
-        console.log('File uploaded',businessInfo?.file)
-        console.log('Business type',businessType)
+
     },[businessInfo,selectedImage,businessType,businessData])
 
     const handleClose = (e:any) =>{
@@ -165,13 +164,13 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc,businessType}: P
                                         setBusinessInfo({...businessInfo, doc_type:'dlc'})
                                         setDropDown(false)
                                         setDropDownInfo(`Driver's license`)
-                                        }}>Driver's license</h1>
+                                        }}>{`Driver's license`}</h1>
                                     <hr className='border-[0.0625rem] border-[#EEEEEE] w-[10.375rem] '  />
                                     <h1 className='text-[#000000] cursor-pointer tex-sm font-WorkSans font-normal pl-6 py-1' onClick={() => {
                                         setBusinessInfo({...businessInfo, doc_type:'vtc'})
                                         setDropDown(false)
                                         setDropDownInfo(`Voter's card`)
-                                        }}>Voter's card</h1>
+                                        }}>{`Voter's card`}</h1>
                                     <hr className='border-[0.0625rem] border-[#EEEEEE] w-[10.375rem] ' />
                                     <h1 className='text-[#000000] cursor-pointer tex-sm font-WorkSans font-normal pl-6 py-1' onClick={() => {
                                         setBusinessInfo({...businessInfo, doc_type:'nis'})

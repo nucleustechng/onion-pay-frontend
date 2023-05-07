@@ -52,8 +52,8 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && refundData.success == true) {
-      toast.success('You have successfully logged a refund.We will get back to you after 2 business days.',{autoClose:700});
-      console.log('Refund',refundData)
+      toast.success('You have successfully logged a refund.We will get back to you after 2 business days.');
+
       setTimeout(() => {
         onClose()
       },1500)
@@ -66,7 +66,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
     } else {
       toast.error(refundData?.reason);
     }
-  },[isSuccess,refundData,dispatch,onClose]);
+  },[isSuccess,refundData,dispatch]);
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   

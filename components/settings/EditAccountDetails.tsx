@@ -83,6 +83,16 @@ const EditAccountDetails = ({isVisible,onClose,f_name,l_name,o_name,email,phone,
 
   
   useEffect(() => {
+    setMerchantInfo({
+      f_name: f_name,
+      l_name:l_name,
+      o_name:o_name,
+      email: email,
+      phone: phone,
+      address: address,
+      dob: dob
+       
+      })
     if (isSuccess) {
 
       dispatch(setBusinessUpdated(true))

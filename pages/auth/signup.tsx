@@ -66,7 +66,6 @@ const SignUp = () => {
     useEffect(() => {
       console.log('Date of birth',dob)
         if (isSuccess && signupData?.success  == true) {
-            console.log(signupData)
             if (signupData?.token) {
               localStorage.setItem('token', signupData.token);
               }
