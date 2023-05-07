@@ -3,10 +3,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const businessApi = createApi({
     reducerPath:'businessApi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('loginToken');
 
             // If the token is present, set the authorization header
             if (token) {
@@ -26,7 +26,17 @@ export const businessApi = createApi({
                 };
             }
         }),
+        authorizeBusiness:builder.mutation({
+            query:(formData: FormData) => {
+                return {
+                    url:'/api/v1/authorise-business',
+                    method: 'POST',
+                    body: formData,
+                }
+            }
+        })
+     
     })
 });
 
-export const { useCreateBusinessMutation } = businessApi
+export const { useCreateBusinessMutation, useAuthorizeBusinessMutation } = businessApi

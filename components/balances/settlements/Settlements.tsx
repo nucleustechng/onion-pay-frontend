@@ -7,23 +7,18 @@ import DownloadIcon from '../../../Assets/icon/Download.svg'
 import Hamburger from '../../../Assets/icon/HamburgerIcon.svg'
 import SettlementHeader from './SettlementHeader'
 import SettlementTable from './SettlementTable'
-import SideBarMobile from '../../SidebarMobile'
 import { setShowSidebar } from '../../../redux/sidebarSlice'
 import { RootState } from '../../../redux/store'
 import { useAppDispatch, useAppSelector } from '../../../redux/redux-hooks/hooks'
 import HelpButton from '../../HelpButton'
 
-const Settlements = () => {
+const MySettlements = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
   return (
     <div>
       <div className=''>
-         {/* Sidebar Mobile */}
-            <div className='inline-flex lg:hidden'>
-              <SideBarMobile />
-            </div>
         <div className='w-[30rem]  sm:w-[40rem] md:w-[47rem]  lg:w-[50rem]     overflow-hidden xl:w-[72rem] mx-5 mt-4 lg:mt-7'>
             
           <div className='flex flex-col lg:flex lg:items-center xl:flex xl:flex-row  mx-1 md:mx-3 lg:mx-5 lg:flex-row lg:justify-between'>
@@ -117,4 +112,4 @@ const Settlements = () => {
   )
 }
 
-export default Settlements
+export default MySettlements

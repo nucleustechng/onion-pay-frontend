@@ -2,11 +2,13 @@ import React from 'react'
 import TransactionRefunds from '../../components/refunds/TransactionRefunds'
 
 
-const refunds = () => {
+const Refunds = () => {
+  
+
   return (
     <div>
         <div>
-            <div className='w-[20rem] xl:w-[71.5rem]'>
+            <div className='w-[20rem] xl:w-[74.5rem]'>
                 <TransactionRefunds/>
             </div>
         </div>
@@ -14,4 +16,4 @@ const refunds = () => {
   )
 }
 
-export default refunds
+export default Refunds

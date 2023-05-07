@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import SeerbitCheckout from "seerbit-reactjs"
+import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 
 const SeerbitComponent = () => {
@@ -17,14 +18,31 @@ const SeerbitComponent = () => {
   //   console.log(progress);
   // };
 
+  const [invoicesArray,setInvoicesArray] = useState<any>([])
+
+
+  const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
+  // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
+
+  useEffect(() => {
+    // invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
+
+    if (isSuccess && invoiceData.success == true) {
+      setInvoicesArray(invoiceData['invoices'])
+      // console.log('Amount',invoicesArray[4]?.amount)
+    } else {
+      console.log('An error occured')
+    }
+  },[isSuccess,invoicesArray,invoiceData])
+
       const options = {
         "public_key": "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
         "full_name": "Joseph Keswet",
         "email": "jhezekiah19@gmail.com",
-        "tranref": new Date().getTime(),
+        "tranref": 'invoice-' + 'v13V07H15R03R03Y00n03D11V07H15V07V07H15-' + '1680772334837',
         "currency": "NGN",
         "country": "NG",
-        "amount": "50.00",
+        "amount": invoicesArray[10]?.amount,
         "setAmountByCustomer": false,
         "tokenize" : false,
         "callbackurl": "http://localhost:3002"

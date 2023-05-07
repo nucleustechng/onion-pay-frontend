@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BalanceIcon from '../../Assets/icon/Balances.svg'
 
 
@@ -11,6 +11,7 @@ const BalanceItem = () => {
     const router = useRouter()
     const [balances,setBalances] = useState<boolean>(false)
     const dropBalance = () => {
+       
         balances ? setBalances(false) : setBalances(true);
       };
     
@@ -21,6 +22,12 @@ const BalanceItem = () => {
     const isActiveRoute = balanceRoute || balancehistoryRoute || settlementsRoute;
 
     const isBalanceRoute = balancehistoryRoute || settlementsRoute;
+
+    useEffect(() => {
+        if (!isActiveRoute) {
+            setBalances(false)
+        }
+    },[isActiveRoute])
   return (
     <div>
            {/* <div className='flex justify-center w-12 lg:hidden'>

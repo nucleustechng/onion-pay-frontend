@@ -4,7 +4,9 @@ import PaymentLinks from '../../components/payments/PaymentLinks'
 
 
 
-const paymentlinks = () => {
+
+const Paymentlinks = () => {
+
   return (
     <div>
       <div>
@@ -16,4 +18,4 @@ const paymentlinks = () => {
   )
 }
 
-export default paymentlinks
+export default Paymentlinks

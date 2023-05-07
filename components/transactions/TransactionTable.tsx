@@ -1,32 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props{
-    // description:string,
-    // amount:number,
-    // paymentType:string,
-    // date:string,
-    status:string
+    type:string,
+    amount:string,
+    transactionID:string,
+    status:string,
+    createdOn:any
 }
 
-const TransactionTable = ({status}: Props) => {
+const TransactionTable = ({status,transactionID,amount,createdOn,type}: Props) => {
+  const slicedAmount = amount.slice(1)
+  const [formattedDate, setFormattedDate] = useState('')
+
+  useEffect(() => {
+    const formatDate = (dateString:string) => {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const date = new Date(dateString);
+      const month = months[date.getMonth()];
+      const day = date.getDate();
+      const year = date.getFullYear();
+      const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+      const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+      const amPm = date.getHours() >= 12 ? 'PM' : 'AM';
+      const formattedDate = `${month} ${day}, ${year} - ${hours}:${minutes} ${amPm}`;
+      return formattedDate;
+    }
+    
+    const formattedDate = formatDate(createdOn);
+    setFormattedDate(formattedDate)
+  }, [createdOn])
+
   return (
     <div>
-        <div className='w-[55.65rem] flex items-center px-4 h-12'>
-            <div className='w-[22.5rem] lg:w-[22.5rem]'>
-              <h1 className='text-sm '>Payment from ID: 1234567854</h1>
+     <div className='flex items-center px-4 w-[71.5rem] h-16'>
+            <div className='w-[19.5rem]'>
+              <h1>{transactionID}</h1>
             </div>
-            <div className='w-[10.45rem]  pl-4 lg:w-[10.45rem] lg:pl-4'>
-              <h1>NGN 300.00</h1>
+            <div className='w-[22rem]'>
+              <h1>NGN {slicedAmount}</h1>
             </div>
-            <div className='w-[9.4rem] pl-5'>
-              <h1>Card</h1>
+            <div className='w-[18.4rem]'>
+              <h1>{type}</h1>
             </div>
-            <div className='w-[18.8rem] pl-5'>
-              <h1>Nov 19, 2022 - 10:28 AM</h1>
+            <div className='w-[24rem]'>
+              <h1>{formattedDate}</h1>
             </div>
-            <div className='w-[10.45rem]'>
-                <div className='flex items-center justify-center  w-[6.65rem] h-[1.71rem] rounded-lg bg-[#D5FFB6]'>
-                    <h1 className='text-[#61A72C] text-base font-WorkSans font-normal leading-4'>{status}</h1>
+            <div className='w-[21.65rem]'>
+                <div className='flex items-center   w-[6.65rem] h-[1.71rem] rounded-lg '>
+                    <h1 className={`${status == 'Successful' ? 'text-[#61A72C]' : 'text-[#FF9635]'} text-base font-WorkSans font-normal leading-4`}>{status}</h1>
                 </div>
             </div>
         </div>

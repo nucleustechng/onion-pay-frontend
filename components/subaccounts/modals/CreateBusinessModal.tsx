@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 interface Props {
     isVisible:boolean
     onClose:()=>{}
+    handlerFunc:() => void
 }
 
 type BusinessForm = {
@@ -22,7 +23,7 @@ type BusinessForm = {
     website:string
 }
 
-const CreateBusinessModal = ({isVisible,onClose}: Props) => {
+const CreateBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
 
 
     const dispatch = useAppDispatch()
@@ -40,6 +41,8 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
     useCreateBusinessMutation();
   
   const handleCreateBusiness = async () => {
+    handlerFunc()
+
     try {
       if (
         businessInfo.b_name &&
@@ -57,7 +60,10 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
   
   useEffect(() => {
     if (isSuccess && businessData.success == true) {
-      toast.success('Your business has been successfully created!');
+      // toast.success('Your business has been successfully created!');
+      setTimeout(() => {
+        handlerFunc()
+      },1500)
       setBusinessInfo({
         b_name: '',
         b_email: '',
@@ -150,30 +156,7 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
                         width='w-[26rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Country</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nigeria</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Bank name</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>United Bank of Africa</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div> */}
-                      
-                        {/* <div className='flex flex-col gap-2'>
-                            <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Split type</h1>
-                            <div className='flex items-center justify-between px-6 w-[30rem] h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem]'>
-                                <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Percentage</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
-                        </div>
-                        <Input label='Your share of the payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' />
-                        <Input label='Subaccount’s share of payment (%)' placeholder='0.00' type='number' width='w-[30rem]' height='h-[3.13rem]' /> */}
+                        
                     </div>
                     <div className='flex items-center justify-end gap-4 mt-6'>
                         <button onClick={()=>{
@@ -182,7 +165,7 @@ const CreateBusinessModal = ({isVisible,onClose}: Props) => {
                         Cancel
                         </button>
                         <button onClick={handleCreateBusiness} className='w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>
-                        <div className='flex justify-center items-center'>{isLoading ? <Loader/> : 'Create business'}</div>
+                        <div className='flex justify-center items-center'>{isLoading ? <Loader isWhite={true}/> : 'Create business'}</div>
                         </button>
                     </div>
                 </div>

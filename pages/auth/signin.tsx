@@ -18,12 +18,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useSigninMutation } from '../../modules/auth/api/AuthApi'
 import Loader from '../../components/Loader'
 import { useRouter } from 'next/router'
+import { setAuthenticated, setUnauthenticated } from '../../redux/loginSlice'
+import { useAppDispatch } from '../../redux/redux-hooks/hooks'
 
 
 const Signin = () => {
     const [toggleNav,setToggleNav] = useState<boolean>(false);
 
     const router = useRouter();
+    const dispatch = useAppDispatch()
 
     const [passwordError,setPasswordError] = useState<string>('');
     const [emailError,setEmailError] = useState<string>('')
@@ -43,11 +46,16 @@ const Signin = () => {
     useEffect(() => {
         if (isSuccess && signInData?.success  == true) {
             console.log(signInData)
-            if (signInData?.token) {
-                localStorage.setItem('token', signInData.token);
-            }
             toast.success('You have successfully signed in.');
-                router.push('/transactions');
+            if (signInData.token) {
+                // document.cookie = `authToken=${signInData?.token}; path=/`
+                localStorage.setItem('loginToken',signInData.token)
+                dispatch(setAuthenticated())
+                router.push('/transactions/');
+
+            } else {
+                dispatch(setUnauthenticated())
+            }
         
         }else{
             switch (signInData?.reason) {
@@ -62,7 +70,7 @@ const Signin = () => {
                   setEmailError('');
             }
         }
-    },[isSuccess,signInData,router])
+    },[isSuccess,signInData,router,dispatch])
 
   return (
     <div>
@@ -73,7 +81,7 @@ const Signin = () => {
               <div  className={`px-5 overflow-y-scroll w-screen   bg-[#F5F5F5] fixed inset-0 h-full z-50 transition-all duration-500
               ${toggleNav ? "right-20" : "left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[65rem] lg:left-[85rem] xl:left-[95rem] min-[280px]:left-[25rem] min-[412px]:left-[30rem]"}`}>
                     <div className='flex justify-end mt-[1.875rem] cursor-pointer' onClick={() => setToggleNav(!toggleNav)}>
-                        <Image src={CloseIcon} alt='Close Icon'/>
+                        <Image src={CloseIcon} loading='lazy' alt='Close Icon'/>
                     </div>
                     {/* CTA buttons */}
                     <div className='flex flex-col gap-6 mt-[1.875rem]'>
@@ -117,7 +125,7 @@ const Signin = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} alt='Logo'/>
+                      <Image src={Logo} loading='lazy' alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>
@@ -141,7 +149,7 @@ const Signin = () => {
                             </Link>
                     </div>
                     <div className='flex items-center cursor-pointer lg:hidden' onClick={() => setToggleNav(!toggleNav)}>
-                      <Image src={Hamburger} alt='Hamburger Icon'/>
+                      <Image src={Hamburger} loading='lazy' alt='Hamburger Icon'/>
                     </div>
                   </div>
             </div>
@@ -187,7 +195,7 @@ const Signin = () => {
                         <div className='mt-4'>
                             <ButtonRegular width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-11'
                             backgroundColor='bg-primary' borderWidth='0.313rem' handlerFunc={handleSubmit}
-                            color='text-white' mainText={isLoading ? <Loader/> : 'Continue'}  textSize='text-base'
+                            color='text-white' mainText={isLoading ? <Loader isWhite={true}/> : 'Continue'}  textSize='text-base'
                             />
                         </div>
                     </div>
@@ -195,11 +203,11 @@ const Signin = () => {
                 </div>
             </div>
             <div className='hidden lg:absolute lg:flex justify-center lg:top-[42rem] lg:h-[30rem]  '>
-                <Image src={LadyImage} className='w-[22.4rem]'   alt=''/>
+                <Image src={LadyImage} loading='lazy' className='w-[22.4rem]'   alt=''/>
             </div>
         </div>
             <div className='relative flex justify-center top-[12rem] bottom-0  lg:hidden  '>
-                <Image src={LadyImage} className='w-[22.4rem]'   alt=''/>
+                <Image src={LadyImage} loading='lazy' className='w-[22.4rem]'   alt=''/>
             </div>
       
         <div className='relative z-20'>

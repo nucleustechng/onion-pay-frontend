@@ -2,16 +2,14 @@ import React from 'react'
 import BusinessSect from '../../components/subaccounts/BusinessSect'
 
 
-const index = () => {
+
+const Businness = () => {
+
   return (
     <div>
-        <div>
-            <div>
-                <BusinessSect/>
-            </div>
-        </div>
+        <BusinessSect/>
     </div>
   )
 }
 
-export default index
+export default Businness

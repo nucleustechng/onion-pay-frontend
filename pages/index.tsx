@@ -4,7 +4,7 @@ import MoneyLight from '../Assets/img/MoneyLight.svg'
 import MoneyLightRight from '../Assets/img/MoneyLightRight.svg'
 import ButtonIcon from '../components/Buttons/ButtonIcon'
 import Herosect from '../Assets/img/Herosect.svg'
-import  HeroMan from '../Assets/img/HeroMan.svg'
+import  HeroMan from '../Assets/img/HeroMan.png'
 import  LargeHeroSect from '../Assets/img/LargeHeroSect.svg'
 import ToolSection from '../components/pagesections/ToolSection'
 import AfricanLady  from '../Assets/img/AfricanLady.svg'
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
     <div>
-        <div className='relative  bg-[#F5F5F5] w-full
+        <div className='relative z-20  bg-[#F5F5F5] w-full
         lg:h-[53.75rem] pt-[1.875rem] 
         '>
             <div className='relative  h-[17.5rem] mt-[6rem]  ml-5 
@@ -56,14 +56,14 @@ export default function Home() {
                   min-[412px]:bottom-[15rem]
                   lg:hidden
                   '>
-                    <Image src={MoneyDark} alt='Money Image'/>
+                    <Image src={MoneyDark} loading='lazy' alt='Money Image'/>
                   </div>
                   <div className='absolute bottom-52 left-72
                   min-[492px]:left-96 sm:top-32
                   min-[412px]:bottom-[12.8rem] min-[412px]:left-[18.5rem]
                   lg:hidden
                   '>
-                    <Image src={MoneyLight} alt='Money Image'/>
+                    <Image src={MoneyLight} loading='lazy' alt='Money Image'/>
                   </div>
             </div>
             {/* Hero section text */}
@@ -77,7 +77,7 @@ export default function Home() {
              min-[360px]:w-[20rem] xl:mt-4
              sm:w-[30rem] sm:text-3xl
               '>Process payments, manage revenue, and use tools designed to grow your business.</p>
-              <Link href='/auth/signup' className='cursor-pointer'>
+              <Link href='/auth/signup' className='cursor-pointer z-30'>
                 <ButtonIcon 
                 width='w-[12.25rem] 
                 sm:w-[20rem]' 
@@ -89,21 +89,21 @@ export default function Home() {
               </Link>
             </div>
               <div className='inline-flex lg:hidden'>
-                <Image src={Herosect} alt='Hero sect' className='w-screen'/>
+                <Image src={Herosect}  loading='lazy' alt='Hero sect' className='w-screen'/>
               </div>
               <div className='hidden lg:inline-flex lg:absolute lg:bottom-0 lg:right-20 lg:z-20
               '>
-                <Image src={LargeHeroSect} alt='Hero sect large' className='w-screen'/>
+                <Image src={LargeHeroSect} loading='lazy' alt='Hero sect large' className='w-screen'/>
               </div>
                 <div className='lg:absolute lg:inline-flex hidden
                       lg:left-[3.82rem] lg:right-0 lg:top-[10rem]
                       '>
-                        <Image src={MoneyDark} alt='Money Image'/>
+                        <Image src={MoneyDark} loading='lazy' alt='Money Image'/>
                 </div>
                 <div className='lg:absolute lg:inline-flex hidden
                       lg:left-[38rem] lg:top-[35rem]
                       '>
-                        <Image src={MoneyLightRight} alt='Money Image'/>
+                        <Image src={MoneyLightRight} loading='lazy' alt='Money Image'/>
                 </div>
                 <div className='lg:absolute lg:inline-flex  hidden 
                 min-[1062px]:top-14 min-[1062px]:left-[41rem] 
@@ -112,13 +112,13 @@ export default function Home() {
               min-[1024px]:left-[42rem] 
 
                 '>
-                    <Image src={HeroMan} alt='Hero section image'/>
+                    <Image src={HeroMan} loading='lazy' alt='Hero section image'/>
                 </div>
         </div>
      </div>
      <div className=''>
           <div className='hidden lg:flex lg:absolute lg:top-[123rem] md:w-[30rem]'>
-            <Image src={AfricanLady} alt=''/>
+            <Image src={AfricanLady} loading='lazy' alt=''/>
           </div>
         <div className='flex justify-center md:inline-flex md:ml-[3rem] xl:inline-flex xl:ml-[9.375rem]'>
             <ToolSection/>

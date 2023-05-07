@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FolderIcon from '../../Assets/icon/Folder.svg'
 
 
@@ -20,6 +20,13 @@ const BusinessItem = () => {
 
     const isAccountRoute = businessRoute;
     const isActiveRoute = overviewRoute || businessRoute;
+
+
+    useEffect(() => {
+      if (!isActiveRoute) {
+          setAccount(false)
+      }
+  },[isActiveRoute])
   return (
     <div>
            {/* <div className='flex justify-center w-12 lg:hidden'>

@@ -28,7 +28,7 @@ const LargeToolSectCard = ({backgroundColor,header,img,mainText,height,top,left}
                     <div className='flex items-center gap-[0.375rem]'>
                         <h1 className='text-white xl:text-base md:text-sm  font-WorkSans font-normal leading-5'>Learn more</h1>
                         <div className='w-6 h-6 flex items-center'>
-                            <Image src={ArrowRight} alt='Right arrow icon'  className='w-9 h-9'/>
+                            <Image src={ArrowRight} loading='lazy' alt='Right arrow icon'  className='w-9 h-9'/>
                         </div>
                     </div>
                 </div>

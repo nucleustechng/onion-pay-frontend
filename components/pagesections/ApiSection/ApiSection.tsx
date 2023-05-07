@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import BackgroundArrows from '../../../Assets/img/apisection/BackgroundArrows.svg'
 import L_BackgroundArrows from '../../../Assets/img/apisection/L-BackgroundArrows.svg'
+import Link from 'next/link'
 
 
 
@@ -27,14 +28,14 @@ const ApiSection = () => {
             </div>
             </div>
             <div className='w-full flex justify-center md:hidden'>
-            <Image src={BackgroundArrows} alt='' className='w-screen'/>
+            <Image src={BackgroundArrows} loading='lazy' alt='' className='w-screen'/>
             </div>
             <div className='hidden md:block w-full'>
-            <Image src={L_BackgroundArrows} alt='' className='w-screen'/>
+            <Image src={L_BackgroundArrows} loading='lazy' alt='' className='w-screen'/>
             </div>
-            <div className='flex justify-center mt-8 md:mt-[3rem] xl:mt-[5rem] pb-10 md:pb-[7rem] xl:pb-[9.375rem]'>
+            <Link href='https://ultra-organization.gitbook.io/onion-pay' className='flex justify-center mt-8 md:mt-[3rem] xl:mt-[5rem] pb-10 md:pb-[7rem] xl:pb-[9.375rem]'>
             <ButtonRegular width='w-[11.94rem]' height='h-11' backgroundColor='bg-primary' color='text-white' mainText='Read the API docs' textSize='text-base' />
-            </div>
+            </Link>
     </div>
   )
 }

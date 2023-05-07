@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react'
 
 interface Props {
-    label:string,
-    placeholder:string,
+    label?:string,
+    placeholder?:string,
     type:string,
-    width:string,
+    width?:string,
     height:string,
-    textSize:string,
+    textSize?:string,
     errorMessage?:string,
     name?:string,
     value?:string,
@@ -19,7 +19,7 @@ const Input = ({label,placeholder,type,width,height,textSize,errorMessage,name,v
 
   return (
     <div>
-      <div className='flex flex-col gap-[0.375rem]'>
+      <div className={`flex flex-col ${label ? 'gap-[0.375rem]' : 'gap-0'}`}>
       <label className={`text-sm  ${errorMessage ? 'text-[#DE0040]' : ''} ${(!isFocused && !errorMessage) && 'text-primaryText'} ${(isFocused && !errorMessage) && 'text-primary'} font-WorkSans font-normal leading-4 `}>{label}</label>
       <input 
       name={name}

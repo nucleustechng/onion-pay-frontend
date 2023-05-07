@@ -9,17 +9,16 @@ import CooperateBusiness from '../../../Assets/illustrations/CooperateBusiness.s
 interface Props {
     isVisible:boolean
     onClose:()=>{}
+    handlerFunc:(nextstep:string) => void
   }
 
-const VerifyAccountModal = ({isVisible,onClose}: Props) => {
-    const [tab,setTab] = useState<number>();
+const VerifyAccountModal = ({isVisible,onClose,handlerFunc}: Props) => {
+    const [tab,setTab] = useState<number>(0);
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
         }
       };
-    
-    
       if (!isVisible) return null;
   return (
     <div>
@@ -28,7 +27,7 @@ const VerifyAccountModal = ({isVisible,onClose}: Props) => {
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[#1B1A1A] text-lg font-semibold font-WorkSans leading-5'>Verify your account</h1>
-                        <div>
+                        <div onClick={() => onClose()} className='cursor-pointer'>
                             <Image src={CloseIcon} alt='Close Icon'/>
                         </div>
                     </div>
@@ -41,7 +40,10 @@ const VerifyAccountModal = ({isVisible,onClose}: Props) => {
                             <h1>Select your type of business</h1>
                         </div>
                         <div  className='flex items-center justify-between mt-6'>
-                            <div onClick={() => setTab(1)} className={` cursor-pointer pt-7 w-[15.63rem] h-[21.2rem] border-[0.065rem] rounded-[0.313rem] ${tab == 1 ? 'border-primary' : 'border-[#CACACA]'}`}>
+                            <div onClick={() => {
+                                setTab(1)
+                                handlerFunc('individual')
+                                }} className={` cursor-pointer pt-7 w-[15.63rem] h-[21.2rem] border-[0.065rem] rounded-[0.313rem] ${tab == 1 ? 'border-primary' : 'border-[#CACACA]'}`}>
                                 <div className='flex flex-col'>
                                     <div className='flex justify-center'>
                                         <Image src={IndividualBusiness} alt='Individual Business Illustration'/>
@@ -53,14 +55,18 @@ const VerifyAccountModal = ({isVisible,onClose}: Props) => {
                                 </div>
                             </div>
                             
-                            <div onClick={() => setTab(2)} className={` cursor-pointer pt-7 w-[15.63rem] h-[21.2rem] border-[0.065rem] rounded-[0.313rem] ${tab == 2 ? 'border-primary' : 'border-[#CACACA]'}`}>
+                            <div onClick={() => {
+                                setTab(2)
+                                handlerFunc('cooperate')
+                                }} className={` cursor-pointer pt-7 w-[15.63rem] h-[21.2rem] border-[0.065rem] rounded-[0.313rem] ${tab == 2 ? 'border-primary' : 'border-[#CACACA]'}`}>
                                 <div className='flex flex-col'>
                                     <div className='flex justify-center'>
                                         <Image src={CooperateBusiness} alt='Individual Business Illustration'/>
                                     </div>
                                     <div className='px-6 mt-6'>
-                                        <h1 className='text-center text-xl text-[#1B1A1A] font-WorkSans font-medium leading-5 mb-4'>Individual Business</h1>
-                                        <p className='text-center text-sm text-[#1B1A1A] font-WorkSans font-normal'>{`This type of business is owned by a single individual and it’s activities are carried out by only one person.`}</p>
+                                        <h1 className='text-center text-xl text-[#1B1A1A] font-WorkSans font-medium leading-5 mb-4'>Corporate businesss</h1>
+                                        <p className='text-center text-sm text-[#1B1A1A] font-WorkSans font-normal'>{`This type of business
+has it’s activities carried out by two or more people.`}</p>
                                     </div>
                                 </div>
                             </div>

@@ -11,14 +11,98 @@ import Logo from '../../Assets/logo/Logo.svg'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForgotPasswordMutation, useResetPasswordMutation } from '../../modules/auth/api/AuthApi'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../components/Loader'
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
+import { setMyEmail } from '../../redux/passwordResetSlice'
+import { RootState } from '../../redux/store'
+import { useRouter } from 'next/router'
+
+interface IResetInfo {
+    email:string,
+    code:string,
+    n_pass:string
+}
 
 
 const Forgotpassword = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
+  const [resetpassword,setResetPassword] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const  newEmail = useAppSelector((state:RootState) => state.email.email);
+
+  const [email,setEmail] = useState<string>('');
+
+  const  [resetInfo,setResetInfo] = useState<IResetInfo>({
+    email:'',
+    code:'',
+    n_pass:''
+  }) 
+
+  const [forgotPassword,{data:forgotPassData,isLoading:forgotPassLoading,isSuccess:forgotPassSuccess}] = useForgotPasswordMutation()
+  const [resetPassword,{data,isLoading,isSuccess}] = useResetPasswordMutation()
+
+
+  const handleForgotPass = async () => {
+    if (email) {
+        await forgotPassword({email})
+    } else {
+        toast.error(forgotPassData?.reason,{autoClose:1500})
+    }
+  }
+
+  const  handleResetPass = async () => {
+    if (resetInfo?.email && resetInfo?.code && resetInfo?.n_pass) {
+        await resetPassword(resetInfo)
+    } else {
+        toast.error(forgotPassData?.reason,{autoClose:1500})
+    }
+  }
+
+  useEffect(() => {
+       
+            if (forgotPassSuccess && forgotPassData?.success) {
+                toast.success(forgotPassData?.reason,{autoClose:1000})
+                setResetPassword(true)
+                dispatch(setMyEmail(email))
+                setResetInfo({...resetInfo,email: newEmail})
+            } else {
+                toast.error(forgotPassData?.reason,{autoClose:1500})
+            }
+
+    
+  },[forgotPassSuccess,forgotPassData,resetInfo,dispatch,email,newEmail])
+
+  useEffect(() => {
+
+        if (isSuccess && data?.success) {
+            toast.success('You have successfuly changed your password!!',{autoClose:1000})
+            setTimeout(() => {
+                router.push('/auth/signin')
+            },1500)
+            console.log('Success message',data?.reason)
+            setResetInfo({
+                email:'',
+                code:'',
+                n_pass:""
+            })
+            // dispatch(setMyEmail(''))
+        } else {
+            toast.error(data?.reason,{autoClose:1500})
+        }
+    
+
+  },[data,isSuccess,router])
+  
+
 
   return (
-    <div>
+    <div className='bg-[#F5F5F5]'>
+        <ToastContainer/>
          <div>
         <div>
             <div className=''>
@@ -99,40 +183,114 @@ const Forgotpassword = () => {
             </div>
         </div>
         </div>
-        <div className='flex  justify-center mb-[5rem] lg:mb-[16rem] '>
+        {!resetpassword ? <div className='flex  justify-center mb-[2rem] lg:mb-[5rem] '>
             <div className= 'flex flex-col pt-32 lg:pb-20'>
                 <div className='flex flex-col gap-10'>
                     <h1 className='w-[21.875rem] sm:w-[25rem] xl:w-[70rem]  text-center text-[#303778] text-5xl font-SpaceGrotesk font-bold leading-[3.375rem]
                     lg:w-[60rem] lg:text-[5.625rem] lg:leading-[5.625rem]
-                    '>Welcome<span className='text-[#FF9635]'>!</span></h1>
-                    <h2 className='text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5'>Fill in your Sign in details below</h2>
+                    '>Forgot Password<span className='text-[#FF9635]'>!</span></h1>
                 </div>
-                <div className='flex justify-center mt-10 '>
-                    <div className='flex flex-col gap-6'>
-                        <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-[3.125rem]' 
-                        label='Email' textSize='text-sm' placeholder='example@email.com'
-                        type='email'
-                        />
-                        <div>
-                         <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-[3.125rem]' 
-                        label='Password' textSize='text-sm' placeholder='Password'
-                        type='password'
-                        />
-                        <div>
-                            <h1 className='cursor-pointer text-sm text-right font-WorkSans font-normal leading-4 text-primary mt-2'>Forgot password</h1>
-                        </div> 
+                <div className='flex justify-center'>
+                        <div className='lg:bg-white  lg:w-[33rem] h-[18.575rem] mt-[3.75rem] rounded-[0.625rem]'>
+                            <h2 className='mt-6 text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5'>Provide the email for your account</h2>
+                            <div className='flex justify-center mt-10 '>
+                                <div className='flex flex-col gap-6'>
+                                    <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]'
+                                    height='h-[3.125rem]' 
+                                    name='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    label='Email' 
+                                    textSize='text-sm' 
+                                    placeholder='example@email.com'
+                                    type='email'
+                                    />
+                                    <div>
+                                    </div>
+                                    <div className='mt-4' onClick={handleForgotPass}>
+                                        <ButtonRegular 
+                                        width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                        height='h-11'
+                                        backgroundColor='bg-primary' 
+                                        borderWidth='0.313rem'
+                                        color='text-white' 
+                                        mainText={forgotPassLoading ? <Loader/> : 'Continue'}  
+                                        textSize='text-base'
+                                        />
+                                    </div>
+                                </div>
+                                
+                            </div>
                         </div>
-                        <div className='mt-4'>
-                            <ButtonRegular width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-11'
-                            backgroundColor='bg-primary' borderWidth='0.313rem'
-                            color='text-white' mainText='Continue'  textSize='text-base'
-                            />
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </div>
+        
+        :
+
+        <div className='flex  justify-center mb-[5rem] lg:mb-[16rem] '>
+            
+            <div className= 'flex flex-col pt-32 lg:pb-20'>
+                <div className='flex flex-col gap-10'>
+                    <h1 className='w-[21.875rem] sm:w-[25rem] xl:w-[70rem]  text-center text-[#303778] text-5xl font-SpaceGrotesk font-bold leading-[3.375rem]
+                    lg:w-[60rem] lg:text-[5.625rem] lg:leading-[5.625rem]
+                    '>Change Password<span className='text-[#FF9635]'>!</span></h1>
+                </div>
+                <div className='flex justify-center'>
+                        <div className='lg:bg-white  md:w-[33rem] h-[34.575rem] mt-[3.75rem] rounded-[0.625rem]'>
+                            <h2 className='mt-6 text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5'>Fill in your information to change password</h2>
+                            <div className='flex justify-center mt-10 '>
+                                <div className='flex flex-col gap-6'>
+                                    {/* <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                    height='h-[3.125rem]' 
+                                    name='email'
+                                    value={resetInfo.email}
+                                    onChange={(e) => setResetInfo({...resetInfo, email: e.target.value})}
+                                    label='Email' 
+                                    textSize='text-sm' 
+                                    placeholder='example@email.com'
+                                    type='email'
+                                    /> */}
+                                    <Input 
+                                    name='code'
+                                    value={resetInfo.code}
+                                    onChange={(e) => setResetInfo({...resetInfo, code: e.target.value})}
+                                    width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                    height='h-[3.125rem]' 
+                                    label='OTP Code' textSize='text-sm' placeholder='********'
+                                    type='password'
+                                    />
+                                    <div>
+                                        <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                        height='h-[3.125rem]' 
+                                        name='n_pass'
+                                        value={resetInfo.n_pass}
+                                        onChange={(e) => setResetInfo({...resetInfo, n_pass: e.target.value})}
+                                        label='New password' 
+                                        textSize='text-sm' 
+                                        placeholder='Password'
+                                        type='password'
+                                        />
+                                    </div>
+                                    <div className='mt-4' onClick={handleResetPass}>
+                                        <ButtonRegular 
+                                        width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                        height='h-11'
+                                        backgroundColor='bg-primary' 
+                                        borderWidth='0.313rem'
+                                        color='text-white'
+                                        mainText={isLoading ? <Loader/> : 'Continue'}  
+                                        textSize='text-base'
+                                        />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        }
       
         <div className='relative z-20'>
             <Footer/>

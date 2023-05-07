@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SwapIcon from '../../Assets/icon/Swap.svg'
 
 
@@ -21,6 +21,13 @@ const TransactionItem = () => {
     
     const isTransactionRoute = refundsRoute || chargebacksRoute;
     const isActiveRoute = transactionsRoute || refundsRoute || chargebacksRoute;
+
+
+    useEffect(() => {
+      if (!isActiveRoute) {
+          setTransaction(false)
+      }
+  },[isActiveRoute])
   return (
     <div>
           {/* <div className='flex justify-center w-12 lg:hidden'>

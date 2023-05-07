@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const AuthApi = createApi({
     reducerPath:'AuthApi',
     baseQuery:fetchBaseQuery({
-        baseUrl:'https://onion-pay.herokuapp.com',
+        baseUrl:process.env.NEXT_PUBLIC_URL,
         prepareHeaders: (headers) => {
             // Get the token from local storage
             const token = localStorage.getItem('token');
@@ -54,7 +54,25 @@ export const AuthApi = createApi({
                 };
             }
         }),
+        forgotPassword:builder.mutation({
+            query: (body: {email:string}) => {
+                return {
+                    url:'/api/v1/password-reset',
+                    method:'post',
+                    body
+                }
+            }
+        }),
+        resetPassword:builder.mutation({
+            query: (body: {email:string,code:string,n_pass:string}) => {
+                return {
+                    url: '/api/v1/reset-password',
+                    method:'post',
+                    body
+                }
+            }
+        })
     })
 });
 
-export const { useSignupMutation, useVerifyemailMutation,useSigninMutation, useRequestVerifyCodeMutation } = AuthApi
+export const { useSignupMutation, useVerifyemailMutation,useSigninMutation, useRequestVerifyCodeMutation,  useForgotPasswordMutation, useResetPasswordMutation } = AuthApi

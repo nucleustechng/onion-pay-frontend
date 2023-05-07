@@ -3,16 +3,17 @@ import HelpButton from '../../components/HelpButton'
 // import TransfersEmpty from '../../components/payments/TransfersEmpty'
 // import PaymentLinks from '../../components/payments/PaymentLinks'
 // import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
-import SeerbitComponent from '../../components/Checkout/SeerbitComponent'
+import TransfersEmpty from '../../components/payments/TransfersEmpty'
 
 
 const Payments = () => {
+ 
   return (
     <div>
         <div>
-            <div className='w-[71.5rem]'>
-                {/* <TransfersEmpty/> */}
-                <SeerbitComponent/>
+            <div className='w-[74rem]'>
+                <TransfersEmpty/>
+                {/* <SeerbitComponent/> */}
                 {/* <PaymentLinks/> */}
                 {/* <PaymentPlans/> */}
             </div>

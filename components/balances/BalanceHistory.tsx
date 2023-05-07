@@ -10,18 +10,14 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../SidebarMobile'
 
 
-const BalanceHistory = () => {
+
+const MyBalanceHistory = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
   return (
     <div>
-      {/* Sidebar Mobile */}
-            <div className='inline-flex lg:hidden'>
-              <SideBarMobile />
-            </div>
         <div className='w-[28rem] sm:w-[38rem] md:w-[45rem] lg:w-[58rem] xl:w-[71.5rem] mx-6'>
         <div className='flex flex-col mt-5 lg:flex lg:flex-row lg:items-center  lg:mt-6 lg:justify-between'>
             <div className='flex justify-between items-center ml-0  mb-5  lg:mb-5'>
@@ -84,4 +80,4 @@ const BalanceHistory = () => {
   )
 }
 
-export default BalanceHistory
+export default MyBalanceHistory

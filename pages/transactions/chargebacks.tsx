@@ -1,7 +1,9 @@
 import React from 'react'
 import ChargeBacks from '../../components/chargebacks/ChargeBacks'
 
-const chargebacks = () => {
+
+const Chargebacks = () => {
+
   return (
     <div>
         <div>
@@ -13,4 +15,4 @@ const chargebacks = () => {
   )
 }
 
-export default chargebacks
+export default Chargebacks

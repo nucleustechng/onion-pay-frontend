@@ -16,7 +16,7 @@ const HomeItem = () => {
             </div>
         </div> */}
         <div className='flex lg:flex'>
-        <Link href='/'>
+        <Link href='/dashboard'>
                             <div className='flex justify-center lg:w-60'>
                                 <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${(router.pathname === '/dashboard') ? 'bg-primary' : 'bg-transparent'}`}/>
                                 <div className={`flex items-center gap-[0.6rem] w-[13.5rem] h-[2.75rem] mx-4 px-2

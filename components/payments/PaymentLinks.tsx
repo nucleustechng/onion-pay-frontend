@@ -8,13 +8,15 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import { RootState } from '../../redux/store'
 import Loader from '../Loader'
-import PaymentLinkModal from './modals/PaymentLinkModal'
-import SingleChargeModal from './modals/SingleChargeModal'
-import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
+// import PaymentLinkModal from './modals/PaymentLinkModal'
+// import SingleChargeModal from './modals/SingleChargeModal'
+// import SubscriptionLinkModal from './modals/SubscriptionLinkModal'
 import PaymentsHeader from './PaymentsHeader'
 import PaymentTable from './PaymentTable'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
-import SideBarMobile from '../SidebarMobile'
+// import dynamic from 'next/dynamic'
+import SingleChargeModal from './modals/SingleChargeModal'
+import PaymentLinksEmpty from './PaymentLinksEmpty'
 
 
 const PaymentLinks = () => {
@@ -22,9 +24,15 @@ const PaymentLinks = () => {
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
 
+  const handleEllipsisClick = (paymentLink: string) => {
+    console.log(`Clicked ellipsis for payment link ${paymentLink}`);
+    // Do whatever you need to with the clicked payment link data
+  };
+
+
+
  
-  const isSingleCharge = useAppSelector((state:RootState) => state.paymentLink.isSingleCharge);
-  const isSecondStep = useAppSelector((state:RootState) => state.paymentLink.isSecondStep);
+  // 
   // const isCompleted  = useAppSelector((state:RootState) => state.paymentLink.isCompleted);
   const {data:paymentPageData,isSuccess,isLoading} = useLoadPaymentLinksQuery()
 
@@ -32,8 +40,9 @@ const PaymentLinks = () => {
   useEffect(() => {
     if (isSuccess && paymentPageData.success == true) {
       setPaymentLinksArray(paymentPageData.pages)
+    } else {
+      console.log('An error occured')
     }
-    console.log('Payment link array',paymentLinksArray)
   },[isSuccess,paymentLinksArray,paymentPageData])
 
   const dispatch = useAppDispatch();
@@ -42,11 +51,9 @@ const PaymentLinks = () => {
 
   
   return (
-    <div className='relative'>
-       <div className='inline-flex absolute lg:hidden'>
-            <SideBarMobile />
-          </div>
-        <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[71.5rem] mx-6 mt-6'>
+    <div> 
+    {paymentLinksArray.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
+        <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment link</h1>
                 {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
@@ -54,7 +61,7 @@ const PaymentLinks = () => {
               </div>}
             </div>
             <div>
-            <div className='flex gap-4 justify-start md:justify-start items-center mt-[3.2rem]'>
+            <div className='flex gap-4 justify-end md:justify-end items-center mt-[3.2rem]'>
                 <div className='flex justify-between items-center '>
                   <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] w-[3.5rem]  md:w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
                     <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4 hidden md:inline-flex'>Download</h1>
@@ -92,28 +99,40 @@ const PaymentLinks = () => {
                     <div className="sticky top-0 z-10 bg-white"> 
                       <PaymentsHeader/>
                     </div>
-                    <div className="pl-2 mt-5">
+                    {isLoading ? <div className='  h-56 flex justify-center items-center'>
+                                    <Loader width='w-16' height='h-16'/>
+                        </div> 
+                                    : <div className="pl-2 mt-5">
                       {paymentLinksArray?.map((item:any) => 
                       <div  key={item?.url}>
-                        <PaymentTable amount={item?.amount} description={item?.description}  pageId={item?.p_id} pageName={item?.title} paymentLink={item?.url}/>
+                        <PaymentTable 
+                        redirectUrl={item?.redirect_url}
+                        amount={item?.amount} 
+                        description={item?.description}  
+                        pageId={item?.p_id} pageName={item?.title}
+                        paymentLink={item?.url} 
+                        onEllipsisClick={handleEllipsisClick}
+                        />
                         <hr className='border-[#F5F5F5] border-[1px]'/>
                       </div>)}
-                    </div>
+                    </div>}
                   </div>
                 </div>
                 }
               </div>
             <div>
-              <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/>
-              {isSingleCharge && <SingleChargeModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
-              {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>}
+              {/* <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/> */}
+              <SingleChargeModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+              {/* {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>} */}
               
                {/* <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             </div>
 
         </div>
+    </div>}
     </div>
   )
 }
 
 export default PaymentLinks
+

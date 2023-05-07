@@ -45,6 +45,8 @@ const SubscriptionLinkModal = ({isVisible,onClose}: Props) => {
       } catch (err) {
         console.log(err);
       }
+      dispatch(setSecondStep(false))
+      onClose()
     };
     
     useEffect(() => {
@@ -80,7 +82,7 @@ const SubscriptionLinkModal = ({isVisible,onClose}: Props) => {
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-2 cursor-pointer'  onClick={() => dispatch(setSecondStep(false))}>
                             <FontAwesomeIcon icon={faChevronLeft} />
-                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>Single charge</h1>
+                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>Subscription charge</h1>
                         </div>
                         <div className='cursor-pointer' onClick={()=>{
                             onClose()
