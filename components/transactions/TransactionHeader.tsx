@@ -17,9 +17,9 @@ const TransactionHeader = () => {
             <div className='w-[24rem]'>
               <h1>Date</h1>
             </div>
-            <div className='w-[21.65rem]'>
+            {/* <div className='w-[21.65rem]'>
               <h1>Status</h1>
-            </div>
+            </div> */}
         </div>
     </div>
   )

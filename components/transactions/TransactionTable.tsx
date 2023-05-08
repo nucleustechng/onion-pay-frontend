@@ -4,11 +4,11 @@ interface Props{
     type:string,
     amount:string,
     transactionID:string,
-    status:string,
+    // status:string,
     createdOn:any
 }
 
-const TransactionTable = ({status,transactionID,amount,createdOn,type}: Props) => {
+const TransactionTable = ({transactionID,amount,createdOn,type}: Props) => {
   const slicedAmount = amount.slice(1)
   const [formattedDate, setFormattedDate] = useState('')
 
@@ -45,11 +45,11 @@ const TransactionTable = ({status,transactionID,amount,createdOn,type}: Props) =
             <div className='w-[24rem]'>
               <h1>{formattedDate}</h1>
             </div>
-            <div className='w-[21.65rem]'>
+            {/* <div className='w-[21.65rem]'>
                 <div className='flex items-center   w-[6.65rem] h-[1.71rem] rounded-lg '>
                     <h1 className={`${status == 'Successful' ? 'text-[#61A72C]' : 'text-[#FF9635]'} text-base font-WorkSans font-normal leading-4`}>{status}</h1>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
   )

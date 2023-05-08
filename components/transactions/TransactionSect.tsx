@@ -199,7 +199,7 @@ const TransactionSect = () => {
                       <div className="mt-5">
                       {mytransaction ? 
                            <TransactionTable
-                               status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
+                              //  status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
                                amount={mytransaction.amount_string}
                                createdOn={mytransaction.created_on ? mytransaction.created_on : '--'}
                                transactionID={mytransaction.t_id}
@@ -211,7 +211,7 @@ const TransactionSect = () => {
                       transactionsArray.map((transaction:any,index:any) => (
                         <div key={index}>
                           <TransactionTable
-                          status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
+                          // status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
                           amount={transaction.amount_string}
                           createdOn={transaction.created_on ? transaction.created_on : '--'}
                           transactionID={transaction.t_id}
