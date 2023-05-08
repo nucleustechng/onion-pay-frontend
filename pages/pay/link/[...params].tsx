@@ -59,7 +59,7 @@ const Link = () => {
   return (
     <div className='flex justify-center'>
           <Head>
-            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js" async></script>
           </Head>
           <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-28 mb-48'>
               <SeerbitCheckout

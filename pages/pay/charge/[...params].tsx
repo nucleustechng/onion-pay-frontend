@@ -89,7 +89,7 @@ const DirectCharge = () => {
   return (
     <div className='flex justify-center'>
           <Head>
-            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js" async></script>
           </Head>
       <div className='mt-32'>
         <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-8 mb-48'>

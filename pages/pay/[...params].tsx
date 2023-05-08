@@ -61,7 +61,7 @@ const Invoice = () => {
   return (
     <div className='flex justify-center'>
           <Head>
-            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js" async></script>
           </Head>
       {/* <ToastContainer/> */}
       {/* <div className='mt-32'>
