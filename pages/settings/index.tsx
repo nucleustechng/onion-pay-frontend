@@ -130,8 +130,8 @@ const Settings = () => {
                             <Image src={businessData?.logo_uri} width={100} height={100} className="w-[4rem] h-[4rem]  lg:w-[4rem] lg:h-[4rem] object-fill"  alt=''/>
                         </div>
                         <div className='flex flex-col gap-1 md:gap-[0.375rem]'>
-                            <h1 className='text-sm md:text-base text-[#1B1A1A] font-WorkSans font-medium leading-5'>Mintfool</h1>
-                            <h2 className='text-xs md:text-sm text-[#898989] font-WorkSans font-normal leading-4 '>ID: OP49867466389</h2>
+                            <h1 className='text-sm md:text-base text-[#1B1A1A] font-WorkSans font-medium leading-5'>{businessData?.name}</h1>
+                            {/* <h2 className='text-xs md:text-sm text-[#898989] font-WorkSans font-normal leading-4 '>ID: OP49867466389</h2> */}
                         </div>
                     </div>
                     <div>

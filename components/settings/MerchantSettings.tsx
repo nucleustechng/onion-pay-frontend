@@ -86,7 +86,7 @@ const MerchantSettings = () => {
                     <div className='flex items-center gap-4'>
                         <div className='flex flex-col gap-1 md:gap-[0.375rem]'>
                             <h1 className='text-sm md:text-base text-[#1B1A1A] font-WorkSans font-medium leading-5'>{merchantData?.f_name} {merchantData?.l_name}</h1>
-                            <h2 className='text-xs md:text-sm text-[#898989] font-WorkSans font-normal leading-4 '>ID: OP49867466389</h2>
+                            {/* <h2 className='text-xs md:text-sm text-[#898989] font-WorkSans font-normal leading-4 '>ID: OP49867466389</h2> */}
                         </div>
                     </div>
                     <div className='flex justify-end'>
