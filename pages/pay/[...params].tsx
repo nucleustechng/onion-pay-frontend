@@ -1,5 +1,6 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import SeerbitCheckout from "seerbit-reactjs"
 import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
@@ -12,6 +13,7 @@ const Invoice = () => {
 
 
   const [invoicesArray,setInvoicesArray] = useState<any>([])
+  const myButtonRef:any = useRef();
 
 
   const {data:invoiceData,isSuccess} = useLoadInvoicesQuery()
@@ -24,6 +26,7 @@ const Invoice = () => {
       console.log('An error occured')
     }
   },[isSuccess,invoicesArray,invoiceData])
+
   const router = useRouter();
   const { params } = router.query;
 
@@ -46,11 +49,20 @@ const Invoice = () => {
         "tokenize" : false,
         "callbackurl": "http://localhost:3002"
       };
+
+      useEffect(() => {
+        if (myButtonRef && targetInvoice) {
+          myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
+        }
+      }, [targetInvoice]);
     
    
 
   return (
     <div className='flex justify-center'>
+          <Head>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+          </Head>
       {/* <ToastContainer/> */}
       {/* <div className='mt-32'>
       <h2 className='text-lg text-center text-[#1B1A1A] font-WorkSans font-semibold leading-5 mb-10'>Fill in your details to pay</h2>
@@ -88,6 +100,9 @@ const Invoice = () => {
               setAmountByCustomer= {options.setAmountByCustomer}
               tokenize= {options.tokenize}
               callbackurl= {options.callbackurl}
+              ref={myButtonRef}
+              title={'Pay Now'}
+              tag={'button'}
           />
         </div>
       {/* </div>  */}

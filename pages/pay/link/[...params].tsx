@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -38,9 +39,6 @@ const Link = () => {
     };
     
     useEffect(() => {
-      if (myButtonRef.current) {
-        myButtonRef.current.click();
-      }
       if (isSuccess && paymentLinkData.success == true) {
         setPaymentLinksArray(paymentLinkData.pages)
       } else {
@@ -49,20 +47,24 @@ const Link = () => {
     }, [isSuccess, paymentLinkData]);
   
     useEffect(() => {
-        const myButtonRef = document.getElementById('seerbit-checkout-button');
-        if (myButtonRef) {
-          myButtonRef.click();
-        }
-    }, []);
+      if (myButtonRef && targetLink) {
+        myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
+      }
+    }, [targetLink]);
+  
   
     
    
 
   return (
     <div className='flex justify-center'>
-          <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-8 mb-48'>
+          <Head>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+          </Head>
+          <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-28 mb-48'>
               <SeerbitCheckout
               id='seerbit-checkout-button'
+                  ref={myButtonRef}
                   public_key= {options.public_key}
                   tranref= {options.tranref}
                   currency= {options.currency}
@@ -71,6 +73,8 @@ const Link = () => {
                   setAmountByCustomer= {options.setAmountByCustomer}
                   tokenize= {options.tokenize}
                   callbackurl= {options.callbackurl}
+                  title={'Pay Now'}
+                  tag={'button'}
               />
           </div>
       </div> 

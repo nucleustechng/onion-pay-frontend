@@ -58,7 +58,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
 
     const [businessInfo,setBusinessInfo] = useState<IBusinessForm>({
         bvn: '',
-        pep:togglePep
+        pep:false
     })
 
     const [authoriseBusiness,{isSuccess,isLoading,data:businessData}] = useAuthorizeBusinessMutation()
@@ -68,7 +68,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
         console.log('Business info',businessInfo)
         
         try {
-            if (pep && bvn) {
+            if (bvn) {
                 await authoriseBusiness({pep ,bvn})
             } else {
                 toast.error('All fields are required')
@@ -82,6 +82,8 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
 
     useEffect(() => {
         let toastShown = false;
+        setBusinessInfo({...businessInfo,pep:togglePep})
+
         if (isSuccess && businessData?.success && !toastShown) {
             toastShown = true; // Set the flag to true to indicate that toast has been shown
             toast.success(businessData?.reason)
@@ -94,7 +96,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
             toast.error(businessData?.reason)
         }
 
-    },[businessData])
+    },[businessData,togglePep])
 
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){

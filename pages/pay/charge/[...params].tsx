@@ -1,5 +1,6 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import SeerbitCheckout from "seerbit-reactjs"
 import { useLoadOrderQuery, useVerifyPaymentQuery } from '../../../modules/Client/usersApi'
@@ -31,6 +32,8 @@ const DirectCharge = () => {
   const router = useRouter();
   const { params } = router.query;
   const orderId = params ? params[0] : '';
+  const myButtonRef:any = useRef();
+
 
 
 
@@ -59,6 +62,12 @@ const DirectCharge = () => {
   
   },[isSuccess,orderData,verifyPaySuccess,verifyPayData,amount,redirect_url,params,router])
  
+  useEffect(() => {
+    if (myButtonRef && orderData) {
+      myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
+    }
+  }, [orderData]);
+
 
 
 
@@ -79,6 +88,9 @@ const DirectCharge = () => {
 
   return (
     <div className='flex justify-center'>
+          <Head>
+            <script src="https://checkout.seerbitapi.com/api/v2/seerbit.js"></script>
+          </Head>
       <div className='mt-32'>
         <div className='flex justify-center items-center w-44 h-11 bg-primary cursor-pointer text-white rounded-md mt-8 mb-48'>
           <SeerbitCheckout
@@ -90,6 +102,9 @@ const DirectCharge = () => {
               setAmountByCustomer= {options.setAmountByCustomer}
               tokenize= {options.tokenize}
               callbackurl= {options.callbackurl}
+              ref={myButtonRef}
+              title={'Pay Now'}
+              tag={'button'}
           />
         </div>
       </div> 
