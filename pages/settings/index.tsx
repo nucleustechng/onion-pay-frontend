@@ -103,6 +103,7 @@ const Settings = () => {
            setUpdatedImage(true)
         } else {
             setUpdatedImage(false)
+            toast.error(updateData?.reason)
         }
     },[updateLogoSuccess,updatedImage])
     useEffect(() => {
