@@ -167,13 +167,13 @@ const MerchantSettings = () => {
             <EditAccountDetails 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
-            f_name={merchantData?.f_name}
-            l_name={merchantData?.l_name}
-            address={merchantData?.address}
-            email={merchantData?.email}
-            dob={merchantData?.dob}
-            o_name={merchantData?.o_name}
-            phone={merchantData?.phone}
+            r_f_name={merchantData?.f_name}
+            r_l_name={merchantData?.l_name}
+            r_address={merchantData?.address}
+            r_email={merchantData?.email}
+            r_dob={merchantData?.dob}
+            r_o_name={merchantData?.o_name}
+            r_phone={merchantData?.phone}
             />
         </div>
     </div>

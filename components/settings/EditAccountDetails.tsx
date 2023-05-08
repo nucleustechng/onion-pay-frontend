@@ -12,13 +12,13 @@ import {  useUpdateAccountDetailsMutation } from '../../modules/LoadSettings/set
 interface Props {
     isVisible:boolean
     onClose:()=>{}
-    f_name:string,
-    l_name:string,
-    o_name:string
-    email:string,
-    phone:string,
-    address:string,
-    dob:string
+    r_f_name:string,
+    r_l_name:string,
+    r_o_name:string
+    r_email:string,
+    r_phone:string,
+    r_address:string,
+    r_dob:string
 }
 
 type MerchantForm = {
@@ -31,20 +31,20 @@ type MerchantForm = {
     dob:string
 }
 
-const EditAccountDetails = ({isVisible,onClose,f_name,l_name,o_name,email,phone,address,dob}: Props) => {
+const EditAccountDetails = ({isVisible,onClose, r_f_name, r_l_name, r_o_name, r_email, r_phone, r_address, r_dob}: Props) => {
 
 
     const dispatch = useAppDispatch()
 
 
     const [merchantInfo, setMerchantInfo] = useState<MerchantForm>({
-    f_name: f_name,
-    l_name:l_name,
-    o_name:o_name,
-    email: email,
-    phone: phone,
-    address: address,
-    dob: dob
+    f_name:  r_f_name,
+    l_name: r_l_name,
+    o_name: r_o_name,
+    email:  r_email,
+    phone:  r_phone,
+    address:  r_address,
+    dob:  r_dob
      
     });
 
@@ -84,13 +84,13 @@ const EditAccountDetails = ({isVisible,onClose,f_name,l_name,o_name,email,phone,
   
   useEffect(() => {
     setMerchantInfo({
-      f_name: f_name,
-      l_name:l_name,
-      o_name:o_name,
-      email: email,
-      phone: phone,
-      address: address,
-      dob: dob
+      f_name:  r_f_name,
+      l_name: r_l_name,
+      o_name: r_o_name,
+      email:  r_email,
+      phone:  r_phone,
+      address:  r_address,
+      dob:  r_dob
        
       })
     if (isSuccess) {
@@ -102,7 +102,7 @@ const EditAccountDetails = ({isVisible,onClose,f_name,l_name,o_name,email,phone,
       dispatch(setBusinessUpdated(false))
     }
     
-  },[isSuccess,dispatch]);
+  },[isSuccess,dispatch,r_f_name,r_l_name,r_o_name,r_address,r_email,r_dob,r_phone ]);
 
   useEffect(() => {
     if (isSuccess) {
