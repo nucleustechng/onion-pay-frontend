@@ -53,7 +53,7 @@ const InvoiceSect = () => {
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
-          <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Transactions</h1>
+          <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Invoices</h1>
           {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
