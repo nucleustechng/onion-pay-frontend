@@ -21,9 +21,9 @@ const Footer = () => {
   ]
 
   const developersArray = [
-    {mainText:'API documentation',route:'/'},
-    {mainText:'API reference',route:'/'},
-    {mainText:'API status',route:'/'},
+    {mainText:'API documentation',route:'https://ultra-organization.gitbook.io/onion-pay'},
+    {mainText:'API reference',route:'https://ultra-organization.gitbook.io/onion-pay'},
+    {mainText:'API status',route:'https://ultra-organization.gitbook.io/onion-pay'},
   ]
 
   const onionPayArray = [

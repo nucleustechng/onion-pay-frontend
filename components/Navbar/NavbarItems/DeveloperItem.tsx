@@ -11,7 +11,7 @@ const DevelopersItem = () => {
         <div>
             <div className='flex flex-col gap-[1.625rem]'>
                 <NavCard header='Developers' mainText='Read the API docs' icon={DevelopersIcon} 
-                alt='Inquiries Icon' backgroundColor='bg-[#FFF3C8]' link='/'/>
+                alt='Inquiries Icon' backgroundColor='bg-[#FFF3C8]' link='https://ultra-organization.gitbook.io/onion-pay'/>
             </div>
         </div>
     </div>
