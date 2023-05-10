@@ -17,4 +17,8 @@
       margin: 0;
       -moz-appearance: textfield !important;
     }
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+    }
  }

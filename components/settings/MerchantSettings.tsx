@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import EditIcon from '../../Assets/icon/EditIcon.svg'
+import EditBlueIcon from '../../Assets/icon/EditBlueIcon.svg'
 // import CopyIcon from '../../Assets/icon/CopyIcon.svg'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
@@ -11,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import EditAccountDetails from './EditAccountDetails'
 import {  toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import EditBankAccountDetails from './EditBankAccountDetails'
 
 
 
@@ -18,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const MerchantSettings = () => {
     
     const [showModal,setShowModal] =  useState<boolean>(false)
+    const [showBankModal,setShowBankModal] =  useState<boolean>(false)
+
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
@@ -42,6 +46,7 @@ const MerchantSettings = () => {
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true) {
             setMerchantData(settingsData['merchant'])
+            console.log(merchantData)
         } else {
             toast.error(settingsData?.reason)
         }
@@ -136,6 +141,13 @@ const MerchantSettings = () => {
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>NIN:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{merchantData?.nin ? merchantData?.nin : '--'}</h2>
                 </div>
+                <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Bank account details:</h1>
+                            <div  className='flex items-center gap-2'>
+                                <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>0246192777 - GTBank</h2>
+                                <Image src={EditBlueIcon} onClick={() => {setShowBankModal(true)}} className='cursor-pointer' alt='Edit icon'/>
+                            </div>
+                </div>
                 {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
@@ -164,7 +176,7 @@ const MerchantSettings = () => {
             </div>
         </div>
         <div>
-            <EditAccountDetails 
+            {!showBankModal && <EditAccountDetails 
             isVisible={showModal} 
             onClose={async () => setShowModal(false)}
             r_f_name={merchantData?.f_name}
@@ -174,7 +186,11 @@ const MerchantSettings = () => {
             r_dob={merchantData?.dob}
             r_o_name={merchantData?.o_name}
             r_phone={merchantData?.phone}
-            />
+            />}
+            {showBankModal && <EditBankAccountDetails
+            isVisible={showBankModal} 
+            onClose={async () => setShowBankModal(false)}
+            />}
         </div>
     </div>
   )

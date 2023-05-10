@@ -20,9 +20,11 @@ import Link from 'next/link'
 
 
 
+
 export default function Home() {
   return (
     <>
+     
     <div>
         <div className='relative z-20  bg-[#F5F5F5] w-full
         lg:h-[53.75rem] pt-[1.875rem] 

@@ -11,10 +11,11 @@ interface Props  {
     name?:string,
     value?:string,
     onChange?:(event: ChangeEvent<HTMLInputElement>) => void;
+    maxLength?:number
     // inputMode?:string,
 }
 
-const Input = ({label,placeholder,type,width,horizontalPadding,height,errorMessage,value,name,onChange}: Props) => {
+const Input = ({label,placeholder,type,width,horizontalPadding,height,errorMessage,value,name,onChange,maxLength}: Props) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   return (
@@ -25,6 +26,7 @@ const Input = ({label,placeholder,type,width,horizontalPadding,height,errorMessa
             font-WorkSans font-normal leading-4`}>{label}</label>
             <input 
             // inputMode={inputMode}
+            maxLength={maxLength}
             required
             type={type}
             name={name}

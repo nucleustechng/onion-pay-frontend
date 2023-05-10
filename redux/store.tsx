@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { generateApiKeys } from '../modules/ApiKeys/generateApiKeys'
 import { AuthApi } from '../modules/auth/api/AuthApi'
+import { bankaccountApi } from '../modules/BankAccountApi/bankaccountApi'
 import { businessApi } from '../modules/BusinessPageApi/businessApi'
 import { usersApi } from '../modules/Client/usersApi'
 import { retrieveLinkApi } from '../modules/Developers/retrieveLinkApi'
@@ -41,11 +42,12 @@ export const store = configureStore({
     [passwordApi.reducerPath]:passwordApi.reducer,
     [retrieveLinkApi.reducerPath]:retrieveLinkApi.reducer,
     [transationsApi.reducerPath]:transationsApi.reducer,
+    [bankaccountApi.reducerPath]:bankaccountApi.reducer,
     [switchEnvironment.reducerPath]:switchEnvironment.reducer,
   },
   middleware:(getDefaultMiddleware) =>  getDefaultMiddleware().concat(AuthApi.middleware,passwordApi.middleware,
   businessApi.middleware,paymentPageApi.middleware,generateApiKeys.middleware, settingsApi.middleware,
-  invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware,transationsApi.middleware,switchEnvironment.middleware)
+  invoiceApi.middleware,usersApi.middleware,retrieveLinkApi.middleware,transationsApi.middleware,switchEnvironment.middleware,bankaccountApi.middleware)
   
 })
 
