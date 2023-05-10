@@ -11,7 +11,7 @@ interface Props{
     email:string
 }
 
-const InvoiceTable = ({status,date,paymentId,amount,createdOn,clientName,email}: Props) => {
+const InvoiceTable = ({status,date,amount,createdOn,clientName}: Props) => {
   const slicedAmount = amount.slice(1)
   useEffect(() => {
     // function formatAMPM(date: Date) {

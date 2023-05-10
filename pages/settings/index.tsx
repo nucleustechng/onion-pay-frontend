@@ -194,10 +194,7 @@ const Settings = () => {
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>NIN:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.nin ? businessData?.nin : '--'}</h2>
                 </div> */}
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
-                    <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
-                    <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
-                </div>
+
                 {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Sign-up Date:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nov 19, 2019 - 10:28 AM</h2>
