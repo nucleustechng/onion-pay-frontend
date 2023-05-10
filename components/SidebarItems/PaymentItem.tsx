@@ -48,7 +48,7 @@ const PaymentItem = () => {
                                 </div>
                                 <div className='flex items-center justify-between w-[9rem]'>
                                     <h1 className='text-[#262626] text-base font-WorkSans'>Payments</h1>
-                                    <FontAwesomeIcon icon={faChevronDown} className={`${payments ? 'rotate-180 ease-in-out duration-500' : 'rotate-0 duration-500 ease-in-out'}`} onClick={()=>{
+                                    <FontAwesomeIcon icon={faChevronDown} className={`w-5 h-5 ${payments ? 'rotate-180 ease-in-out duration-500' : 'rotate-0 duration-500 ease-in-out'}`} onClick={()=>{
                                         dropPay()
                                     }}/>
                                 </div>

@@ -87,7 +87,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
                     </div>
                 </div>
                     <div className='w-6 flex justify-center items-center' onClick={handleEllipsisClick}>
-                        <FontAwesomeIcon icon={faEllipsisV}/>
+                        <FontAwesomeIcon icon={faEllipsisV} className='w-5 h-5'/>
                     </div>
             </div>
             {showPopover && selectedLinkId && (

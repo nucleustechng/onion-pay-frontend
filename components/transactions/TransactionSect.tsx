@@ -76,7 +76,7 @@ const TransactionSect = () => {
       setShowModal(true)
       }}>
       <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Create an invoice</h1>
-      <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-[#FFFFFF]'/>
     </div>
   </div>
   <div className='flex flex-col gap-5 mt-6'>
@@ -92,7 +92,7 @@ const TransactionSect = () => {
       setShowModal(true)
       }}>
         <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Create an invoice</h1>
-        <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+        <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]  w-5 h-5'/>
       </div>
     </div>
     <div>
@@ -148,7 +148,7 @@ const TransactionSect = () => {
                     <div className='flex items-center gap-3 md:gap-7 lg:gap-7'>
                       <h1 className='hidden md:inline-flex md:text-sm lg:inline-flex lg:text-sm'>Last 7days</h1>
                       <FontAwesomeIcon className='inline-flex md:hidden lg:hidden ' icon={faCalendar}/>
-                      <FontAwesomeIcon icon={faChevronDown} className='text-sm'/>
+                      <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                     </div>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ const TransactionSect = () => {
                   <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-20 lg:gap-20'>
                       <h1 className='text-sm'>All</h1>
-                      <FontAwesomeIcon icon={faChevronDown} className='text-sm'/>
+                      <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                     </div>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ const TransactionSect = () => {
                     w-[12rem] h-9 text-sm md:w-[12rem] md:h-11
                     lg:hidden font-WorkSans font-normal leading-4'>
                       Create an Invoice
-                      <FontAwesomeIcon icon={faPlus}/>  
+                      <FontAwesomeIcon icon={faPlus} className="w-5 h-5"/>  
                     </div>
                   </div>
               </div>

@@ -50,7 +50,7 @@ const PaymentLinksEmpty = () => {
                     <div className='flex  items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] hidden md:inline-flex'>All payment links</h1>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] inline-flex md:hidden'>All</h1>
-                      <FontAwesomeIcon icon={faChevronDown} className='text-base text-[#262626]'/>
+                      <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-base text-[#262626]'/>
                     </div>
                   </div>
                 </div>
@@ -60,7 +60,7 @@ const PaymentLinksEmpty = () => {
                     setShowModal(true)
                     }}>
                       <h1 className='text-base font-WorkSans font-normal text-white'>New payment link</h1>
-                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
+                      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ payment links.</h1>
                     setShowModal(true)
                     }}>
                       <h1 className='text-base font-WorkSans font-normal text-white'>New payment link</h1>
-                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
+                      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                 </div>
             </div>

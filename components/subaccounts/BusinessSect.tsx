@@ -46,7 +46,7 @@ const BusinessSect = () => {
             setShowModal(true)
             }}>
             <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Create business</h1>
-            <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+            <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-[#FFFFFF]'/>
           </div>
         </div>
         <div className='flex flex-col gap-5 mt-6'>
@@ -61,7 +61,7 @@ const BusinessSect = () => {
             setShowModal(true)
             }}>
               <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Create business</h1>
-              <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+              <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-[#FFFFFF]'/>
             </div>
           </div>
           <div>

@@ -26,13 +26,13 @@ const TransfersEmpty = () => {
                 <div className='flex justify-center items-center lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                 <div className='flex items-center lg:gap-7'>
                   <h1 className='text-sm'>Last 7days</h1>
-                  <FontAwesomeIcon icon={faChevronDown} className='text-sm'/>
+                  <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                 </div>
               </div>
               <div className='flex justify-center items-center lg:w-[11.1rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                 <div className='flex items-center lg:gap-7'>
                   <h1 className='text-sm'>Filters applied: 2</h1>
-                  <FontAwesomeIcon icon={faChevronDown} className='text-sm'/>
+                  <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                 </div>
               </div>
                 </div>
@@ -49,10 +49,10 @@ const TransfersEmpty = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex  items-center lg:w-[14rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
-                    <div className='flex  items-center mx-4 gap-4'>
+                  <div className='flex  items-center lg:w-[15rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                    <div className='flex items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-white'>Make a new transfer</h1>
-                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
+                      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                   </div>
                 </div>
@@ -62,12 +62,12 @@ const TransfersEmpty = () => {
             <div className='lg:mt-6 w-[31.5rem] h-16 '>
                 <h1 className='text-[2rem] text-[#262626]'>You have not made any transfers
                 in the last 7 days.</h1>
-                <div className='flex mt-6  items-center lg:w-[14rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                <div className='flex mt-6  items-center lg:w-[15rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
                     setShowModal(true)
                     }}>
                       <h1 className='text-base font-WorkSans font-normal text-white'>Make a new transfer</h1>
-                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
+                      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                 </div>
             </div>

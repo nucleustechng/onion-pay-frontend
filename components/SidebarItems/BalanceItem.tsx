@@ -49,7 +49,7 @@ const BalanceItem = () => {
                                 </div>
                                 <div className='flex items-center justify-between w-[9rem]'>
                                     <h1 className='text-[#262626] text-base font-WorkSans'>Balances</h1>
-                                    <FontAwesomeIcon icon={faChevronDown} className={`${balances ?'rotate-180 ease-in-out duration-500 cursor-pointer' : 'rotate-0 duration-500 ease-in-out cursor-pointer'}`} onClick={()=>{
+                                    <FontAwesomeIcon icon={faChevronDown} className={`w-5 h-5 ${balances ?'rotate-180 ease-in-out duration-500 cursor-pointer' : 'rotate-0 duration-500 ease-in-out cursor-pointer'}`} onClick={()=>{
                                         dropBalance()
                                     }}/>
                                 </div>

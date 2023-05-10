@@ -59,7 +59,7 @@ const Customers = () => {
               <div className='flex justify-center items-center w-[7.5rem] lg:w-[9.4rem] h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                 <div className='flex items-center gap-4 lg:gap-7'>
                   <h1 className='text-sm'>Last 7days</h1>
-                  <FontAwesomeIcon icon={faChevronDown} className='text-sm'/>
+                  <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                 </div>
               </div>
             </div>

@@ -132,7 +132,7 @@ useEffect(() => {
                             <div className='flex items-center justify-between'>
                                 <div className='flex justify-center gap-2 md:justify-between px-5 items-center border-[0.07rem]  border-solid border-[#CACACA] md:gap-0 rounded-[0.315rem] w-[5rem] md:w-[7.15rem] h-[3.15rem]'>
                                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-5'>NGN</h1>
-                                <FontAwesomeIcon icon={faChevronDown}/>
+                                <FontAwesomeIcon icon={faChevronDown} className="w-5 h-5"/>
                                 </div>
                                 <div>
                                 <input 

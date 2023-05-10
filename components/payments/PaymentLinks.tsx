@@ -71,21 +71,21 @@ const PaymentLinks = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex  items-center md:w-[12.5rem]  h-11 rounded-[0.32rem] bg-[#F5F5F5] '>
+                  <div className='flex  items-center md:w-[12.5rem] lg:w-[13rem]  h-11 rounded-[0.32rem] bg-[#F5F5F5] '>
                     <div className='flex  items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] hidden md:inline-flex'>All payment links</h1>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] inline-flex md:hidden'>All</h1>
-                      <FontAwesomeIcon icon={faChevronDown} className='text-base text-[#262626]'/>
+                      <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-base text-[#262626]'/>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <div className='flex  items-center lg:w-[12.7rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                  <div className='flex  items-center lg:w-[13.7rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
                     setShowModal(true)
                     }}>
                       <h1 className='text-base font-WorkSans font-normal text-white'>New payment link</h1>
-                      <FontAwesomeIcon icon={faPlus} className='text-base text-white'/>
+                      <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                   </div>
                 </div>

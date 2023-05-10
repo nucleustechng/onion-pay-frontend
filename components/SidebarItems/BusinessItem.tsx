@@ -1,5 +1,5 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,9 +11,9 @@ import FolderIcon from '../../Assets/icon/Folder.svg'
 const BusinessItem = () => {
     const router = useRouter()
     const [account,setAccount] = useState<boolean>(false)
-    const dropAccount = () => {
-        account ? setAccount(false) : setAccount(true);
-      };
+    // const dropAccount = () => {
+    //     account ? setAccount(false) : setAccount(true);
+    //   };
     
     const overviewRoute = router.pathname == '/business/overview'
     const businessRoute = router.pathname == '/business'
@@ -47,19 +47,19 @@ const BusinessItem = () => {
                                 </div>
                                 <div className='flex items-center justify-between w-[9rem]'>
                                     <h1 className='text-[#262626] text-base font-WorkSans'>Business</h1>
-                                    <FontAwesomeIcon icon={faChevronDown} className={`${account ? 'rotate-180 ease-in-out duration-500 cursor-pointer' : 'rotate-0 duration-500 ease-in-out cursor-pointer'}`}
+                                    {/* <FontAwesomeIcon icon={faChevronDown} className={`w-5 h-5 ${account ? 'rotate-180 ease-in-out duration-500 cursor-pointer' : 'rotate-0 duration-500 ease-in-out cursor-pointer'}`}
                                     onClick={()=>{
                                         dropAccount()
                                     }}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         </div>
                         <ul className={`${account ? 'flex flex-col h-16 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.63rem]  mb-0 mt-[0.5rem] mx-6`}>
-                                    <Link href='/business/overview'><li className={`text-sm 
-                                   ${overviewRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Overview</li></Link>
-                                   <Link href='/business'><li className={`text-sm 
-                                   ${businessRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Business</li></Link> 
+                                    {/* <Link href='/business/overview'><li className={`text-sm 
+                                   ${overviewRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Overview</li></Link> */}
+                                   {/* <Link href='/business'><li className={`text-sm 
+                                   ${businessRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Business</li></Link>  */}
                             </ul>
                     </Link>
         </div>

@@ -42,7 +42,7 @@ const TransactionRefunds = () => {
       setShowModal(true)
       }}>
       <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Log a refund</h1>
-      <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+      <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]  w-5 h-5'/>
     </div>
   </div>
   <div className='flex flex-col gap-5 mt-6'>
@@ -57,7 +57,7 @@ const TransactionRefunds = () => {
       setShowModal(true)
       }}>
         <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Log a refund</h1>
-        <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF]'/>
+        <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF] w-5 h-5'/>
       </div>
     </div>
     <div>
