@@ -16,7 +16,7 @@ const Layout = ({children}:any) => {
 
   const showmerchantLayout =  router.pathname.includes('/balances') || router.pathname.includes('/business') ||
   router.pathname.includes('/payments') || router.pathname.includes('/transactions') || router.pathname.includes('/customers') ||
-  router.pathname.includes('/settings') || router.pathname.includes('/dashboard');
+  router.pathname.includes('/settings') || router.pathname.includes('/dashboard') || router.pathname.includes('/transfers');
 
 
 

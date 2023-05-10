@@ -14,13 +14,13 @@ const PaymentItem = () => {
         payments ? setPay(false) : setPay(true);
       };
     
-    const transfersRoute = router.pathname == '/payments/transfers'
+    // const transfersRoute = router.pathname == '/payments/transfers'
     const paymentlinksRoute = router.pathname == '/payments/paymentlinks'
     const invoicesRoute = router.pathname == '/payments/invoices'
 
 
     const isPaymentRoute = paymentlinksRoute || invoicesRoute;
-    const isActiveRoute = paymentlinksRoute || transfersRoute || invoicesRoute;
+    const isActiveRoute = paymentlinksRoute  || invoicesRoute;
 
     useEffect(() => {
         if (!isActiveRoute) {
@@ -36,7 +36,7 @@ const PaymentItem = () => {
             </div>
         </div> */}
         <div>
-        <Link href={isPaymentRoute ? router.pathname : '/payments/transfers'}>
+        <Link href={isPaymentRoute ? router.pathname : '/payments/paymentlinks'}>
                         <div className='flex justify-center h-6 lg:w-60' >
                               <div className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${isActiveRoute ? 'bg-primary' : 'bg-transparent'}`}/>
                             <div className={`flex items-center gap-[0.67em] w-[13.5rem] h-[2.75rem] 
@@ -56,7 +56,6 @@ const PaymentItem = () => {
                         </div>
                         <div>
                         <ul className={`${payments ? 'flex flex-col h-12 translate-x-0 ease-in-out duration-500' : 'overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500'}   gap-[0.55rem]  mb-3 ${payments ? 'mt-[1.8rem]' : 'mt-[0.5rem]'} mx-6`}>
-                                    <Link href='/payments'><li className={`text-sm ${transfersRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Transfers</li></Link>
                                     {/* <li className='text-sm text-[#262626] font-WorkSans font-normal leading-4'>Invoices</li> */}
                                    <Link href='/payments/paymentlinks'><li className={`text-sm ${paymentlinksRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Payment links</li></Link>
                                    <Link href='/payments/invoices'><li className={`text-sm ${invoicesRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Invoices</li></Link>

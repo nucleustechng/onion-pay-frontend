@@ -3,7 +3,7 @@ import LogOutIcon from '../Assets/icon/LogOut.svg'
 import Image from 'next/image'
 // import HomeItem from './SidebarItems/HomeItem'
 import TransactionItem from './SidebarItems/TransactionItem'
-import CustomersItem from './SidebarItems/CustomersItem'
+import CustomersItem from './SidebarItems/TransfersItem'
 // import BalanceItem from './SidebarItems/BalanceItem'
 import PaymentItem from './SidebarItems/PaymentItem'
 import BusinessItem from './SidebarItems/BusinessItem'
@@ -15,6 +15,7 @@ import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
 import CustomToggle from './CustomToggle'
 import SettingsItem from './SidebarItems/SettingsItem'
 import LogoutConfirmation from './LogoutConfirmation'
+import TransfersItem from './SidebarItems/TransfersItem'
 
 
 
@@ -72,7 +73,7 @@ const SideBar = () =>{
                         <TransactionItem/>
                     </div>
                     <div>
-                        <CustomersItem/>
+                        <TransfersItem/>
                     </div>
                     {/* <div>
                         <BalanceItem/>
@@ -88,7 +89,7 @@ const SideBar = () =>{
             </div>
             <div className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}>
             <div className='flex justify-between items-center mx-6'>
-                <h1 className='text-base text-[#1B1A1A] font-WorkSans font-normal leading-5'>{isSwitchOn ? 'Live mode' : 'Test mode'}</h1>
+                <h1 className='text-base text-[#1B1A1A] font-WorkSans font-normal leading-5'>{isSwitchOn ? 'Live Mode' : 'Test Mode'}</h1>
                 <CustomToggle
                 value={isSwitchOn}
                 onChange={switch_onChange_handle}

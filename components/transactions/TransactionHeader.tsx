@@ -12,7 +12,7 @@ const TransactionHeader = () => {
               <h1>Amount</h1>
             </div>
             <div className='w-[18.4rem]'>
-              <h1>Transaction type</h1>
+              <h1>Transaction Type</h1>
             </div> 
             <div className='w-[24rem]'>
               <h1>Date</h1>

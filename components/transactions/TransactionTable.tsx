@@ -40,7 +40,7 @@ const TransactionTable = ({transactionID,amount,createdOn,type}: Props) => {
               <h1>NGN {slicedAmount}</h1>
             </div>
             <div className='w-[18.4rem]'>
-              <h1>{type}</h1>
+              <h1 className='capitalize'>{type}</h1>
             </div>
             <div className='w-[24rem]'>
               <h1>{formattedDate}</h1>

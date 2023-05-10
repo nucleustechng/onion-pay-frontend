@@ -1,10 +1,10 @@
 import React from 'react'
-import HelpButton from '../../components/HelpButton'
+import HelpButton from '../components/HelpButton'
 // import TransfersEmpty from '../../components/payments/TransfersEmpty'
 // import PaymentLinks from '../../components/payments/PaymentLinks'
 // import PaymentPlans from '../../components/payments/payment plans/PaymentPlans'
-import TransfersEmpty from '../../components/payments/TransfersEmpty'
-import useAuth from '../../useAuth'
+import TransfersEmpty from '../components/payments/TransfersEmpty'
+import useAuth from '../useAuth'
 
 
 const Transfers = () => {
