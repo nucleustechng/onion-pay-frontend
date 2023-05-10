@@ -1,11 +1,10 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import HelpButton from '../HelpButton'
 import SearchIcon from '../../Assets/icon/Search.svg'
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
-import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
@@ -41,6 +40,7 @@ const InvoiceSect = () => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
+      console.log(invoicesArray['client'])
     } else {
       console.log('An error occured')
     }
@@ -105,7 +105,7 @@ const InvoiceSect = () => {
             </div>
             {/* Small screen search input */}
             <div className='w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden'>
-                  <div className='absolute  pl-[0.7rem] '>
+                  <div className='fixed  pl-[0.7rem] '>
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
                   {/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
@@ -117,24 +117,24 @@ const InvoiceSect = () => {
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
                   {/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
-                  <input type="text" className='w-[18.75rem] h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
+                  <input type="text" className='w-[19.75rem] h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
                 </div>
                 <div className=''>
-                  <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[9.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                  {/* <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[9.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center gap-3 md:gap-7 lg:gap-7'>
                       <h1 className='hidden md:inline-flex md:text-sm lg:inline-flex lg:text-sm'>Last 7days</h1>
                       <FontAwesomeIcon className='inline-flex md:hidden lg:hidden w-5 h-5 ' icon={faCalendar}/>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5  text-sm'/>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className=' '>
-                  <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                  {/* <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-20 lg:gap-20'>
                       <h1 className='text-sm'>All</h1>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5  text-sm'/>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* Create invoice button for small screens */}
                 <div className='flex justify-end lg:hidden cursor-pointer'>
@@ -173,9 +173,11 @@ const InvoiceSect = () => {
                         </div> 
                                     :
                     <div className="mt-5">
-                      {invoicesArray.map((invoice:any) => (
+                      {invoicesArray.map((invoice:any,index:any) => (
                         <div key={invoice.i_id}>
                           <InvoiceTable
+                          clientName={invoicesArray[index]['client']?.full_name}
+                          email={invoicesArray[index]['client']?.email}
                           status={invoice.paid ? 'Successful' : 'Pending...'}
                           amount={invoice.amount_string}
                           date={invoice.paid_on ? invoice.paid_on : '--'}

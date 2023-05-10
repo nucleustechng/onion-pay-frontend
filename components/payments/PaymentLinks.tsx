@@ -1,8 +1,8 @@
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
+import {  faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import DownloadIcon from '../../Assets/icon/Download.svg'
+// import DownloadIcon from '../../Assets/icon/Download.svg'
 import { useLoadPaymentLinksQuery } from '../../modules/PaymentPageApi/paymentPageApi'
 import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { setShowSidebar } from '../../redux/sidebarSlice'
@@ -55,7 +55,7 @@ const PaymentLinks = () => {
     {paymentLinksArray.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
-                <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment link</h1>
+                <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment Links</h1>
                 {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
               </div>}
@@ -63,21 +63,21 @@ const PaymentLinks = () => {
             <div>
             <div className='flex gap-4 justify-end md:justify-end items-center mt-[3.2rem]'>
                 <div className='flex justify-between items-center '>
-                  <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] w-[3.5rem]  md:w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
+                  {/* <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] w-[3.5rem]  md:w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
                     <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4 hidden md:inline-flex'>Download</h1>
                     <div>
                       <Image src={DownloadIcon} alt='Download Icon'/> 
                     </div> 
-                  </div>
+                  </div> */}
                 </div>
                 <div>
-                  <div className='flex  items-center md:w-[12.5rem] lg:w-[13rem]  h-11 rounded-[0.32rem] bg-[#F5F5F5] '>
+                  {/* <div className='flex  items-center md:w-[12.5rem] lg:w-[13rem]  h-11 rounded-[0.32rem] bg-[#F5F5F5] '>
                     <div className='flex  items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] hidden md:inline-flex'>All payment links</h1>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] inline-flex md:hidden'>All</h1>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-base text-[#262626]'/>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <div className='flex  items-center lg:w-[13.7rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
@@ -121,11 +121,8 @@ const PaymentLinks = () => {
                 }
               </div>
             <div>
-              {/* <PaymentLinkModal isVisible={isSecondStep ? false : showModal}  onClose={async () => setShowModal(false)}/> */}
               <SingleChargeModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
-              {/* {!isSingleCharge && <SubscriptionLinkModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>} */}
               
-               {/* <VerifyAccountModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
             </div>
 
         </div>

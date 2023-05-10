@@ -1,8 +1,8 @@
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
+// import Image from 'next/image'
 import React, { useState } from 'react'
-import DownloadIcon from '../../Assets/icon/Download.svg'
+// import DownloadIcon from '../../Assets/icon/Download.svg'
 import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
 import TransferModal from './modals/TransferModal'
 
@@ -41,12 +41,12 @@ const TransfersEmpty = () => {
             <div className='flex items-center justify-end mt-12'>
             <div className='flex gap-4'>
                 <div className='flex justify-between items-center '>
-                  <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] text-black  w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
+                  {/* <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] text-black  w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
                     <h1>Download</h1>
                     <div>
                       <Image src={DownloadIcon} alt='Download Icon'/> 
                     </div> 
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <div className='flex  items-center lg:w-[15rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>

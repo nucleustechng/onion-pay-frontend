@@ -2,7 +2,6 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Input from '../../input fields/Input'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
-import { setSecondStep } from '../../../redux/invoiceSlice'
 import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -59,13 +58,11 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
     } else {
       toast.error('Fill in item information');
     }
-    console.log('Items',invoiceData);
   };
   
   const [createInvoice, { data: createInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
   
   const handleCreateInvoice = async () => {
-    console.log(invoiceData?.full_name)
     try {
       let dataToSend = { ...invoiceData };
       if (invoiceData.order.length === 0) {
@@ -96,10 +93,9 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
   useEffect(() => {
     console.log('Length',invoiceData?.order.length)
     if (isSuccess && createInvoiceData?.success) {
-      toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:2000});
+      toast.success('Your invoice has been sent successfully. You will receive an email shortly',{autoClose:1000});
 
       setTimeout(() => {
-      dispatch(setSecondStep(false));
       onClose()
       setInvoiceData({
         ref: '',
@@ -110,7 +106,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
         order: []
       });
       setItemsCount(0); 
-      },2500)
+      },1500)
 
     } else {
       toast.error(createInvoiceData?.reason, { autoClose: 1000 });
@@ -133,7 +129,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
             <div className={`w-[22.5rem] md:w-[27rem]  lg:w-[33rem] ${invoiceData?.order.length > 0 ? 'h-[45rem]' : 'h-[39.71rem]'} mt-32 mb-6 rounded-[0.63rem] bg-white`}>
                 <div className='mx-4 lg:mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
-                        <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an invoice</h1>
+                        <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an Invoice</h1>
                     <div>
                         <Image src={CloseIcon} className='cursor-pointer' onClick={()=>{
                             onClose()
@@ -145,13 +141,13 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                             <h1 className='text-[#3063E9] text-sm font-WorkSans font-normal leading-4'>Step 2 of 2</h1>
                         </div>
                         <div>
-                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Item information</h1>
+                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Item Information</h1>
                         </div>
                     </div>
                     <div className={`${invoiceData?.order.length > 0 ? 'h-[29rem]' : 'h-[26rem]'} scrollbar-hide overflow-y-scroll`}>
                     <div className={`flex flex-col px-4 py-3 gap-6 mt-6 w-auto h-[22rem]  border-[0.0625rem] border-primary rounded-md`}>
                     <div className="flex items-center justify-between ">
-                      <div>Item 1</div>
+                      <div>Item {invoiceData?.order.length + 1}</div>
                       {/* <FontAwesomeIcon 
                         icon={faChevronDown}
                         className="h-5 w-5 cursor-pointer"
@@ -166,8 +162,8 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         value={order.name}
                         onChange={(e) => setOrder({...order, name: e.target.value})} 
                         type='text' 
-                        label='Item name' 
-                        placeholder='Item name'/>
+                        label='Item Name' 
+                        placeholder='Item Name'/>
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
                         name='quantity'
@@ -182,7 +178,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
                         type='number'  
-                        label='Unit price' 
+                        label='Unit Price' 
                         placeholder='0.00'/>
                         </div>
                     </div>
@@ -191,10 +187,10 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                       open[index] ? 'h-[22rem] transition-all duration-500 ease-in' : 'h-[3.25rem] transition-all ease-out duration-500'
                       }  border-[0.0625rem] border-primary rounded-md`}>
                     <div className="flex items-center justify-between ">
-                      <div>Item {index + 2}</div>
+                      <div>Item {index + 1}</div>
                       <FontAwesomeIcon 
                         icon={faChevronDown}
-                        className="h-5 w-5 cursor-pointer"
+                        className=" w-5 h-5 cursor-pointer"
                         onClick={() => toggleOpen(index)}
                         aria-hidden="true"
                       />
@@ -253,7 +249,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                           <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{itemsCount} item(s)</h1>
                           <div onClick={() => addOrder(order)} className='flex justify-end items-center gap-2 cursor-pointer'>
                               <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Add item</h1>
-                              <FontAwesomeIcon  icon={faPlus} className='text-primary'/>
+                              <FontAwesomeIcon  icon={faPlus} className='w-5 h-5  text-primary'/>
                           </div>
                         </div>
                         <div className='flex items-center justify-end gap-4 mt-6'>

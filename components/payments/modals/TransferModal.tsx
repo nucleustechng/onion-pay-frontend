@@ -40,7 +40,7 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
             <div className='w-[27.7rem] h-[32.75rem] rounded-[0.63rem] bg-white'>
                 <div className='mx-6 my-6'>
                     <div className='flex items-center justify-between'>
-                        <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Make a transfer</h1>
+                        <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Make a Transfer</h1>
                         <div>
                             <Image src={CloseIcon} className='cursor-pointer' onClick={()=>{
                             onClose()
@@ -48,7 +48,7 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
                         </div>
                     </div>
                     <div className='mt-6'>
-                        <h1 className='text-xl text-center text-[#262626] font-WorkSans font-semibold  leading-6'>How would you like to make your transfer?</h1>
+                        <h1 className='text-xl text-center text-[#262626] font-WorkSans font-semibold  leading-6'>How would you like to make your Transfer?</h1>
                     </div>
                     <div className='flex flex-col gap-4 mt-6'>
                         {/* First Card */}
@@ -58,13 +58,13 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
                             }}>
                             <div className='mx-6 my-6' >
                                 <div className='flex items-center justify-between mb-3'>
-                                    <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Bank account</h1>
+                                    <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Bank Account</h1>
                                     <div className='flex justify-end w-6 h-6'>
                                         {active === 1 ? <FontAwesomeIcon icon={faCheckCircle} className='text-2xl  text-[#3063E9]'/> : 
                                         <FontAwesomeIcon icon={faCircle} className='text-2xl  text-[#CACACA] '/>}
                                     </div>
                                 </div>
-                                <p className='text-base  text-[#262626] font-WorkSans font-normal leading-5'>Send money directly from your Onion Pay account wallet to one or more bank accounts instantly.</p>
+                                <p className='text-base  text-[#262626] font-WorkSans font-normal leading-5'>Send money directly from your Onion Pay  wallet to a Bank Account instantly.</p>
                             </div>
                         </div>
                         {/* Second card */}
@@ -91,19 +91,19 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
                             }}>
                             <div className='mx-6 my-6'>
                                 <div className='flex items-center justify-between mb-3'>
-                                    <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Onion Pay account</h1>
+                                    <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Onion Pay Wallet</h1>
                                     <div className='flex justify-end w-6 h-6'>
                                     {active === 2 ? <FontAwesomeIcon icon={faCheckCircle} className='text-2xl  text-[#3063E9]'/> : 
                                         <FontAwesomeIcon icon={faCircle} className='text-2xl  text-[#CACACA] '/>}
                                     </div>
                                 </div>
-                                <p className='text-base  text-[#262626] font-WorkSans font-normal leading-5'>Send money in any currency from one Onion Pay account to another using a merchant ID.</p>
+                                <p className='text-base  text-[#262626] font-WorkSans font-normal leading-5'>Send money from your Onion Pay Wallet to another using a Wallet ID.</p>
                             </div>
                         </div>
                     </div>
                     <div className='flex justify-center mt-6' onClick={handlerFunc}>
-                        <button className='w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
-                            Start transfer
+                        <button disabled={active ? false : true} className='w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5' >
+                            Start Transfer
                         </button>
                     </div>
                 </div>

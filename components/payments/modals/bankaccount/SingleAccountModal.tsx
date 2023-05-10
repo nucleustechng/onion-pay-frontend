@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import {  faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -75,8 +75,8 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
               <div className='mx-6 mt-6'>
                   <div className='flex justify-between items-center'>
                     <div onClick={() => handleModal(1)} className='flex items-center gap-2'>
-                      <FontAwesomeIcon icon={faChevronLeft} className='cursor-pointer'/>
-                      <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Wallet transfer</h1>
+                      <FontAwesomeIcon icon={faChevronLeft} className='cursor-pointer w-5 h-5'/>
+                      <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Wallet Transfer</h1>
                     </div>
                     <div>
                         <Image src={CloseIcon} className='cursor-pointer' onClick={()=>{
@@ -99,22 +99,18 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
                       value={transferInfo?.acc_num}
                       onChange={(e) => setTransferInfo({...transferInfo, acc_num: e.target.value})}
                       height='h-[3.15rem]'
-                      label='Account number'
+                      label='Wallet ID'
                       />
                     </div>
                   {/* Input two */}
                   <div className='flex flex-col gap-2 mt-5'>
                         <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>How much do you want to send?</h1>
-                        <div className='flex items-center justify-between'>
-                            <div className='flex justify-between px-5 items-center border-[0.07rem]  border-solid border-[#CACACA] rounded-[0.315rem] w-[7.15rem] h-[3.15rem]'>
-                              <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-5'>NGN</h1>
-                              <FontAwesomeIcon icon={faChevronDown}/>
-                            </div>
+                        <div className=' '>
                             <div>
                               <Input
                               type='number'
                               height='h-[3.15rem]'
-                              width='w-[22.5rem]'
+                              width='w-[29.rem]'
                               name='amount'
                               value={transferInfo?.amount.toString()}
                               onChange={(e) => setTransferInfo({...transferInfo, amount:parseFloat(e.target.value)}) }

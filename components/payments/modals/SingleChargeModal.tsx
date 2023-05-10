@@ -1,11 +1,7 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../../Assets/icon/CloseIcon.svg'
 import { useCreatePaymentPageMutation, useLoadPaymentLinksQuery } from '../../../modules/PaymentPageApi/paymentPageApi'
-import {  setSecondStep } from '../../../redux/Modal-Processes/paymentLinkSlice'
-import { useAppDispatch } from '../../../redux/redux-hooks/hooks'
 import Input from '../../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,11 +15,7 @@ interface Props {
 
 
 const SingleChargeModal = ({isVisible,onClose}: Props) => {
-  const dispatch = useAppDispatch();
 
-
-
- 
 
   const [paymentLinkInfo, setPaymentLinkInfo] = useState({
     title: '',
@@ -56,8 +48,6 @@ const handleCreatePaymentLink = async () => {
   } catch (err) {
     console.log(err);
   }
-  dispatch(setSecondStep(false))
-  onClose()
 };
 
 useEffect(() => {
@@ -97,8 +87,8 @@ useEffect(() => {
             <div className='w-[29rem] md:w-[33.01rem] h-[32rem] md:h-[35.54rem] rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex justify-between items-center'>
-                        <div className='flex items-center gap-2 cursor-pointer'  onClick={() => dispatch(setSecondStep(false))}>
-                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>New payment link</h1>
+                        <div className='flex items-center gap-2 cursor-pointer'>
+                            <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold '>New Payment Link</h1>
                         </div>
                         <div className='cursor-pointer' onClick={()=>{
                             onClose()
@@ -111,7 +101,7 @@ useEffect(() => {
                          name='title'
                          value={paymentLinkInfo.title}
                          onChange={(e) => setPaymentLinkInfo({...paymentLinkInfo, title: e.target.value})}
-                        label='Page name' 
+                        label='Page Name' 
                         type='text' 
                         width='w-[26rem] md:w-[30rem]'/>
                         {/* <Input label='Description' type='text' width='w-[30rem]' height='h-[9.4rem]'/>
@@ -129,11 +119,11 @@ useEffect(() => {
                         
                         <div className='flex flex-col '>
                             <h1 className='text-[#262626] text-sm font-WorkSans font-normal leading-4 mb-2'>Amount</h1>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex justify-center gap-2 md:justify-between px-5 items-center border-[0.07rem]  border-solid border-[#CACACA] md:gap-0 rounded-[0.315rem] w-[5rem] md:w-[7.15rem] h-[3.15rem]'>
+                            <div className=''>
+                                {/* <div className='flex justify-center gap-2 md:justify-between px-5 items-center border-[0.07rem]  border-solid border-[#CACACA] md:gap-0 rounded-[0.315rem] w-[5rem] md:w-[7.15rem] h-[3.15rem]'>
                                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-5'>NGN</h1>
                                 <FontAwesomeIcon icon={faChevronDown} className="w-5 h-5"/>
-                                </div>
+                                </div> */}
                                 <div>
                                 <input 
                                     name='amount'
@@ -141,14 +131,14 @@ useEffect(() => {
                                     onChange={(e) => setPaymentLinkInfo({...paymentLinkInfo, amount: parseFloat(e.target.value)})}
                                 type='number'
                                 inputMode='numeric' 
-                                placeholder='0.00' className='flex px-5 items-center border-[0.07rem] outline-none  border-solid border-[#CACACA] rounded-[0.315rem] w-[20rem] md:w-[22.5rem] h-[3.15rem]'/>
+                                placeholder='0.00' className='flex px-5 items-center border-[0.07rem] outline-none  border-solid border-[#CACACA] rounded-[0.315rem] w-[20rem] md:w-[29.9rem] h-[3.15rem]'/>
                                 </div>
                             </div>
                             <h1 className='mt-1 text-sm text-[#1B1A1A] font-WorkSans font-medium leading-4 '>Leave empty to allow customers enter desired amount</h1>
                         </div>
                         <div>
                         <div className='flex flex-col gap-2'>
-                            <label htmlFor="redirect" className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Redirect after payment <span>(Optional)</span></label>
+                            <label htmlFor="redirect" className='text-[#262626] text-sm font-WorkSans font-normal leading-4'>Redirect after payment</label>
                             <input 
                             name='redirect_url'
                             value={paymentLinkInfo.redirect_url}

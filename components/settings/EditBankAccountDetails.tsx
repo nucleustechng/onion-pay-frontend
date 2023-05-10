@@ -98,7 +98,7 @@ const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
                                 {banksArray?.map((bank:any) => (<option key={bank?.bankName}  value={bank?.bankName} 
                                 >{bank?.bankName}</option>))}
                             </select>
-                            <FontAwesomeIcon icon={faChevronDown} className='absolute top-[1rem] right-[1.1rem]'/>
+                            <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 absolute top-[1rem] right-[1.1rem]'/>
                         </div>
                         <Input 
                         name='account_number'

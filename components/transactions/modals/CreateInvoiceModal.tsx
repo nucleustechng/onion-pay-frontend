@@ -68,7 +68,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
         setTimeout(() => {
             setIsloading(false)
             dispatch(setSecondStep(true))
-        },1000)
+        },700)
         onSubmit(invoiceInfo)
       };
 
@@ -94,7 +94,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
             <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[37.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='mx-4 lg:mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
-                        <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an invoice</h1>
+                        <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an Invoice</h1>
                     <div>
                         <Image src={CloseIcon} className='cursor-pointer' onClick={()=>{
                             onClose()
@@ -106,7 +106,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                             <h1 className='text-[#3063E9] text-sm font-WorkSans font-normal leading-4'>Step 1 of 2</h1>
                         </div>
                         <div>
-                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Client information</h1>
+                            <h1 className='text-base lg:text-lg text-[#262626] font-WorkSans font-medium leading-5'>Client Information</h1>
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 mt-6 '>
@@ -116,8 +116,8 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                         value={invoiceInfo.full_name}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, full_name: e.target.value})}
                         type='text' 
-                        label='Client name' 
-                        placeholder='Client name'
+                        label='Client Name' 
+                        placeholder='Client Name'
                         />
                         <Input 
                         width='w-[20.5rem] md:w-[25rem] lg:w-[30rem]' 
@@ -125,7 +125,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                         value={invoiceInfo.email}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, email: e.target.value})}
                         type='email' 
-                        label='Client email' 
+                        label='Client Email' 
                         placeholder='email@example.com'
                         />
                         <Input 
@@ -134,7 +134,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                         value={invoiceInfo.phone}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, phone: e.target.value})}
                         type='text' 
-                        label='Client phone' 
+                        label='Client Phone' 
                         placeholder='+234'
                         />
                         <Input 
@@ -142,7 +142,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
                         value={invoiceInfo.address}
                         onChange={(e) => setInvoiceInfo({...invoiceInfo, address: e.target.value})} 
                         name='address'
-                        type='text' label='Client address' 
+                        type='text' label='Client Address' 
                         />
                         
                         <div className='flex items-center justify-end gap-4 mt-2'>

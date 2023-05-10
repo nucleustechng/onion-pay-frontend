@@ -6,22 +6,24 @@ interface Props{
     paymentId:string,
     date:any,
     status:string,
-    createdOn:any
+    createdOn:any,
+    clientName:string,
+    email:string
 }
 
-const InvoiceTable = ({status,date,paymentId,amount,createdOn}: Props) => {
+const InvoiceTable = ({status,date,paymentId,amount,createdOn,clientName,email}: Props) => {
   const slicedAmount = amount.slice(1)
   useEffect(() => {
-    function formatAMPM(date: Date) {
-      let hours = date.getHours();
-      let minutes: any = date.getMinutes();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      const strTime = hours + ':' + minutes + ' ' + ampm;
-      return strTime;
-    }
+    // function formatAMPM(date: Date) {
+    //   let hours = date.getHours();
+    //   let minutes: any = date.getMinutes();
+    //   const ampm = hours >= 12 ? 'PM' : 'AM';
+    //   hours = hours % 12;
+    //   hours = hours ? hours : 12; // the hour '0' should be '12'
+    //   minutes = minutes < 10 ? '0' + minutes : minutes;
+    //   const strTime = hours + ':' + minutes + ' ' + ampm;
+    //   return strTime;
+    // }
     if (status == 'Successful') {
       
       const new_date = new Date(date ? date : '');
@@ -29,7 +31,7 @@ const InvoiceTable = ({status,date,paymentId,amount,createdOn}: Props) => {
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       
-      const formattedDate = `${months[new_date.getMonth()]} ${new_date.getDate()}, ${new_date.getFullYear()} - ${formatAMPM(new_date)}`;
+      const formattedDate = `${months[new_date.getMonth()]} ${new_date.getDate()}, ${new_date.getFullYear()} `;
       setMydate(formattedDate)
  
       
@@ -41,9 +43,9 @@ const InvoiceTable = ({status,date,paymentId,amount,createdOn}: Props) => {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true,
+          // hour: 'numeric',
+          // minute: 'numeric',
+          // hour12: true,
         }) : '';
         return formattedDate;
       };
@@ -59,8 +61,14 @@ const InvoiceTable = ({status,date,paymentId,amount,createdOn}: Props) => {
     <div>
      <div className='flex items-center px-4 w-[71.5rem] h-16'>
             <div className='w-[22.5rem]'>
-              <h1>{paymentId}</h1>
+              <h1>{clientName}</h1>
             </div>
+            {/* <div className='w-[22.5rem]'>
+              <h1>{email}</h1>
+            </div> */}
+             {/* <div className='w-[22.5rem]'>
+              <h1>{paymentId}</h1>
+            </div> */}
             <div className='w-[10.45rem]'>
               <h1>NGN {slicedAmount}</h1>
             </div>
