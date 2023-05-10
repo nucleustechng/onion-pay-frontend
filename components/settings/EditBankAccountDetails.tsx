@@ -71,12 +71,7 @@ const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
       }
       if (!isVisible) return null;
 
-      
-      
-      
-
-
-   
+         
   return (
     <div>
         <ToastContainer/>
@@ -100,7 +95,7 @@ const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
                             onChange={(e) => setBankDetails({...bankDetails,bank: e.target.value})}
                             >
                                 <option value="">Select a bank</option>
-                                {banksArray?.map((bank:any) => (<option  value={bank?.bankName} 
+                                {banksArray?.map((bank:any) => (<option key={bank?.bankName}  value={bank?.bankName} 
                                 >{bank?.bankName}</option>))}
                             </select>
                             <FontAwesomeIcon icon={faChevronDown} className='absolute top-[1rem] right-[1.1rem]'/>
