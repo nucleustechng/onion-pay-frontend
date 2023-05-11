@@ -35,10 +35,11 @@ const Link = () => {
       "amount": targetLink?.amount,
       "setAmountByCustomer": false,
       "tokenize" : false,
-      "callbackurl": "https://onionpay.io/"
+      "callbackurl": targetLink?.redirect_url
     };
     
     useEffect(() => {
+      console.log(targetLink)
       if (isSuccess && paymentLinkData.success == true) {
         setPaymentLinksArray(paymentLinkData.pages)
       } else {
