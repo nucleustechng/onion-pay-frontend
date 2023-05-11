@@ -35,7 +35,7 @@ const Link = () => {
       "amount": targetLink?.amount,
       "setAmountByCustomer": false,
       "tokenize" : false,
-      "callbackurl": "http://localhost:3002"
+      "callbackurl": "https://onionpay.io/"
     };
     
     useEffect(() => {
