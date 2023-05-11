@@ -46,6 +46,7 @@ const Settings = () => {
         if (settingSuccess && settingsData.success == true) {
             setBusinessData(settingsData['business'] ? settingsData['business'] :  settingsData['merchant'])
             settingsData['business'] ? setHasBusiness(true) :  setHasBusiness(false);
+            console.log(settingsData['business'])
         } else {
             toast.error(settingsData?.reason)
         }
@@ -172,7 +173,11 @@ const Settings = () => {
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> {hasBusiness ? 'Business' : 'Merchant'} address</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.address ? businessData?.address : '--'}</h2>
                         </div>
-                        {/* <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business website</h1>
+                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.website ? businessData?.website : '--'}</h2>
+                        </div>
+                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet name</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletName ? businessData?.walletName : '--'}</h2>
                         </div>
@@ -180,14 +185,11 @@ const Settings = () => {
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet number</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletNumber ? businessData?.walletNumber : '--'}</h2>
                         </div>
-                       <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                       {/* <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet ID</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletId ? businessData?.walletId : '--'}</h2>
                         </div> */}
-                         <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Business website</h1>
-                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.website ? businessData?.website : '--'}</h2>
-                        </div>
+                       
                     </div>
 
                {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
