@@ -52,7 +52,6 @@ const SideBar = () =>{
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true) {
             setBusinessData(settingsData['business'])
-            
         } else {
             console.log('An error occured')
         }
@@ -101,7 +100,7 @@ const SideBar = () =>{
                      <div>
                         <PaymentItem/>
                     </div>
-                    {businessData?.length == 0 && <div>
+                    {!businessData && <div>
                         <BusinessItem/>
                     </div>} 
                    

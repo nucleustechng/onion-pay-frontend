@@ -46,7 +46,6 @@ const Signin = () => {
 
     useEffect(() => {
         if (isSuccess && signInData?.success  == true) {
-            console.log(signInData)
             toast.success('You have successfully signed in.');
             if (signInData.token) {
                 Cookies.set('token',signInData?.token)
