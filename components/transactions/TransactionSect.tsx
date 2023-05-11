@@ -61,7 +61,7 @@ const TransactionSect = () => {
 
   return (
     <div>
-        {transactionsArray.length == 0 ?
+        {transactionsArray?.length == 0 ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>

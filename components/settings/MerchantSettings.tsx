@@ -13,6 +13,7 @@ import EditAccountDetails from './EditAccountDetails'
 import {  toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import EditBankAccountDetails from './EditBankAccountDetails'
+import { useLoadBankDetailsQuery } from '../../modules/BankAccountApi/bankaccountApi'
 
 
 
@@ -27,6 +28,7 @@ const MerchantSettings = () => {
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
     const businessUpdated = useAppSelector((state:RootState) => state.business.businessUpdated)
     // const [refetch,setRefetch] = useState<boolean>();
+    const  [bankDetails,setBankDetails] = useState<any>()
 
   
 
@@ -35,7 +37,7 @@ const MerchantSettings = () => {
 
     // const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
     const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
-
+    const {data:bankDetailsData,isSuccess:bankDetailSuccess} = useLoadBankDetailsQuery()
     // const [hasBusiness,setHasBusiness] = useState<boolean>(false);
 
 
@@ -46,7 +48,6 @@ const MerchantSettings = () => {
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true) {
             setMerchantData(settingsData['merchant'])
-            console.log(merchantData)
         } else {
             toast.error(settingsData?.reason)
         }
@@ -57,6 +58,12 @@ const MerchantSettings = () => {
             refetch();
         }
     }, [businessUpdated,refetch]);
+
+    useEffect(() => {
+        if (bankDetailSuccess) {
+            setBankDetails(bankDetailsData['account'])
+        }
+    },[bankDetailSuccess,bankDetails])
 
     // useEffect(() => {
     //     if (isSuccess && generateKeyData.success == true){
@@ -144,7 +151,7 @@ const MerchantSettings = () => {
                 <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Bank account details:</h1>
                             <div  className='flex items-center gap-2'>
-                                <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>0246192777 - GTBank</h2>
+                                <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{bankDetails?.account_number} - {bankDetails?.bank}</h2>
                                 <Image src={EditBlueIcon} onClick={() => {setShowBankModal(true)}} className='cursor-pointer' alt='Edit icon'/>
                             </div>
                 </div>

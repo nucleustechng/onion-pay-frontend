@@ -27,12 +27,17 @@ export const bankaccountApi = createApi({
                     method:'post',
                     body,
                 };
-            }
+            },
+            invalidatesTags: ["banks"]
         }),
         loadBanks:builder.query<any,void>({
             query:() => '/api/v1/banks',
+        }),
+        loadBankDetails:builder.query<any,void>({
+            query:() => '/api/v1/bank-account-details',
+            providesTags:['banks']
         })
     })
 });
 
-export const { useLoadBanksQuery, useUpdateBankAccountDetailsMutation } = bankaccountApi
+export const { useLoadBanksQuery, useUpdateBankAccountDetailsMutation, useLoadBankDetailsQuery } = bankaccountApi

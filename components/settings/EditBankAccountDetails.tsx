@@ -5,7 +5,7 @@ import Input from '../input fields/Input'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader'
-import { useLoadBanksQuery, useUpdateBankAccountDetailsMutation } from '../../modules/BankAccountApi/bankaccountApi';
+import { useLoadBankDetailsQuery, useLoadBanksQuery, useUpdateBankAccountDetailsMutation } from '../../modules/BankAccountApi/bankaccountApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,18 +22,21 @@ interface IBankDetails {
 
 const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
     const [banksArray,setBanksArray] = useState<any>()
+    const {data:bankDetailsData,isSuccess:bankDetailSuccess,refetch} = useLoadBankDetailsQuery()
 
     const [bankDetails,setBankDetails] = useState<IBankDetails>({
-        bank:'',
-        account_number:'',
+        bank:bankDetailsData['account']?.bank,
+        account_number:bankDetailsData['account']?.account_number,
         settle_to_bank:true
     })
 
     const {data:banksData,isSuccess} = useLoadBanksQuery();
     const [updateBankDetails,{isSuccess:updateBankSuccess,isLoading:updateBankLoading}] = useUpdateBankAccountDetailsMutation()
 
+
     const handleUpdate = async () => {
         const {bank,account_number,settle_to_bank} = bankDetails;
+        console.log(bankDetails)
         try {
             if (bank && account_number && settle_to_bank) {
                 await updateBankDetails({bank,account_number,settle_to_bank})
@@ -54,14 +57,19 @@ const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
 
     useEffect(() => {
         setBankDetails({...bankDetails,settle_to_bank:true})
-        console.log(bankDetails)
-        if (updateBankSuccess) {
+        if (updateBankSuccess && bankDetailSuccess) {
             toast.success("Your bank account details have been updated succesfully!")
             setTimeout(() => {
                 onClose()
             },1000)
         }
     },[updateBankSuccess])
+
+    useEffect(() => {
+        if (updateBankSuccess && bankDetailSuccess) {
+            refetch()
+        }
+    },[updateBankSuccess,refetch])
 
   
     const handleClose = (e:any) =>{
@@ -94,7 +102,7 @@ const EditBankAccountDetails = ({isVisible,onClose}: Props) => {
                             text-sm text-[#898989] font-WorkSans font-normal leading-4'
                             onChange={(e) => setBankDetails({...bankDetails,bank: e.target.value})}
                             >
-                                <option value="">Select a bank</option>
+                                <option value="">{bankDetails?.bank}</option>
                                 {banksArray?.map((bank:any) => (<option key={bank?.bankName}  value={bank?.bankName} 
                                 >{bank?.bankName}</option>))}
                             </select>

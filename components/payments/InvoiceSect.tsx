@@ -30,6 +30,8 @@ const InvoiceSect = () => {
   const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
   const [invoicesArray,setInvoicesArray] = useState<any>([])
+  const [loading, setLoading] = useState(true);
+
 
 
   const {data:invoiceData,isSuccess,isLoading} = useLoadInvoicesQuery()
@@ -40,7 +42,7 @@ const InvoiceSect = () => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
-      console.log(invoicesArray['client'])
+      setLoading(false)
     } else {
       console.log('An error occured')
     }
@@ -49,7 +51,7 @@ const InvoiceSect = () => {
 
   return (
     <div>
-        {invoicesArray.length == 0  ?
+        {(invoicesArray?.length == 0)  ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>

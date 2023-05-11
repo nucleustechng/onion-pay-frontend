@@ -43,7 +43,7 @@ const SideBar = () =>{
     const  [businessData,setBusinessData] = useState<any>()
 
     // const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
-    const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
+    const {data:settingsData,isSuccess:settingSuccess} = useLoadSettingsQuery()
 
 
 
