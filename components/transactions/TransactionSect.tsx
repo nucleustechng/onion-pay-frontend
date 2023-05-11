@@ -41,7 +41,7 @@ const TransactionSect = () => {
   const {data:transactionsData,isSuccess,isLoading} = useLoadTransactionsQuery()
 
   const {data:transaction,isSuccess:transactionSuccess} = useLoadSingleTransactionQuery(transactionID)
-
+  const [loading,setLoading] = useState<boolean>(true)
   // const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const TransactionSect = () => {
 
     if (isSuccess && transactionsData.success == true) {
       setTransactionsArray(transactionsData['transactions'])
+      setLoading(false)
     } else {
       console.log('An error occured')
     }
@@ -61,6 +62,11 @@ const TransactionSect = () => {
 
   return (
     <div>
+      {loading ? 
+        <div className='flex justify-center  items-center w-[72rem] mt-20'>
+          <Loader width='w-[5rem]' height='h-[5rem]'/>
+          </div> :
+      <div>
         {transactionsArray?.length == 0 ?
 
 <div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
@@ -239,6 +245,8 @@ const TransactionSect = () => {
                 </div>
             </div>
         </div>}
+        </div>
+        }
     </div>
   )
 }

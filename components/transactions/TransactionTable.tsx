@@ -19,10 +19,10 @@ const TransactionTable = ({transactionID,amount,createdOn,type}: Props) => {
       const month = months[date.getMonth()];
       const day = date.getDate();
       const year = date.getFullYear();
-      const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
-      const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-      const amPm = date.getHours() >= 12 ? 'PM' : 'AM';
-      const formattedDate = `${month} ${day}, ${year} - ${hours}:${minutes} ${amPm}`;
+      // const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+      // const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+      // const amPm = date.getHours() >= 12 ? 'PM' : 'AM';
+      const formattedDate = `${month} ${day}, ${year}  `;
       return formattedDate;
     }
     

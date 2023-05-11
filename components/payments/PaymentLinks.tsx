@@ -29,7 +29,7 @@ const PaymentLinks = () => {
     // Do whatever you need to with the clicked payment link data
   };
 
-
+  const [loading,setLoading] = useState<boolean>(true)
 
  
   // 
@@ -40,6 +40,7 @@ const PaymentLinks = () => {
   useEffect(() => {
     if (isSuccess && paymentPageData.success == true) {
       setPaymentLinksArray(paymentPageData.pages)
+      setLoading(false)
     } else {
       console.log('An error occured')
     }
@@ -52,6 +53,11 @@ const PaymentLinks = () => {
   
   return (
     <div> 
+        {loading ? 
+        <div className='flex justify-center  items-center w-[72rem] mt-20'>
+          <Loader width='w-[5rem]' height='h-[5rem]'/>
+          </div> :
+      <div>
     {paymentLinksArray.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
         <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
@@ -126,6 +132,7 @@ const PaymentLinks = () => {
             </div>
 
         </div>
+    </div>}
     </div>}
     </div>
   )
