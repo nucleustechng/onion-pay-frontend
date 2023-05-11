@@ -30,7 +30,7 @@ const InvoiceSect = () => {
   const isSecondStep = useAppSelector((state:RootState) => state.invoice.isSecondStep)
 
   const [invoicesArray,setInvoicesArray] = useState<any>([])
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
 
 
@@ -42,7 +42,7 @@ const InvoiceSect = () => {
 
     if (isSuccess && invoiceData.success == true) {
       setInvoicesArray(invoiceData['invoices'])
-      setLoading(false)
+      // setLoading(false)
     } else {
       console.log('An error occured')
     }
