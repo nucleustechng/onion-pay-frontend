@@ -101,7 +101,7 @@ const SideBar = () =>{
                      <div>
                         <PaymentItem/>
                     </div>
-                    {businessData?.length > 0 && <div>
+                    {businessData?.length == 0 && <div>
                         <BusinessItem/>
                     </div>} 
                    
