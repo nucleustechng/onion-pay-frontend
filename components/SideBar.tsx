@@ -15,6 +15,7 @@ import CustomToggle from './CustomToggle'
 import SettingsItem from './SidebarItems/SettingsItem'
 import LogoutConfirmation from './LogoutConfirmation'
 import TransfersItem from './SidebarItems/TransfersItem'
+import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
 
 
 
@@ -38,6 +39,26 @@ const SideBar = () =>{
             console.log(data)
         }
     },[isSuccess,data])
+
+    const  [businessData,setBusinessData] = useState<any>()
+
+    // const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+    const {data:settingsData,isSuccess:settingSuccess,refetch} = useLoadSettingsQuery()
+
+
+
+
+    useEffect(() =>{
+        // businessUpdated ? setRefetch(true) :   setRefetch(false)
+        if (settingSuccess && settingsData.success == true) {
+            setBusinessData(settingsData['business'])
+            
+        } else {
+            console.log('An error occured')
+        }
+
+    
+    },[settingSuccess,settingsData])
  
     
     
@@ -80,9 +101,9 @@ const SideBar = () =>{
                      <div>
                         <PaymentItem/>
                     </div>
-                    <div>
+                    {businessData?.length > 0 && <div>
                         <BusinessItem/>
-                    </div> 
+                    </div>} 
                    
                 </div>
             </div>
