@@ -74,7 +74,7 @@ const SignUp = () => {
             toast.success('You have successfully signed up. Please check your email to verify your account.');
             setTimeout(() => {
                 router.push('/auth/verifyemail');
-              }, 3000);
+              }, 2000);
         }else{
             switch (signupData?.reason) {
                 case 'Your Password must be at least eight characters long and consist of letters and numbers':
@@ -85,6 +85,9 @@ const SignUp = () => {
                   break;
                 case 'Phone Number format invalid. Your Phone Number must be local to your country':
                   setPhoneError('Phone Number format invalid. Your Phone Number must be local to your country');
+                  break;
+                case 'Another Merchant is currently using your phone number. Please use another.':
+                  setPhoneError('Another Merchant is currently using your phone number. Please use another.');
                   break;
                 case 'Invalid National Identification Number':
                   setNinError('Invalid National Identification Number');

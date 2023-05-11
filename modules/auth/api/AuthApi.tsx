@@ -73,8 +73,11 @@ export const AuthApi = createApi({
                     body
                 }
             }
+        }),
+        loadEmail:builder.query<any,void>({
+            query:() => '/api/v1/contact'
         })
     })
 });
 
-export const { useSignupMutation, useVerifyemailMutation,useSigninMutation, useRequestVerifyCodeMutation,  useForgotPasswordMutation, useResetPasswordMutation } = AuthApi
+export const { useSignupMutation, useVerifyemailMutation,useSigninMutation, useRequestVerifyCodeMutation,  useForgotPasswordMutation, useResetPasswordMutation, useLoadEmailQuery } = AuthApi

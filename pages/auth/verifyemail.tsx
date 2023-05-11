@@ -12,7 +12,7 @@ import Logo from '../../Assets/logo/Logo.svg'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import OtpInput from '../../components/OtpInput'
-import { useRequestVerifyCodeMutation, useVerifyemailMutation } from '../../modules/auth/api/AuthApi'
+import { useLoadEmailQuery, useRequestVerifyCodeMutation, useVerifyemailMutation } from '../../modules/auth/api/AuthApi'
 import Loader from '../../components/Loader'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +22,7 @@ import { useRouter } from 'next/router'
 
 const Verifyemail = () => {
   const [toggleNav,setToggleNav] = useState<boolean>(false);
+  const [useremail,setUserEmail] = useState<string>('')
 
   const router =  useRouter();
   const [otp, setOtp] = useState<string>('');
@@ -30,6 +31,7 @@ const Verifyemail = () => {
     setOtp(otp);
   };
 
+  const {data:loadEmailData,isSuccess:loadEmailSuccess} = useLoadEmailQuery()
   const [verifyEmail,{data:verifyEmailData,isSuccess,isLoading}] = useVerifyemailMutation()
   const [requestVerifyCode,{data:requestCodeData,isSuccess:requestCodeSuccess}] = useRequestVerifyCodeMutation()
 
@@ -99,6 +101,12 @@ const Verifyemail = () => {
             toast.success('The code has been sent to your email');
         }
     },[requestCodeSuccess,requestCodeData])
+
+    useEffect(() => {
+        if (loadEmailSuccess) {
+            setUserEmail(loadEmailData?.email)
+        }
+    },[loadEmailSuccess])
 
   
 
@@ -187,7 +195,7 @@ const Verifyemail = () => {
                     <h1 className='text-[#303778] text-5xl md:text-[3.625rem] text-center leading-[3.375rem] font-SpaceGrotesk font-bold'>Verify your email</h1>
                 </div>
                 <div className='w-[21.875rem] md:w-[45rem]  flex justify-center mt-10  mb-10'>
-                    <p className='text-center text-[#202020] text-base leading-5 font-normal font-Montserrat'>Input the verification code sent to <span className='font-WorkSans text-primary'>joe@gmail.com</span></p>
+                    <p className='text-center text-[#202020] text-base leading-5 font-normal font-Montserrat'>Input the verification code sent to <span className='font-WorkSans text-primary'>{useremail ? useremail : '...'}</span></p>
                 </div>
                 <div className='w-[21.875rem] md:w-[45rem] flex  flex-wrap justify-center items-center gap-[0.625rem] mb-10'>
                     <OtpInput fields={8} onComplete={handleOtpComplete}/>
