@@ -24,8 +24,8 @@ const PaymentLinks = () => {
   const [paymentLinksArray,setPaymentLinksArray] = useState<any>([])
 
 
-  const handleEllipsisClick = (paymentLink: string) => {
-    console.log(`Clicked ellipsis for payment link ${paymentLink}`);
+  const handleEllipsisClick = () => {
+    console.log(`Clicked ellipsis for payment link`);
     // Do whatever you need to with the clicked payment link data
   };
 
@@ -58,8 +58,8 @@ const PaymentLinks = () => {
           <Loader width='w-[5rem]' height='h-[5rem]'/>
           </div> :
       <div>
-    {paymentLinksArray.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
-        <div className='w-[30rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
+    {paymentLinksArray?.length == 0 ? <PaymentLinksEmpty/> : <div className='relative'>
+        <div className='w-[23rem] sm:w-[40rem] md:w-[58rem]  xl:w-[70rem] mx-6 mt-6'>
         <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Payment Links</h1>
                 {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
@@ -68,15 +68,15 @@ const PaymentLinks = () => {
             </div>
             <div>
             <div className='flex gap-4 justify-end md:justify-end items-center mt-[3.2rem]'>
-                <div className='flex justify-between items-center '>
-                  {/* <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] w-[3.5rem]  md:w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
+                {/* <div className='flex justify-between items-center '>
+                  <div className='flex justify-center items-center gap-4 rounded-[0.32rem] bg-[#F5F5F5] w-[3.5rem]  md:w-[9.15rem] h-11 text-base font-WorkSans font-normal leading-4'>
                     <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4 hidden md:inline-flex'>Download</h1>
                     <div>
                       <Image src={DownloadIcon} alt='Download Icon'/> 
                     </div> 
-                  </div> */}
-                </div>
-                <div>
+                  </div>
+                </div> */}
+                {/* <div> */}
                   {/* <div className='flex  items-center md:w-[12.5rem] lg:w-[13rem]  h-11 rounded-[0.32rem] bg-[#F5F5F5] '>
                     <div className='flex  items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-[#262626] hidden md:inline-flex'>All payment links</h1>
@@ -84,9 +84,9 @@ const PaymentLinks = () => {
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-base text-[#262626]'/>
                     </div>
                   </div> */}
-                </div>
+                {/* </div> */}
                 <div>
-                  <div className='flex  items-center lg:w-[13.7rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                  <div className='flex  items-center lg:w-[13.7rem] mr-9 md:mr-0 h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
                     setShowModal(true)
                     }}>
@@ -100,7 +100,7 @@ const PaymentLinks = () => {
               <div className='mt-6'>
                 {isLoading ? <div className='flex justify-center'><Loader/></div>
                 :  
-                <div className='xl:w-[71.5rem] h-[40rem] overflow-y-auto scrollbar-hide'>
+                <div className='w-[21rem] xl:w-[71.5rem] h-[40rem] overflow-y-auto scrollbar-hide'>
                   <div className="relative">
                     <div className="sticky top-0 z-10 bg-white"> 
                       <PaymentsHeader/>

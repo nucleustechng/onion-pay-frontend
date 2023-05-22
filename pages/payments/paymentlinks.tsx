@@ -12,7 +12,7 @@ const Paymentlinks = () => {
   return (
     <div>
       <div>
-          <div className='w-[30rem]   xl:w-[71.5rem]'>
+          <div className='w-[21rem]   xl:w-[71.5rem]'>
             <PaymentLinks/>
           </div>
       </div>

@@ -35,7 +35,6 @@ const InvoiceTable = ({status,date,amount,createdOn,clientName}: Props) => {
       setMydate(formattedDate)
  
       
-      console.log(formattedDate); // Output: "Apr 13, 2023 - 1:30 PM"
     } else {
       const formatDate = (timestamp: { _seconds: number, _nanoseconds: number }): string => {
         const new_date = timestamp ? new Date(timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000) : null;
@@ -60,7 +59,7 @@ const InvoiceTable = ({status,date,amount,createdOn,clientName}: Props) => {
   return (
     <div>
      <div className='flex items-center px-4 w-[71.5rem] h-16'>
-            <div className='w-[22.5rem]'>
+            <div className='w-[17rem] md:w-[22.5rem]'>
               <h1>{clientName}</h1>
             </div>
             {/* <div className='w-[22.5rem]'>

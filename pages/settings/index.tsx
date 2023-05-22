@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useLoadSettingsQuery, useUpdateBusinessLogoMutation } from '../../modules/LoadSettings/settingsApi'
 import UpdateDetailsModal from '../../components/settings/UpdateDetailsModal'
 import useAuth from '../../useAuth'
+import ApiKeysModal from '../../components/settings/ApiKeysModal'
 
 
 
@@ -22,6 +23,7 @@ const Settings = () => {
 
     
     const [showModal,setShowModal] =  useState<boolean>(false)
+    const [showApiKeyModal,setShowApisKeyModal] = useState<boolean>(false)
 
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
@@ -185,11 +187,16 @@ const Settings = () => {
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet number</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletNumber ? businessData?.walletNumber : '--'}</h2>
                         </div>
-                       {/* <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
-                            <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Wallet ID</h1>
-                            <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{businessData?.walletId ? businessData?.walletId : '--'}</h2>
-                        </div> */}
+                        <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
                        
+                       <div 
+                       className='w-[5.625rem] h-11 border-[0.0625rem] border-primary rounded-[0.313rem] cursor-pointer'
+                       onClick={() => setShowApisKeyModal(true)}
+                       >
+                            <div className='flex justify-center items-center h-11 text-sm text-primary font-WorkSans font-normal leading-4'>
+                                <h1>API KEYS</h1>
+                            </div>
+                       </div>
                     </div>
 
                {/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
@@ -230,6 +237,13 @@ const Settings = () => {
             r_address={businessData?.address}
             r_website={businessData?.website}
             r_bvn={businessData?.bvn}
+            />
+        </div>
+        <div>
+            <ApiKeysModal
+            isVisible={showApiKeyModal}
+            onClose={async () => setShowApisKeyModal(false)}
+            businessName={businessData?.name}
             />
         </div>
     </div>

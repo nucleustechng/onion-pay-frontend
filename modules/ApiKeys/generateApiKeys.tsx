@@ -20,10 +20,13 @@ export const generateApiKeys = createApi({
         },
     }),
     endpoints: (builder) => ({
+    loadDevSettings:builder.query<any,void>({
+            query:() => '/api/v1/dev-settings',
+    }),    
    generateKeys:builder.query<any,void>({
             query:() => '/api/v1/regenerate-api-keys',
         })
     })
 });
 
-export const { useGenerateKeysQuery } = generateApiKeys
+export const { useGenerateKeysQuery ,useLoadDevSettingsQuery} = generateApiKeys

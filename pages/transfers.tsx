@@ -13,13 +13,10 @@ const Transfers = () => {
   return (
     <div>
         <div>
-            <div className='w-[74rem]'>
+            <div>
                 <TransfersEmpty/>
-                {/* <SeerbitComponent/> */}
-                {/* <PaymentLinks/> */}
-                {/* <PaymentPlans/> */}
             </div>
-            <div className='fixed left-auto top-3/4 right-0 mr-7 z-50 mt-[8.5rem]'>
+            <div className='fixed left-auto top-2/3 right-0 mr-7 z-30 mt-[8.5rem]'>
                     <HelpButton/>
                 </div>
            

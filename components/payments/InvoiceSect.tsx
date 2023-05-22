@@ -53,7 +53,7 @@ const InvoiceSect = () => {
     <div>
         {(invoicesArray?.length == 0)  ?
 
-<div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
+<div className='w-[23rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
           <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Invoices</h1>
           {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
@@ -61,20 +61,20 @@ const InvoiceSect = () => {
         </div> : null}
       </div>
   {/* Button to add subaccounts */}
-   <div className='flex justify-end'>
-    <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
+   {/* <div className='flex justify-end'>
+    <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 mr-9 md:mr-0 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
       setShowModal(true)
       }}>
       <h1 className='text-base text-[#FFFFFF] font-normal font-WorkSans leading-5'>Create an invoice</h1>
       <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF] w-5 h-5'/>
     </div>
-  </div>
+  </div> */}
   <div className='flex flex-col gap-5 mt-6'>
-    <div className='w-[27.65rem]'>
+    <div className='w-[21rem] md:w-[27.65rem]'>
       <h1 className='text-[2rem] text-[#262626] font-WorkSans font-normal leading-9'>You have no transactions in the last
 30 days, but you can change that.</h1>
     </div>
-    <div className='w-[27.65rem]'>
+    <div className='w-[21rem] md:w-[27.65rem]'>
       <p className='text-base text-[#262626] font-WorkSans font-normal leading-5'>Your customers might be looking for ways to pay you, create a payment link or send them invoices.</p>
     </div>
     <div>
@@ -106,8 +106,8 @@ const InvoiceSect = () => {
               </div>}
             </div>
             {/* Small screen search input */}
-            <div className='w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden'>
-                  <div className='fixed  pl-[0.7rem] '>
+            <div className='relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden'>
+                  <div className='absolute  pl-[0.7rem] '>
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
                   {/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
@@ -165,7 +165,7 @@ const InvoiceSect = () => {
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
-          <div className='xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
+          <div className='w-[23rem] ml-4 md:ml-0 xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
                   <div className="relative">
                     <div className="sticky top-0 z-10 bg-white"> 
                       <InvoiceHeader/>

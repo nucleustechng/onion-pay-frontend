@@ -21,7 +21,7 @@ export const paymentPageApi = createApi({
     }),
     endpoints: (builder) => ({
         createPaymentPage:builder.mutation({
-            query: (body:{title:string,fixed:boolean,amount:number,
+            query: (body:{title:string,fixed:boolean,amount?:number,
                 description:string,redirect_url:string}) => {
                 return {
                     url:'/api/v1/create-payment-page',

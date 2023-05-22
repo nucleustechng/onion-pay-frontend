@@ -1,10 +1,15 @@
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
 // import Image from 'next/image'
 import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
+import { setShowSidebar } from '../../redux/sidebarSlice'
+import { RootState } from '../../redux/store'
 // import DownloadIcon from '../../Assets/icon/Download.svg'
 import SingleAccountModal from './modals/bankaccount/SingleAccountModal'
 import TransferModal from './modals/TransferModal'
+import Hamburger from '../../Assets/icon/HamburgerIcon.svg'
 
 
 
@@ -13,26 +18,31 @@ const TransfersEmpty = () => {
   const [showModal,setShowModal] = useState<boolean>(false);
   const [secondStep,setSecondStep] = useState<number>(1)
   // const [isSecondStep,setSecondStep] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
   return (
     <div>
         <div>
-        <div className='w-[72rem] mt-6 mx-6'>
-            <div className='flex justify-between items-center '>
-                <div>
-                    <h1 className='text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Transfers</h1>
+        <div className='w-[22rem] lg:w-[72rem] mt-6 mx-4 lg:mx-6'>
+            <div className='flex flex-col gap-5 lg:gap-0 lg:flex-row lg:justify-between lg:items-center '>
+                <div className='flex justify-between items-center mx-4 mb-12 w-auto'>
+                    <h1 className='text-[#262626] text-xl lg:text-[2rem] font-WorkSans font-medium leading-9'>Transfers</h1>
+                    {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+          <Image src={Hamburger} alt='Hamburger Icon' />
+        </div> : null}
                 </div>
             <div className='flex items-center gap-4'>
-                <div className='flex justify-center items-center lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
-                <div className='flex items-center lg:gap-7'>
+                <div className='flex justify-center items-center w-[7rem] lg:w-[9.4rem] h-11  rounded-[0.32rem] bg-[#F5F5F5]'>
+                <div className='flex items-center gap-3 lg:gap-7'>
                   <h1 className='text-sm'>Last 7days</h1>
-                  <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
+                  <FontAwesomeIcon icon={faChevronDown} className='w-4 h-4 lg:w-5 lg:h-5 text-sm'/>
                 </div>
               </div>
-              <div className='flex justify-center items-center lg:w-[11.1rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
-                <div className='flex items-center lg:gap-7'>
+              <div className='flex justify-center items-center w-[9.8rem] lg:w-[11.1rem] h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                <div className='flex items-center gap-4 lg:gap-7'>
                   <h1 className='text-sm'>Filters applied: 2</h1>
-                  <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
+                  <FontAwesomeIcon icon={faChevronDown} className='w-4 h-4 lg:w-5 lg:h-5 text-sm'/>
                 </div>
               </div>
                 </div>
@@ -48,25 +58,25 @@ const TransfersEmpty = () => {
                     </div> 
                   </div> */}
                 </div>
-                <div>
-                  <div className='flex  items-center lg:w-[15rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                {/* <div>
+                  <div className='flex  items-center lg:w-[15rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex items-center mx-4 gap-4'>
                       <h1 className='text-base font-WorkSans font-normal text-white'>Make a new transfer</h1>
                       <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                   </div>
-                </div>
+                </div> */}
             </div>
           </div>
             </div>
-            <div className='lg:mt-6 w-[31.5rem] h-16 '>
+            <div className='lg:mt-6 w-[20rem] lg:w-[31.5rem] h-16 '>
                 <h1 className='text-[2rem] text-[#262626]'>You have not made any transfers
                 in the last 7 days.</h1>
-                <div className='flex mt-6  items-center lg:w-[15rem] lg:h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                <div className='flex mt-6  items-center w-[13rem] lg:w-[15rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
                     setShowModal(true)
                     }}>
-                      <h1 className='text-base font-WorkSans font-normal text-white'>Make a new transfer</h1>
+                      <h1 className='text-sm md:text-base font-WorkSans font-normal text-white'>Make a new transfer</h1>
                       <FontAwesomeIcon icon={faPlus} className='w-5 h-5 text-base text-white'/>
                     </div>
                 </div>

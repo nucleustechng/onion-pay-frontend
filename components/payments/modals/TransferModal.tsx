@@ -36,8 +36,8 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
       if (!isVisible) return null;
   return (
     <div>
-        <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-20 flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[27.7rem] h-[32.75rem] rounded-[0.63rem] bg-white'>
+        <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center' id='wrapper' onClick={handleClose}>
+            <div className='w-[20rem] md:w-[27.7rem] h-[32.75rem] rounded-[0.63rem] bg-white'>
                 <div className='mx-6 my-6'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Make a Transfer</h1>
@@ -52,11 +52,11 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
                     </div>
                     <div className='flex flex-col gap-4 mt-6'>
                         {/* First Card */}
-                        <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 1 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
+                        <div className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 1 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
                             handleActive(1)
                             active === 1 ? dispatch(setBankAccount(true)) : dispatch(setBankAccount(false))
                             }}>
-                            <div className='mx-6 my-6' >
+                            <div className='mx-6 my-3 md:my-6' >
                                 <div className='flex items-center justify-between mb-3'>
                                     <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Bank Account</h1>
                                     <div className='flex justify-end w-6 h-6'>
@@ -85,11 +85,11 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
                         </div> */}
 
                         {/* Third card */}
-                        <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
+                        <div className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
                             handleActive(2)
                             active === 2 ? dispatch(setOnionPay(true)) : dispatch(setOnionPay(false))
                             }}>
-                            <div className='mx-6 my-6'>
+                            <div className='mx-6 my-3 md:my-6'>
                                 <div className='flex items-center justify-between mb-3'>
                                     <h1 className='text-xl text-[#262626] font-WorkSans font-semibold leading-6'>Transfer to Onion Pay Wallet</h1>
                                     <div className='flex justify-end w-6 h-6'>

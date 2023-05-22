@@ -61,6 +61,12 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
   };
   
   const [createInvoice, { data: createInvoiceData, isSuccess, isLoading }] = useCreateInvoiceMutation();
+
+  const abortMutation = () => {
+    let dataToSend = { ...invoiceData };
+
+    createInvoice(dataToSend).abort()
+  }
   
   const handleCreateInvoice = async () => {
     try {
@@ -157,7 +163,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                     </div>
                        <div className='flex flex-col gap-6 '>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]'
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]'
                         name='name'
                         value={order.name}
                         onChange={(e) => setOrder({...order, name: e.target.value})} 
@@ -165,7 +171,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Item Name' 
                         placeholder='Item Name'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]' 
                         name='quantity'
                         value={order.quantity.toString()}
                         onChange={(e) => setOrder({...order, quantity: parseInt(e.target.value)})} 
@@ -173,7 +179,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Quantity' 
                         placeholder='1'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]' 
                         name='price'
                         value={order.price.toString()}
                         onChange={(e) => setOrder({...order, price: parseInt(e.target.value)})}
@@ -197,7 +203,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                     </div>
                       {open[index] && <div className='flex flex-col gap-6 '>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]'
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]'
                         name='name'
                         value={item.name}
                         onChange={(e) => {
@@ -210,7 +216,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Item name' 
                         placeholder='Item name'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]' 
                         name='quantity'
                         value={item.quantity.toString()}
                         onChange={(e) => {
@@ -222,7 +228,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                         label='Quantity' 
                         placeholder='1'/>
                         <Input 
-                        width='w-[20.5rem] md:w-[25rem] lg:w-[28rem]' 
+                        width='w-[18rem] md:w-[25rem] lg:w-[28rem]' 
                         name='price'
                         value={item.price.toString()}
                         onChange={(e) => {
@@ -253,7 +259,7 @@ const CompleteInvoiceModal = ({isVisible,onClose,data}: Props) => {
                           </div>
                         </div>
                         <div className='flex items-center justify-end gap-4 mt-6'>
-                            <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
+                            <button onClick={abortMutation} className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                             Cancel
                             </button>
                             <div onClick={() => {

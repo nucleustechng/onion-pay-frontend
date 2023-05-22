@@ -5,7 +5,7 @@ const InvoiceHeader = () => {
   return (
     <div>
        <div className='flex items-center rounded-[0.32rem] w-[71.5rem] px-4 h-12 bg-[#F5F5F5]'>
-            <div className='w-[22.5rem]'>
+            <div className='w-[17rem] md:w-[22.5rem]'>
               <h1>Client</h1>
             </div>
             <div className='w-[10.45rem]'>

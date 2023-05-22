@@ -38,7 +38,6 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
         setSelectedAmount(amount)
 
         onEllipsisClick(paymentLink);
-        console.log('Works',pageName,pageId,amount)
      };
 
     const copyToClipboard = (copyItem:any) => {
@@ -70,7 +69,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
             <div className='w-[10.25rem]'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{pageName}</h1>
             </div>
-            <div className='w-[12.3rem]'>
+            <div className='w-[12.3rem] pl-3'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem]'>{amount}</h1>
             </div>
             <div className='w-[10.3rem]'>
@@ -79,7 +78,7 @@ const PaymentTable = ({paymentLink,amount,pageId,pageName,description,onEllipsis
             <div className='w-[14.3rem]'>
                 <h1 className='text-base text-[#262626] font-WorkSans font-normal leading-[1.2rem] truncate'>{description}</h1>
             </div>
-            <div className="flex items-center justify-between w-[22.3rem]  ">
+            <div className="flex items-center justify-between w-[22.3rem] pl-3 ">
                 <div className="w-[20rem]  flex gap-14 items-center " >
                     <p className="w-[15rem]">{paymentLink}</p>
                     <div className='cursor-pointer' onClick={() => copyToClipboard(paymentLink)}>

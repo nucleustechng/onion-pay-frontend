@@ -32,6 +32,12 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
 
   const [transfer,{isSuccess,isLoading,data:transferData}] = useTransferMutation()
 
+  const {isWallet,acc_bank,acc_num,amount} = transferInfo;
+
+  const abortMutation = () => {
+    transfer({isWallet,acc_bank,acc_num,amount}).abort();
+  };
+
   const handleTransfer = async () => {
     const {isWallet,acc_bank,acc_num,amount} = transferInfo;
     console.log(isWallet)
@@ -71,7 +77,7 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
     <div>
       <ToastContainer/>
           <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[33.26rem] h-[22.51rem] rounded-[0.63rem] bg-white'>
+            <div className='w-[22rem] md:w-[33.26rem] h-[22.51rem] rounded-[0.63rem] bg-white'>
               <div className='mx-6 mt-6'>
                   <div className='flex justify-between items-center'>
                     <div onClick={() => handleModal(1)} className='flex items-center gap-2'>
@@ -139,7 +145,7 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
                   </div> */}
                   {/* Action buttons */}
                   <div className='flex items-center justify-end gap-4 mt-5'>
-                    <button className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
+                    <button onClick={abortMutation} className='flex items-center justify-center w-[5.4rem] h-11 bg-[#F5F5F5] rounded-[0.313rem] text-base text-[#262626] font-WorkSans font-normal leading-5'>
                       Cancel
                     </button>
                     <div onClick={handleTransfer} className='flex justify-center items-center cursor-pointer w-[10.21rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5'>

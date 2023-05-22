@@ -77,8 +77,8 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
   return (
     <div>
         <ToastContainer/>
-        <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
-            <div className='w-[33rem] h-[28rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
+        <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
+            <div className='w-[20rem] md:w-[33rem] h-[28rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
                 <div className='mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center gap-2'>
@@ -100,7 +100,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                             placeholder='Transaction id'
                             label='Transaction ID' 
                             type='text' 
-                            width='w-[26rem] md:w-[30rem]'
+                            width='w-[17rem] md:w-[30rem]'
                             height='h-[3.13rem]'
                             />
                         </div>
@@ -109,7 +109,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                             name='amount'
                             value={refundInfo.amount.toString()}
                             onChange={(e) => setRefundInfo({...refundInfo, amount: parseInt(e.target.value)})}
-                            width='w-[26rem] md:w-[30rem]'
+                            width='w-[17rem] md:w-[30rem]'
                             height='h-[3.13rem]'
                             type='number' 
                             label='How much do you want to refund'  
@@ -121,7 +121,7 @@ const SingleRefundModal = ({isVisible,onClose}: Props) => {
                             name='reason'
                             value={refundInfo.reason}
                             onChange={(e) => setRefundInfo({...refundInfo, reason: e.target.value})}
-                            width='w-[26rem] md:w-[30rem]'
+                            width='w-[17rem] md:w-[30rem]'
                             height='h-[3.13rem]'
                             type='text' 
                             label='Comments'  

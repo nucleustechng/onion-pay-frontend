@@ -130,7 +130,7 @@ const TransactionSect = () => {
               </div>}
             </div>
             {/* Small screen search input */}
-            <div className='w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden'>
+            <div className='relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden'>
                   <div className='absolute  pl-[0.7rem] '>
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
@@ -166,17 +166,7 @@ const TransactionSect = () => {
                     </div>
                   </div>
                 </div>
-                {/* Create invoice button for small screens */}
-                <div className='flex justify-end lg:hidden cursor-pointer' onClick={()=>{
-                    setShowModal(true)
-                  }}>
-                    <div className='flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
-                    w-[12rem] h-9 text-sm md:w-[12rem] md:h-11
-                    lg:hidden font-WorkSans font-normal leading-4'>
-                      Create an Invoice
-                      <FontAwesomeIcon icon={faPlus} className="w-5 h-5"/>  
-                    </div>
-                  </div>
+               
               </div>
           </div>
 {/* 
@@ -190,7 +180,7 @@ const TransactionSect = () => {
               <FontAwesomeIcon icon={faPlus}/>  
             </div>
           </div> */}
-          <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
+          <div className='fixed mr-3 left-auto top-[35rem] right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
           <div className='xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
