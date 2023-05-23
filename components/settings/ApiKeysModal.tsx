@@ -15,6 +15,28 @@ type Props = {
 }
 
 const ApiKeysModal = ({isVisible,onClose,businessName}: Props) => {
+    const {data:settingsData,isSuccess:settingSuccess} = useLoadDevSettingsQuery()
+    const { isLoading,isSuccess:generateKeySuccess, data: generateKeysData, refetch: generateKeysQuery } = useGenerateKeysQuery();
+
+    const handleGenerateKeysClick = () => {
+      generateKeysQuery();
+    };
+    
+    const [apiKeys,setApiKeys] = useState<any>([])
+
+
+
+    useEffect(() =>{
+        // businessUpdated ? setRefetch(true) :   setRefetch(false)
+        if (settingSuccess && settingsData.success == true || generateKeySuccess && generateKeysData.success == true) {
+            generateKeysData ? setApiKeys(generateKeysData) : setApiKeys(settingsData['business'])
+            console.log("Dev settings",settingsData['business'])
+        } else {
+            toast.error(settingsData?.reason)
+        }
+
+    
+    },[settingSuccess,settingsData,generateKeySuccess,generateKeysData])
     const handleClose = (e:any) =>{
         if(e.target.id === 'wrapper'){
             onClose()                                                   
@@ -22,28 +44,7 @@ const ApiKeysModal = ({isVisible,onClose,businessName}: Props) => {
       }
       if (!isVisible) return null;
 
-      const {data:settingsData,isSuccess:settingSuccess} = useLoadDevSettingsQuery()
-      const { isLoading,isSuccess:generateKeySuccess, data: generateKeysData, refetch: generateKeysQuery } = useGenerateKeysQuery();
-
-      const handleGenerateKeysClick = () => {
-        generateKeysQuery();
-      };
-      
-      const [apiKeys,setApiKeys] = useState<any>([])
-  
-  
-  
-      useEffect(() =>{
-          // businessUpdated ? setRefetch(true) :   setRefetch(false)
-          if (settingSuccess && settingsData.success == true || generateKeySuccess && generateKeysData.success == true) {
-              generateKeysData ? setApiKeys(generateKeysData) : setApiKeys(settingsData['business'])
-              console.log("Dev settings",settingsData['business'])
-          } else {
-              toast.error(settingsData?.reason)
-          }
-  
-      
-      },[settingSuccess,settingsData,generateKeySuccess,generateKeysData])
+    
 
       interface IApiKey {
         title:string
