@@ -32,8 +32,8 @@ const Footer = () => {
     {mainText:'Kit',route:'/'},
   ]
   const contactArray = [
-    {mainText:'hello@onionpay.com'},
-    {mainText:'+234 7655 675 445'},
+    {mainText:'info@onionpay.io'},
+    {mainText:'+234 8179442770'},
     {mainText:'Twitter support'},
     {mainText:`Call lines are open
     08:00 to 17:00 WAT,
