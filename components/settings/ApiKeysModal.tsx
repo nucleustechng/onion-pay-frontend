@@ -30,7 +30,6 @@ const ApiKeysModal = ({isVisible,onClose,businessName}: Props) => {
         // businessUpdated ? setRefetch(true) :   setRefetch(false)
         if (settingSuccess && settingsData.success == true || generateKeySuccess && generateKeysData.success == true) {
             generateKeysData ? setApiKeys(generateKeysData) : setApiKeys(settingsData['business'])
-            console.log("Dev settings",settingsData['business'])
         } else {
             toast.error(settingsData?.reason)
         }
@@ -53,15 +52,15 @@ const ApiKeysModal = ({isVisible,onClose,businessName}: Props) => {
       const ApiKeyContainer = ({title,devKey,}:IApiKey) => (
         <div>
             <h1 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{title}</h1>
-            <div className='flex items-center w-[30rem] h-[3.125rem] mt-[0.375rem] border-[0.0625rem] border-[#CACACA] rounded-[0.313rem]'>
-                <h1 className='w-[22rem] break-words ml-6 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{devKey}</h1>
+            <div className='flex items-center w-[19rem] md:w-[29rem] lg:w-[30rem] h-[3.125rem] mt-[0.375rem] border-[0.0625rem] border-[#CACACA] rounded-[0.313rem]'>
+                <h1 className='w-[15rem] md:w-[22rem] break-words ml-2 md:ml-6 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{devKey}</h1>
                 <div className='flex justify-end w-[30rem]'>
                     <div 
                     onClick={() => copyToClipboard(devKey)}
-                    className='flex items-center justify-center w-[5.25rem] h-[3rem] cursor-pointer bg-[#E7EDFF] border-l-primary border-l-[0.0625rem] rounded-r-[0.313rem]'>
+                    className='flex items-center justify-center w-[3rem] md:w-[5.25rem] h-[3rem] cursor-pointer bg-[#E7EDFF] border-l-primary border-l-[0.0625rem] rounded-r-[0.313rem]'>
                         <div className='flex justify-center items-center gap-2'>
-                            <h1 className='text-sm text-primary font-WorkSans font-normal leading-4'>Copy</h1>
-                            <Image src={CopyIcon} alt='Copy Icon' />
+                            <h1 className='text-xs md:text-sm text-primary font-WorkSans font-normal leading-4'>Copy</h1>
+                            <Image src={CopyIcon} alt='Copy Icon' className='hidden md:flex'/>
                         </div>
                     </div>
                 </div>
@@ -78,7 +77,7 @@ const ApiKeysModal = ({isVisible,onClose,businessName}: Props) => {
     <ToastContainer/>
     <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
         {/* h-[57.2rem] */}
-        <div className='w-[29rem] md:w-[33rem] h-[33rem] mt-36 mb-6 rounded-[0.63rem] bg-white'>
+        <div className='w-[22rem] md:w-[33rem] h-[33rem] mt-36 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white'>
             <div className='flex flex-col mx-6 mt-6 '>
                 <div className='flex items-center justify-between'>
                    <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5'>API Keys for {businessName}</h1>

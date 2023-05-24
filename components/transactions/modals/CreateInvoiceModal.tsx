@@ -91,7 +91,7 @@ const CreateInvoiceModal = ({isVisible,onClose,onSubmit}: Props) => {
         <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] z-40
         0 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
-            <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[37.71rem] mt-32 mb-6 rounded-[0.63rem] bg-white'>
+            <div className='w-[22.5rem] md:w-[27rem]  lg:w-[33rem] h-[37.71rem] mt-32 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white'>
                 <div className='mx-4 lg:mx-6 mt-7'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[#262626] text-lg leading-5 font-WorkSans font-medium'>Create an Invoice</h1>

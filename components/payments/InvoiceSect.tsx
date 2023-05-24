@@ -53,10 +53,10 @@ const InvoiceSect = () => {
     <div>
         {(invoicesArray?.length == 0)  ?
 
-<div className='w-[23rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
+<div className='w-[23rem] sm:w-[45rem] md:w-[32rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
           <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Invoices</h1>
-          {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+          {!sidebarShow ? <div className='md:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
       </div>
@@ -96,12 +96,12 @@ const InvoiceSect = () => {
 </div>
     
           : 
-          <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
+          <div className='w-screen md:w-[32rem] lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
             <div className='flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0'>
               <h1 className='inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9'>Invoices</h1>
-              {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+              {!sidebarShow && <div className='md:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
               </div>}
             </div>
@@ -165,7 +165,7 @@ const InvoiceSect = () => {
           <div className='fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]'>
             <HelpButton/>
           </div>
-          <div className='w-[23rem] ml-4 md:ml-0 xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
+          <div className='w-[23rem] ml-4 md:ml-0 md:w-[32rem] xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10'>
                   <div className="relative">
                     <div className="sticky top-0 z-10 bg-white"> 
                       <InvoiceHeader/>

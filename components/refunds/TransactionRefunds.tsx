@@ -60,7 +60,7 @@ const TransactionRefunds = () => {
         <FontAwesomeIcon icon={faPlus} className='text-[#FFFFFF] w-5 h-5'/>
       </div>
     </div>
-    <div>
+    <div className='flex justify-center items-center'>
         {/* <LogRefundModal isVisible={isSecondStep ? false : showModal} onClose={async () => setShowModal(false)}/> */}
          <SingleRefundModal  isVisible={showModal} onClose={async () => setShowModal(false)}/>
     </div>

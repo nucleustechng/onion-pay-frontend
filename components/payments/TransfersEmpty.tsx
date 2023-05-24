@@ -24,10 +24,10 @@ const TransfersEmpty = () => {
   return (
     <div>
         <div>
-        <div className='w-[22rem] lg:w-[72rem] mt-6 mx-4 lg:mx-6'>
+        <div className='w-[22rem] md:w-[32rem] lg:w-[72rem] mt-6 mx-4 lg:mx-6'>
             <div className='flex flex-col gap-5 lg:gap-0 lg:flex-row lg:justify-between lg:items-center '>
                 <div className='flex justify-between items-center mx-4 mb-12 w-auto'>
-                    <h1 className='text-[#262626] text-xl lg:text-[2rem] font-WorkSans font-medium leading-9'>Transfers</h1>
+                    <h1 className='text-[#262626] text-xl md:text-[2rem] lg:text-[2rem] font-WorkSans font-medium leading-9'>Transfers</h1>
                     {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
@@ -72,7 +72,7 @@ const TransfersEmpty = () => {
             <div className='lg:mt-6 w-[20rem] lg:w-[31.5rem] h-16 '>
                 <h1 className='text-[2rem] text-[#262626]'>You have not made any transfers
                 in the last 7 days.</h1>
-                <div className='flex mt-6  items-center w-[13rem] lg:w-[15rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
+                <div className='flex mt-6  items-center w-[13rem] md:w-[15rem] lg:w-[15rem] h-11 rounded-[0.32rem] bg-[#3063E9] '>
                     <div className='flex  items-center mx-4 gap-4 cursor-pointer' onClick={()=>{
                     setShowModal(true)
                     }}>

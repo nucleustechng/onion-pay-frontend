@@ -77,7 +77,7 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
     <div>
       <ToastContainer/>
           <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[22rem] md:w-[33.26rem] h-[22.51rem] rounded-[0.63rem] bg-white'>
+            <div className='w-[22rem] md:w-[33.26rem] h-[22.51rem] rounded-[0.63rem] md:mb-56 lg:mb-0 bg-white'>
               <div className='mx-6 mt-6'>
                   <div className='flex justify-between items-center'>
                     <div onClick={() => handleModal(1)} className='flex items-center gap-2'>

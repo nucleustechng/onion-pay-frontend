@@ -12,7 +12,7 @@ const Transactions = () => {
   return (
     <div>
       <div>
-        <div className='w-[20rem] lg:w-[74rem]'>
+        <div className='w-[20rem] md:w-[32rem] lg:w-[74rem]'>
           <TransactionSect/>
           {/* <Refunds/> */}
           {/* <ChargeBacks/> */}

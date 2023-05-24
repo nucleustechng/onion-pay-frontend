@@ -1,7 +1,10 @@
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Loader from './Loader';
+import LogOutIcon from '../Assets/icon/LogOut.svg'
+
 
 interface Props {
   isVisible:boolean
@@ -38,10 +41,17 @@ if (!isVisible) return null;
 
   return (
     <div className='fixed inset-0 bg-[#262626] z-30 bg-opacity-50 backdrop-blur-[0.05rem] flex justify-center items-center'  id='wrapper' onClick={handleClose}>
-    <div className='flex flex-col gap-6 w-[20rem] h-[11.325rem] py-6 rounded-[0.63rem] bg-white'>
+    <div className='flex flex-col gap-6 w-[20rem] h-[13.325rem] py-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white'>
     <div className="">
-        <h2 className="text-xl text-[#1B1A1A] font-WorkSans mb-4 leading-5 font-semibold text-center">Log Out</h2>
-        <p className="text-[#1B1A1A] text-sm font-WorkSans font-normal text-center mb-6">Are you sure you want to logout?</p>
+      <div className='flex justify-center'>
+              <h2 className="text-xl w-[10.637rem]   text-[#1B1A1A] font-WorkSans mb-4 font-semibold text-center leading-5">Are you sure
+      you want to Log Out?</h2>
+      </div>
+      <div className='flex justify-center mb-6'>
+          <div className='flex items-center justify-center bg-[#DE0040] rounded-[0.625rem] w-11 h-11 lg:w-11 lg:h-11'>
+            <Image src={LogOutIcon} alt='Settings' className='w-[1.6rem] h-[1.6rem]'/>
+          </div>
+      </div>
         <div className="flex justify-center">
           <button
             className="bg-[#F5F5F5] hover:bg-gray-400 text-[#1B1A1A] font-WorkSans text-sm font-normal py-2 px-4 rounded mr-2"

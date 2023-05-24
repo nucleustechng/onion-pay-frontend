@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../Loader'
 import CustomToggle from '../../CustomToggle'
-// import { RootState } from '../../../redux/store'
 
 interface Props {
     isVisible:boolean
@@ -17,7 +16,7 @@ interface Props {
 
 const SingleChargeModal = ({isVisible,onClose}: Props) => {
 
-  const [isFixed,setFixed] = useState<boolean>(false)
+  const [isFixed,setFixed] = useState<boolean>(true)
   const [paymentLinkInfo, setPaymentLinkInfo] = useState({
     title: '',
     fixed: isFixed,
@@ -92,7 +91,7 @@ useEffect(() => {
     <div>
         <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-20 flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className={`w-[22rem] md:w-[33.01rem] ${!isFixed ? 'h-[31rem]' : 'h-[38.5rem]'} ${!isFixed ? "md:h-[31rem]" : "md:h-[38rem]"} rounded-[0.63rem] bg-white`}>
+            <div className={`w-[22rem] md:w-[33.01rem] md:mb-80 lg:mb-0 ${!isFixed ? 'h-[31rem]' : 'h-[38.5rem]'} ${!isFixed ? "md:h-[31rem]" : "md:h-[38rem]"} rounded-[0.63rem] bg-white`}>
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center gap-2 cursor-pointer'>

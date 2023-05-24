@@ -117,7 +117,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
         <ToastContainer/>
         <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center overflow-y-scroll' id='wrapper' onClick={handleClose}>
             {/* h-[57.2rem] */}
-            <div className='w-[29rem] md:w-[33rem] h-[42rem] mt-36 mb-6 rounded-[0.63rem] bg-white'>
+            <div className='w-[20rem] max-[280px]:w-[16rem] md:w-[33rem] h-[42rem] max-[280px]:h-[44rem] mt-36 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white'>
                 <div className='flex flex-col mx-6 mt-6 '>
                     <div className='flex items-center justify-between'>
                        <h1 className='text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5'>Update business details</h1>
@@ -135,7 +135,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder='Business name'
                         label='Business name' 
                         type='text' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'/>
                         <Input 
                         name='email'
@@ -144,7 +144,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder='Business email'
                         label='Business email' 
                         type='text' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'/>
                         <Input 
                         name='phone'
@@ -153,7 +153,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder='+234'
                         label='Business phone' 
                         type='tel' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
                         <Input 
@@ -163,7 +163,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder='Business address'
                         label='Business address' 
                         type='text' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
                         <Input 
@@ -173,7 +173,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder='https://'
                         label='Business website' 
                         type='url' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
                         <Input 
@@ -183,7 +183,7 @@ const UpdateDetailsModal = ({isVisible,onClose,r_email,r_address,r_bvn,r_phone,r
                         placeholder=''
                         label='Bank Verification Number' 
                         type='url' 
-                        width='w-[26rem] md:w-[30rem]'
+                        width='w-[17rem] max-[280px]:w-[13rem] md:w-[30rem]'
                         height='h-[3.13rem]'
                         />
                     </div>

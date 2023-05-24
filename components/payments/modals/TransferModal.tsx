@@ -36,8 +36,8 @@ const TransferModal = ({isVisible,onClose,handlerFunc}: Props) => {
       if (!isVisible) return null;
   return (
     <div>
-        <div className='fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center' id='wrapper' onClick={handleClose}>
-            <div className='w-[20rem] md:w-[27.7rem] h-[32.75rem] rounded-[0.63rem] bg-white'>
+        <div className='fixed inset-0  bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center' id='wrapper' onClick={handleClose}>
+            <div className='w-[20rem] md:w-[27.7rem] h-[32.75rem] md:mb-72 lg:mb-0 rounded-[0.63rem] bg-white'>
                 <div className='mx-6 my-6'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-lg text-[#262626] font-WorkSans font-semibold leading-5'>Make a Transfer</h1>

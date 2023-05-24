@@ -69,10 +69,10 @@ const TransactionSect = () => {
       <div>
         {transactionsArray?.length == 0 ?
 
-<div className='w-[25rem] sm:w-[45rem] md:w-[50rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
+<div className='w-[25rem] sm:w-[45rem] md:w-[32rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6'> 
 <div className='flex justify-between items-center mr-9 mb-12'>
           <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Transactions</h1>
-          {!sidebarShow ? <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+          {!sidebarShow ? <div className='flex md:hidden lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
           <Image src={Hamburger} alt='Hamburger Icon' />
         </div> : null}
       </div> 
@@ -120,7 +120,7 @@ const TransactionSect = () => {
 </div>
     
           : 
-          <div className='w-screen lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
+          <div className='w-screen md:w-[32rem] lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7'>
         
           <div className='flex flex-col lg:flex lg:justify-between lg:flex-row'>
             <div className='flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0'>
@@ -141,8 +141,8 @@ const TransactionSect = () => {
                   onChange={(e) => setTransactionID(e.target.value)}
                   className='w-screen h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
             </div>
-            <div className='flex flex-row gap-3 mt-4 md:pl-5 lg:gap-3 lg:mt-0'>
-                <div className='hidden md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]'>
+            <div className='flex flex-row gap-3 mt-4 md:pl-5 md:gap-1 lg:gap-3 lg:mt-0'>
+                <div className='hidden md:relative md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]'>
                   <div className='absolute  pl-[0.7rem] '>
                     <Image src={SearchIcon} alt='Search Icon' className='w-4 h-4'/>
                   </div>
@@ -150,17 +150,17 @@ const TransactionSect = () => {
                   <input type="text" className='w-[18.75rem] h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]' placeholder='Search' />
                 </div>
                 <div className=''>
-                  <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[9.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                  <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[7.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center gap-3 md:gap-7 lg:gap-7'>
-                      <h1 className='hidden md:inline-flex md:text-sm lg:inline-flex lg:text-sm'>Last 7days</h1>
+                      <h1 className='hidden md:inline-flex md:text-xs lg:inline-flex  lg:text-sm'>Last 7days</h1>
                       <FontAwesomeIcon className='inline-flex md:hidden lg:hidden ' icon={faCalendar}/>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                     </div>
                   </div>
                 </div>
                 <div className=' '>
-                  <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
-                    <div className='flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-20 lg:gap-20'>
+                  <div className='w-[3.7rem] h-9 md:w-[6.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                    <div className='flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-10 lg:gap-20'>
                       <h1 className='text-sm'>All</h1>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5 text-sm'/>
                     </div>

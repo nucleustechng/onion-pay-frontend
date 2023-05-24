@@ -86,11 +86,11 @@ const MerchantSettings = () => {
   return (
     <div className=''>
         <ToastContainer/>
-        <div className='w-auto xl:w-[71.5rem]'>
-            <div className='mx-6 my-6'>
+        <div className='w-auto md:w-[32rem] xl:w-[71.5rem]'>
+            <div className='mx-3 my-6'>
             <div className='flex justify-between items-center mr-9 mb-12'>
                 <h1 className='text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]'>Settings</h1>
-                {!sidebarShow && <div className='lg:hidden' onClick={() => dispatch(setShowSidebar(true))}>
+                {!sidebarShow && <div className='md:hidden' onClick={() => dispatch(setShowSidebar(true))}>
                 <Image src={Hamburger} alt='Hamburger Icon' />
               </div>}
             </div>
@@ -109,24 +109,24 @@ const MerchantSettings = () => {
                     </div>
                 </div>
                    
-                <hr className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
+                <hr className='w-auto sm:w-[37rem] md:w-[32rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6' />
                 {/* {businessData.map((item:any) => ( */}
                     <div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        <div  className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>
                             Merchant name</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>
                             {merchantData?.f_name} {merchantData?.l_name}</h2>
                         </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        <div  className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Merchant email</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{merchantData?.email ? merchantData?.email : '--'}</h2>
                         </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        <div  className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Merchant phone</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{merchantData?.phone ? merchantData?.phone : '--'}</h2>
                         </div>
-                        <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                        <div  className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Merchant address</h1>
                             <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{merchantData?.address ? merchantData?.address : '--'}</h2>
                         </div>
@@ -144,11 +144,11 @@ const MerchantSettings = () => {
                         </div> */}
                     </div>
                 {/* ))} */}
-               <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
+               <div className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>NIN:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{merchantData?.nin ? merchantData?.nin : '--'}</h2>
                 </div>
-                <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                <div  className='w-[21rem] sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                             <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'> Bank account details:</h1>
                             <div  className='flex items-center gap-2'>
                                 <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>{bankDetails?.account_number} - {bankDetails?.bank}</h2>
@@ -159,7 +159,7 @@ const MerchantSettings = () => {
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>CAC Certificate:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Mintfool</h2>
                 </div> */}
-                <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
+                <div className='w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
                     <h1 className='text-sm text-[#898989] font-WorkSans font-normal leading-4'>Sign-up Date:</h1>
                     <h2 className='text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4'>Nov 19, 2019 - 10:28 AM</h2>
                 </div>
