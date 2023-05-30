@@ -35,7 +35,7 @@ const PricingSection = () => {
                 <div>
                 <div className='flex flex-col gap-10'>
                        {services.map((service:string) => (
-                            <ListComponent text={service} />
+                            <ListComponent key={service} text={service} />
                        ))}
                     </div>
                 </div>
