@@ -116,7 +116,6 @@ const SingleAccountModal = ({isVisible,onClose,handleModal}: Props) => {
                               <Input
                               type='number'
                               height='h-[3.15rem]'
-                              width='w-[29.rem]'
                               name='amount'
                               value={transferInfo?.amount.toString()}
                               onChange={(e) => setTransferInfo({...transferInfo, amount:parseFloat(e.target.value)}) }

@@ -11,6 +11,7 @@ import AfricanLady  from '../Assets/img/AfricanLady.svg'
 import ApiSection from '../components/pagesections/ApiSection/ApiSection'
 import JoinSection from '../components/pagesections/JoinSection/JoinSection'
 import Link from 'next/link'
+import PricingSection from '../components/pagesections/PricingSection'
 
 
 
@@ -26,7 +27,7 @@ export default function Home() {
     <>
      
     <div>
-        <div className='relative z-20  bg-[#F5F5F5] w-full
+        <div className='relative z-20  bg-[#F5F5F5] w-full md:w-[72rem]
         lg:h-[53.75rem] pt-[1.875rem] 
         '>
             <div className='relative  h-[17.5rem] mt-[6rem]  ml-5 
@@ -91,9 +92,9 @@ export default function Home() {
               </Link>
             </div>
               <div className='inline-flex lg:hidden'>
-                <Image src={Herosect}  loading='lazy' alt='Hero sect' className='w-screen'/>
+                <Image src={Herosect}  loading='lazy' alt='Hero sect' className='w-screen md:w-[72rem] '/>
               </div>
-              <div className='hidden lg:inline-flex lg:absolute lg:bottom-0 lg:right-20 lg:z-20
+              <div className='hidden  lg:inline-flex lg:absolute lg:bottom-0 lg:right-20 lg:z-20
               '>
                 <Image src={LargeHeroSect} loading='lazy' alt='Hero sect large' className='w-screen'/>
               </div>
@@ -128,6 +129,10 @@ export default function Home() {
      </div>
      <div className='bg-[#1B1A1A] h-auto'>
         <ApiSection/>
+     </div>
+     <div className='mt-24'>
+      <h1 className='text-center text-[5.625rem] text-[#FF9635] font-SpaceGrotesk font-bold'>Pricing</h1>
+      <PricingSection/>
      </div>
      <div className='bg-white h-auto pt-[5.625rem] pb-[5.315rem]'>
         <JoinSection/>

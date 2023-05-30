@@ -10,8 +10,8 @@ import Link from 'next/link'
 const ApiSection = () => {
   return (
     <div>
-        <div className='flex justify-center mb-6 md:mb-12 md:pt-10'>
-            <div className='w-full md:w-[35rem] lg:w-[54.2rem] flex flex-col items-center gap-4'>
+        <div className='flex justify-center mb-6 md:mb-12 md:pt-10 md:w-[72rem] lg:w-auto'>
+            <div className='w-full  lg:w-[54.2rem] flex flex-col items-center gap-4'>
                 <h2 className='text-xl text-white font-WorkSans font-normal leading-[1.625rem] md:text-[3.375rem] lg:text-[4.5rem] text-center'>
                 Easy-to-use
                 </h2>

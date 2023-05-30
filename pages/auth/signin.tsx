@@ -127,7 +127,7 @@ const Signin = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} loading='lazy' alt='Logo'/>
+                      <Image src={Logo} width={300} loading='lazy' alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>

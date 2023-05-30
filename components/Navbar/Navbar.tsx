@@ -25,8 +25,8 @@ const Navbar = () => {
         <div>
             <div className=''>
             <div className={`
-                  px-5 overflow-y-scroll w-screen bg-white fixed inset-0 h-full z-50 transition-all duration-500
-                  ${toggleNav ? 'right-20' : 'left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[65rem] lg:left-[85rem] xl:left-[95rem] min-[280px]:left-[25rem] min-[412px]:left-[30rem]'}
+                  px-5 overflow-y-scroll w-screen  bg-white fixed inset-0 h-full z-50 transition-all duration-500
+                  ${toggleNav ? 'right-20' : 'left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[80rem] lg:left-[85rem] xl:left-[95rem] min-[280px]:left-[25rem] min-[412px]:left-[30rem]'}
                 `}
               >
                 <div className="flex justify-end mt-[1.875rem] cursor-pointer" onClick={() => setToggleNav(!toggleNav)}>

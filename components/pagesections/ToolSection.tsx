@@ -43,22 +43,32 @@ const ToolSection = () => {
                   </div>
             <div className=' flex justify-between md:w-[68rem] lg:w-[62rem]  xl:w-[79.5rem]'>
               <div className='relative md:w-[40rem] flex flex-col gap-5 mt-6 md:inline-flex'>
-                  <ToolSectionCard header='Payment link'  backgroundColor='bg-[#303778]' circleColor='bg-[#FF9635]' 
+                  <ToolSectionCard 
+                  route='/acceptpaymentlinks'
+                  header='Payment link'  backgroundColor='bg-[#303778]' circleColor='bg-[#FF9635]' 
                   img={PaymentLink} alt='Payment Link Image'
                   mainText='Accept one-time or recurring payments from anyone, anywhere and anytime, with your unique payment link.' />
-                  <ToolSectionCard header='Receipts'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#303778]' 
+                  <ToolSectionCard 
+                  route='/auth/signup'
+                  header='Receipts'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#303778]' 
                   img={Receipts} alt='Receipt Image'
                   mainText='Have receipts automatically created for you to share on every transaction made.' />
 
                   {/* Medium breakpoint  shows this cards instead */}
                   
                   <div className='relative '>
-                    <LargeToolSectCard header='Payment link'  backgroundColor='bg-[#303778]' circleColor='bg-[#FF9635]' 
+                    <LargeToolSectCard 
+                    route='/acceptpaymentlinks'
+                    header='Payment link'  
+                    backgroundColor='bg-[#303778]' circleColor='bg-[#FF9635]' 
                     img={PaymentLinkLarge} alt='Payment Link Image' 
                     mainText='Accept one-time or recurring payments from anyone, anywhere and anytime, with your unique payment link.' />
                   </div>
                   <div className='absolute xl:left-[25rem] top-[10rem] z-20 md:left-[19rem]'>
-                    <LargeToolSectCard header='Receipts'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#303778]' 
+                    <LargeToolSectCard 
+                    routeText='Get started'
+                    route='/auth/signup'
+                    header='Receipts'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#303778]' 
                     img={ReceiptsLarge} alt='Receipt Image' left='left-[8rem]'  top='top-[13.65rem] md:top-[14.7rem]'
                     mainText='Have receipts automatically created for you to share on every transaction made.' />
                    
@@ -83,10 +93,14 @@ const ToolSection = () => {
               <h1 className='w-[12.825rem] text-5xl text-[#FF9635] font-SpaceGrotesk font-bold leading-[2.75rem]'>Payment tools.</h1>
             </div>
             <div className='flex flex-col gap-5 mt-5'>
-                <ToolSectionCard header='Accept payments'  backgroundColor='bg-[#3063E9]' circleColor='bg-[#FF9635]' 
+                <ToolSectionCard 
+                route='/collect-payment'
+                header='Accept payments'  backgroundColor='bg-[#3063E9]' circleColor='bg-[#FF9635]' 
                 img={AcceptPayments} alt='Accept  Payments Image' height='h-14'
                 mainText='Receive money from anyone, at any time, anywhere in the world.' />
-                <ToolSectionCard header='Transfers'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#3063E9]' 
+                <ToolSectionCard 
+                route='/auth/signup'
+                header='Transfers'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#3063E9]' 
                 img={TransfersInnerImage} alt='Transfers  Image' height='h-[3.25rem]'
                 mainText='Make single or bulk transfers to bank accounts from your Onion Pay dashboard.' />
                 
@@ -99,7 +113,7 @@ const ToolSection = () => {
                       lg:flex lg:absolute lg:left-[30rem] lg:top-[12rem]
                        
                     '>
-                      <LargeToolSectCard header='Accept payments'  backgroundColor='bg-[#3063E9]' circleColor='bg-[#FF9635]' 
+                      <LargeToolSectCard route='/collect-payment' header='Accept payments'  backgroundColor='bg-[#3063E9]' circleColor='bg-[#FF9635]' 
                       img={AcceptPaymentsLarge} alt='Payment Link Image'  top='top-[13rem]'
                       mainText='Receive money from anyone, at any time, anywhere in the world.' />
                     </div>
@@ -109,7 +123,9 @@ const ToolSection = () => {
                       <Image src={L_OrangeArrowTransfers} loading='lazy' alt=''/>
                     </div>
                     <div className='xl:absolute xl:left-[50rem] xl:top-[35.8rem] lg:absolute lg:left-[41rem] lg:top-[35.8rem]'>
-                      <LargeToolSectCard header='Transfers'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#FF9635]' 
+                      <LargeToolSectCard 
+                      route='/auth/signup'
+                      header='Transfers'  backgroundColor='bg-[#FF9635]' circleColor='bg-[#FF9635]' 
                       img={L_Transfers} alt='Payment Link Image'  top='top-[14.5rem]' left='left-0'
                       mainText='Make single or bulk transfers to bank accounts from your Onion Pay dashboard.' />
                     </div>

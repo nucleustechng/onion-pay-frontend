@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import ArrowRight  from '../../Assets/icons/ArrowRight.svg'
 
@@ -9,10 +10,12 @@ interface Props {
     img:any,
     circleColor:string,
     alt:string,
-    height?:string
+    height?:string,
+    route:string
+
 }
 
-const ToolSectionCard = ({backgroundColor,circleColor,header,img,mainText,alt,height}: Props) => {
+const ToolSectionCard = ({backgroundColor,circleColor,header,img,mainText,alt,height,route}: Props) => {
   return (
     <div>
         <div className={`relative w-[21.875rem] h-[11.875rem] ${backgroundColor} rounded-[0.5rem]
@@ -31,9 +34,9 @@ const ToolSectionCard = ({backgroundColor,circleColor,header,img,mainText,alt,he
                 </div>
             </div>
             <div className='flex justify-end mr-3 '>
-                <div className={`flex items-center justify-center w-[3.375rem] h-[3.375rem] ${circleColor} rounded-full`}>
+                <Link href={route} className={`flex items-center justify-center w-[3.375rem] h-[3.375rem] ${circleColor} rounded-full`}>
                     <Image src={ArrowRight} loading='lazy' alt='Right arrow icon'  className='w-9 h-9'/>
-                </div>
+                </Link>
             </div>
             <div className={`absolute bottom-0 left-4 ${height}`}>
                 <Image src={img} loading='lazy' alt={alt}/>
