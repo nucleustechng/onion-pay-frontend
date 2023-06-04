@@ -27,7 +27,7 @@ export default function Home() {
     <>
      
     <div>
-        <div className='relative z-20  bg-[#F5F5F5] w-full md:w-[72rem]
+        <div className='relative z-20  bg-[#F5F5F5] w-full md:w-[72rem] lg:w-full
         lg:h-[53.75rem] pt-[1.875rem] 
         '>
             <div className='relative  h-[17.5rem] mt-[6rem]  ml-5 
@@ -115,7 +115,8 @@ export default function Home() {
               min-[1024px]:left-[42rem] 
 
                 '>
-                    <Image src={HeroMan} loading='lazy' alt='Hero section image'/>
+                    <Image src={HeroMan} 
+                    loading='lazy' alt='Hero section image'/>
                 </div>
         </div>
      </div>
