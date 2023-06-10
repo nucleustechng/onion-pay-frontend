@@ -47,8 +47,7 @@ const CreateBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
         businessInfo.b_name &&
         businessInfo.b_email &&
         businessInfo.b_address &&
-        businessInfo.b_phone &&
-        businessInfo.website
+        businessInfo.b_phone 
       ) {
         await createBusiness(businessInfo);
       }

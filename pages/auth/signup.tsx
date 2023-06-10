@@ -34,6 +34,8 @@ const SignUp = () => {
   const [emailError,setEmailError] = useState<string>('')
   const [phoneError,setPhoneError] = useState<string>('');
   const [ninError,setNinError] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
 
 
   const [f_name,setFirstName] = useState<string>('');
@@ -44,6 +46,7 @@ const SignUp = () => {
   const [address,setAddress] = useState<string>(''); 
   const [nin,setNin] = useState<string>(''); //National Identification number
   const [dateOfBirth,setDateOfBirth] = useState<any>(null);
+  const [confirmpasswordError,setConfirmPasswordError] = useState<string>('');
   
   const date = new Date(dateOfBirth)
   const dob = date.getTime()
@@ -58,6 +61,10 @@ const SignUp = () => {
     const [signUp,{data:signupData,isSuccess,isLoading}] = useSignupMutation()
     const handleSubmit = async () => { 
         if (f_name && l_name && email && phone && country && password && address && dob && nin) {
+          if (password !== confirmPassword) {
+            setConfirmPasswordError("Password and confirm password don't match");
+            return;
+          }
         await signUp({ f_name, l_name, phone, password, email, country, address, dob, nin });
         } else {
         console.log(signupData?.reason || 'Missing required fields');
@@ -65,7 +72,6 @@ const SignUp = () => {
     }
 
     useEffect(() => {
-      console.log('Date of birth',dob)
         if (isSuccess && signupData?.success  == true) {
             if (signupData?.token) {
               Cookies.set('token',signupData?.token)
@@ -260,6 +266,19 @@ const SignUp = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         />
+                        <Input
+                          width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]'
+                          height='h-[3.125rem]'
+                          label='Confirm Password'
+                          textSize='text-sm'
+                          placeholder='Confirm Password'
+                          type='password'
+                          name='confirmPassword'
+                          value={confirmPassword}
+                          errorMessage={confirmpasswordError}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+
                         <div className='mt-4' >
                                 <ButtonRegular width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' height='h-11'
                                 backgroundColor='bg-primary' borderWidth='0.313rem'
@@ -267,7 +286,7 @@ const SignUp = () => {
                                 color='text-white' mainText={isLoading ? <Loader isWhite={true}/> :  'Continue' }  textSize='text-base'
                                 />
                             <div className='w-[21.875rem] lg:w-[25rem] xl:w-[30rem] mt-10'>
-                                <p className='text-center text-[#202020] text-base font-WorkSans leading-5 '>{`By clicking continue, you agree to Exchange's`} 
+                                <p className='text-center text-[#202020] text-base font-WorkSans leading-5 '>{`By clicking continue, you agree to Onion Pay`} 
                                 <span className='text-[#3063E9]'> Terms of Service</span> and <span>Privacy Policy.</span></p>
                             </div>
                            

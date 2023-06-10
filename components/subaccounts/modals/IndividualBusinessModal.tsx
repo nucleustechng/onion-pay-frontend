@@ -114,7 +114,7 @@ const IndividualBusinessModal = ({isVisible,onClose,handlerFunc}: Props) => {
                 <div className='flex flex-col mx-6 mt-6'>
                     <div className='flex items-center justify-between'>
                         <div onClick={() => handlerFunc('create-business')} className='flex items-center cursor-pointer gap-[0.85rem]'>
-                            <FontAwesomeIcon icon={faChevronLeft} />
+                            <FontAwesomeIcon icon={faChevronLeft} className='w-5 h' />
                             <h1 className='text-[#1B1A1A] text-lg font-semibold font-WorkSans leading-5'>Individual business</h1>
                         </div>
                         <div className='cursor-pointer' onClick={() => {

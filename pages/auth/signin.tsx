@@ -65,7 +65,7 @@ const Signin = () => {
                   setPasswordError('Invalid Password');
                   break;
                 case `We couldn't find an Account with the email address provided. Please use your personal email address to log in and not your business email address`:
-                  setEmailError(`We could'nt find an account with this email`);
+                  setEmailError(`We couldn't find an account with this email`);
                   break;
                 default:
                   setPasswordError('');

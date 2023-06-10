@@ -29,6 +29,7 @@ const Verifyemail = () => {
 
   const handleOtpComplete = (otp: string) => {
     setOtp(otp);
+    handleSubmit()
   };
 
   const {data:loadEmailData,isSuccess:loadEmailSuccess} = useLoadEmailQuery()
@@ -59,6 +60,9 @@ const Verifyemail = () => {
         seconds = 59;
       } else {
         clearInterval(countdownInterval);
+        setRemainingTime("01:00");
+        console.log("Remaining time",remainingTime)
+        return;
       }
       
       let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;

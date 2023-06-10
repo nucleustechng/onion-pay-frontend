@@ -15,6 +15,7 @@ import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
 import CustomToggle from './CustomToggle'
 import SettingsItem from './SidebarItems/SettingsItem'
 import LogoutConfirmation from './LogoutConfirmation'
+import BalanceItem from './SidebarItems/BalanceItem'
 
 
 
@@ -103,9 +104,9 @@ const SideBarMobile = () =>{
                     <div>
                         <TransfersItem/>
                     </div>
-                    {/* <div>
+                    <div>
                         <BalanceItem/>
-                    </div> */}
+                    </div>
                      <div>
                         <PaymentItem/>
                     </div>

@@ -16,6 +16,7 @@ import SettingsItem from './SidebarItems/SettingsItem'
 import LogoutConfirmation from './LogoutConfirmation'
 import TransfersItem from './SidebarItems/TransfersItem'
 import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
+import BalanceItem from './SidebarItems/BalanceItem'
 
 
 
@@ -94,9 +95,9 @@ const SideBar = () =>{
                     <div>
                         <TransfersItem/>
                     </div>
-                    {/* <div>
+                    <div>
                         <BalanceItem/>
-                    </div> */}
+                    </div>
                      <div>
                         <PaymentItem/>
                     </div>

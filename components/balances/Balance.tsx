@@ -5,10 +5,18 @@ import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks/hooks'
 import { RootState } from '../../redux/store'
 import { setShowSidebar } from '../../redux/sidebarSlice'
 import dynamic from 'next/dynamic'
+import InfoCircle from '../../Assets/icon/InfoCircle.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import UpgradeWalletModal from './modals/UpgradeWalletModal'
+import CompleteUpgrade from './modals/CompleteUpgrade'
 
 
 const Balance = () => {
     const [showModal,setShowModal] = useState<boolean>(false)
+    const [showUpgrade,setShowUpgrade] = useState<boolean>(false)
+    const [showComplete,setShowComplete] = useState<boolean>(false)
+
     const dispatch = useAppDispatch();
     const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
 
@@ -52,8 +60,33 @@ const Balance = () => {
                 </div>
                 <hr className='border-[#F5F5F5]'/>
             </div>
+            <div onClick={() => setShowUpgrade(true)} className='flex items-center gap-2 cursor-pointer mt-5'>
+                <div className='flex items-center gap-1'>
+                    <Image
+                    src={InfoCircle}
+                    width={14}
+                    height={14}
+                    alt='Info circle icon'
+                    />
+                    <h1 className='text-primary text-xs font-WorkSans font-normal leading-4'>Upgrade Wallet</h1>
+                </div>
+                <FontAwesomeIcon icon={faArrowRight} className='w-5 h-5 text-primary'/>
+            </div>
             <div>
                 <FundBalanceModal isVisible={showModal} onClose={async () => setShowModal(false)}/>
+            </div>
+            <div>
+                <UpgradeWalletModal 
+                isVisible={showUpgrade} 
+                onClose={async () => setShowUpgrade(false)}
+                nextFunc={async () => {
+                    setShowComplete(true)
+                    setShowUpgrade(false)
+                }}
+                />
+            </div>
+            <div>
+                <CompleteUpgrade isVisible={showComplete} onClose={async () => setShowComplete(false)}/>
             </div>
         </div>
     </div>
