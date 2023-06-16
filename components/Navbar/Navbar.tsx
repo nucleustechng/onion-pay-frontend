@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Logo from '../../Assets/logo/OnionPayLogo.png'
+import Logo from '../../Assets/logo/Logo4.png'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import PaymentItem from './NavbarItems/PaymentItem'
 import CommerceItem from './NavbarItems/CommerceItem'
