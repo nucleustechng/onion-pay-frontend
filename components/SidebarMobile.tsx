@@ -81,7 +81,7 @@ const SideBarMobile = () =>{
                     <div>
                         <Image
                             src={Logo}
-                            className='w-[12rem]'
+                            className='w-[12rem] '
                             alt='Onion Pay Logo'
                         />
                     </div>

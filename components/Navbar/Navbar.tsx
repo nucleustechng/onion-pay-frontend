@@ -79,7 +79,7 @@ const Navbar = () => {
                   <Image 
                   src={Logo} 
                   alt='Logo' 
-                  className='w-[12rem]'
+                  className='w-[12rem] h-full'
                   />
                 </Link>
                 <ul className='hidden lg:flex items-center justify-between w-[20rem]'>
