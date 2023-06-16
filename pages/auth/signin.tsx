@@ -10,7 +10,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import LadyImage  from '../../Assets/img/signin/LadyImage.svg'
 import CloseIcon from '../../Assets/icons/CloseIcon.svg'
-import Logo from '../../Assets/logo/Logo.svg'
+import Logo from '../../Assets/logo/OnionPayLogo.png'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import { ToastContainer, toast } from 'react-toastify';
@@ -127,7 +127,10 @@ const Signin = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} width={300} loading='lazy' alt='Logo'/>
+                      <Image src={Logo} 
+                      width={300} 
+                      className='w-[12rem]'
+                      loading='lazy' alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>

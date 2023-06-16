@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '../../Assets/icons/CloseIcon.svg'
-import Logo from '../../Assets/logo/Logo.svg'
+import Logo from '../../Assets/logo/OnionPayLogo.png'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import OtpInput from '../../components/OtpInput'
@@ -167,7 +167,10 @@ const Verifyemail = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} alt='Logo'/>
+                      <Image 
+                      src={Logo} 
+                      className='w-[12rem]'
+                      alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>

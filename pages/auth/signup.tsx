@@ -12,7 +12,7 @@ import BottomImage  from '../../Assets/img/signup/BottomImage.svg'
 import LadyImage  from '../../Assets/img/signup/LadyImage.svg'
 import FamilyImage  from '../../Assets/img/signup/FamilyImage.svg'
 import CloseIcon from '../../Assets/icons/CloseIcon.svg'
-import Logo from '../../Assets/logo/Logo.svg'
+import Logo from '../../Assets/logo/OnionPayLogo.png'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import { useSignupMutation } from '../../modules/auth/api/AuthApi'
@@ -160,7 +160,9 @@ const SignUp = () => {
                   lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem] 
                   '>
                     <Link href='/' className='cursor-pointer'>
-                      <Image src={Logo} alt='Logo'/>
+                      <Image src={Logo} 
+                      className='w-[12rem]'
+                      alt='Logo'/>
                     </Link>
                     
                     <div className='hidden lg:flex justify-between items-center w-[16rem]'>

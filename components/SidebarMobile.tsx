@@ -1,4 +1,4 @@
-import Logo from '../Assets/logo/Logo.svg'
+import Logo from '../Assets/logo/OnionPayLogo.png'
 import LogOutIcon from '../Assets/icon/LogOut.svg'
 import Image from 'next/image'
 import TransactionItem from './SidebarItems/TransactionItem'
@@ -81,6 +81,7 @@ const SideBarMobile = () =>{
                     <div>
                         <Image
                             src={Logo}
+                            className='w-[12rem]'
                             alt='Onion Pay Logo'
                         />
                     </div>

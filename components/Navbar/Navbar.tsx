@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import Logo from '../../Assets/logo/Logo.svg'
+import Logo from '../../Assets/logo/OnionPayLogo.png'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import PaymentItem from './NavbarItems/PaymentItem'
 import CommerceItem from './NavbarItems/CommerceItem'
@@ -76,7 +76,11 @@ const Navbar = () => {
             <div className='fixed left-0 right-0 top-0 z-30'>
               <div className='flex justify-between px-5 items-center h-[4.375rem] pt-[1.875rem] pb-[0.625rem] bg-[#F5F5F5] lg:px-28 xl:px-[9.375rem] xl:h-[5.75rem]'>
                 <Link href='/' className='cursor-pointer'>
-                  <Image src={Logo} alt='Logo' />
+                  <Image 
+                  src={Logo} 
+                  alt='Logo' 
+                  className='w-[12rem]'
+                  />
                 </Link>
                 <ul className='hidden lg:flex items-center justify-between w-[20rem]'>
                   {linkItems.map((item) => (
