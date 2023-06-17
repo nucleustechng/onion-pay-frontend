@@ -10,7 +10,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import LadyImage  from '../../Assets/img/signin/LadyImage.svg'
 import CloseIcon from '../../Assets/icons/CloseIcon.svg'
-import Logo from '../../Assets/logo/OnionPayLogo.png'
+import Logo from '../../Assets/logo/OnionPayLogo.svg'
 import Hamburger from '../../Assets/icons/Hamburger.svg'
 import Footer from '../../components/Footer/Footer'
 import { ToastContainer, toast } from 'react-toastify';
