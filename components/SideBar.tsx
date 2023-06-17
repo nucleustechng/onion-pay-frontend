@@ -1,4 +1,4 @@
-import Logo from '../Assets/logo/OnionPayLogo.png'
+import Logo from '../Assets/logo/OnionPayLogo.svg'
 import LogOutIcon from '../Assets/icon/LogOut.svg'
 import Image from 'next/image'
 // import HomeItem from './SidebarItems/HomeItem'
