@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import FooterItem from './FooterItem'
-import LogoWhite from '../../Assets/logo/LogoWhite.svg'
+import LogoWhite from '../../Assets/logo/OnionPayLogo.svg'
 
 
 const Footer = () => {
@@ -65,7 +65,9 @@ const Footer = () => {
           </div>
           <div className='pb-10 ml-5 mt-8
           md:ml-12 lg:ml-[7.275rem] xl:flex xl:ml-[7.275rem] xl:pb-11 xl:mt-[3.125rem]'>
-            <Image src={LogoWhite} alt='Onion Pay Logo'/>
+            <Image src={LogoWhite} 
+            className='w-[12rem] h-full'
+            alt='Onion Pay Logo'/>
           </div>
         </div>
     </div>
