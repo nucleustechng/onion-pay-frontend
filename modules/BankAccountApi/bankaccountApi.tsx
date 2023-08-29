@@ -36,7 +36,10 @@ export const bankaccountApi = createApi({
         loadBankDetails:builder.query<any,void>({
             query:() => '/api/v1/bank-account-details',
             providesTags:['banks']
-        })
+        }),
+        loadBalance:builder.query<any,void>({
+            query:() => '/api/v1/banks',
+        }),
     })
 });
 
