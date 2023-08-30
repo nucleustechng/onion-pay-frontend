@@ -8,8 +8,6 @@ import useAuth from "../../../useAuth";
 // import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 const Link = () => {
-	useAuth();
-
 	const myButtonRef: any = useRef(null);
 
 	const [paymentLinksArray, setPaymentLinksArray] = useState([]);
@@ -37,7 +35,6 @@ const Link = () => {
 	};
 
 	useEffect(() => {
-		console.log(targetLink);
 		if (isSuccess && paymentLinkData.success == true) {
 			setPaymentLinksArray(paymentLinkData.pages);
 		} else {

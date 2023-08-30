@@ -6,8 +6,6 @@ import { useLoadSettingsQuery } from "./modules/LoadSettings/settingsApi";
 const useAuth = () => {
 	const router = useRouter();
 	const [businessData, setBusinessData] = useState<any>();
-	const businssRoute = router.pathname == "/business";
-
 	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
 	const { data: settingsData, isSuccess: settingSuccess } =
 		useLoadSettingsQuery();
@@ -26,9 +24,6 @@ const useAuth = () => {
 
 		if (!verify) {
 			router.push("/auth/signin");
-		}
-		if (businessData && businssRoute) {
-			router.push("/transactions/");
 		}
 	}, []);
 };
