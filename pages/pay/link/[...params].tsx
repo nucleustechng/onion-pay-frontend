@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import SeerbitCheckout from "seerbit-reactjs";
 import { useLoadPaymentLinksQuery } from "../../../modules/PaymentPageApi/paymentPageApi";
-import useAuth from "../../../useAuth";
 // import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 const Link = () => {
