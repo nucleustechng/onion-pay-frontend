@@ -7,7 +7,7 @@ export const paymentPages = createApi({
 	}),
 	endpoints: (builder) => ({
 		loadPaymentPages: builder.query<any, any>({
-			query: (p_id: any) => `/client/v1/page/:${p_id}`,
+			query: (link: any) => `/client/v1/page/${link}`,
 		}),
 	}),
 });

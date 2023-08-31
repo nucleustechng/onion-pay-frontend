@@ -9,48 +9,41 @@ import { useLoadPaymentPagesQuery } from "../../../modules/PaymentPages";
 const Link = () => {
 	const myButtonRef: any = useRef(null);
 
-	const [paymentLinksArray, setPaymentLinksArray] = useState([]);
+	const [paymentLinksArray, setPaymentLinksArray] = useState<any>([]);
 
 	const router = useRouter();
 	const { params } = router.query;
 	const myLink = params && params[0];
 
-	const targetLink: any = paymentLinksArray.find(
-		(paymentLink: { link: string | undefined }) => paymentLink.link == myLink
-	);
-	console.log("Hmm", targetLink);
-
-	const merchantId = targetLink?.m_id;
-	const pageId = targetLink?.p_id;
+	const merchantId = paymentLinksArray?.m_id;
+	const pageId = paymentLinksArray?.p_id;
 
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
 		tranref: "link-" + merchantId + "-" + pageId,
 		currency: "NGN",
 		country: "NG",
-		amount: targetLink?.amount,
+		amount: paymentLinksArray?.amount,
 		setAmountByCustomer: false,
 		tokenize: false,
-		callbackurl: targetLink?.redirect_url,
+		callbackurl: paymentLinksArray?.redirect_url,
 	};
 
-	const { data: paymentLinkData, isSuccess } = useLoadPaymentPagesQuery(pageId);
+	const { data: paymentLinkData, isSuccess } = useLoadPaymentPagesQuery(myLink);
 
 	useEffect(() => {
-		console.log("Wow", paymentLinkData);
-
 		if (isSuccess && paymentLinkData.success == true) {
-			setPaymentLinksArray(paymentLinkData.pages);
+			setPaymentLinksArray(paymentLinkData?.page);
 		} else {
 			console.log("An error occured");
 		}
 	}, [isSuccess, paymentLinkData]);
 
 	useEffect(() => {
-		if (myButtonRef && targetLink) {
+		if (myButtonRef && paymentLinksArray) {
 			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
 		}
-	}, [targetLink]);
+	}, [paymentLinksArray]);
 
 	return (
 		<div className="flex justify-center">
