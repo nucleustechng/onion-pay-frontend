@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Tooltip } from "react-tooltip";
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg";
 import { useAuthorizeBusinessMutation } from "../../../modules/BusinessPageApi/businessApi";
 import CustomToggle from "../../CustomToggle";
@@ -179,12 +180,32 @@ const IndividualBusinessModal = ({
 										togglePep ? "text-primary" : "text-[#1B1A1A]"
 									} font-WorkSans font-normal leading-5`}
 								>
-									Are you a politically exposed person?
+									Are you a{" "}
+									<span
+										data-tip="Politically Exposed Person (PEP)"
+										data-for="pep-tooltip"
+										className="text-primary underline cursor-pointer"
+									>
+										politically exposed person?
+									</span>
 								</h1>
 								<CustomToggle
 									value={togglePep}
 									onChange={handleToggle}
 								/>
+
+								<Tooltip
+									id="pep-tooltip"
+									// effect="solid"
+								>
+									<a
+										href="https://en.wikipedia.org/wiki/Politically_exposed_person"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Learn more
+									</a>
+								</Tooltip>
 							</div>
 							{/*  */}
 							{/* <di className='relative flex flex-col gap-2'>

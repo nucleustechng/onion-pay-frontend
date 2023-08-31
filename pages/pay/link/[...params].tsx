@@ -3,14 +3,13 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 import SeerbitCheckout from "seerbit-reactjs";
-import { useLoadPaymentLinksQuery } from "../../../modules/PaymentPageApi/paymentPageApi";
+import { useLoadPaymentPagesQuery } from "../../../modules/PaymentPages";
 // import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 const Link = () => {
 	const myButtonRef: any = useRef(null);
 
 	const [paymentLinksArray, setPaymentLinksArray] = useState([]);
-	const { data: paymentLinkData, isSuccess } = useLoadPaymentLinksQuery();
 
 	const router = useRouter();
 	const { params } = router.query;
@@ -19,6 +18,8 @@ const Link = () => {
 	const targetLink: any = paymentLinksArray.find(
 		(paymentLink: { link: string | undefined }) => paymentLink.link == myLink
 	);
+	console.log("Hmm", targetLink);
+
 	const merchantId = targetLink?.m_id;
 	const pageId = targetLink?.p_id;
 
@@ -33,7 +34,11 @@ const Link = () => {
 		callbackurl: targetLink?.redirect_url,
 	};
 
+	const { data: paymentLinkData, isSuccess } = useLoadPaymentPagesQuery(pageId);
+
 	useEffect(() => {
+		console.log("Wow", paymentLinkData);
+
 		if (isSuccess && paymentLinkData.success == true) {
 			setPaymentLinksArray(paymentLinkData.pages);
 		} else {
