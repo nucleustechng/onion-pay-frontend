@@ -19,6 +19,7 @@ import paymentLinkSlice from "./Modal-Processes/paymentLinkSlice";
 import paymentSlice from "./Modal-Processes/paymentSlice";
 import passwordResetSlice from "./passwordResetSlice";
 import sidebarSlice from "./sidebarSlice";
+import { walletApi } from "../modules/WalletApi";
 // import { seerbitApi } from '../components/Checkout/SeerbitPayment'
 
 // ...
@@ -37,6 +38,7 @@ export const store = configureStore({
 		[businessApi.reducerPath]: businessApi.reducer,
 		[paymentPageApi.reducerPath]: paymentPageApi.reducer,
 		[paymentPages.reducerPath]: paymentPages.reducer,
+		[walletApi.reducerPath]: walletApi.reducer,
 		[generateApiKeys.reducerPath]: generateApiKeys.reducer,
 		[settingsApi.reducerPath]: settingsApi.reducer,
 		[invoiceApi.reducerPath]: invoiceApi.reducer,
@@ -61,7 +63,8 @@ export const store = configureStore({
 			retrieveLinkApi.middleware,
 			transationsApi.middleware,
 			switchEnvironment.middleware,
-			bankaccountApi.middleware
+			bankaccountApi.middleware,
+			walletApi.middleware
 		),
 });
 
