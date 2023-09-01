@@ -20,6 +20,7 @@ import {
 import Loader from "../Loader";
 import CreateInvoiceModal from "./modals/CreateInvoiceModal";
 import CompleteInvoiceModal from "./modals/CompleteInvoiceModal";
+import { setSecondStep } from "../../redux/invoiceSlice";
 
 const TransactionSect = () => {
 	// const [showModal,setShowModal] = useState<boolean>(false);
@@ -161,7 +162,10 @@ const TransactionSect = () => {
 										<CompleteInvoiceModal
 											data={outputData}
 											isVisible={!isSecondStep ? false : showModal}
-											onClose={async () => setShowModal(false)}
+											onClose={async () => {
+												setShowModal(false);
+												dispatch(setSecondStep(false));
+											}}
 										/>
 									}
 								</div>

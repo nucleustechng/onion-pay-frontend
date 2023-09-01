@@ -102,7 +102,6 @@ const CompleteInvoiceModal = ({ isVisible, onClose, data }: Props) => {
 	}, [data, itemsCount, retrievedData]);
 
 	useEffect(() => {
-		console.log("Length", invoiceData?.order.length);
 		if (isSuccess && createInvoiceData?.success) {
 			toast.success(
 				"Your invoice has been sent successfully. You will receive an email shortly",
