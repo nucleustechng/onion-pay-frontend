@@ -24,15 +24,11 @@ const Balance = () => {
 
 	const { data: walletData } = useLoadWalletQuery();
 
-	const walletBalance = walletData["wallet"]?.balance_string
+	const walletBalance = walletData
 		? walletData["wallet"]?.balance_string
-		: "---";
-	const walletNumber = walletData["wallet"]?.walletNumber
-		? walletData["wallet"]?.walletNumber
-		: "---";
-	const walletName = walletData["wallet"]?.walletName
-		? walletData["wallet"]?.walletName
-		: "---";
+		: "--";
+	const walletNumber = walletData ? walletData["wallet"]?.walletNumber : "--";
+	const walletName = walletData ? walletData["wallet"]?.walletName : "---";
 
 	// const FundBalanceModal = dynamic(() => import("./modals/FundBalanceModal"));
 
