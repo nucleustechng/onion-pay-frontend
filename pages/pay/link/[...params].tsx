@@ -18,9 +18,10 @@ const Link = () => {
 	const merchantId = paymentLinksArray?.m_id;
 	const pageId = paymentLinksArray?.p_id;
 
+	const myTimeStamp = new Date().getTime().toString();
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
-		tranref: "link-" + merchantId + "-" + pageId,
+		tranref: "link-" + merchantId + "-" + pageId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
 		amount: paymentLinksArray?.amount,

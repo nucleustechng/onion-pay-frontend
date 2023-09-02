@@ -34,11 +34,11 @@ const Invoice = () => {
 		(invoice: { i_id: string | undefined }) => invoice.i_id == targetInvoiceId
 	);
 
-	// const timestamp = params![1];
+	const myTimeStamp = new Date().getTime().toString();
 
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
-		tranref: "invoice-" + merchantId + "-" + invoiceId,
+		tranref: "invoice-" + merchantId + "-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
 		amount: targetInvoice?.amount,
