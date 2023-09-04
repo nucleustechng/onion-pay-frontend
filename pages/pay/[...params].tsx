@@ -17,7 +17,7 @@ const Invoice = () => {
 	const targetInvoiceId = invoiceId;
 	const { data: invoiceData } = useLoadSingleInvoiceQuery(targetInvoiceId);
 
-	const retreivedInvoice = invoiceData && invoiceData["invoices"];
+	const retreivedInvoice = invoiceData && invoiceData["invoice"];
 	// useEffect(() => {
 	// 	if (isSuccess && invoiceData?.success == true) {
 	// 		setInvoicesArray(invoiceData["invoices"]);
