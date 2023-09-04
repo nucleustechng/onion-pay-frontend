@@ -27,6 +27,7 @@ const Invoice = () => {
 
 	const merchantId = params && params[1];
 	const invoiceId = params && params[2];
+	console.log("InvoiceId", invoiceId);
 
 	const targetInvoiceId = invoiceId;
 
