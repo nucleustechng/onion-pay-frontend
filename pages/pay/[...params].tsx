@@ -1,26 +1,23 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import SeerbitCheckout from "seerbit-reactjs";
-import { useLoadInvoicesQuery } from "../../modules/Invoices/invoiceApi";
-import useAuth from "../../useAuth";
+import { useLoadSingleInvoiceQuery } from "../../modules/InvoicesApi";
 
 const Invoice = () => {
-	useAuth();
-
-	const [invoicesArray, setInvoicesArray] = useState<any>([]);
+	// const [invoicesArray, setInvoicesArray] = useState<any>([]);
 	const myButtonRef: any = useRef();
 
-	const { data: invoiceData, isSuccess } = useLoadInvoicesQuery();
+	// const { data: invoiceData, isSuccess } = useLoadInvoicesQuery();
 
-	useEffect(() => {
-		if (isSuccess && invoiceData.success == true) {
-			setInvoicesArray(invoiceData["invoices"]);
-		} else {
-			console.log("An error occured");
-		}
-	}, [isSuccess, invoicesArray, invoiceData]);
+	// useEffect(() => {
+	// 	if (isSuccess && invoiceData.success == true) {
+	// 		setInvoicesArray(invoiceData["invoices"]);
+	// 	} else {
+	// 		console.log("An error occured");
+	// 	}
+	// }, [isSuccess, invoicesArray, invoiceData]);
 
 	const router = useRouter();
 	const { params } = router.query;
@@ -28,10 +25,12 @@ const Invoice = () => {
 	const merchantId = params && params[1];
 	const invoiceId = params && params[2];
 
-	const targetInvoiceId = invoiceId;
+	const targetInvoiceId: any = invoiceId;
+	const { data: invoiceData } = useLoadSingleInvoiceQuery(targetInvoiceId);
+	const retrievedInvoice = invoiceData && invoiceData?.invoice;
 
-	const targetInvoice = invoicesArray.find(
-		(invoice: { i_id: string | undefined }) => invoice.i_id == targetInvoiceId
+	const targetInvoice = retrievedInvoice?.find(
+		(invoice: { i_id: string | undefined }) => invoice?.i_id == targetInvoiceId
 	);
 
 	const myTimeStamp = new Date().getTime().toString();

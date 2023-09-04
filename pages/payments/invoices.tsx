@@ -1,22 +1,19 @@
-import React from 'react'
-import InvoiceSect from '../../components/payments/InvoiceSect'
-import useAuth from '../../useAuth'
-
-
+import React from "react";
+import InvoiceSect from "../../components/payments/InvoiceSect";
+import useAuth from "../../useAuth";
 
 const Invoices = () => {
+	useAuth();
 
-  useAuth()
+	return (
+		<div>
+			<div>
+				<div className="w-[20rem] md:w-[32rem] lg:w-[74rem]">
+					<InvoiceSect />
+				</div>
+			</div>
+		</div>
+	);
+};
 
-  return (
-    <div>
-      <div>
-        <div className='w-[20rem] md:w-[32rem] lg:w-[74rem]'>
-          <InvoiceSect/>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Invoices
+export default Invoices;

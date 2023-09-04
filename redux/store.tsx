@@ -20,6 +20,7 @@ import paymentSlice from "./Modal-Processes/paymentSlice";
 import passwordResetSlice from "./passwordResetSlice";
 import sidebarSlice from "./sidebarSlice";
 import { walletApi } from "../modules/WalletApi";
+import { singleInvoiceApi } from "../modules/InvoicesApi";
 // import { seerbitApi } from '../components/Checkout/SeerbitPayment'
 
 // ...
@@ -48,6 +49,7 @@ export const store = configureStore({
 		[transationsApi.reducerPath]: transationsApi.reducer,
 		[bankaccountApi.reducerPath]: bankaccountApi.reducer,
 		[switchEnvironment.reducerPath]: switchEnvironment.reducer,
+		[singleInvoiceApi.reducerPath]: singleInvoiceApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(
@@ -64,7 +66,8 @@ export const store = configureStore({
 			transationsApi.middleware,
 			switchEnvironment.middleware,
 			bankaccountApi.middleware,
-			walletApi.middleware
+			walletApi.middleware,
+			singleInvoiceApi.middleware
 		),
 });
 
