@@ -68,6 +68,7 @@ const Link = () => {
 					callbackurl={options.callbackurl}
 					title={"Pay Now"}
 					tag={"button"}
+					
 				/>
 			</div>
 		</div>

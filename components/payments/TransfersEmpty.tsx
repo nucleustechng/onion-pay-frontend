@@ -10,6 +10,7 @@ import { RootState } from "../../redux/store";
 import SingleAccountModal from "./modals/bankaccount/SingleAccountModal";
 import TransferModal from "./modals/TransferModal";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+import ExternalTransferModal from "./modals/bankaccount/ExternalTransferModal";
 
 const TransfersEmpty = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -18,6 +19,13 @@ const TransfersEmpty = () => {
 	const dispatch = useAppDispatch();
 	const sidebarShow = useAppSelector(
 		(state: RootState) => state.sidebar.sidebarShow
+	);
+	const bankAccount = useAppSelector(
+		(state: RootState) => state.payment.isBankAccount
+	);
+
+	const onionPayAccount = useAppSelector(
+		(state: RootState) => state.payment.isOnionPay
 	);
 
 	return (
@@ -109,7 +117,17 @@ const TransfersEmpty = () => {
 						/>
 					)}
 					{/* <TransferTypeModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
-					{secondStep == 2 && (
+					{secondStep == 2 && bankAccount == true && (
+						<ExternalTransferModal
+							handleModal={(secondStep) => setSecondStep(secondStep)}
+							isVisible={showModal}
+							onClose={async () => {
+								setShowModal(false);
+								setSecondStep(1);
+							}}
+						/>
+					)}
+					{secondStep == 2 && onionPayAccount == true && (
 						<SingleAccountModal
 							handleModal={(secondStep) => setSecondStep(secondStep)}
 							isVisible={showModal}
@@ -119,6 +137,19 @@ const TransfersEmpty = () => {
 							}}
 						/>
 					)}
+					{/* {secondStep == 2 && bankAccount == true  ? (
+						<ExternalTransferModal
+							handleModal={(secondStep) => setSecondStep(secondStep)}
+							isVisible={showModal}
+							onClose={async () => {
+								setShowModal(false);
+								setSecondStep(1);
+							}}
+						/>
+					) : (
+					
+					)} */}
+
 					{/* <SingleTransferModal isVisible={showModal} onClose={async () => setShowModal(false)} /> */}
 					{/* <SingleMobileTransferModal isVisible={showModal} onClose={async () => setShowModal(false)}/> */}
 				</div>
