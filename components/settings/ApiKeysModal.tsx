@@ -8,6 +8,8 @@ import {
 	useGenerateKeysQuery,
 	useLoadDevSettingsQuery,
 } from "../../modules/ApiKeys/generateApiKeys";
+import { useUpdateWebhookMutation } from "../../modules/Webhook/webhookApi";
+import Input from "../input fields/Input";
 import Loader from "../Loader";
 
 type Props = {
@@ -17,6 +19,42 @@ type Props = {
 };
 
 const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
+	const [updateWebhookDetails, setUpdateWebhookDetails] = useState({
+		url: "",
+		auth_token: "",
+	});
+
+	const [
+		updateWebhook,
+		{ data: updatedData, isSuccess: webhookSuccess, isLoading: webhookLoading },
+	] = useUpdateWebhookMutation();
+
+	const handleUpdateWebhook = async () => {
+		console.log("updateWebhook", updateWebhookDetails);
+		try {
+			if (updateWebhookDetails?.url && updateWebhookDetails?.auth_token) {
+				await updateWebhook({
+					url: updateWebhookDetails?.url,
+					auth_token: updateWebhookDetails?.auth_token,
+				});
+			} else {
+				toast.error("All fields are required");
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {
+		if (webhookSuccess) {
+			if (updatedData?.success === true) {
+				toast.success("You have successfully updated your webhook");
+			} else {
+				toast.error(updatedData?.reason);
+			}
+		}
+	}, [webhookSuccess]);
+
 	const { data: settingsData, isSuccess: settingSuccess } =
 		useLoadDevSettingsQuery();
 	const {
@@ -99,7 +137,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 				onClick={handleClose}
 			>
 				{/* h-[57.2rem] */}
-				<div className="w-[22rem] md:w-[33rem] h-[33rem] mt-36 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white">
+				<div className="w-[22rem] md:w-[33rem] h-[53rem] mt-36 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white">
 					<div className="flex flex-col mx-6 mt-6 ">
 						<div className="flex items-center justify-between">
 							<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
@@ -147,6 +185,56 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 										Regenerate API Keys
 									</h1>
 								)}
+							</div>
+						</div>
+					</div>
+					<hr className="w-auto  border-primary border-[0.0625rem] mx-6 my-6" />
+					<div className="mx-6">
+						<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
+							Update webhook
+						</h1>
+						<div className="mt-6 flex flex-col gap-4">
+							<Input
+								type="text"
+								width="w-[19rem] md:w-[29rem] lg:w-[30rem]"
+								name="url"
+								placeholder="URL"
+								label="URL"
+								value={updateWebhookDetails.url}
+								onChange={(e) => {
+									setUpdateWebhookDetails({
+										...updateWebhookDetails,
+										url: e.target.value,
+									});
+								}}
+							/>
+							<Input
+								type="text"
+								width="w-[19rem] md:w-[29rem] lg:w-[30rem]"
+								name="auth_token"
+								placeholder="Authentication token"
+								label="Authentication token"
+								value={updateWebhookDetails.auth_token}
+								onChange={(e) => {
+									setUpdateWebhookDetails({
+										...updateWebhookDetails,
+										auth_token: e.target.value,
+									});
+								}}
+							/>
+							<div className="flex justify-end">
+								<div
+									onClick={handleUpdateWebhook}
+									className="flex justify-center items-center w-[10.525rem] h-11 cursor-pointer bg-primary rounded-[0.313rem] mt-2"
+								>
+									{webhookLoading ? (
+										<Loader isWhite={true} />
+									) : (
+										<h1 className="text-sm text-white font-WorkSans font-normal leading-4">
+											Update Webhook
+										</h1>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
