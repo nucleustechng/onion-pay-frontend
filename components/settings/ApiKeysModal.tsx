@@ -19,9 +19,41 @@ type Props = {
 };
 
 const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
+	const { data: settingsData, isSuccess: settingSuccess } =
+		useLoadDevSettingsQuery();
+	const {
+		isLoading,
+		isSuccess: generateKeySuccess,
+		data: generateKeysData,
+		refetch: generateKeysQuery,
+	} = useGenerateKeysQuery();
+
+	const handleGenerateKeysClick = () => {
+		generateKeysQuery();
+	};
+
+	const [apiKeys, setApiKeys] = useState<any>([]);
+
+	useEffect(() => {
+		// businessUpdated ? setRefetch(true) :   setRefetch(false)
+		if (
+			(settingSuccess && settingsData.success == true) ||
+			(generateKeySuccess && generateKeysData.success == true)
+		) {
+			console.log("setting", settingsData);
+			generateKeysData
+				? setApiKeys(generateKeysData)
+				: setApiKeys(settingsData["business"]);
+		} else {
+			toast.error(settingsData?.reason);
+		}
+	}, [settingSuccess, settingsData, generateKeySuccess, generateKeysData]);
+
+	const webHookInfo = settingsData && settingsData["business"];
+
 	const [updateWebhookDetails, setUpdateWebhookDetails] = useState({
-		url: "",
-		auth_token: "",
+		url: webHookInfo?.webhook_url,
+		auth_token: webHookInfo?.webhook_auth_token,
 	});
 
 	const [
@@ -55,34 +87,6 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 		}
 	}, [webhookSuccess]);
 
-	const { data: settingsData, isSuccess: settingSuccess } =
-		useLoadDevSettingsQuery();
-	const {
-		isLoading,
-		isSuccess: generateKeySuccess,
-		data: generateKeysData,
-		refetch: generateKeysQuery,
-	} = useGenerateKeysQuery();
-
-	const handleGenerateKeysClick = () => {
-		generateKeysQuery();
-	};
-
-	const [apiKeys, setApiKeys] = useState<any>([]);
-
-	useEffect(() => {
-		// businessUpdated ? setRefetch(true) :   setRefetch(false)
-		if (
-			(settingSuccess && settingsData.success == true) ||
-			(generateKeySuccess && generateKeysData.success == true)
-		) {
-			generateKeysData
-				? setApiKeys(generateKeysData)
-				: setApiKeys(settingsData["business"]);
-		} else {
-			toast.error(settingsData?.reason);
-		}
-	}, [settingSuccess, settingsData, generateKeySuccess, generateKeysData]);
 	const handleClose = (e: any) => {
 		if (e.target.id === "wrapper") {
 			onClose();

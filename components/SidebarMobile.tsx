@@ -1,132 +1,165 @@
-import Logo from '../Assets/logo/OnionPayLogo.svg'
-import LogOutIcon from '../Assets/icon/LogOut.svg'
-import Image from 'next/image'
-import TransactionItem from './SidebarItems/TransactionItem'
-import PaymentItem from './SidebarItems/PaymentItem'
-import BusinessItem from './SidebarItems/BusinessItem'
-import CloseIcon from '../Assets/icon/CloseIcon.svg'
-import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/hooks'
-import { setShowSidebar } from '../redux/sidebarSlice'
-import { RootState } from '../redux/store'
-import TransfersItem from './SidebarItems/TransfersItem'
-import { useEffect, useState } from 'react'
-import { useLoadSettingsQuery } from '../modules/LoadSettings/settingsApi'
-import { useToggleModeQuery } from '../modules/Environment/switchEnvironment'
-import CustomToggle from './CustomToggle'
-import SettingsItem from './SidebarItems/SettingsItem'
-import LogoutConfirmation from './LogoutConfirmation'
-import BalanceItem from './SidebarItems/BalanceItem'
+import Logo from "../Assets/logo/OnionPayLogo.svg";
+import LogOutIcon from "../Assets/icon/LogOut.svg";
+import Image from "next/image";
+import TransactionItem from "./SidebarItems/TransactionItem";
+import PaymentItem from "./SidebarItems/PaymentItem";
+import BusinessItem from "./SidebarItems/BusinessItem";
+import CloseIcon from "../Assets/icon/CloseIcon.svg";
+import { useAppDispatch, useAppSelector } from "../redux/redux-hooks/hooks";
+import { setShowSidebar } from "../redux/sidebarSlice";
+import { RootState } from "../redux/store";
+import TransfersItem from "./SidebarItems/TransfersItem";
+import { useEffect, useState } from "react";
+import { useLoadSettingsQuery } from "../modules/LoadSettings/settingsApi";
+import CustomToggle from "./CustomToggle";
+import SettingsItem from "./SidebarItems/SettingsItem";
+import LogoutConfirmation from "./LogoutConfirmation";
+import BalanceItem from "./SidebarItems/BalanceItem";
+import { useToggleModeMutation } from "../modules/Environment/switchEnvironment";
+import { useLoadDevSettingsQuery } from "../modules/ApiKeys/generateApiKeys";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const SideBarMobile = () => {
+	const dispatch = useAppDispatch();
+	const sidebarShow = useAppSelector(
+		(state: RootState) => state.sidebar.sidebarShow
+	);
+	const handleClose = (e: any) => {
+		if (e.target.id === "wrapper") {
+			dispatch(setShowSidebar(false));
+		}
+	};
 
+	const [showModal, setShowModal] = useState<boolean>(false);
+	const [initialMode, setInitialMode] = useState<boolean>(false);
 
-const SideBarMobile = () =>{
-  const dispatch  = useAppDispatch()
-  const sidebarShow = useAppSelector((state:RootState) => state.sidebar.sidebarShow)
-  const handleClose = (e:any) =>{
-    if(e.target.id === 'wrapper'){
-        dispatch(setShowSidebar(false))                                                   
-    }
-  }
+	const logoutUser = () => {
+		setShowModal(true);
+	};
+	const { data: devSettingsData, isSuccess: devSettingSuccess } =
+		useLoadDevSettingsQuery();
 
-  const [showModal,setShowModal] = useState<boolean>(false)
-    
+	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(initialMode);
+	const [
+		switchEnvironment,
+		{ data: switchEnvData, isSuccess: switchIsSuccess },
+	] = useToggleModeMutation();
 
-  const logoutUser = () => {
-      setShowModal(true)
-  }
+	const switch_onChange_handle = () => {
+		setIsSwitchOn((prevState) => !prevState);
+		switchEnvironment(isSwitchOn);
+	};
 
-  const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
-  const { data, isSuccess } = useToggleModeQuery(isSwitchOn);
-  
-  const switch_onChange_handle = () => {
-    setIsSwitchOn((prevState) => !prevState);
-  };
-  
-  useEffect(() => {
-      if (isSuccess) {
-          console.log('Retrieved')
-      }
-  },[isSuccess,data])
+	useEffect(() => {
+		if (devSettingSuccess) {
+			console.log("Her", devSettingsData["business"]?.live_mode);
+			setInitialMode(devSettingsData["business"]?.live_mode);
+			setIsSwitchOn(devSettingsData["business"]?.live_mode);
+		}
+	}, [devSettingSuccess]);
 
-  const  [businessData,setBusinessData] = useState<any>()
+	useEffect(() => {
+		if (switchIsSuccess) {
+			if (switchEnvData?.success == true) {
+				toast.success(
+					`You have successfully switched to ${
+						switchEnvData?.live == true ? "live mode" : "test mode"
+					}`
+				);
+			} else {
+				toast.error(switchEnvData?.reason);
+			}
+		}
+	}, [switchIsSuccess]);
 
-  // const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
-  const {data:settingsData,isSuccess:settingSuccess} = useLoadSettingsQuery()
+	const [businessData, setBusinessData] = useState<any>();
 
+	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+	const { data: settingsData, isSuccess: settingSuccess } =
+		useLoadSettingsQuery();
 
+	useEffect(() => {
+		// businessUpdated ? setRefetch(true) :   setRefetch(false)
+		if (settingSuccess && settingsData.success == true) {
+			setBusinessData(settingsData["business"]);
+		} else {
+			console.log("An error occured");
+		}
+	}, [settingSuccess, settingsData]);
 
-
-  useEffect(() =>{
-      // businessUpdated ? setRefetch(true) :   setRefetch(false)
-      if (settingSuccess && settingsData.success == true) {
-          setBusinessData(settingsData['business'])
-      } else {
-          console.log('An error occured')
-      }
-
-  
-  },[settingSuccess,settingsData])
-
-  return (
-    <div className={` bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem]
+	return (
+		<div
+			className={` bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem]
        bg-transparent fixed inset-0 h-full  z-50 transition-all duration-500
-    ${sidebarShow ? 'w-full right-20  bottom-0' : '-left-60 w-60 bottom-0'}
-  `}  id='wrapper' onClick={handleClose}
-  
-  >
-      {/*  */}
-        <div className='flex lg:hidden h-full overflow-y-auto  '>
-        <div className='flex flex-col w-60 bg-white'>
-                <div className='flex items-center justify-between px-5 py-5'>
-                    <div>
-                        <Image
-                            src={Logo}
-                            className='w-[12rem] '
-                            alt='Onion Pay Logo'
-                        />
-                    </div>
-                    <div className='' onClick={() => {
-                        dispatch(setShowSidebar(false))
-                        }}>
-                        <Image
-                        src={CloseIcon}
-                        alt='Close Icon'
-                        />
-                    </div>
-            </div>
-          <div className='h-[24rem]'>
-            <h1 className='flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm'>
-              Menu
-            </h1>
-            <div className='flex flex-col gap-2 lg:gap-1'>
-                    <div>
-                        <TransactionItem/>
-                    </div>
-                    <div>
-                        <TransfersItem/>
-                    </div>
-                    <div>
-                        <BalanceItem/>
-                    </div>
-                     <div>
-                        <PaymentItem/>
-                    </div>
-                    {!businessData && <div>
-                        <BusinessItem/>
-                    </div>} 
-                </div>
-            </div>
-            <div className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32   }`}>
-            <div className='flex justify-between items-center mx-6'>
-                <h1 className='text-base text-[#1B1A1A] font-WorkSans font-normal leading-5'>{isSwitchOn ? 'Live Mode' : 'Test Mode'}</h1>
-                <CustomToggle
-                value={isSwitchOn}
-                onChange={switch_onChange_handle}
-                />
-            </div>
-            <hr className='border-solid border-[0.068rem] border-[#F5F0F3]'/>
-            <SettingsItem/>
-            {/* <div className='flex lg:flex'>
+    ${sidebarShow ? "w-full right-20  bottom-0" : "-left-60 w-60 bottom-0"}
+  `}
+			id="wrapper"
+			onClick={handleClose}
+		>
+			<ToastContainer />
+			{/*  */}
+			<div className="flex lg:hidden h-full overflow-y-auto  ">
+				<div className="flex flex-col w-60 bg-white">
+					<div className="flex items-center justify-between px-5 py-5">
+						<div>
+							<Image
+								src={Logo}
+								className="w-[12rem] "
+								alt="Onion Pay Logo"
+							/>
+						</div>
+						<div
+							className=""
+							onClick={() => {
+								dispatch(setShowSidebar(false));
+							}}
+						>
+							<Image
+								src={CloseIcon}
+								alt="Close Icon"
+							/>
+						</div>
+					</div>
+					<div className="h-[24rem]">
+						<h1 className="flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm">
+							Menu
+						</h1>
+						<div className="flex flex-col gap-2 lg:gap-1">
+							<div>
+								<TransactionItem />
+							</div>
+							<div>
+								<TransfersItem />
+							</div>
+							<div>
+								<BalanceItem />
+							</div>
+							<div>
+								<PaymentItem />
+							</div>
+							{!businessData && (
+								<div>
+									<BusinessItem />
+								</div>
+							)}
+						</div>
+					</div>
+					<div
+						className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32   }`}
+					>
+						<div className="flex justify-between items-center mx-6">
+							<h1 className="text-base text-[#1B1A1A] font-WorkSans font-normal leading-5">
+								{isSwitchOn ? "Live Mode" : "Test Mode"}
+							</h1>
+							<CustomToggle
+								value={isSwitchOn}
+								onChange={switch_onChange_handle}
+							/>
+						</div>
+						<hr className="border-solid border-[0.068rem] border-[#F5F0F3]" />
+						<SettingsItem />
+						{/* <div className='flex lg:flex'>
                 <Link href='/settings'>
                                 <div className='flex justify-center w-60'
                                 >
@@ -142,23 +175,32 @@ const SideBarMobile = () =>{
                                 </div>
                             </Link>
                 </div> */}
-               <div className='flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 cursor-pointer' onClick={logoutUser}>
-                    <div className='flex items-center justify-center bg-[#F31212] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]'>
-                        <Image src={LogOutIcon} alt='Settings' className='lg:w-[1.6rem] lg:h-[1.6rem]'/>
-                    </div>
-                    <h1 className='text-[#262626] text-base leading-[1.19rem] font-WorkSans font-normal'>Log out</h1>
-                </div>
-            </div>
-        </div>
-              {/* Vertical line */}
-              <div className='border-[#CACACA] border-solid border-[0.065rem] h-screen '/>
-        </div>
-        <LogoutConfirmation
-        isVisible={showModal}  
-        onClose={async () => setShowModal(false)} 
-        />
-    </div>
-  )
-}
+						<div
+							className="flex items-center gap-5 pl-7 lg:gap-2 lg:pl-7 cursor-pointer"
+							onClick={logoutUser}
+						>
+							<div className="flex items-center justify-center bg-[#F31212] rounded-full w-[1.5rem] h-[1.5rem] lg:w-[1.6rem] lg:h-[1.6rem]">
+								<Image
+									src={LogOutIcon}
+									alt="Settings"
+									className="lg:w-[1.6rem] lg:h-[1.6rem]"
+								/>
+							</div>
+							<h1 className="text-[#262626] text-base leading-[1.19rem] font-WorkSans font-normal">
+								Log out
+							</h1>
+						</div>
+					</div>
+				</div>
+				{/* Vertical line */}
+				<div className="border-[#CACACA] border-solid border-[0.065rem] h-screen " />
+			</div>
+			<LogoutConfirmation
+				isVisible={showModal}
+				onClose={async () => setShowModal(false)}
+			/>
+		</div>
+	);
+};
 
-export default SideBarMobile
+export default SideBarMobile;
