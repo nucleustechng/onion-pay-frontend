@@ -24,7 +24,7 @@ import { setSecondStep } from "../../redux/invoiceSlice";
 
 const TransactionSect = () => {
 	// const [showModal,setShowModal] = useState<boolean>(false);
-	const dispatch = useAppDispatch();
+	const dispatch: any = useAppDispatch();
 	const [outputData, setOutputData] = useState("");
 
 	const handleDataSubmit = (data: any) => {
@@ -299,7 +299,7 @@ const TransactionSect = () => {
 													type={mytransaction?.type}
 												/>
 											) : (
-												transactionsArray.map(
+												transactionsArray?.map(
 													(transaction: any, index: any) => (
 														<div key={index}>
 															<TransactionTable

@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CloseIcon from "../../Assets/icon/CloseIcon.svg";
 import CopyIcon from "../../Assets/icon/CopyIcon.svg";
 import {
-	useGenerateKeysQuery,
+	useGenerateKeysMutation,
 	useLoadDevSettingsQuery,
 } from "../../modules/ApiKeys/generateApiKeys";
 import { useUpdateWebhookMutation } from "../../modules/Webhook/webhookApi";
@@ -19,35 +19,38 @@ type Props = {
 };
 
 const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
-	const { data: settingsData, isSuccess: settingSuccess } =
-		useLoadDevSettingsQuery();
 	const {
-		isLoading,
-		isSuccess: generateKeySuccess,
-		data: generateKeysData,
-		refetch: generateKeysQuery,
-	} = useGenerateKeysQuery();
+		data: settingsData,
+		isSuccess: settingSuccess,
+		refetch,
+	} = useLoadDevSettingsQuery();
+	const [
+		generateNewKeys,
+		{ data: generateData, isSuccess: generatedKey, isLoading: generateLoading },
+	] = useGenerateKeysMutation();
 
 	const handleGenerateKeysClick = () => {
-		generateKeysQuery();
+		generateNewKeys();
 	};
 
 	const [apiKeys, setApiKeys] = useState<any>([]);
 
 	useEffect(() => {
-		// businessUpdated ? setRefetch(true) :   setRefetch(false)
-		if (
-			(settingSuccess && settingsData.success == true) ||
-			(generateKeySuccess && generateKeysData.success == true)
-		) {
-			console.log("setting", settingsData);
-			generateKeysData
-				? setApiKeys(generateKeysData)
-				: setApiKeys(settingsData["business"]);
+		if (generatedKey) {
+			if (generateData?.success === true) {
+				toast.success("Your api keys have been regenerated");
+				setApiKeys(generateData);
+			}
 		} else {
-			toast.error(settingsData?.reason);
+			toast.error(generateData?.reason);
 		}
-	}, [settingSuccess, settingsData, generateKeySuccess, generateKeysData]);
+	}, [generatedKey, generateData, settingSuccess, refetch]);
+
+	useEffect(() => {
+		if (settingSuccess) {
+			setApiKeys(settingsData["business"]);
+		}
+	}, [settingSuccess]);
 
 	const webHookInfo = settingsData && settingsData["business"];
 
@@ -182,7 +185,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 								onClick={handleGenerateKeysClick}
 								className="flex justify-center items-center w-[10.525rem] h-11 cursor-pointer bg-primary rounded-[0.313rem] mt-6"
 							>
-								{isLoading ? (
+								{generateLoading ? (
 									<Loader isWhite={true} />
 								) : (
 									<h1 className="text-sm text-white font-WorkSans font-normal leading-4">
