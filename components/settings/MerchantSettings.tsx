@@ -13,11 +13,15 @@ import EditAccountDetails from "./EditAccountDetails";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditBankAccountDetails from "./EditBankAccountDetails";
-import { useLoadBankDetailsQuery } from "../../modules/BankAccountApi/bankaccountApi";
+import {
+	useLoadBankDetailsQuery,
+	useLoadBanksQuery,
+} from "../../modules/BankAccountApi/bankaccountApi";
 
 const MerchantSettings = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const [showBankModal, setShowBankModal] = useState<boolean>(false);
+	const [banksArray, setBanksArray] = useState<any>();
 
 	const dispatch = useAppDispatch();
 	const sidebarShow = useAppSelector(
@@ -32,7 +36,7 @@ const MerchantSettings = () => {
 	// const  [apiKey,setApiKey]  = useState<string>('')
 	const [merchantData, setMerchantData] = useState<any>();
 
-	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
+	const { data: banksData, isSuccess } = useLoadBanksQuery();
 	const {
 		data: settingsData,
 		isSuccess: settingSuccess,
@@ -43,6 +47,11 @@ const MerchantSettings = () => {
 	// const [hasBusiness,setHasBusiness] = useState<boolean>(false);
 
 	// const webHook  = 'http://yourapp.com/data/12345?Customer=bob&value=10.00&item=paper'
+	useEffect(() => {
+		if (isSuccess) {
+			setBanksArray(banksData["banks"]);
+		}
+	}, [isSuccess]);
 
 	useEffect(() => {
 		// businessUpdated ? setRefetch(true) :   setRefetch(false)
@@ -63,6 +72,10 @@ const MerchantSettings = () => {
 			setBankDetails(bankDetailsData["account"]);
 		}
 	}, [bankDetailSuccess, bankDetails]);
+
+	const filteredArray = banksArray?.find(
+		(bank: any) => bank.bankCode === bankDetails?.bank
+	);
 
 	function formatDate(timestamp: any) {
 		const date = new Date(timestamp);
@@ -205,7 +218,7 @@ const MerchantSettings = () => {
 						</h1>
 						<div className="flex items-center gap-2">
 							<h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-								{bankDetails?.account_number} - {bankDetails?.bank}
+								{bankDetails?.account_number} - {filteredArray?.bankName}
 							</h2>
 							<Image
 								src={EditBlueIcon}

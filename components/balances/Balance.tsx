@@ -83,7 +83,7 @@ const Balance = () => {
 
 					<div className="flex items-center px-4 justify-between h-[3.8rem]">
 						<h1 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							Wallet balance
+							Balance
 						</h1>
 						<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
 							{walletBalance}
@@ -92,7 +92,7 @@ const Balance = () => {
 					<hr className="border-[#F5F5F5]" />
 					<div className="flex items-center px-4 justify-between h-[3.8rem]">
 						<h1 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							Wallet Number
+							Account Number
 						</h1>
 						<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
 							{walletNumber}
