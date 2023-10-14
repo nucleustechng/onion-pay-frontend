@@ -50,6 +50,7 @@ const EditBankAccountDetails = ({ isVisible, onClose }: Props) => {
 
 	const handleUpdate = async () => {
 		const { bank, account_number, settle_to_bank } = bankDetails;
+		console.log(bankDetails);
 		try {
 			if (bank && account_number && settle_to_bank) {
 				await updateBankDetails({ bank, account_number, settle_to_bank });
@@ -68,7 +69,7 @@ const EditBankAccountDetails = ({ isVisible, onClose }: Props) => {
 	}, [isSuccess]);
 
 	const filteredArray = banksArray?.find(
-		(bank: any) => bank.bankCode === bankDetails?.bank
+		(bank: any) => bank.BankCode === bankDetails?.bank
 	);
 	useEffect(() => {
 		setBankDetails({ ...bankDetails, settle_to_bank: true });
@@ -136,13 +137,13 @@ const EditBankAccountDetails = ({ isVisible, onClose }: Props) => {
 										setBankDetails({ ...bankDetails, bank: e.target.value })
 									}
 								>
-									<option value="">{filteredArray?.bankName}</option>
+									<option value="">{filteredArray?.BankName}</option>
 									{banksArray?.map((bank: any) => (
 										<option
-											key={bank?.bankCode}
-											value={bank?.bankCode}
+											key={bank?.BankCode}
+											value={bank?.BankCode}
 										>
-											{bank?.bankName}
+											{bank?.BankName}
 										</option>
 									))}
 								</select>
