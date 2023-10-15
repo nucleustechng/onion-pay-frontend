@@ -12,6 +12,8 @@ import Loader from "../../../Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLoadBanksQuery } from "../../../../modules/BankAccountApi/bankaccountApi";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 interface Props {
 	isVisible: boolean;
@@ -25,13 +27,15 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 		acc_num: string;
 		acc_bank: string;
 		amount: number;
+		recepient_name: string;
 	}
-
+	const [bankCode, setBankCode] = useState<string>("");
 	const [transferInfo, setTransferInfo] = useState<ITransferInfo>({
 		isWallet: false,
 		acc_bank: "",
 		acc_num: "",
 		amount: 0,
+		recepient_name: "",
 	});
 	const [banksArray, setBanksArray] = useState<any>();
 
@@ -40,10 +44,10 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 	const [transfer, { isSuccess, isLoading, data: transferData }] =
 		useTransferMutation();
 
-	const { isWallet, acc_bank, acc_num, amount } = transferInfo;
+	const { isWallet, acc_bank, acc_num, amount, recepient_name } = transferInfo;
 
 	const abortMutation = () => {
-		transfer({ isWallet, acc_bank, acc_num, amount }).abort();
+		transfer({ isWallet, acc_bank, acc_num, amount, recepient_name }).abort();
 	};
 
 	useEffect(() => {
@@ -53,14 +57,14 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 	}, [isBanksLoaded]);
 
 	const handleTransfer = async () => {
-		const { acc_bank, acc_num, amount } = transferInfo;
-
+		const {  acc_num, amount } = transferInfo;
 		try {
-			if (acc_bank && acc_num && amount) {
+			if (bankCode && acc_num && amount) {
 				await transfer({
-					acc_bank: transferInfo?.acc_bank,
+					acc_bank: bankCode,
 					acc_num: transferInfo?.acc_num,
 					amount: transferInfo?.amount,
+					recepient_name: transferInfo?.recepient_name,
 					isWallet: false,
 				});
 			} else {
@@ -78,9 +82,45 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 				onClose();
 			}, 1200);
 		} else {
-			toast.error(transferData?.reason);
+			toast.error(transferData?.reason,{autoClose:3000});
 		}
 	}, [isSuccess, transferData]);
+
+	const fetchBankAccountName = async (
+		accountNumber: string,
+		bankCode: string
+	) => {
+		const token = Cookies.get("token");
+		setBankCode(bankCode);
+		try {
+			// Make a POST request to the endpoint with the accountNumber in the request body
+			const { data } = await axios.post(
+				`${process.env.NEXT_PUBLIC_URL}api/v1/bank-account-name`,
+				{
+					account_number: accountNumber,
+					bank: bankCode,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (data.success === false) {
+				toast.error("We had an issue retrieving the recepient name");
+			}
+
+			// Handle the response data as needed
+			setTransferInfo({ ...transferInfo, recepient_name: data?.name });
+			return data;
+		} catch (error) {
+			toast.error("We had an issue retrieving the recepient name");
+			// Handle errors
+			console.error("Error fetching bank account name:", error);
+			throw error; // Rethrow the error for upper layers to handle if needed
+		}
+	};
 
 	const handleClose = (e: any) => {
 		if (e.target.id === "wrapper") {
@@ -97,7 +137,7 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 				id="wrapper"
 				onClick={handleClose}
 			>
-				<div className="w-[22rem] md:w-[33.26rem] h-[28.51rem] rounded-[0.63rem] md:mb-56 lg:mb-0 bg-white">
+				<div className="w-[22rem] md:w-[33.26rem] h-[34.51rem] rounded-[0.63rem] md:mb-56 lg:mb-0 bg-white">
 					<div className="mx-6 mt-6">
 						<div className="flex justify-between items-center">
 							<div
@@ -143,28 +183,56 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 								label="Account Number"
 							/>
 						</div>
-						<div className="relative mt-4">
-							<select
-								className="w-[19rem] md:w-[30rem] h-[3.313rem]  focus:caret-primary outline-none 
+
+						<div className="mt-4">
+							<label
+								className={`text-sm   text-primaryText  font-WorkSans font-normal leading-4 `}
+							>
+								Bank Name
+							</label>
+							<div className="relative ">
+								<select
+									className="w-[19rem] md:w-[30rem] h-[3.313rem]  focus:caret-primary outline-none 
                             rounded-[0.313rem] border-[0.0625rem] border-[#CACACA] pl-4 
                             text-sm text-[#898989] font-WorkSans font-normal leading-4"
+									onChange={(e) => {
+										fetchBankAccountName(transferInfo?.acc_num, e.target.value);
+
+										setTransferInfo({
+											...transferInfo,
+											acc_bank: e.target.value,
+										});
+									}}
+								>
+									{/* <option value="">{bankDetails?.bank}</option> */}
+									{banksArray?.map((bank: any, index: any) => (
+										<option
+											key={index}
+											value={bank?.BankCode}
+										>
+											{bank?.BankName}
+										</option>
+									))}
+								</select>
+								<FontAwesomeIcon
+									icon={faChevronDown}
+									className="w-5 h-5 absolute top-[1rem] right-[1.1rem]"
+								/>
+							</div>
+						</div>
+						<div className="flex flex-col gap-2 mt-4">
+							<Input
+								type="text"
+								name="recepient_name"
+								value={transferInfo?.recepient_name}
 								onChange={(e) =>
-									setTransferInfo({ ...transferInfo, acc_bank: e.target.value })
+									setTransferInfo({
+										...transferInfo,
+										recepient_name: e.target.value,
+									})
 								}
-							>
-								{/* <option value="">{bankDetails?.bank}</option> */}
-								{banksArray?.map((bank: any, index: any) => (
-									<option
-										key={index}
-										value={bank?.bankCode}
-									>
-										{bank?.bankName}
-									</option>
-								))}
-							</select>
-							<FontAwesomeIcon
-								icon={faChevronDown}
-								className="w-5 h-5 absolute top-[1rem] right-[1.1rem]"
+								height="h-[3.15rem]"
+								label="Recepient Name"
 							/>
 						</div>
 						{/* Input two */}
@@ -191,8 +259,9 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 							</div>
 							{/* Conditional render text based on if the user has typed in the input field */}
 							<div>
-								<h1 className="text-sm text-[#C70039] font-WorkSans font-medium leading-4">
-									Please enter the amount you want to send
+								<h1 className="text-sm  font-WorkSans font-medium leading-4">
+									Please note that there will be a service fee of{" "}
+									<span className="text-[#C70039]"> ₦25(NAIRA)</span>
 								</h1>
 							</div>
 							{/* Input three */}

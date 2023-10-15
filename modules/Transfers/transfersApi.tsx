@@ -24,6 +24,7 @@ export const transfersApi = createApi({
 				acc_num: string;
 				acc_bank: string;
 				amount: number;
+				recepient_name: string;
 			}) => {
 				return {
 					url: "/api/v1/transfer",
