@@ -73,6 +73,7 @@ const SideBar = () => {
 	useEffect(() => {
 		// businessUpdated ? setRefetch(true) :   setRefetch(false)
 		if (settingSuccess && settingsData.success == true) {
+			console.log("Authorized", settingsData["business"]);
 			setBusinessData(settingsData["business"]);
 		} else {
 			console.log("An error occured");
@@ -114,7 +115,7 @@ const SideBar = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{!businessData && (
+							{!businessData?.authorised && (
 								<div>
 									<BusinessItem />
 								</div>
