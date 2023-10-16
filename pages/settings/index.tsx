@@ -229,7 +229,7 @@ const Settings = () => {
 								{businessData?.phone ? businessData?.phone : "--"}
 							</h2>
 						</div>
-						<div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
+						{/* <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
 							<h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
 								{" "}
 								{hasBusiness ? "Business" : "Merchant"} address
@@ -243,7 +243,7 @@ const Settings = () => {
 									  businessData["address"]?.streetName
 									: "--"}
 							</h2>
-						</div>
+						</div> */}
 						<div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
 							<h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
 								Business website

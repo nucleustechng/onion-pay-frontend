@@ -33,7 +33,21 @@ export const transfersApi = createApi({
 				};
 			},
 		}),
+		transferInternal: builder.mutation({
+			query: (body: {
+				isWallet: boolean;
+				acc_num: string;
+				acc_bank: string;
+				amount: number;
+			}) => {
+				return {
+					url: "/api/v1/transfer",
+					method: "post",
+					body,
+				};
+			},
+		}),
 	}),
 });
 
-export const { useTransferMutation } = transfersApi;
+export const { useTransferMutation,useTransferInternalMutation } = transfersApi;
