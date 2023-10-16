@@ -138,7 +138,7 @@ const SideBarMobile = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{!businessData && (
+							{!businessData?.authorised && (
 								<div>
 									<BusinessItem />
 								</div>

@@ -44,7 +44,7 @@ const SideBar = () => {
 
 	useEffect(() => {
 		if (devSettingSuccess) {
-			console.log("Her", devSettingsData["business"]?.live_mode);
+			console.log(devSettingsData["business"]?.live_mode);
 			setInitialMode(devSettingsData["business"]?.live_mode);
 			setIsSwitchOn(devSettingsData["business"]?.live_mode);
 		}
@@ -73,7 +73,6 @@ const SideBar = () => {
 	useEffect(() => {
 		// businessUpdated ? setRefetch(true) :   setRefetch(false)
 		if (settingSuccess && settingsData.success == true) {
-			console.log("Authorized", settingsData["business"]);
 			setBusinessData(settingsData["business"]);
 		} else {
 			console.log("An error occured");
