@@ -57,7 +57,7 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 	}, [isBanksLoaded]);
 
 	const handleTransfer = async () => {
-		const {  acc_num, amount } = transferInfo;
+		const { acc_num, amount } = transferInfo;
 		try {
 			if (bankCode && acc_num && amount) {
 				await transfer({
@@ -82,7 +82,7 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 				onClose();
 			}, 1200);
 		} else {
-			toast.error(transferData?.reason,{autoClose:3000});
+			toast.error(transferData?.reason, { autoClose: 3000 });
 		}
 	}, [isSuccess, transferData]);
 
@@ -106,8 +106,7 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 					},
 				}
 			);
-
-			if (data.success === false) {
+			if (data?.success === false) {
 				toast.error("We had an issue retrieving the recepient name");
 			}
 
