@@ -31,7 +31,7 @@ const TransactionSect = () => {
 	// const [showModal,setShowModal] = useState<boolean>(false);
 	const dispatch: any = useAppDispatch();
 	const [outputData, setOutputData] = useState("");
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
 		setIsOpen(false);
