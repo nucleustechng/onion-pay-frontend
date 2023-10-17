@@ -1,7 +1,7 @@
 import { faChevronDown, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import HelpButton from "../HelpButton";
 import TransactionHeader from "./TransactionHeader";
 import TransactionTable from "./TransactionTable";
@@ -21,11 +21,25 @@ import Loader from "../Loader";
 import CreateInvoiceModal from "./modals/CreateInvoiceModal";
 import CompleteInvoiceModal from "./modals/CompleteInvoiceModal";
 import { setSecondStep } from "../../redux/invoiceSlice";
+// import { Button } from "../../@/components/ui/button";
+// import { ReloadIcon } from "@radix-ui/react-icons";
+import { Dialog, Transition } from "@headlessui/react";
+import { formatDate } from "../../@/lib/utils";
+import { XIcon } from "lucide-react";
 
 const TransactionSect = () => {
 	// const [showModal,setShowModal] = useState<boolean>(false);
 	const dispatch: any = useAppDispatch();
 	const [outputData, setOutputData] = useState("");
+	const [isOpen, setIsOpen] = useState(true);
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	function openModal() {
+		setIsOpen(true);
+	}
 
 	const handleDataSubmit = (data: any) => {
 		setOutputData(data);
@@ -40,6 +54,7 @@ const TransactionSect = () => {
 
 	const [transactionID, setTransactionID] = useState<string>("");
 	const [mytransaction, setMyTransaction] = useState<any>();
+	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const [transactionsArray, setTransactionsArray] = useState<any>([]);
 
@@ -62,7 +77,7 @@ const TransactionSect = () => {
 		}
 
 		if (isSuccess && transactionsData.success == true) {
-			setTransactionsArray(transactionsData["transactions"]);
+			setTransactionsArray(transactionsData["records"]);
 			setLoading(false);
 		} else {
 			console.log("An error occured");
@@ -77,6 +92,22 @@ const TransactionSect = () => {
 		transactionSuccess,
 	]);
 
+	type ICardItem = {
+		mainHeader: string;
+		subText: string;
+	};
+	const CardItem = ({ mainHeader, subText }: ICardItem) => {
+		return (
+			<div className="flex items-center justify-between">
+				<h1 className="font-WorkSans text-sm font-normal text-[#898989]">
+					{mainHeader}:
+				</h1>
+				<h2 className="font-WorkSans text-sm font-normal text-[#1B1A1A]">
+					{subText}
+				</h2>
+			</div>
+		);
+	};
 	return (
 		<div>
 			{loading ? (
@@ -288,30 +319,35 @@ const TransactionSect = () => {
 										<div className="mt-5">
 											{mytransaction ? (
 												<TransactionTable
+													debit={mytransaction?.debit}
 													//  status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
 													amount={mytransaction.amount_string}
-													createdOn={
-														mytransaction.created_on
-															? mytransaction.created_on
-															: "--"
-													}
-													transactionID={mytransaction.t_id}
-													type={mytransaction?.type}
+													date={mytransaction.on ? mytransaction.on : "--"}
+													sender={mytransaction.sender}
+													recipient={mytransaction?.recipient}
+													handleSelected={() => {
+														openModal();
+													}}
 												/>
 											) : (
 												transactionsArray?.map(
-													(transaction: any, index: any) => (
+													(transaction: any, index: number) => (
 														<div key={index}>
 															<TransactionTable
+																debit={transaction?.debit}
+																handleSelected={() => {
+																	openModal();
+																	setSelectedIndex(index);
+																}}
 																// status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
-																amount={transaction.amount_string}
-																createdOn={
-																	transaction.created_on
-																		? transaction.created_on
-																		: "--"
+																amount={transaction?.amount_string}
+																date={transaction.on ? transaction.on : "--"}
+																sender={transaction.sender}
+																recipient={
+																	transaction?.recipient
+																		? transaction?.recipient
+																		: "N/A"
 																}
-																transactionID={transaction.t_id}
-																type={transaction?.type}
 															/>
 														</div>
 													)
@@ -332,10 +368,128 @@ const TransactionSect = () => {
 								</div>
 							</div>
 							<div>
-								<div>
-									{/* <CreateInvoiceModal isVisible={isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/>
-              <CompleteInvoiceModal isVisible={!isSecondStep ?  false : showModal} onClose={async () => setShowModal(false)}/> */}
-								</div>
+								<Transition
+									appear
+									show={isOpen}
+									as={Fragment}
+								>
+									<Dialog
+										as="div"
+										className="relative z-10"
+										onClose={closeModal}
+									>
+										<Transition.Child
+											as={Fragment}
+											enter="ease-out duration-300"
+											enterFrom="opacity-0"
+											enterTo="opacity-100"
+											leave="ease-in duration-200"
+											leaveFrom="opacity-100"
+											leaveTo="opacity-0"
+										>
+											<div className="fixed inset-0 bg-black bg-opacity-25" />
+										</Transition.Child>
+
+										<div className="fixed inset-0 overflow-y-auto">
+											<div className="flex min-h-full items-center justify-center p-4 text-center">
+												<Transition.Child
+													as={Fragment}
+													enter="ease-out duration-300"
+													enterFrom="opacity-0 scale-95"
+													enterTo="opacity-100 scale-100"
+													leave="ease-in duration-200"
+													leaveFrom="opacity-100 scale-100"
+													leaveTo="opacity-0 scale-95"
+												>
+													<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+														<div className="flex justify-between items-center">
+															<Dialog.Title
+																as="h3"
+																className="text-lg font-medium leading-6 text-gray-900"
+															>
+																Transaction Details
+															</Dialog.Title>
+															<XIcon
+																onClick={() => closeModal()}
+																className="cursor-pointer"
+															/>
+														</div>
+														<div className="w-auto border-[1px] border-primary mt-3" />
+
+														<div className="mt-2">
+															<div>
+																<div className="flex flex-col gap-6 mt-6">
+																	<CardItem
+																		mainHeader="Sender"
+																		subText={
+																			transactionsArray[selectedIndex].sender
+																		}
+																	/>
+																	<CardItem
+																		mainHeader="Recipient"
+																		subText={
+																			transactionsArray[selectedIndex].recipient
+																				? transactionsArray[selectedIndex]
+																						.recipient
+																				: "N/A"
+																		}
+																	/>
+																	<CardItem
+																		mainHeader="Transaction ID"
+																		subText={
+																			transactionsArray[selectedIndex].r_id
+																		}
+																	/>
+																	{!transactionsArray[selectedIndex].debit && (
+																		<CardItem
+																			mainHeader="Transaction reference"
+																			subText={
+																				transactionsArray[selectedIndex].t_id
+																			}
+																		/>
+																	)}
+																	<CardItem
+																		mainHeader="Amount"
+																		subText={
+																			transactionsArray[selectedIndex]
+																				.amount_string
+																		}
+																	/>
+																	<CardItem
+																		mainHeader="Date"
+																		subText={formatDate(
+																			transactionsArray[selectedIndex].on
+																		)}
+																	/>
+																	{/* <div className="w-auto p-4 h-auto bg-[#E7EDFF] rounded-[5px]">
+																		<div>
+																			<h1 className="font-WorkSans text-sm font-normal text-[#898989]">
+																				Complain:
+																			</h1>
+																			<h2 className="font-WorkSans text-sm font-normal text-[#1B1A1A]">
+																				I kicked out of my dashboard every time
+																				I start a transfer process.
+																			</h2>
+																		</div>
+																	</div> */}
+																	{/* <div>
+																		<Button
+																			disabled={false}
+																			className="w-full bg-[#3063E9] text-[#FFF]"
+																		>
+																			<ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+																			Reply customer
+																		</Button>
+																	</div> */}
+																</div>
+															</div>
+														</div>
+													</Dialog.Panel>
+												</Transition.Child>
+											</div>
+										</div>
+									</Dialog>
+								</Transition>
 							</div>
 						</div>
 					)}
