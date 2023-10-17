@@ -92,7 +92,7 @@ const TransactionSect = () => {
 						<div className="w-[25rem] sm:w-[45rem] md:w-[32rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6">
 							<div className="flex justify-between items-center mr-9 mb-12">
 								<h1 className="text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]">
-									Transactions
+									Collections
 								</h1>
 								{!sidebarShow ? (
 									<div
@@ -179,7 +179,7 @@ const TransactionSect = () => {
 							<div className="flex flex-col lg:flex lg:justify-between lg:flex-row">
 								<div className="flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0">
 									<h1 className="inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9">
-										Transactions
+										Collections
 									</h1>
 									{!sidebarShow && (
 										<div
@@ -232,7 +232,7 @@ const TransactionSect = () => {
 										<div className="flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[7.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]">
 											<div className="flex items-center gap-3 md:gap-7 lg:gap-7">
 												<h1 className="hidden md:inline-flex md:text-xs lg:inline-flex  lg:text-sm">
-													Last 7days
+													Last 7 days
 												</h1>
 												<FontAwesomeIcon
 													className="inline-flex md:hidden lg:hidden "

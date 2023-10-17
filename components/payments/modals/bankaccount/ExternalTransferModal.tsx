@@ -18,10 +18,10 @@ import Cookies from "js-cookie";
 interface Props {
 	isVisible: boolean;
 	onClose: () => {};
-	handleModal: (secondStep: number) => void;
+	handleModal?: (secondStep: number) => void;
 }
 
-const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
+const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 	interface ITransferInfo {
 		isWallet: boolean;
 		acc_num: string;
@@ -140,7 +140,7 @@ const ExternalTransferModal = ({ isVisible, onClose, handleModal }: Props) => {
 					<div className="mx-6 mt-6">
 						<div className="flex justify-between items-center">
 							<div
-								onClick={() => handleModal(1)}
+								// onClick={() => handleModal(1)}
 								className="flex items-center gap-2"
 							>
 								<FontAwesomeIcon

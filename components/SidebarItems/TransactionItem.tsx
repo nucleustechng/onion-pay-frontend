@@ -65,7 +65,7 @@ const TransactionItem = () => {
 							</div>
 							<div className="flex items-center justify-between w-[9rem]">
 								<h1 className="text-[#262626] text-base font-WorkSans">
-									Transactions
+									Collections
 								</h1>
 								<FontAwesomeIcon
 									icon={faChevronDown}

@@ -12,10 +12,10 @@ import "react-toastify/dist/ReactToastify.css";
 interface Props {
 	isVisible: boolean;
 	onClose: () => {};
-	handleModal: (secondStep: number) => void;
+	handleModal?: (secondStep: number) => void;
 }
 
-const SingleAccountModal = ({ isVisible, onClose, handleModal }: Props) => {
+const SingleAccountModal = ({ isVisible, onClose }: Props) => {
 	interface ITransferInfo {
 		isWallet: boolean;
 		acc_num: string;
@@ -84,7 +84,7 @@ const SingleAccountModal = ({ isVisible, onClose, handleModal }: Props) => {
 					<div className="mx-6 mt-6">
 						<div className="flex justify-between items-center">
 							<div
-								onClick={() => handleModal(1)}
+								// onClick={() => handleModal(1)}
 								className="flex items-center gap-2"
 							>
 								<FontAwesomeIcon
