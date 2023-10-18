@@ -114,7 +114,7 @@ const SideBar = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{businessData?.authorised === false && (
+							{businessData?.hasWallet === false && (
 								<div>
 									<BusinessItem />
 								</div>

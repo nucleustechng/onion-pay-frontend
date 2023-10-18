@@ -86,6 +86,7 @@ const SideBarMobile = () => {
 		} else {
 			console.log("An error occured");
 		}
+		// console.log("Authorized", businessData);
 	}, [settingSuccess, settingsData]);
 
 	return (
@@ -138,7 +139,7 @@ const SideBarMobile = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{businessData?.authorised === false && (
+							{businessData?.hasWallet === false && (
 								<div>
 									<BusinessItem />
 								</div>
