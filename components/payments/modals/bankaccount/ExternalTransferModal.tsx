@@ -106,9 +106,9 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 					},
 				}
 			);
-			if (data?.success === false) {
-				toast.error("We had an issue retrieving the recepient name");
-			}
+			// if (data?.success === false) {
+			// 	toast.error("We had an issue retrieving the recepient name");
+			// }
 
 			// Handle the response data as needed
 			setTransferInfo({ ...transferInfo, recepient_name: data?.name });
