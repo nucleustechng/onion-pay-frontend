@@ -24,7 +24,7 @@ const Link = () => {
 		tranref: "link-" + merchantId + "-" + pageId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: paymentLinksArray?.amount,
+		amount: paymentLinksArray?.amount + 15,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: paymentLinksArray?.redirect_url,
@@ -68,7 +68,6 @@ const Link = () => {
 					callbackurl={options.callbackurl}
 					title={"Pay Now"}
 					tag={"button"}
-					
 				/>
 			</div>
 		</div>
