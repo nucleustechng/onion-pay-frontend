@@ -299,3 +299,75 @@ export const merchantServiceAgreement = {
 		},
 	],
 };
+
+export const privacyPolicy = [
+	{
+	  title: "Information We Collect:",
+	  content: [
+		{ point: "Contact information (name, email, phone number)" },
+		{ point: "Financial information (credit card details, bank account information)" },
+		{ point: "Transaction data and history" },
+		{ point: "Device information (IP address, browser type, operating system)" },
+		{ point: "Usage information (interaction with our services, preferences)" },
+		{ point: "Location data (only if explicitly permitted by you)" }
+	  ]
+	},
+	{
+	  title: "How We Use Your Information:",
+	  content: [
+		{ point: "Process payments and transactions" },
+		{ point: "Provide customer support and respond to inquiries" },
+		{ point: "Improve and personalize our services" },
+		{ point: "Send you important updates and notifications" },
+		{ point: "Comply with legal obligations" }
+	  ]
+	},
+	{
+	  title: "Information Sharing:",
+	  content: [
+		{ point: "Payment processors and financial institutions for transaction processing" },
+		{ point: "Service providers assisting us in business operations" },
+		{ point: "Legal authorities, if required by law or to protect our rights" }
+	  ]
+	},
+	{
+	  title: "Your Choices:",
+	  content: [
+		{ point: "Update and correct your personal information through your Onion Pay account" },
+		{ point: "Opt out of receiving non-essential communications" }
+	  ]
+	},
+	{
+	  title: "Security:",
+	  content: [
+		{ point: "We take reasonable measures to safeguard your personal data. However, no data transmission over the internet or electronic storage is completely secure." }
+	  ]
+	},
+	{
+	  title: "Data Retention:",
+	  content: [
+		{ point: "We retain your personal information for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law." }
+	  ]
+	},
+	{
+	  title: "Children's Privacy:",
+	  content: [
+		{ point: "Onion Pay is not intended for children under the age of 16. We do not knowingly collect or maintain personal information from children." }
+	  ]
+	},
+	{
+	  title: "Changes to this Policy:",
+	  content: [
+		{ point: "We may update this Privacy Policy from time to time. Any changes will be posted on our website and become effective when posted." }
+	  ]
+	},
+	{
+	  title: "Contact Us:",
+	  content: [
+		{ point: "If you have questions or concerns about our Privacy Policy, please contact us at [contact email/phone]." }
+	  ]
+	}
+  ];
+  
+
+  

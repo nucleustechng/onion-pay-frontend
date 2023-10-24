@@ -10,7 +10,7 @@ const index = () => {
 					<title>Payment Protection Promise</title>
 				</Head>
 				<h1 className="text-3xl font-semibold mb-4 text-primary">
-					*Onion Pay Payment Protection Promise*
+					Onion Pay Payment Protection Promise
 				</h1>
 				{paymentProtectionPromiseContent.map((item: any, index: number) => (
 					<div
@@ -23,6 +23,37 @@ const index = () => {
 						</p>
 					</div>
 				))}
+
+				<div className="">
+					<div className="text-xl font-semibold mb-4">Contact Information</div>
+					<div className="mb-2">
+						<span className="font-semibold">Address:</span>
+						<div>PISI 1 CAPITALE</div>
+						<div>155, BROAD STREET, MARINA, LAGOS STATE</div>
+						<div>Lagos, Nigeria</div>
+					</div>
+					<div className="mb-2">
+						<span className="font-semibold">Website:</span>
+						<a
+							href="https://onionpay.io"
+							className="text-blue-500 hover:underline"
+						>
+							onionpay.io
+						</a>
+					</div>
+					<div className="mb-2">
+						<span className="font-semibold">Email:</span>
+						<a
+							href="mailto:Info@onionpay.io"
+							className="text-blue-500 hover:underline"
+						>
+							Info@onionpay.io
+						</a>
+					</div>
+					<div>
+						<span className="font-semibold">Phone:</span> 08179442770
+					</div>
+				</div>
 				{/* More terms and conditions content */}
 			</div>
 		</div>

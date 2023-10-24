@@ -84,22 +84,22 @@ const Footer = () => {
 						className={`flex flex-col gap-4 w-[71.275rem] 
                 xl:flex xl:flex-row xl:justify-between xl:w-[76rem]`}
 					>
-						<Link href="/">
+						<Link href="/privacy-policy">
 							<li className="text-white text-base font-WorkSans font-normal">
 								Privacy policy
 							</li>
 						</Link>
-						<Link href="/">
+						<Link href="/terms-of-use">
 							<li className="text-white text-base font-WorkSans font-normal">
 								Terms of use
 							</li>
 						</Link>
-						<Link href="/">
+						<Link href="/cookie-policy">
 							<li className="text-white text-base font-WorkSans font-normal">
 								Cookie policy
 							</li>
 						</Link>
-						<Link href="/">
+						<Link href="/merchant-service-agreement">
 							<li className="text-white text-base font-WorkSans font-normal">
 								Merchant service agreement
 							</li>

@@ -1,25 +1,22 @@
 import Head from "next/head";
 import React from "react";
-import { merchantServiceAgreement } from "../../components/termsData";
+import { privacyPolicy } from "../../components/termsData";
 
 const index = () => {
 	return (
 		<div className="mt-[100px] mb-[100px]">
 			<div className="container mx-auto p-4">
 				<Head>
-					<title>Merchant Service Agreement for Onion Pay</title>
+					<title>Privacy Policy for Onion Pay</title>
 				</Head>
 				<h1 className="text-3xl font-semibold mb-4 text-primary">
-					Merchant Service Agreement for Onion Pay
+					Privacy Policy for Onion Pay
 				</h1>
 				<h2 className="mb-6 text-lg font-medium">
-					{`Last Updated: [Date] Welcome to Onion Pay, a payment gateway service
-					provided by [Your Company Name] ("we," "us," or "our"). This Cookie
-					Policy explains how we use cookies and similar technologies on the
-					Onion Pay website in Nigeria. By using our website, you consent to the
-					use of cookies as described in this policy.`}
+					{`Last Updated: [Date]
+Thank you for choosing Onion Pay, a payment gateway service provided by [Your Company Name] ("we," "us," or "our"). This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our Onion Pay services in Nigeria. Please read this policy carefully to understand our practices regarding your personal data.`}
 				</h2>
-				{merchantServiceAgreement?.sections?.map((item, index) => (
+				{privacyPolicy?.map((item, index) => (
 					<div
 						key={index}
 						className=""
