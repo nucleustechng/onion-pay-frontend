@@ -13,11 +13,11 @@ const index = () => {
 					Terms of Use for Onion Pay
 				</h1>
 				<h2 className="mb-6 text-lg font-medium">
-					Last Updated: [Date] Welcome to Onion Pay, a payment gateway service
+					{`Last Updated: [Date] Welcome to Onion Pay, a payment gateway service
 					provided by [Your Company Name] ("we," "us," or "our"). These Terms of
 					Use outline the rules and guidelines for using our Onion Pay services
 					in Nigeria. By using our services, you agree to comply with these
-					terms. Please read them carefully.
+					terms. Please read them carefully.`}
 				</h2>
 				{termsOfUse.map((item: any, index: number) => (
 					<div
