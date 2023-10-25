@@ -37,7 +37,7 @@ const Invoice = () => {
 		tranref: "invoice-" + merchantId + "-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: retreivedInvoice?.amount + 15,
+		amount: retreivedInvoice?.amount + 40,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: "https://onionpay.io/",

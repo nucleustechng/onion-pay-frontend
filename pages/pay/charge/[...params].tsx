@@ -77,7 +77,7 @@ const DirectCharge = () => {
 		tranref: "charge-" + orderId,
 		currency: "NGN",
 		country: "NG",
-		amount: amount + 15,
+		amount: amount + 40,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: redirect_url,
