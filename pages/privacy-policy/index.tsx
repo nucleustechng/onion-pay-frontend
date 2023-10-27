@@ -13,7 +13,7 @@ const index = () => {
 					Privacy Policy for Onion Pay
 				</h1>
 				<h2 className="mb-6 text-lg font-medium">
-					{`Last Updated: [Date]
+					{`Last Updated: Wednesday 25th October 2023
 Thank you for choosing Onion Pay, a payment gateway service provided by [Your Company Name] ("we," "us," or "our"). This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our Onion Pay services in Nigeria. Please read this policy carefully to understand our practices regarding your personal data.`}
 				</h2>
 				{privacyPolicy?.map((item, index) => (

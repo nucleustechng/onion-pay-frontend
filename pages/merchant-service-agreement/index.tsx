@@ -13,7 +13,7 @@ const index = () => {
 					Merchant Service Agreement for Onion Pay
 				</h1>
 				<h2 className="mb-6 text-lg font-medium">
-					{`Last Updated: [Date] Welcome to Onion Pay, a payment gateway service
+					{`Last Updated: Wednesday 25th October 2023 Welcome to Onion Pay, a payment gateway service
 					provided by [Your Company Name] ("we," "us," or "our"). This Cookie
 					Policy explains how we use cookies and similar technologies on the
 					Onion Pay website in Nigeria. By using our website, you consent to the
