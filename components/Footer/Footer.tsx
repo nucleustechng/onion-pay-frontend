@@ -22,15 +22,15 @@ const Footer = () => {
 	const developersArray = [
 		{
 			mainText: "API documentation",
-			route: "https://ultra-organization.gitbook.io/onion-pay",
+			route: "https://documenter.getpostman.com/view/3501578/2s9YC7TBk1",
 		},
 		{
 			mainText: "API reference",
-			route: "https://ultra-organization.gitbook.io/onion-pay",
+			route: "https://documenter.getpostman.com/view/3501578/2s9YC7TBk1",
 		},
 		{
 			mainText: "API status",
-			route: "https://ultra-organization.gitbook.io/onion-pay",
+			route: "https://documenter.getpostman.com/view/3501578/2s9YC7TBk1",
 		},
 	];
 
