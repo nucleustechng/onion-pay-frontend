@@ -47,7 +47,20 @@ export const transfersApi = createApi({
 				};
 			},
 		}),
+		loadTransferFee: builder.mutation({
+			query: (body: { amount: number; external: boolean }) => {
+				return {
+					url: "/api/v1/transfer-fee",
+					method: "post",
+					body,
+				};
+			},
+		}),
 	}),
 });
 
-export const { useTransferMutation,useTransferInternalMutation } = transfersApi;
+export const {
+	useTransferMutation,
+	useTransferInternalMutation,
+	useLoadTransferFeeMutation,
+} = transfersApi;

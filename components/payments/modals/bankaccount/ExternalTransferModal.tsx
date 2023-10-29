@@ -6,7 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "../../../../Assets/icon/CloseIcon.svg";
-import { useTransferMutation } from "../../../../modules/Transfers/transfersApi";
+import {
+	useLoadTransferFeeMutation,
+	useTransferMutation,
+} from "../../../../modules/Transfers/transfersApi";
 import Input from "../../../Input";
 import Loader from "../../../Loader";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,6 +47,7 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 	const [transfer, { isSuccess, isLoading, data: transferData }] =
 		useTransferMutation();
 
+	const [loadTransferFee, { data: transferFee }] = useLoadTransferFeeMutation();
 	const { isWallet, acc_bank, acc_num, amount, recepient_name } = transferInfo;
 
 	const abortMutation = () => {
@@ -85,6 +89,10 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 			toast.error(transferData?.reason, { autoClose: 3000 });
 		}
 	}, [isSuccess, transferData]);
+
+	useEffect(() => {
+		loadTransferFee({ amount: transferInfo?.amount, external: true });
+	}, [transferInfo]);
 
 	const fetchBankAccountName = async (
 		accountNumber: string,
@@ -257,7 +265,9 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 							<div>
 								<h1 className="text-sm  font-WorkSans font-medium leading-4">
 									Please note that there will be a service fee of{" "}
-									<span className="text-[#C70039]"> ₦25(NAIRA)</span>
+									<span className="text-[#C70039]">
+										{transferFee?.fee ? `₦${transferFee?.fee}(NAIRA)` : "..."}
+									</span>
 								</h1>
 							</div>
 							{/* Input three */}
