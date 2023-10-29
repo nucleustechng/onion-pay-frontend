@@ -53,7 +53,9 @@ const Input = ({
 								? "border-[#DE0040]"
 								: "border-[#CACACA] focus:border-primary"
 						} outline-none text-[#898989] font-WorkSans font-normal leading-4 p-6 rounded-[0.313rem] border-[0.0625rem] border-[#CACACA]`}
-						type={showPassword ? "text" : "password"} // Toggle between text and password type
+						type={
+							type === "password" ? (showPassword ? "text" : "password") : type
+						} // Toggle between text and password type
 						placeholder={placeholder}
 					/>
 					{/* Eye icon to toggle password visibility */}
