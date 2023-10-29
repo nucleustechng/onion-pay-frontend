@@ -18,7 +18,7 @@ const Input = ({
 	label,
 	placeholder,
 	type,
-	width,
+	// width,
 	height,
 	textSize,
 	errorMessage,
@@ -48,7 +48,7 @@ const Input = ({
 						onChange={onChange}
 						onFocus={() => setIsFocused(true)}
 						onBlur={() => setIsFocused(false)}
-						className={`${width} ${height} ${textSize} focus:caret-primary ${
+						className={`w-full ${height} ${textSize} focus:caret-primary ${
 							errorMessage
 								? "border-[#DE0040]"
 								: "border-[#CACACA] focus:border-primary"

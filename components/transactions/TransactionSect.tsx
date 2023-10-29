@@ -1,12 +1,12 @@
-import { faChevronDown, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { Fragment, useEffect, useState } from "react";
 import HelpButton from "../HelpButton";
 import TransactionHeader from "./TransactionHeader";
 import TransactionTable from "./TransactionTable";
-import SearchIcon from "../../Assets/icon/Search.svg";
-import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+// import SearchIcon from "../../Assets/icon/Search.svg";
+// import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { setShowSidebar } from "../../redux/sidebarSlice";
@@ -14,7 +14,7 @@ import { RootState } from "../../redux/store";
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
 // import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import {
-	useLoadSingleTransactionQuery,
+	// useLoadSingleTransactionQuery,
 	useLoadTransactionsQuery,
 } from "../../modules/TransactionsApi/transactionsApi";
 import Loader from "../Loader";
@@ -52,8 +52,8 @@ const TransactionSect = () => {
 	);
 	const [showModal, setShowModal] = useState<boolean>(false);
 
-	const [transactionID, setTransactionID] = useState<string>("");
-	const [mytransaction, setMyTransaction] = useState<any>();
+	// const [transactionID, setTransactionID] = useState<string>("");
+	// const [mytransaction, setMyTransaction] = useState<any>();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const [transactionsArray, setTransactionsArray] = useState<any>([]);
@@ -64,17 +64,17 @@ const TransactionSect = () => {
 		isLoading,
 	} = useLoadTransactionsQuery();
 
-	const { data: transaction, isSuccess: transactionSuccess } =
-		useLoadSingleTransactionQuery(transactionID);
+	// const { data: transaction, isSuccess: transactionSuccess } =
+	// 	useLoadSingleTransactionQuery(transactionID);
 	const [loading, setLoading] = useState<boolean>(true);
 	// const  [showEmpty,setShowEmpty] = useState<boolean>(true)
 
 	useEffect(() => {
 		// invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
-		if (transactionSuccess) {
-			const strIndex: any = "transaction";
-			setMyTransaction(transaction[strIndex]);
-		}
+		// if (transactionSuccess) {
+		// 	const strIndex: any = "transaction";
+		// 	setMyTransaction(transaction[strIndex]);
+		// }
 
 		if (isSuccess && transactionsData.success == true) {
 			setTransactionsArray(transactionsData["records"]);
@@ -86,10 +86,10 @@ const TransactionSect = () => {
 		isSuccess,
 		transactionsArray,
 		transactionsData,
-		transaction,
-		mytransaction,
-		transactionID,
-		transactionSuccess,
+		// transaction,
+		// mytransaction,
+		// transactionID,
+		// transactionSuccess,
 	]);
 
 	type ICardItem = {
@@ -225,7 +225,7 @@ const TransactionSect = () => {
 									)}
 								</div>
 								{/* Small screen search input */}
-								<div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
+								{/* <div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
 									<div className="absolute  pl-[0.7rem] ">
 										<Image
 											src={SearchIcon}
@@ -233,7 +233,6 @@ const TransactionSect = () => {
 											className="w-4 h-4"
 										/>
 									</div>
-									{/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
 									<input
 										type="text"
 										name="t_id"
@@ -242,9 +241,9 @@ const TransactionSect = () => {
 										className="w-screen h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]"
 										placeholder="Search"
 									/>
-								</div>
+								</div> */}
 								<div className="flex flex-row gap-3 mt-4 md:pl-5 md:gap-1 lg:gap-3 lg:mt-0">
-									<div className="hidden md:relative md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
+									{/* <div className="hidden md:relative md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
 										<div className="absolute  pl-[0.7rem] ">
 											<Image
 												src={SearchIcon}
@@ -252,14 +251,13 @@ const TransactionSect = () => {
 												className="w-4 h-4"
 											/>
 										</div>
-										{/* <FontAwesomeIcon icon={faSearch} className='absolute pl-[1.13rem] text-2xl '/> */}
 										<input
 											type="text"
 											className="w-[18.75rem] h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]"
 											placeholder="Search"
 										/>
-									</div>
-									<div className="">
+									</div> */}
+									{/* <div className="">
 										<div className="flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[7.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]">
 											<div className="flex items-center gap-3 md:gap-7 lg:gap-7">
 												<h1 className="hidden md:inline-flex md:text-xs lg:inline-flex  lg:text-sm">
@@ -275,8 +273,8 @@ const TransactionSect = () => {
 												/>
 											</div>
 										</div>
-									</div>
-									<div className=" ">
+									</div> */}
+									{/* <div className=" ">
 										<div className="w-[3.7rem] h-9 md:w-[6.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]">
 											<div className="flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-10 lg:gap-20">
 												<h1 className="text-sm">All</h1>
@@ -286,7 +284,7 @@ const TransactionSect = () => {
 												/>
 											</div>
 										</div>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							{/* 
@@ -317,7 +315,7 @@ const TransactionSect = () => {
 										</div>
 									) : (
 										<div className="mt-5">
-											{mytransaction ? (
+											{/* {mytransaction ? (
 												<TransactionTable
 													debit={mytransaction?.debit}
 													//  status={mytransaction['events'][0]?.status ? mytransaction['events'][0]?.status : '--'}
@@ -329,30 +327,30 @@ const TransactionSect = () => {
 														openModal();
 													}}
 												/>
-											) : (
-												transactionsArray?.map(
-													(transaction: any, index: number) => (
-														<div key={index}>
-															<TransactionTable
-																debit={transaction?.debit}
-																handleSelected={() => {
-																	openModal();
-																	setSelectedIndex(index);
-																}}
-																// status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
-																amount={transaction?.amount_string}
-																date={transaction.on ? transaction.on : "--"}
-																sender={transaction.sender}
-																recipient={
-																	transaction?.recipient
-																		? transaction?.recipient
-																		: "N/A"
-																}
-															/>
-														</div>
-													)
+											) : ( */}
+											{transactionsArray?.map(
+												(transaction: any, index: number) => (
+													<div key={index}>
+														<TransactionTable
+															debit={transaction?.debit}
+															handleSelected={() => {
+																openModal();
+																setSelectedIndex(index);
+															}}
+															// status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
+															amount={transaction?.amount_string}
+															date={transaction.on ? transaction.on : "--"}
+															sender={transaction.sender}
+															recipient={
+																transaction?.recipient
+																	? transaction?.recipient
+																	: "N/A"
+															}
+														/>
+													</div>
 												)
 											)}
+
 											{/* {invoicesArray.map((invoice:any,index:number) => (
                       <div key={index}>
                           <TransactionTable 
