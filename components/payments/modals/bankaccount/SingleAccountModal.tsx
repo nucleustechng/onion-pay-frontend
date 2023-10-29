@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "../../../../Assets/icon/CloseIcon.svg";
-import { useTransferInternalMutation } from "../../../../modules/Transfers/transfersApi";
+import {
+	useLoadTransferFeeMutation,
+	useTransferInternalMutation,
+} from "../../../../modules/Transfers/transfersApi";
 import Input from "../../../Input";
 import Loader from "../../../Loader";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,6 +36,8 @@ const SingleAccountModal = ({ isVisible, onClose }: Props) => {
 	const [transfer, { isSuccess, isLoading, data: transferData }] =
 		useTransferInternalMutation();
 
+	const [loadTransferFee, { data: transferFee }] = useLoadTransferFeeMutation();
+
 	const { isWallet, acc_bank, acc_num, amount } = transferInfo;
 
 	const abortMutation = () => {
@@ -41,7 +46,6 @@ const SingleAccountModal = ({ isVisible, onClose }: Props) => {
 
 	const handleTransfer = async () => {
 		const { isWallet, acc_bank, acc_num, amount } = transferInfo;
-		console.log(isWallet);
 		try {
 			if (isWallet && acc_bank && acc_num && amount) {
 				await transfer({ isWallet, acc_bank, acc_num, amount });
@@ -64,6 +68,10 @@ const SingleAccountModal = ({ isVisible, onClose }: Props) => {
 			toast.error(transferData?.reason);
 		}
 	}, [isSuccess, transferData]);
+
+	useEffect(() => {
+		loadTransferFee({ amount: transferInfo?.amount, external: true });
+	}, [transferInfo]);
 
 	const handleClose = (e: any) => {
 		if (e.target.id === "wrapper") {
@@ -150,8 +158,11 @@ const SingleAccountModal = ({ isVisible, onClose }: Props) => {
 							</div>
 							{/* Conditional render text based on if the user has typed in the input field */}
 							<div>
-								<h1 className="text-sm text-[#C70039] font-WorkSans font-medium leading-4">
-									Please enter the amount you want to send
+								<h1 className="text-sm  font-WorkSans font-medium leading-4">
+									Please note that there will be a service fee of{" "}
+									<span className="text-[#C70039]">
+										{transferFee?.fee ? `₦${transferFee?.fee}(NAIRA)` : "..."}
+									</span>
 								</h1>
 							</div>
 							{/* Input three */}
