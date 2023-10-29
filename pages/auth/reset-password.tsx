@@ -1,79 +1,84 @@
 import ButtonIcon from "../../components/Buttons/ButtonIcon";
 import ButtonRegular from "../../components/Buttons/ButtonRegular";
+import Footer from "../../components/Footer/Footer";
 import Input from "../../components/Input";
 import CommerceItem from "../../components/Navbar/NavbarItems/CommerceItem";
 import ContactItem from "../../components/Navbar/NavbarItems/ContactItem";
 import DevelopersItem from "../../components/Navbar/NavbarItems/DeveloperItem";
 import PaymentItem from "../../components/Navbar/NavbarItems/PaymentItem";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import LadyImage from "../../Assets/img/signin/LadyImage.svg";
 import CloseIcon from "../../Assets/icons/CloseIcon.svg";
 import Logo from "../../Assets/logo/OnionPayLogo.svg";
 import Hamburger from "../../Assets/icons/Hamburger.svg";
-import Footer from "../../components/Footer/Footer";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useResetPasswordMutation } from "../../modules/auth/api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSigninMutation } from "../../modules/auth/api/AuthApi";
 import Loader from "../../components/Loader";
 import { useRouter } from "next/router";
-import { setAuthenticated, setUnauthenticated } from "../../redux/loginSlice";
-import { useAppDispatch } from "../../redux/redux-hooks/hooks";
 import Cookies from "js-cookie";
 
-const Signin = () => {
+interface IResetInfo {
+	email: string;
+	code: string;
+	n_pass: string;
+}
+
+const ResetPassword = () => {
 	const [toggleNav, setToggleNav] = useState<boolean>(false);
 
 	const router = useRouter();
-	const dispatch = useAppDispatch();
 
-	const [passwordError, setPasswordError] = useState<string>("");
-	const [emailError, setEmailError] = useState<string>("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
-	const [password, setPassword] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
+	const [resetInfo, setResetInfo] = useState<IResetInfo>({
+		email: "",
+		code: "",
+		n_pass: "",
+	});
 
-	const [signIn, { data: signInData, isSuccess, isLoading }] =
-		useSigninMutation();
-	const handleSubmit = async () => {
-		if (email && password) {
-			await signIn({ email, password });
+	const [resetPassword, { data, isLoading, isSuccess }] =
+		useResetPasswordMutation();
+
+	const handleResetPass = async () => {
+		if (resetInfo.n_pass === confirmPassword) {
+			const retrievedEmail = Cookies.get("email");
+
+			if (retrievedEmail && resetInfo?.code && resetInfo?.n_pass) {
+				const source = { email: retrievedEmail };
+				const payload = Object.assign(resetInfo, source);
+
+				await resetPassword(payload);
+			} else {
+				toast.error(data?.reason, { autoClose: 3500 });
+			}
 		} else {
-			console.log(signInData?.reason || "Missing required fields");
+			toast.error("Passwords must match", { autoClose: 3500 });
 		}
 	};
 
 	useEffect(() => {
-		if (isSuccess && signInData?.success == true) {
-			toast.success("You have successfully signed in.");
-			if (signInData.token) {
-				Cookies.set("token", signInData?.token);
+		if (isSuccess && data?.success) {
+			toast.success("You have successfuly changed your password!", {
+				autoClose: 3000,
+			});
 
-				dispatch(setAuthenticated());
-				setTimeout(() => {
-					router.push("/transactions/");
-				}, 1000);
-			} else {
-				dispatch(setUnauthenticated());
-			}
+			router.push("/auth/signin");
+
+			setResetInfo({
+				email: "",
+				code: "",
+				n_pass: "",
+			});
+			// dispatch(setMyEmail(''))
 		} else {
-			switch (signInData?.reason) {
-				case "Invalid Password":
-					setPasswordError("Invalid Password");
-					break;
-				case `We couldn't find an Account with the email address provided. Please use your personal email address to log in and not your business email address`:
-					setEmailError(`We couldn't find an account with this email`);
-					break;
-				default:
-					setPasswordError("");
-					setEmailError("");
-			}
+			toast.error(data?.reason, { autoClose: 1500 });
 		}
-	}, [isSuccess, signInData, router, dispatch]);
+	}, [data, isSuccess, router]);
 
 	return (
-		<div>
+		<div className="bg-[#F5F5F5]">
 			<ToastContainer />
 			<div>
 				<div>
@@ -92,7 +97,6 @@ const Signin = () => {
 							>
 								<Image
 									src={CloseIcon}
-									loading="lazy"
 									alt="Close Icon"
 								/>
 							</div>
@@ -153,10 +157,8 @@ const Signin = () => {
 							>
 								<Image
 									src={Logo}
-									width={300}
-									className="w-[12rem]"
-									loading="lazy"
 									alt="Logo"
+									className="w-[12rem]"
 								/>
 							</Link>
 
@@ -189,7 +191,6 @@ const Signin = () => {
 							>
 								<Image
 									src={Hamburger}
-									loading="lazy"
 									alt="Hamburger Icon"
 								/>
 							</div>
@@ -197,7 +198,8 @@ const Signin = () => {
 					</div>
 				</div>
 			</div>
-			<div className="flex  justify-center  lg:mb-[16rem] ">
+
+			<div className="flex  justify-center mb-[5rem] lg:mb-[16rem] ">
 				<div className="flex flex-col pt-32 lg:pb-20">
 					<div className="flex flex-col gap-10">
 						<h1
@@ -205,76 +207,88 @@ const Signin = () => {
                     lg:w-[60rem] lg:text-[5.625rem] lg:leading-[5.625rem]
                     "
 						>
-							Welcome<span className="text-[#FF9635]">!</span>
+							Change Password<span className="text-[#FF9635]">!</span>
 						</h1>
-						<h2 className="text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5">
-							Fill in your Sign in details below
-						</h2>
 					</div>
-					<div className="flex justify-center mt-10 ">
-						<div className="flex flex-col gap-6">
-							<Input
-								width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
-								height="h-[3.125rem]"
-								label="Email"
-								name="email"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								errorMessage={emailError}
-								textSize="text-sm"
-								placeholder="example@email.com"
-								type="email"
-							/>
-							<div>
-								<Input
-									width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
-									height="h-[3.125rem]"
-									name="password"
-									errorMessage={passwordError}
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									label="Password"
-									textSize="text-sm"
-									placeholder="Password"
-									type="password"
-								/>
-								<Link href="/auth/forgot-password">
-									<h1 className="cursor-pointer text-sm text-right font-WorkSans font-normal leading-4 text-primary mt-2">
-										Forgot password
-									</h1>
-								</Link>
-							</div>
-							<div className="mt-4">
-								<ButtonRegular
-									width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
-									height="h-11"
-									backgroundColor="bg-primary"
-									borderWidth="0.313rem"
-									handlerFunc={handleSubmit}
-									color="text-white"
-									mainText={isLoading ? <Loader isWhite={true} /> : "Continue"}
-									textSize="text-base"
-								/>
+					<div className="flex justify-center">
+						<div className="lg:bg-white  md:w-[33rem] h-auto pb-6 mt-[3.75rem] rounded-[0.625rem]">
+							<h2 className="mt-6 text-lg text-center text-[#1B1A1A] font-WorkSans font-normal leading-5">
+								Fill in your information to change password
+							</h2>
+							<div className="flex justify-center mt-10 ">
+								<div className="flex flex-col gap-6">
+									{/* <Input width='w-[21.875rem] lg:w-[25rem] xl:w-[30rem]' 
+                                    height='h-[3.125rem]' 
+                                    name='email'
+                                    value={resetInfo.email}
+                                    onChange={(e) => setResetInfo({...resetInfo, email: e.target.value})}
+                                    label='Email' 
+                                    textSize='text-sm' 
+                                    placeholder='example@email.com'
+                                    type='email'
+                                    /> */}
+									<Input
+										name="code"
+										value={resetInfo.code}
+										onChange={(e) =>
+											setResetInfo({ ...resetInfo, code: e.target.value })
+										}
+										width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
+										height="h-[3.125rem]"
+										label="OTP Code"
+										textSize="text-sm"
+										placeholder="********"
+										type="text"
+									/>
+									<div>
+										<Input
+											width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
+											height="h-[3.125rem]"
+											name="confirmpass"
+											value={confirmPassword}
+											onChange={(e) => setConfirmPassword(e.target.value)}
+											label="New password"
+											textSize="text-sm"
+											placeholder="Password"
+											type="password"
+										/>
+									</div>
+									<div>
+										<Input
+											width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
+											height="h-[3.125rem]"
+											name="n_pass"
+											value={resetInfo.n_pass}
+											onChange={(e) =>
+												setResetInfo({ ...resetInfo, n_pass: e.target.value })
+											}
+											label="Confirm password"
+											textSize="text-sm"
+											placeholder="Password"
+											type="password"
+										/>
+									</div>
+									<div
+										className="mt-4"
+										onClick={handleResetPass}
+									>
+										<ButtonRegular
+											width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
+											height="h-11"
+											backgroundColor="bg-primary"
+											borderWidth="0.313rem"
+											color="text-white"
+											mainText={
+												isLoading ? <Loader isWhite={true} /> : "Continue"
+											}
+											textSize="text-base"
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className="hidden lg:absolute lg:flex justify-center lg:top-[42rem] lg:h-[30rem]  ">
-					<Image
-						src={LadyImage}
-						loading="lazy"
-						className="w-[22.4rem]"
-						alt=""
-					/>
-				</div>
-			</div>
-			<div className="relative flex justify-center top-[12rem] bottom-0  lg:hidden  ">
-				<Image
-					src={LadyImage}
-					loading="lazy"
-					className="w-[22.4rem]"
-					alt=""
-				/>
 			</div>
 
 			<div className="relative z-20">
@@ -284,4 +298,4 @@ const Signin = () => {
 	);
 };
 
-export default Signin;
+export default ResetPassword;

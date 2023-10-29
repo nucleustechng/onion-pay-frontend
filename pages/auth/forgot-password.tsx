@@ -19,10 +19,10 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../components/Loader";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+import { useAppDispatch } from "../../redux/redux-hooks/hooks";
 import { setMyEmail } from "../../redux/passwordResetSlice";
-import { RootState } from "../../redux/store";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 interface IResetInfo {
 	email: string;
@@ -35,9 +35,10 @@ const Forgotpassword = () => {
 	const [resetpassword, setResetPassword] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const router = useRouter();
-	const newEmail = useAppSelector((state: RootState) => state.email.email);
+	// const newEmail = useAppSelector((state: RootState) => state.email.email);
 
 	const [email, setEmail] = useState<string>("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
 	const [resetInfo, setResetInfo] = useState<IResetInfo>({
 		email: "",
@@ -58,6 +59,7 @@ const Forgotpassword = () => {
 
 	const handleForgotPass = async () => {
 		if (email) {
+			Cookies.set("email", email);
 			await forgotPassword({ email });
 		} else {
 			toast.error(forgotPassData?.reason, { autoClose: 1500 });
@@ -66,7 +68,11 @@ const Forgotpassword = () => {
 
 	const handleResetPass = async () => {
 		if (resetInfo?.email && resetInfo?.code && resetInfo?.n_pass) {
-			await resetPassword(resetInfo);
+			const retrievedEmail = Cookies.get("email");
+			const source = { email: retrievedEmail };
+			const payload = Object.assign(resetInfo, source);
+
+			await resetPassword(payload);
 		} else {
 			toast.error(forgotPassData?.reason, { autoClose: 1500 });
 		}
@@ -74,24 +80,28 @@ const Forgotpassword = () => {
 
 	useEffect(() => {
 		if (forgotPassSuccess && forgotPassData?.success) {
-			toast.success(forgotPassData?.reason, { autoClose: 1000 });
+			const retrievedEmail = Cookies.get("email");
+
+			toast.success(`An otp was sent to ${retrievedEmail}`, {
+				autoClose: 4000,
+			});
+			Cookies.set("resetPassBoolean", "true");
+			router.push("/auth/reset-password");
 			setResetPassword(true);
 			dispatch(setMyEmail(email));
-			setResetInfo({ ...resetInfo, email: newEmail });
 		} else {
 			toast.error(forgotPassData?.reason, { autoClose: 1500 });
 		}
-	}, [forgotPassSuccess, forgotPassData, resetInfo, dispatch, email, newEmail]);
+	}, [forgotPassSuccess, forgotPassData, resetInfo, dispatch, email]);
 
 	useEffect(() => {
 		if (isSuccess && data?.success) {
 			toast.success("You have successfuly changed your password!!", {
 				autoClose: 1000,
 			});
-			setTimeout(() => {
-				router.push("/auth/signin");
-			}, 1500);
-			console.log("Success message", data?.reason);
+
+			router.push("/auth/signin");
+
 			setResetInfo({
 				email: "",
 				code: "",
@@ -265,7 +275,13 @@ const Forgotpassword = () => {
 												backgroundColor="bg-primary"
 												borderWidth="0.313rem"
 												color="text-white"
-												mainText={forgotPassLoading ? <Loader /> : "Continue"}
+												mainText={
+													forgotPassLoading ? (
+														<Loader isWhite={true} />
+													) : (
+														"Continue"
+													)
+												}
 												textSize="text-base"
 											/>
 										</div>
@@ -315,8 +331,21 @@ const Forgotpassword = () => {
 											label="OTP Code"
 											textSize="text-sm"
 											placeholder="********"
-											type="password"
+											type="text"
 										/>
+										<div>
+											<Input
+												width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
+												height="h-[3.125rem]"
+												name="confirmpass"
+												value={confirmPassword}
+												onChange={(e) => setConfirmPassword(e.target.value)}
+												label="New password"
+												textSize="text-sm"
+												placeholder="Password"
+												type="password"
+											/>
+										</div>
 										<div>
 											<Input
 												width="w-[21.875rem] lg:w-[25rem] xl:w-[30rem]"
@@ -326,7 +355,7 @@ const Forgotpassword = () => {
 												onChange={(e) =>
 													setResetInfo({ ...resetInfo, n_pass: e.target.value })
 												}
-												label="New password"
+												label="Confirm password"
 												textSize="text-sm"
 												placeholder="Password"
 												type="password"
@@ -342,7 +371,9 @@ const Forgotpassword = () => {
 												backgroundColor="bg-primary"
 												borderWidth="0.313rem"
 												color="text-white"
-												mainText={isLoading ? <Loader /> : "Continue"}
+												mainText={
+													isLoading ? <Loader isWhite={true} /> : "Continue"
+												}
 												textSize="text-base"
 											/>
 										</div>
