@@ -50,7 +50,6 @@ const DirectCharge = () => {
 			}
 		}
 		if (isSuccess && orderData.success) {
-			console.log("Amount", orderData["order"]?.amount);
 			setAmount(orderData["order"]?.amount);
 			setRedirectUrl(orderData ? orderData["order"]?.redirect_url : "");
 		}
@@ -74,7 +73,7 @@ const DirectCharge = () => {
 	// const timestamp = params![1];
 	const newAmount = orderData && orderData["order"]?.amount;
 	const options = {
-		public_key: process.env.NEXT_PUBLIC_SEERBIT_KEY,
+		public_key: process.env.NEXT_PUBLIC_KEY,
 		tranref: "charge-" + orderId,
 		currency: "NGN",
 		country: "NG",
