@@ -72,13 +72,13 @@ const DirectCharge = () => {
 	}, [orderData]);
 
 	// const timestamp = params![1];
-
+	const newAmount = orderData && orderData["order"]?.amount;
 	const options = {
-		public_key: "SBTESTPUBK_CvXUBZ8NmYQ7UPr1JKxK8wNHwG8HUjEm",
+		public_key: process.env.NEXT_PUBLIC_SEERBIT_KEY,
 		tranref: "charge-" + orderId,
 		currency: "NGN",
 		country: "NG",
-		amount: amount + 50,
+		amount: newAmount + 50,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: redirect_url,
