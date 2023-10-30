@@ -50,7 +50,8 @@ const DirectCharge = () => {
 			}
 		}
 		if (isSuccess && orderData.success) {
-			setAmount(orderData ? orderData["order"]?.amount : "");
+			console.log("Amount", orderData["order"]?.amount);
+			setAmount(orderData["order"]?.amount);
 			setRedirectUrl(orderData ? orderData["order"]?.redirect_url : "");
 		}
 	}, [
