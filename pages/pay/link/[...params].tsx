@@ -24,7 +24,7 @@ const Link = () => {
 		tranref: "link-" + merchantId + "-" + pageId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: paymentLinksArray?.amount + 40,
+		amount: paymentLinksArray?.amount + 50,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: paymentLinksArray?.redirect_url,
