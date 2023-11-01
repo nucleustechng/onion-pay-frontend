@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { PlusIcon } from "@radix-ui/react-icons";
+// import { PlusIcon } from "@radix-ui/react-icons";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import React, { Fragment, useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
 import { useLoadTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 import Header from "../Header";
-import { Button } from "../../@/components/ui/button";
+// import { Button } from "../../@/components/ui/button";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { setShowSidebar } from "../../redux/sidebarSlice";
 
@@ -22,7 +22,7 @@ const TransactionsContent = () => {
 
 	// const [showModal,setShowModal] = useState<boolean>(false);
 	const dispatch: any = useAppDispatch();
-	const [outputData, setOutputData] = useState("");
+	// const [outputData, setOutputData] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
@@ -33,16 +33,16 @@ const TransactionsContent = () => {
 		setIsOpen(true);
 	}
 
-	const handleDataSubmit = (data: any) => {
-		setOutputData(data);
-	};
+	// const handleDataSubmit = (data: any) => {
+	// 	setOutputData(data);
+	// };
 	const sidebarShow = useAppSelector(
 		(state: RootState) => state.sidebar.sidebarShow
 	);
-	const isSecondStep = useAppSelector(
-		(state: RootState) => state.invoice.isSecondStep
-	);
-	const [showModal, setShowModal] = useState<boolean>(false);
+	// const isSecondStep = useAppSelector(
+	// 	(state: RootState) => state.invoice.isSecondStep
+	// );
+	// const [showModal, setShowModal] = useState<boolean>(false);
 
 	// const [transactionID, setTransactionID] = useState<string>("");
 	// const [mytransaction, setMyTransaction] = useState<any>();
@@ -121,7 +121,7 @@ const TransactionsContent = () => {
 					</div>
 				) : null}
 			</div>
-			<div className="pl-2 md:pl-0">
+			{/* <div className="pl-2 md:pl-0">
 				<Button
 					// onClick={() => {
 					// 	addAdminModal();
@@ -131,7 +131,7 @@ const TransactionsContent = () => {
 					Create Invoice
 					<PlusIcon className="ml-2 h-4 w-4" />
 				</Button>
-			</div>
+			</div> */}
 			{/* Table */}
 			<div className="flex-1 pr-0 md:pr-6">
 				{/* <DataTableDemo /> */}

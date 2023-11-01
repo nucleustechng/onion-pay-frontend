@@ -21,11 +21,17 @@ export const transationsApi = createApi({
 		loadTransactions: builder.query<any, void>({
 			query: () => "api/v1/transaction-records",
 		}),
+		loadMoreTransactions: builder.query<string, any>({
+			query: (r_id: string) => `/api/v1/more-transaction-records/${r_id}`,
+		}),
 		loadSingleTransaction: builder.query<string, any>({
 			query: (transId: string) => `/api/v1/transaction/${transId}`,
 		}),
 	}),
 });
 
-export const { useLoadTransactionsQuery, useLoadSingleTransactionQuery } =
-	transationsApi;
+export const {
+	useLoadTransactionsQuery,
+	useLoadSingleTransactionQuery,
+	useLoadMoreTransactionsQuery,
+} = transationsApi;

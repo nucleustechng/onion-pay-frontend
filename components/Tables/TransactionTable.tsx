@@ -8,9 +8,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "../../@/components/ui/table";
-import { Button } from "../../@/components/ui/button";
+// import { Button } from "../../@/components/ui/button";
 import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
+// import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
 	transactions: any[];
@@ -19,6 +20,7 @@ type Props = {
 };
 
 export function TransactionTable({ transactions, showMore, isLoading }: Props) {
+	// const [queryValue, setQueryValue] = useState("");
 	// const arrayLength = transactions?.length;
 	// let firstIndex: number;
 
@@ -39,6 +41,22 @@ export function TransactionTable({ transactions, showMore, isLoading }: Props) {
 	// 	businessId,
 	// } = useTransactionHooks();
 
+	// const {
+	// 	data: transactionsData,
+	// 	isSuccess,
+	// 	isLoading: isMoreLoading,
+	// 	refetch,
+	// } = useLoadMoreTransactionsQuery(queryValue);
+
+	// const handleButtonClick = () => {
+	// 	// Update the query value (if needed)
+	// 	const newQueryValue = transactions[lastIndex]?.r_id; // Set the new value here
+	// 	setQueryValue(newQueryValue);
+
+	// 	// Call the refetch function with the updated query value to trigger the data request
+	// 	refetch();
+	// };
+	// console.log("Transactions dara", transactionsData);
 	return (
 		<div className="w-full  h-full overflow-auto">
 			<div className="flex items-center py-4">
@@ -161,14 +179,14 @@ export function TransactionTable({ transactions, showMore, isLoading }: Props) {
 					>
 						Previous
 					</Button> */}
-					<Button
+					{/* <Button
 						variant="outline"
 						className="w-[100px]"
 						// onClick={() => handleLoadMore(transactions[lastIndex]?.r_id)}
 						// disabled={isLoadingMore}
 					>
 						Next
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 		</div>
