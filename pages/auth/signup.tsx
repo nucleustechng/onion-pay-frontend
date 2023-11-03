@@ -399,10 +399,12 @@ const SignUp = () => {
 									<p className="text-center text-[#202020] text-base font-WorkSans leading-5 ">
 										{`By clicking continue, you agree to Onion Pay`}
 										<span className="text-[#3063E9]">
-											{" "}
-											Terms of Service
+											<Link href="/terms-of-use">Terms of Service</Link>
 										</span>{" "}
-										and <span>Privacy Policy.</span>
+										and{" "}
+										<span>
+											<Link href="/privacy-policy">Privacy Policy.</Link>
+										</span>
 									</p>
 								</div>
 							</div>

@@ -15,6 +15,9 @@ module.exports = {
 				"2xl": "1400px",
 			},
 		},
+		fontFamily: {
+			WorkSans: ["Work Sans", "sans-serif"],
+		},
 		extend: {
 			colors: {
 				border: "hsl(var(--border))",
@@ -43,7 +46,7 @@ module.exports = {
 					foreground: "hsl(var(--accent-foreground))",
 				},
 				popover: {
-					DEFAULT: "hsl(var(--popover))",
+					DEFAULT: "white",
 					foreground: "hsl(var(--popover-foreground))",
 				},
 				card: {

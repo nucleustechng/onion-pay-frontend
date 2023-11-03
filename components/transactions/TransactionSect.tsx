@@ -5,7 +5,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import HelpButton from "../HelpButton";
 import TransactionHeader from "./TransactionHeader";
 import TransactionTable from "./TransactionTable";
-// import SearchIcon from "../../Assets/icon/Search.svg";
+import SearchIcon from "../../Assets/icon/Search.svg";
 // import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
@@ -14,6 +14,7 @@ import { RootState } from "../../redux/store";
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
 // import CompleteInvoiceModal from './modals/CompleteInvoiceModal'
 import {
+	useLoadSingleTransactionQuery,
 	// useLoadSingleTransactionQuery,
 	useLoadTransactionsQuery,
 } from "../../modules/TransactionsApi/transactionsApi";
@@ -52,7 +53,7 @@ const TransactionSect = () => {
 	);
 	const [showModal, setShowModal] = useState<boolean>(false);
 
-	// const [transactionID, setTransactionID] = useState<string>("");
+	const [referenceID, setReferenceID] = useState<string>("");
 	// const [mytransaction, setMyTransaction] = useState<any>();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -64,6 +65,9 @@ const TransactionSect = () => {
 		isLoading,
 	} = useLoadTransactionsQuery();
 
+	const { data: searchData, isSuccess: isSearchSuccess } =
+		useLoadSingleTransactionQuery(referenceID);
+
 	// const { data: transaction, isSuccess: transactionSuccess } =
 	// 	useLoadSingleTransactionQuery(transactionID);
 	const [loading, setLoading] = useState<boolean>(true);
@@ -71,10 +75,10 @@ const TransactionSect = () => {
 
 	useEffect(() => {
 		// invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
-		// if (transactionSuccess) {
-		// 	const strIndex: any = "transaction";
-		// 	setMyTransaction(transaction[strIndex]);
-		// }
+		if (isSearchSuccess) {
+			const strIndex: any = "transaction";
+			setTransactionsArray(searchData[strIndex]);
+		}
 
 		if (isSuccess && transactionsData.success == true) {
 			setTransactionsArray(transactionsData["records"]);
@@ -86,6 +90,7 @@ const TransactionSect = () => {
 		isSuccess,
 		transactionsArray,
 		transactionsData,
+		isSearchSuccess,
 		// transaction,
 		// mytransaction,
 		// transactionID,
@@ -225,7 +230,7 @@ const TransactionSect = () => {
 									)}
 								</div>
 								{/* Small screen search input */}
-								{/* <div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
+								<div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
 									<div className="absolute  pl-[0.7rem] ">
 										<Image
 											src={SearchIcon}
@@ -235,15 +240,15 @@ const TransactionSect = () => {
 									</div>
 									<input
 										type="text"
-										name="t_id"
-										value={transactionID}
-										onChange={(e) => setTransactionID(e.target.value)}
+										name="r_id"
+										value={referenceID}
+										onChange={(e) => setReferenceID(e.target.value)}
 										className="w-screen h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]"
 										placeholder="Search"
 									/>
-								</div> */}
+								</div>
 								<div className="flex flex-row gap-3 mt-4 md:pl-5 md:gap-1 lg:gap-3 lg:mt-0">
-									{/* <div className="hidden md:relative md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
+									<div className="hidden md:relative md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
 										<div className="absolute  pl-[0.7rem] ">
 											<Image
 												src={SearchIcon}
@@ -253,10 +258,13 @@ const TransactionSect = () => {
 										</div>
 										<input
 											type="text"
+											name="r_id"
+											value={referenceID}
+											onChange={(e) => setReferenceID(e.target.value)}
 											className="w-[18.75rem] h-11 text-sm font-normal font-WorkSans pl-10 leading-4 rounded-[0.32rem] border-solid border-[0.07rem] border-[#CACACA]"
 											placeholder="Search"
 										/>
-									</div> */}
+									</div>
 									{/* <div className="">
 										<div className="flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[7.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]">
 											<div className="flex items-center gap-3 md:gap-7 lg:gap-7">
@@ -337,6 +345,7 @@ const TransactionSect = () => {
 																openModal();
 																setSelectedIndex(index);
 															}}
+															r_id={transaction?.r_id}
 															// status={transactionsArray[index]['events'][0]?.status ? transactionsArray[index]['events'][0]?.status : '--'}
 															amount={transaction?.amount_string}
 															date={transaction.on ? transaction.on : "--"}
