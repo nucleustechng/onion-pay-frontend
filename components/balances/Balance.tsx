@@ -331,6 +331,10 @@ const Balance = () => {
 		);
 		if (data.success === true) {
 			setIsLoading(false);
+			closeModal();
+			closeAddressModal();
+			closeDocumentModal();
+			closeIdModal();
 			return data;
 		} else {
 			setIsLoading(false);
