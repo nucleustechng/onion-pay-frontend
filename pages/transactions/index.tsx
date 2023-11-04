@@ -3,7 +3,7 @@ import React from "react";
 // import Refunds from '../components/refunds/Refunds'
 // import TransactionSect from "../../components/transactions/TransactionSect";
 import useAuth from "../../useAuth";
-import TransactionsContent from "../../components/transactions/TransactionsContent";
+import TransactionsContent from "../../components/transactions/TestSect";
 
 const Transactions = () => {
 	useAuth();

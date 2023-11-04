@@ -288,7 +288,7 @@ const Balance = () => {
 		}
 
 		const { data } = await axios.post(
-			`${process.env.NEXT_PUBLIC_URL}api/v1/upgrade-wallet`,
+			`${process.env.NEXT_PUBLIC_URL}/api/v1/upgrade-wallet`,
 			formDataObject,
 			{
 				headers: {
