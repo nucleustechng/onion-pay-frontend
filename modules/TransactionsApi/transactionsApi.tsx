@@ -25,7 +25,7 @@ export const transationsApi = createApi({
 			query: (r_id: string) => `/api/v1/more-transaction-records/${r_id}`,
 		}),
 		loadSingleTransaction: builder.query<string, any>({
-			query: (transId: string) => `/api/v1/transaction/${transId}`,
+			query: (transId: string) => `/api/v1/transaction-record/${transId}`,
 		}),
 	}),
 });

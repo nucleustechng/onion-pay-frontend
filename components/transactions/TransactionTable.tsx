@@ -4,7 +4,7 @@ interface Props {
 	recipient: string;
 	amount: string;
 	sender: string;
-	// status:string,
+	r_id: string;
 	date: any;
 	debit: boolean;
 	handleSelected: () => void;
@@ -16,6 +16,7 @@ const TransactionTable = ({
 	date,
 	sender,
 	debit,
+	r_id,
 	handleSelected,
 }: Props) => {
 	const slicedAmount = amount.slice(1);
@@ -58,12 +59,15 @@ const TransactionTable = ({
 				className={`flex items-center px-4 w-[71.5rem] h-16  cursor-pointer hover:bg-[#E7EDFF]`}
 				onClick={handleSelected}
 			>
-				<div className="w-[19.5rem]">
+				<div className="w-[22.5rem]">
 					<h1>{sender}</h1>
 				</div>
 
 				<div className="w-[26rem]">
 					<h1 className="capitalize">{recipient}</h1>
+				</div>
+				<div className="w-[26rem]">
+					<h1 className="capitalize">{r_id}</h1>
 				</div>
 				<div
 					className={`w-[18.4rem] ${
@@ -72,7 +76,7 @@ const TransactionTable = ({
 				>
 					<h1>NGN {slicedAmount}</h1>
 				</div>
-				<div className="w-[24rem]">
+				<div className="w-[12rem]">
 					<h1>{formattedDate}</h1>
 				</div>
 				{/* <div className='w-[21.65rem]'>

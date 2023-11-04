@@ -21,7 +21,55 @@ export const walletApi = createApi({
 		loadWallet: builder.query<any, void>({
 			query: () => "/api/v1/wallet",
 		}),
+		upgradeWallet: builder.mutation({
+			query: (payload) => {
+				const {
+					selfie,
+					signature,
+					utilityBill,
+					document,
+					idType,
+					idIssueDate,
+					idExpiryDate,
+					idNumber,
+					houseNumber,
+					streetName,
+					city,
+					localGovernment,
+					state,
+					nearestLandmark,
+				} = payload;
+				console.log("formData: " + JSON.stringify(payload));
+
+				const formDataObject = new FormData();
+				formDataObject.append("selfie", selfie);
+				formDataObject.append("signature", signature);
+				formDataObject.append("utilityBill", utilityBill);
+				formDataObject.append("document", document);
+				formDataObject.append("idType", idType);
+				formDataObject.append("idIssueDate", idIssueDate);
+				formDataObject.append("idExpiryDate", idExpiryDate);
+				formDataObject.append("idNumber", idNumber);
+				formDataObject.append("houseNumber", houseNumber);
+				formDataObject.append("streetName", streetName);
+				formDataObject.append("city", city);
+				formDataObject.append("localGovernment", localGovernment);
+				formDataObject.append("state", state);
+				formDataObject.append("nearestLandmark", nearestLandmark);
+				console.log("formDataObject: " + formDataObject);
+
+				return {
+					url: "/api/v1/upgrade-wallet",
+					method: "POST",
+					body: formDataObject,
+					
+					headers: {
+						"Content-Type": `multipart/form-data; boundary=${formDataObject}`,
+					},
+				};
+			},
+		}),
 	}),
 });
 
-export const { useLoadWalletQuery } = walletApi;
+export const { useLoadWalletQuery, useUpgradeWalletMutation } = walletApi;
