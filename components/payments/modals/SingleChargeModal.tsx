@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../Loader";
 import CustomToggle from "../../CustomToggle";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
 	isVisible: boolean;
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const SingleChargeModal = ({ isVisible, onClose }: Props) => {
+	const queryClient = useQueryClient();
+
 	const [isFixed, setFixed] = useState<boolean>(true);
 	const [paymentLinkInfo, setPaymentLinkInfo] = useState({
 		title: "",
@@ -62,6 +65,7 @@ const SingleChargeModal = ({ isVisible, onClose }: Props) => {
 
 		if (isSuccess) {
 			if (paymentLinkData?.success === true) {
+				queryClient.invalidateQueries({ queryKey: ["paymentLinks"] });
 				onClose();
 			}
 			setPaymentLinkInfo({
