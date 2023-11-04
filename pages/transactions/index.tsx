@@ -1,26 +1,22 @@
-import React from 'react'
+import React from "react";
 // import ChargeBacks from '../../components/chargebacks/ChargeBacks'
 // import Refunds from '../components/refunds/Refunds'
-import TransactionSect from '../../components/transactions/TransactionSect'
-import useAuth from '../../useAuth'
-
-
+// import TransactionSect from "../../components/transactions/TransactionSect";
+import useAuth from "../../useAuth";
+import TransactionsContent from "../../components/transactions/TestSect";
 
 const Transactions = () => {
-  useAuth()
+	useAuth();
+	// Create a client
 
-  return (
-    <div>
-      <div>
-        <div className='w-[20rem] md:w-[32rem] lg:w-[74rem]'>
-          <TransactionSect/>
-          {/* <Refunds/> */}
-          {/* <ChargeBacks/> */}
-        </div>
+	return (
+		<div>
+			{/* <TransactionSect/> */}
+			{/* <Refunds/> */}
+			{/* <ChargeBacks/> */}
+			<TransactionsContent />
+		</div>
+	);
+};
 
-      </div>
-    </div>
-  )
-}
-
-export default Transactions
+export default Transactions;
