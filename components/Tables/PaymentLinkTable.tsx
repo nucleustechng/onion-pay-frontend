@@ -173,8 +173,10 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 												</div>
 											</div>
 											<div
-												className="w-6 flex justify-center items-center cursor-pointer"
-												onClick={() => handleEllipsisClick(index)}
+												className="w-6   flex justify-center items-center cursor-pointer"
+												onClick={() => {
+													handleEllipsisClick(index);
+												}}
 											>
 												<FontAwesomeIcon
 													icon={faEllipsisV}
@@ -184,7 +186,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 											{showPopover &&
 												selectedLinkId === paymentLinks[index]?.p_id && (
 													<div
-														className="absolute drop-shadow-lg z-50  w-40 h-[5rem] left-[59rem] bg-white rounded-md"
+														className="absolute drop-shadow-lg z-50  w-40 h-[5rem] left-[38rem] md:left-[59rem] bg-white rounded-md"
 														ref={popoverRef}
 														style={{
 															top: `calc(${
