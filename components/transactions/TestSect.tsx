@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 // import { PlusIcon } from "@radix-ui/react-icons";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment,useState } from "react";
 import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
