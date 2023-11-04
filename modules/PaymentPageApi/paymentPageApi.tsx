@@ -23,13 +23,14 @@ export const paymentPageApi = createApi({
         createPaymentPage:builder.mutation({
             query: (body:{title:string,fixed:boolean,amount?:number,
                 description:string,redirect_url:string}) => {
+
                 return {
                     url:'/api/v1/create-payment-page',
                     method:'post',
                     body,
                 };
             },
-            invalidatesTags: ["paymentpages"]
+            invalidatesTags: ["paymentpages"],
         }),
         updatePaymentPage:builder.mutation({
             query: (body:{title:string,p_id:string,amount:number,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { Input } from "../../@/components/ui/input";
 import {
 	Table,
@@ -11,6 +11,16 @@ import {
 // import { Button } from "../../@/components/ui/button";
 
 import Loader from "../Loader";
+// import PaymentLinkContainer from "../payments/PaymentLinkContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import EditLinkModal from "../payments/modals/EditLinkModal";
+import DeleteLinkModal from "../payments/modals/DeleteLinkModal";
+import EditIcon from "../../Assets/icons/Edit.svg";
+import TrashIcon from "../../Assets/icon/TrashIcon.svg";
+import CopyIcon from "../../Assets/icon/CopyIcon.svg";
+import Image from "next/image";
 // import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
@@ -19,45 +29,49 @@ type Props = {
 };
 
 export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
-	// const [queryValue, setQueryValue] = useState("");
-	// const arrayLength = transactions?.length;
-	// let firstIndex: number;
+	const [selectedLinkId, setSelectedLinkId] = useState<string>("");
+	const [selectedTitle, setSelectedTitle] = useState<string>("");
+	const [selectedAmount, setSelectedAmount] = useState<number | any>();
+	const [selectedIndex, setSelectedIndex] = useState<number | any>();
 
-	// if (arrayLength >= 150) {
-	// 	firstIndex = arrayLength - 100;
-	// } else if (arrayLength >= 100) {
-	// 	firstIndex = arrayLength - 50;
-	// } else {
-	// 	// Handle cases where the array length is less than 100
-	// 	firstIndex = 0; // Set the index to 0 or handle it based on your specific requirement
-	// }
-	// const lastIndex = arrayLength - 1;
-	// const {
-	// 	handleLoadMore,
-	// 	isLoadingMore,
-	// 	byBusinessData,
-	// 	setBusinessId,
-	// 	businessId,
-	// } = useTransactionHooks();
+	const [isEdit, setEdit] = useState<boolean>(false);
 
-	// const {
-	// 	data: transactionsData,
-	// 	isSuccess,
-	// 	isLoading: isMoreLoading,
-	// 	refetch,
-	// } = useLoadMoreTransactionsQuery(queryValue);
+	const [showModal, setShowModal] = useState(false);
 
-	// const handleButtonClick = () => {
-	// 	// Update the query value (if needed)
-	// 	const newQueryValue = transactions[lastIndex]?.r_id; // Set the new value here
-	// 	setQueryValue(newQueryValue);
+	const handleEllipsisClick = (index: number) => {
+		setSelectedIndex(index);
+		setShowPopover(true);
+		setSelectedLinkId(paymentLinks[index]?.p_id);
+		setSelectedTitle(paymentLinks[index]?.title);
+		setSelectedAmount(paymentLinks[index]?.amount);
+	};
 
-	// 	// Call the refetch function with the updated query value to trigger the data request
-	// 	refetch();
-	// };
-	// console.log("Transactions dara", transactionsData);
+	const copyToClipboard = (copyItem: any) => {
+		navigator.clipboard.writeText(copyItem);
+		toast.success("Copied!!", { autoClose: 100 });
+	};
+
+	const [showPopover, setShowPopover] = useState<boolean>(false);
+	const popoverRef = useRef<HTMLDivElement>(null);
+
+	const handleClickOutsidePopover = (event: MouseEvent) => {
+		if (
+			popoverRef.current &&
+			!popoverRef.current.contains(event.target as Node)
+		) {
+			setShowPopover(false);
+			setSelectedLinkId("");
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutsidePopover);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutsidePopover);
+		};
+	}, []);
 	return (
-		<div className="w-full  h-full overflow-auto">
+		<div className=" w-full  h-full overflow-auto">
 			<div className="flex items-center py-4">
 				{/* <Input
 					placeholder="Filter by businessId..."
@@ -70,9 +84,10 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 			</div>
 			<div className="rounded-md border">
 				<Table
-					className={
-						paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
-					}
+					className="relative"
+					// className={
+					// 	paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
+					// }
 				>
 					<TableHeader
 						className={`  h-[48px] sticky top-0 border-foreground border-b`}
@@ -123,28 +138,106 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 								</TableCell>
 							</TableRow>
 						) : (
-							paymentLinks?.map((paymentlink: any) => (
+							paymentLinks?.map((paymentlink: any, index: number) => (
 								<TableRow
 									key={paymentlink?.p_id}
 									className="cursor-pointer hover:bg-[#E7EDFF]"
 								>
-									<TableCell className="font-WorkSans font-normal h-[60px]">
+									<TableCell className="font-WorkSans font-normal h-[80px]">
 										{paymentlink?.title ? paymentlink?.title : "N/A"}
 									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[40px]">
 										{paymentlink?.amount ? paymentlink?.amount : "N/A"}
 									</TableCell>
-									<TableCell className="font-WorkSans font-normal h-[60px] truncate">
+									<TableCell className="font-WorkSans font-normal h-[80px] truncate">
 										{paymentlink?.p_id}
 									</TableCell>
 
-									<TableCell className={`font-WorkSans font-normal h-[60px] `}>
+									<TableCell className={`font-WorkSans font-normal h-[80px] `}>
 										{paymentlink?.description
 											? paymentlink?.description
 											: "N/A"}
 									</TableCell>
-									<TableCell className="font-WorkSans font-normal h-[60px]">
-										{paymentlink?.url ? paymentlink?.url : "N/A"}
+									<TableCell className="font-WorkSans font-normal h-[80px]">
+										<div className="flex items-center justify-between w-[22.3rem] pl-3 ">
+											<div className="w-[20rem]  flex gap-14 items-center ">
+												<p className="w-[15rem]">{paymentlink?.url}</p>
+												<div
+													className="cursor-pointer"
+													onClick={() => copyToClipboard(paymentlink?.url)}
+												>
+													<Image
+														src={CopyIcon}
+														alt="Copy Icon"
+													/>
+												</div>
+											</div>
+											<div
+												className="w-6 flex justify-center items-center cursor-pointer"
+												onClick={() => handleEllipsisClick(index)}
+											>
+												<FontAwesomeIcon
+													icon={faEllipsisV}
+													className="w-5 h-5"
+												/>
+											</div>
+											{showPopover &&
+												selectedLinkId === paymentLinks[index]?.p_id && (
+													<div
+														className="absolute drop-shadow-lg z-50  w-40 h-[5rem] left-[59rem] bg-white rounded-md"
+														ref={popoverRef}
+														style={{
+															top: `calc(${
+																popoverRef.current?.parentElement?.getBoundingClientRect()
+																	.top
+															}px + 2rem)`,
+															left: `calc(${
+																popoverRef.current?.parentElement?.getBoundingClientRect()
+																	.left
+															}px + 52rem)`,
+														}}
+													>
+														<div className="flex flex-col gap-4 px-[0.625rem] py-4">
+															<div
+																className="flex justify-between items-center cursor-pointer"
+																onClick={() => {
+																	setEdit(true);
+																	setShowModal(true);
+																	setShowPopover(false);
+																}}
+															>
+																<h1 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
+																	Edit
+																</h1>
+																<Image
+																	src={EditIcon}
+																	alt="Edit Icon"
+																	width={16}
+																	height={16}
+																/>
+															</div>
+															<div
+																className="flex justify-between items-center cursor-pointer"
+																onClick={() => {
+																	setEdit(false);
+																	setShowModal(true);
+																	setShowPopover(false);
+																}}
+															>
+																<h1 className="text-sm text-[#DE0040] font-WorkSans font-normal leading-4">
+																	Delete
+																</h1>
+																<Image
+																	src={TrashIcon}
+																	alt="Edit Icon"
+																	width={16}
+																	height={16}
+																/>
+															</div>
+														</div>
+													</div>
+												)}
+										</div>
 									</TableCell>
 								</TableRow>
 							))
@@ -152,6 +245,29 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 					</TableBody>
 				</Table>
 			</div>
+
+			{isEdit && (
+				<EditLinkModal
+					isVisible={showModal}
+					onClose={async () => setShowModal(false)}
+					prevPageID={selectedLinkId}
+					prevPageName={paymentLinks[selectedIndex]?.title}
+					prevAmount={paymentLinks[selectedIndex]?.amount}
+					prevDescription={
+						paymentLinks ? paymentLinks[selectedIndex]?.description : ""
+					}
+					prevRedirect={paymentLinks[selectedIndex]?.redirect_url}
+				/>
+			)}
+			{!isEdit && (
+				<DeleteLinkModal
+					amount={selectedAmount}
+					pageName={selectedTitle}
+					isVisible={showModal}
+					onClose={async () => setShowModal(false)}
+					pageID={selectedLinkId}
+				/>
+			)}
 			<div className="flex items-center justify-end space-x-2 py-4">
 				<div className="flex-1 text-sm text-muted-foreground">
 					{/* Show selected rows count */}
