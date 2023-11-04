@@ -7,6 +7,7 @@ import TransactionsContent from "../../components/transactions/TestSect";
 
 const Transactions = () => {
 	useAuth();
+	// Create a client
 
 	return (
 		<div>

@@ -6,11 +6,13 @@ import React, { Fragment, useEffect, useState } from "react";
 import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
-import { useLoadTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 import Header from "../Header";
 // import { Button } from "../../@/components/ui/button";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { setShowSidebar } from "../../redux/sidebarSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getTransactions } from "../../modules/TransactionsApi/transactionService";
+import { formatDate } from "../../@/lib/utils";
 
 const TransactionsContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
@@ -20,9 +22,8 @@ const TransactionsContent = () => {
 		subText: string;
 	};
 
-	// const [showModal,setShowModal] = useState<boolean>(false);
 	const dispatch: any = useAppDispatch();
-	// const [outputData, setOutputData] = useState("");
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
@@ -33,55 +34,15 @@ const TransactionsContent = () => {
 		setIsOpen(true);
 	}
 
-	// const handleDataSubmit = (data: any) => {
-	// 	setOutputData(data);
-	// };
 	const sidebarShow = useAppSelector(
 		(state: RootState) => state.sidebar.sidebarShow
 	);
-	// const isSecondStep = useAppSelector(
-	// 	(state: RootState) => state.invoice.isSecondStep
-	// );
-	// const [showModal, setShowModal] = useState<boolean>(false);
 
-	// const [transactionID, setTransactionID] = useState<string>("");
-	// const [mytransaction, setMyTransaction] = useState<any>();
+	const { data: transactions, isLoading } = useQuery({
+		queryKey: ["transactions"],
+		queryFn: getTransactions,
+	});
 
-	const [transactionsArray, setTransactionsArray] = useState<any>([]);
-
-	const {
-		data: transactionsData,
-		isSuccess,
-		isLoading,
-	} = useLoadTransactionsQuery();
-
-	// const { data: transaction, isSuccess: transactionSuccess } =
-	// 	useLoadSingleTransactionQuery(transactionID);
-	// const [loading, setLoading] = useState<boolean>(true);
-	// const  [showEmpty,setShowEmpty] = useState<boolean>(true)
-
-	useEffect(() => {
-		// invoicesArray.length >= 1 ?  setShowEmpty(false) : setShowEmpty(true);
-		// if (transactionSuccess) {
-		// 	const strIndex: any = "transaction";
-		// 	setMyTransaction(transaction[strIndex]);
-		// }
-
-		if (isSuccess && transactionsData.success == true) {
-			setTransactionsArray(transactionsData["records"]);
-			// setLoading(false);
-		} else {
-			console.log("An error occured");
-		}
-	}, [
-		isSuccess,
-		transactionsArray,
-		transactionsData,
-		// transaction,
-		// mytransaction,
-		// transactionID,
-		// transactionSuccess,
-	]);
 	const CardItem = ({ mainHeader, subText }: ICardItem) => {
 		return (
 			<div className="flex items-center justify-between">
@@ -136,12 +97,12 @@ const TransactionsContent = () => {
 			<div className="flex-1 pr-0 md:pr-6">
 				{/* <DataTableDemo /> */}
 				<TransactionTable
-					transactions={transactionsArray}
+					isLoading={isLoading}
+					transactions={transactions}
 					showMore={(index: number) => {
 						openModal();
 						setSelectedIndex(index);
 					}}
-					isLoading={isLoading}
 				/>
 
 				<Transition
@@ -202,51 +163,58 @@ const TransactionsContent = () => {
 											<CardItem
 												mainHeader="Sender"
 												subText={
-													transactionsArray &&
-													transactionsArray[selectedIndex]?.sender
+													transactions && transactions[selectedIndex]?.sender
 												}
 											/>
 											<CardItem
 												mainHeader="Recipient"
 												subText={
-													transactionsArray &&
-													transactionsArray[selectedIndex]?.recipient
+													transactions && transactions[selectedIndex]?.recipient
 												}
 											/>
 											<CardItem
 												mainHeader="Transaction ID"
 												subText={
-													transactionsArray &&
-													transactionsArray[selectedIndex]?.t_id
+													transactions && transactions[selectedIndex]?.t_id
 												}
 											/>
-											{/* <CardItem
-												mainHeader="Reference ID"
+											{transactions && !transactions[selectedIndex]?.debit && (
+												<CardItem
+													mainHeader="Transaction reference"
+													subText={
+														transactions && transactions[selectedIndex]?.t_id
+													}
+												/>
+											)}
+											<CardItem
+												mainHeader="Amount"
 												subText={
-													transactions && transactions[selectedIndex]?.r_id
+													transactions &&
+													transactions[selectedIndex]?.amount_string
 												}
-											/> */}
-											{/* <CardItem
+											/>
+											<CardItem
 												mainHeader="Date"
 												subText={
 													transactions &&
-													convertToDate(transactions[selectedIndex]?.on)
+													formatDate(transactions[selectedIndex]?.on)
 												}
-											/> */}
+											/>
+
 											<div className="w-auto p-4 h-auto bg-[#E7EDFF] rounded-[5px]">
 												<div className="flex flex-col gap-2">
 													<CardItem
 														mainHeader="Transaction fee"
 														subText={
-															transactionsArray &&
-															transactionsArray[selectedIndex]?.fee_string
+															transactions &&
+															transactions[selectedIndex]?.fee_string
 														}
 													/>
 													<CardItem
 														mainHeader="Transaction amount"
 														subText={
-															transactionsArray &&
-															transactionsArray[selectedIndex]?.amount_string
+															transactions &&
+															transactions[selectedIndex]?.amount_string
 														}
 													/>
 												</div>

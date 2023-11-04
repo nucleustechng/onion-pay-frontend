@@ -468,26 +468,7 @@ const TransactionSect = () => {
 																			transactionsArray[selectedIndex].on
 																		)}
 																	/>
-																	{/* <div className="w-auto p-4 h-auto bg-[#E7EDFF] rounded-[5px]">
-																		<div>
-																			<h1 className="font-WorkSans text-sm font-normal text-[#898989]">
-																				Complain:
-																			</h1>
-																			<h2 className="font-WorkSans text-sm font-normal text-[#1B1A1A]">
-																				I kicked out of my dashboard every time
-																				I start a transfer process.
-																			</h2>
-																		</div>
-																	</div> */}
-																	{/* <div>
-																		<Button
-																			disabled={false}
-																			className="w-full bg-[#3063E9] text-[#FFF]"
-																		>
-																			<ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-																			Reply customer
-																		</Button>
-																	</div> */}
+																	
 																</div>
 															</div>
 														</div>
