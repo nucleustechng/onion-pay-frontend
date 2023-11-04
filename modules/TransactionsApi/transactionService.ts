@@ -5,7 +5,7 @@ const token = Cookies.get("token");
 
 export const getTransactions = async () => {
 	const { data } = await axios.get(
-		`${process.env.NEXT_PUBLIC_URL}api/v1/transaction-records`,
+		`https://api.onionpay.io/api/v1/transaction-records`,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,
