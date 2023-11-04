@@ -106,7 +106,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 								Description
 							</TableHead>
 
-							<TableHead className="w-auto pr-20 text-[#898989] font-medium ">
+							<TableHead className="w-auto  text-[#898989] font-medium ">
 								Payment Link
 							</TableHead>
 						</TableRow>
@@ -159,7 +159,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 											: "N/A"}
 									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[80px]">
-										<div className="flex items-center justify-between w-[22.3rem] pl-3 ">
+										<div className="flex items-center justify-between w-[22.3rem]  ">
 											<div className="w-[20rem]  flex gap-14 items-center ">
 												<p className="w-[15rem]">{paymentlink?.url}</p>
 												<div
