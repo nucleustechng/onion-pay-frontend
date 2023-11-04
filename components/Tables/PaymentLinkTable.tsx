@@ -147,7 +147,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 										{paymentlink?.title ? paymentlink?.title : "N/A"}
 									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[40px]">
-										{paymentlink?.amount ? paymentlink?.amount : "N/A"}
+										₦{paymentlink?.amount ? paymentlink?.amount : "N/A"}
 									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[80px] truncate">
 										{paymentlink?.p_id}
