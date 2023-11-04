@@ -12,7 +12,6 @@ export const getTransactions = async () => {
 			},
 		}
 	);
-	console.log("data", data);
 	return data?.records;
 };
 
