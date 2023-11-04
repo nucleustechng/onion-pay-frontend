@@ -28,15 +28,15 @@ export const getLoadMoreTransactions = async (payload: { r_id: string }) => {
 	return data;
 };
 
-export const loadTransactionByBusiness = async (payload: { b_id: string }) => {
-	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}admin/records-by-business`,
-		payload,
-		{
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		}
-	);
-	return data?.records;
-};
+// export const loadTransactionByBusiness = async (payload: { b_id: string }) => {
+// 	const { data } = await axios.post(
+// 		`${process.env.NEXT_PUBLIC_URL}admin/records-by-business`,
+// 		payload,
+// 		{
+// 			headers: {
+// 				Authorization: `Bearer ${token}`,
+// 			},
+// 		}
+// 	);
+// 	return data?.records;
+// };
