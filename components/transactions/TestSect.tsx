@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../../modules/TransactionsApi/transactionService";
 import { formatDate } from "../../@/lib/utils";
 import { Button } from "../../@/components/ui/button";
-import DownloadIcon from "../../Assets/icon/Download.svg";
+// import DownloadIcon from "../../Assets/icon/Download.svg";
 import { useTransactionHooks } from "./useTransactionHooks";
 import {
 	Popover,
@@ -23,9 +23,12 @@ import {
 } from "../../@/components/ui/popover";
 import { Calendar } from "../../@/components/ui/calendar";
 import { CalendarIcon } from "@radix-ui/react-icons";
+// import { useExcelDownloder } from "react-xls";
 
 const TransactionsContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
+	// const [isDownload, setIsDownload] = useState<boolean>(false);
+	// const { ExcelDownloder, Type } = useExcelDownloder();
 
 	type ICardItem = {
 		mainHeader: string;
@@ -60,23 +63,44 @@ const TransactionsContent = () => {
 		to: null,
 	});
 	const handleDate = (selectedDate: any) => {
-		console.log("start", selectedDate, "end", selectedDate);
-
 		if (date.from === null) {
 			// Selecting start date
-			setDate({ ...date, from: selectedDate.from });
+			setDate((prevState: any) => ({ ...prevState, from: selectedDate.from }));
 		} else {
 			// Selecting end date
-			setDate({ ...date, to: selectedDate.to });
+			if (date.from === selectedDate.to) {
+				// Resetting from date
+				setDate((prevState: any) => ({ ...prevState, from: null }));
+			} else {
+				// Setting to date and making filter request
+				setDate((prevState: any) => ({ ...prevState, to: selectedDate.to }));
 
-			// Call your filter function with start and end dates
-			// Convert start and end dates to timestamps
-			const startTimestamp = Date.parse(date.from);
-
-			const endTimestamp = Date.parse(date.to);
-			filterByDate({ start: startTimestamp, end: endTimestamp });
+				// Call your filter function with start and end dates
+				// Convert start and end dates to timestamps
+				const startTimestamp = Date.parse(date.from);
+				const endTimestamp = Date.parse(selectedDate.to);
+				// if (isDownload) {
+				// 	downloadTransactions({ start: startTimestamp, end: endTimestamp });
+				// } else {
+				filterByDate({ start: startTimestamp, end: endTimestamp });
+				// }
+				setTimeout(() => {
+					setDate({
+						from: null,
+						end: null,
+					});
+				}, 1000);
+			}
 		}
 	};
+
+	// const formattedTransactions = transactions?.map((transaction: any) => {
+	// 	return {
+	// 		name: transaction.name, // Replace 'name' with an appropriate property name
+	// 		category: transaction.category, // Replace 'category' with an appropriate property name
+	// 		// Add more properties as needed
+	// 	};
+	// });
 
 	const CardItem = ({ mainHeader, subText }: ICardItem) => {
 		return (
@@ -137,6 +161,22 @@ const TransactionsContent = () => {
 								)}  */}
 								</Button>
 							</PopoverTrigger>
+							{/* <PopoverTrigger
+								onClick={() => {
+									setIsDownload(true);
+								}}
+								asChild
+							>
+								<Button className="bg-[#F5F5F5] text-primary-foreground">
+									Download
+									<Image
+										src={DownloadIcon}
+										alt="Download Icon"
+										className="ml-4"
+									/>
+									
+								</Button>
+							</PopoverTrigger> */}
 							<PopoverContent
 								className="w-auto p-0"
 								align="start"
@@ -149,20 +189,6 @@ const TransactionsContent = () => {
 								/>
 							</PopoverContent>
 						</Popover>
-						<Button
-							// onClick={() => {
-							// 	addAdminModal();
-							// }}
-							className="bg-[#F5F5F5] text-primary-foreground"
-						>
-							Download
-							<Image
-								src={DownloadIcon}
-								alt="Download Icon"
-								className="ml-4"
-							/>
-							{/* <PlusIcon className="ml-2 h-4 w-4" /> */}
-						</Button>
 					</div>
 				</div>
 				{/* <DataTableDemo /> */}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const token = Cookies.get("token");
 
@@ -32,13 +33,32 @@ export const downnloadTransactions = async (payload: {
 	end: number;
 }) => {
 	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}api/v1/download-records`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/download-records`,
+		payload,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		}
 	);
+	if (data?.success == false) {
+		toast.error(data?.reason);
+	} else {
+		const url = window.URL.createObjectURL(new Blob([data]));
+		const link = document.createElement("a");
+		link.href = url;
+		link.setAttribute("download", `FileName.xlsx`);
+
+		// Append to html link element page
+		document.body.appendChild(link);
+
+		// Start download
+		link.click();
+
+		// Clean up and remove the link
+		link?.parentNode?.removeChild(link);
+	}
+
 	return data;
 };
 
@@ -47,7 +67,7 @@ export const filterTransactions = async (payload: {
 	end: number;
 }) => {
 	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}api/v1/filter-transactions`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/filter-transactions`,
 		payload,
 		{
 			headers: {
