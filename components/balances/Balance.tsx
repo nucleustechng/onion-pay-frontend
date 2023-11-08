@@ -51,6 +51,11 @@ const Balance = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
 
+	const hiddenSelfieInput: any = React.useRef(null);
+	const handleSelfieClick = () => {
+		hiddenSelfieInput.current?.click();
+	};
+
 	function dataURLtoFile(dataURL: any, filename: any) {
 		const arr = dataURL.split(",");
 		const mime = arr[0].match(/:(.*?);/)[1];
@@ -238,82 +243,89 @@ const Balance = () => {
 	const walletName = walletData ? walletData["wallet"]?.walletName : "---";
 
 	// const FundBalanceModal = dynamic(() => import("./modals/FundBalanceModal"));
-	const upgradeWalletTest = async () => {
+	const upgradeWallet = async () => {
 		setIsLoading(true);
-		const token = Cookies.get("token");
+		try {
+			const token = Cookies.get("token");
+			const formDataObject = new FormData();
 
-		const formDataObject = new FormData();
-
-		if (capturedImage) {
-			formDataObject.append("selfie", capturedImage);
-		}
-		if (signature) {
-			formDataObject.append("signature", signature);
-		}
-		if (utilityBill) {
-			formDataObject.append("utilityBill", utilityBill);
-		}
-		if (document) {
-			formDataObject.append("document", document);
-		}
-		if (idType) {
-			formDataObject.append("idType", idType);
-		}
-		if (date) {
-			formDataObject.append("idIssueDate", date);
-		}
-		if (date1) {
-			formDataObject.append("idExpiryDate", date1);
-		}
-		if (idNumber) {
-			formDataObject.append("idNumber", idNumber);
-		}
-		if (address) {
-			formDataObject.append("houseNumber", address?.houseNumber.toString());
-		}
-		if (address) {
-			formDataObject.append("streetName", address?.streetName);
-		}
-		if (address) {
-			formDataObject.append("city", address?.city);
-		}
-		if (address) {
-			formDataObject.append("localGovernment", address?.localGovernment);
-		}
-		if (address) {
-			formDataObject.append("state", address?.state);
-		}
-		if (address) {
-			formDataObject.append("nearestLandmark", address?.nearestLandmark);
-		}
-
-		const { data } = await axios.post(
-			`${process.env.NEXT_PUBLIC_URL}/api/v1/upgrade-wallet`,
-			formDataObject,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-					"Content-Type": "multipart/form-data",
-				},
+			if (capturedImage) {
+				formDataObject.append("selfie", capturedImage);
 			}
-		);
-		if (data.success === true) {
-			setIsLoading(false);
-			closeModal();
-			setCapturedImage("");
-			setIdType("");
-			setIdNumber("");
-			setDate("");
-			setDate1("");
-			toast.success(
-				"Upgrade request successful. An email will be sent when your wallet is upgraded."
+			if (signature) {
+				formDataObject.append("signature", signature);
+			}
+			if (utilityBill) {
+				formDataObject.append("utilityBill", utilityBill);
+			}
+			if (document) {
+				formDataObject.append("document", document);
+			}
+			if (idType) {
+				formDataObject.append("idType", idType);
+			}
+			if (date) {
+				formDataObject.append("idIssueDate", date);
+			}
+			if (date1) {
+				formDataObject.append("idExpiryDate", date1);
+			}
+			if (idNumber) {
+				formDataObject.append("idNumber", idNumber);
+			}
+			if (address) {
+				formDataObject.append("houseNumber", address?.houseNumber.toString());
+			}
+			if (address) {
+				formDataObject.append("streetName", address?.streetName);
+			}
+			if (address) {
+				formDataObject.append("city", address?.city);
+			}
+			if (address) {
+				formDataObject.append("localGovernment", address?.localGovernment);
+			}
+			if (address) {
+				formDataObject.append("state", address?.state);
+			}
+			if (address) {
+				formDataObject.append("nearestLandmark", address?.nearestLandmark);
+			}
+
+			const { data } = await axios.post(
+				`${process.env.NEXT_PUBLIC_URL}/api/v1/upgrade-wallet`,
+				formDataObject,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "multipart/form-data",
+					},
+				}
 			);
-			return data;
-		} else {
+
+			if (data.success === true) {
+				setIsLoading(false);
+				closeModal();
+				setCapturedImage("");
+				setIdType("");
+				setIdNumber("");
+				setDate("");
+				setDate1("");
+				toast.success(
+					"Upgrade request successful. An email will be sent when your wallet is upgraded."
+				);
+				return data;
+			} else {
+				setIsLoading(false);
+				toast.error(data?.reason);
+			}
+		} catch (error) {
 			setIsLoading(false);
-			toast.error(data?.reason);
+			console.error("Error occurred during upgrade request:", error);
+			toast.error("An error occurred. Please try again later.");
 		}
 	};
+
 	return (
 		<div className="">
 			<div className=" mx-6 mt-6">
@@ -487,23 +499,24 @@ const Balance = () => {
 																	Fit your face in the space bellow
 																</h1>
 																<div className="relative w-[14.9rem] h-[22rem] border-[#FF9635] border-[0.0625rem] rounded-full overflow-hidden mt-4">
-																	{imageToDisplay ? (
-																		<NextImage
-																			src={imageToDisplay}
-																			width={238.4}
-																			height={352}
-																			className="object-cover w-full h-full"
-																			alt="Captured"
-																		/>
+																	<NextImage
+																		src={imageToDisplay}
+																		width={238.4}
+																		height={352}
+																		className="object-cover w-full h-full"
+																		alt="Captured"
+																	/>
+																	{/* {imageToDisplay ? (
+																	
 																	) : (
 																		<Webcam
 																			audio={false}
 																			mirrored={true}
 																			ref={webcamRef}
-																			screenshotFormat="image/jpeg"
+																			screenshotFormat='image/jpeg'
 																			className="object-cover w-full h-full"
 																		/>
-																	)}
+																	)} */}
 																</div>
 															</div>
 														</div>
@@ -511,10 +524,18 @@ const Balance = () => {
 													<div className="flex justify-center mt-6">
 														{!capturedImage ? (
 															<Button
-																onClick={captureImage}
+																onClick={handleSelfieClick}
 																className="w-full text-white"
 															>
-																Capture
+																Upload
+																<input
+																	type="file"
+																	name="file"
+																	className="hidden"
+																
+																	onChange={imageChange2}
+																	ref={hiddenSelfieInput}
+																/>
 															</Button>
 														) : (
 															<div className="flex flex-col w-full gap-4">
@@ -945,7 +966,7 @@ const Balance = () => {
 													<div className="flex justify-end">
 														<Button
 															onClick={() => {
-																upgradeWalletTest();
+																upgradeWallet();
 																// nextFunc();
 															}}
 															className="w-full text-white mt-6"
