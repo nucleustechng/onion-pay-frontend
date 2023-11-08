@@ -27,6 +27,37 @@ export const getLoadMoreTransactions = async (payload: { r_id: string }) => {
 	return data;
 };
 
+export const downnloadTransactions = async (payload: {
+	start: number;
+	end: number;
+}) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}api/v1/download-records`,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
+export const filterTransactions = async (payload: {
+	start: number;
+	end: number;
+}) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}api/v1/filter-transactions`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
 // export const loadTransactionByBusiness = async (payload: { b_id: string }) => {
 // 	const { data } = await axios.post(
 // 		`${process.env.NEXT_PUBLIC_URL}admin/records-by-business`,

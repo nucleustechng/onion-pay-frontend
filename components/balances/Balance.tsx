@@ -51,6 +51,11 @@ const Balance = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
 
+	const hiddenSelfieInput: any = React.useRef(null);
+	const handleSelfieClick = () => {
+		hiddenSelfieInput.current?.click();
+	};
+
 	function dataURLtoFile(dataURL: any, filename: any) {
 		const arr = dataURL.split(",");
 		const mime = arr[0].match(/:(.*?);/)[1];
@@ -244,9 +249,9 @@ const Balance = () => {
 			const token = Cookies.get("token");
 			const formDataObject = new FormData();
 
-			// if (capturedImage) {
-			// 	formDataObject.append("selfie", capturedImage);
-			// }
+			if (capturedImage) {
+				formDataObject.append("selfie", capturedImage);
+			}
 			if (signature) {
 				formDataObject.append("signature", signature);
 			}
@@ -494,23 +499,24 @@ const Balance = () => {
 																	Fit your face in the space bellow
 																</h1>
 																<div className="relative w-[14.9rem] h-[22rem] border-[#FF9635] border-[0.0625rem] rounded-full overflow-hidden mt-4">
-																	{imageToDisplay ? (
-																		<NextImage
-																			src={imageToDisplay}
-																			width={238.4}
-																			height={352}
-																			className="object-cover w-full h-full"
-																			alt="Captured"
-																		/>
+																	<NextImage
+																		src={imageToDisplay}
+																		width={238.4}
+																		height={352}
+																		className="object-cover w-full h-full"
+																		alt="Captured"
+																	/>
+																	{/* {imageToDisplay ? (
+																	
 																	) : (
 																		<Webcam
 																			audio={false}
 																			mirrored={true}
 																			ref={webcamRef}
-																			screenshotFormat="image/jpeg"
+																			screenshotFormat='image/jpeg'
 																			className="object-cover w-full h-full"
 																		/>
-																	)}
+																	)} */}
 																</div>
 															</div>
 														</div>
@@ -518,10 +524,18 @@ const Balance = () => {
 													<div className="flex justify-center mt-6">
 														{!capturedImage ? (
 															<Button
-																onClick={captureImage}
+																onClick={handleSelfieClick}
 																className="w-full text-white"
 															>
-																Capture
+																Upload
+																<input
+																	type="file"
+																	name="file"
+																	className="hidden"
+																
+																	onChange={imageChange2}
+																	ref={hiddenSelfieInput}
+																/>
 															</Button>
 														) : (
 															<div className="flex flex-col w-full gap-4">

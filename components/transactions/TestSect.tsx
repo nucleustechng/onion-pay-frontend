@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 // import { PlusIcon } from "@radix-ui/react-icons";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
 import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
@@ -13,6 +13,16 @@ import { setShowSidebar } from "../../redux/sidebarSlice";
 import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../../modules/TransactionsApi/transactionService";
 import { formatDate } from "../../@/lib/utils";
+import { Button } from "../../@/components/ui/button";
+import DownloadIcon from "../../Assets/icon/Download.svg";
+import { useTransactionHooks } from "./useTransactionHooks";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "../../@/components/ui/popover";
+import { Calendar } from "../../@/components/ui/calendar";
+import { CalendarIcon } from "@radix-ui/react-icons";
 
 const TransactionsContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
@@ -42,6 +52,31 @@ const TransactionsContent = () => {
 		queryKey: ["transactions"],
 		queryFn: getTransactions,
 	});
+
+	const { filterByDate } = useTransactionHooks();
+
+	const [date, setDate] = useState<any>({
+		from: null,
+		to: null,
+	});
+	const handleDate = (selectedDate: any) => {
+		console.log("start", selectedDate, "end", selectedDate);
+
+		if (date.from === null) {
+			// Selecting start date
+			setDate({ ...date, from: selectedDate.from });
+		} else {
+			// Selecting end date
+			setDate({ ...date, to: selectedDate.to });
+
+			// Call your filter function with start and end dates
+			// Convert start and end dates to timestamps
+			const startTimestamp = Date.parse(date.from);
+
+			const endTimestamp = Date.parse(date.to);
+			filterByDate({ start: startTimestamp, end: endTimestamp });
+		}
+	};
 
 	const CardItem = ({ mainHeader, subText }: ICardItem) => {
 		return (
@@ -82,19 +117,54 @@ const TransactionsContent = () => {
 					</div>
 				) : null}
 			</div>
-			{/* <div className="pl-2 md:pl-0">
-				<Button
-					// onClick={() => {
-					// 	addAdminModal();
-					// }}
-					className="text-white "
-				>
-					Create Invoice
-					<PlusIcon className="ml-2 h-4 w-4" />
-				</Button>
-			</div> */}
+
 			{/* Table */}
 			<div className="flex-1 pr-0 md:pr-6">
+				<div className="flex justify-start md:justify-end pl-2 md:pl-0">
+					<div className="flex items-center gap-4">
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									// variant={"outline"}
+									className="bg-[#F5F5F5] text-primary-foreground"
+								>
+									Filter By Date
+									<CalendarIcon className="ml-2 h-4 w-4" />
+									{/* {date?.from ? (
+									format(date?.from, "PPP")
+								) : (
+									<span>Pick a date</span>
+								)}  */}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent
+								className="w-auto p-0"
+								align="start"
+							>
+								<Calendar
+									mode="range"
+									selected={date}
+									onSelect={handleDate}
+									initialFocus
+								/>
+							</PopoverContent>
+						</Popover>
+						<Button
+							// onClick={() => {
+							// 	addAdminModal();
+							// }}
+							className="bg-[#F5F5F5] text-primary-foreground"
+						>
+							Download
+							<Image
+								src={DownloadIcon}
+								alt="Download Icon"
+								className="ml-4"
+							/>
+							{/* <PlusIcon className="ml-2 h-4 w-4" /> */}
+						</Button>
+					</div>
+				</div>
 				{/* <DataTableDemo /> */}
 				<TransactionTable
 					isLoading={isLoading}
