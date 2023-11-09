@@ -46,7 +46,7 @@ const Balance = () => {
 	// const [showModal, setShowModal] = useState<boolean>(false);
 	// One
 	// const webcamRef = useRef<Webcam>(null);
-	const [capturedImage, setCapturedImage] = useState<any>();
+	// const [capturedImage, setCapturedImage] = useState<any>();
 	// const [imageToDisplay, setImageToDisplay] = useState<any>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
@@ -264,7 +264,7 @@ const Balance = () => {
 			const token = Cookies.get("token");
 			const formDataObject = new FormData();
 
-			if (capturedImage) {
+			if (selfie) {
 				formDataObject.append("selfie", selfie);
 			}
 			if (signature) {
