@@ -14,7 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../../modules/TransactionsApi/transactionService";
 import { formatDate } from "../../@/lib/utils";
 import { Button } from "../../@/components/ui/button";
-// import DownloadIcon from "../../Assets/icon/Download.svg";
+import DownloadIcon from "../../Assets/icon/Download.svg";
 import { useTransactionHooks } from "./useTransactionHooks";
 import {
 	Popover,
@@ -22,12 +22,12 @@ import {
 	PopoverTrigger,
 } from "../../@/components/ui/popover";
 import { Calendar } from "../../@/components/ui/calendar";
-import { CalendarIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
 // import { useExcelDownloder } from "react-xls";
 
 const TransactionsContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
-	// const [isDownload, setIsDownload] = useState<boolean>(false);
+	const [isDownload, setIsDownload] = useState<boolean>(false);
 	// const { ExcelDownloder, Type } = useExcelDownloder();
 
 	type ICardItem = {
@@ -56,7 +56,8 @@ const TransactionsContent = () => {
 		queryFn: getTransactions,
 	});
 
-	const { filterByDate } = useTransactionHooks();
+	const { filterByDate, downloadTransactions, isDownloading } =
+		useTransactionHooks();
 
 	const [date, setDate] = useState<any>({
 		from: null,
@@ -79,11 +80,11 @@ const TransactionsContent = () => {
 				// Convert start and end dates to timestamps
 				const startTimestamp = Date.parse(date.from);
 				const endTimestamp = Date.parse(selectedDate.to);
-				// if (isDownload) {
-				// 	downloadTransactions({ start: startTimestamp, end: endTimestamp });
-				// } else {
-				filterByDate({ start: startTimestamp, end: endTimestamp });
-				// }
+				if (isDownload) {
+					downloadTransactions({ start: startTimestamp, end: endTimestamp });
+				} else {
+					filterByDate({ start: startTimestamp, end: endTimestamp });
+				}
 				setTimeout(() => {
 					setDate({
 						from: null,
@@ -161,22 +162,28 @@ const TransactionsContent = () => {
 								)}  */}
 								</Button>
 							</PopoverTrigger>
-							{/* <PopoverTrigger
+							<PopoverTrigger
 								onClick={() => {
 									setIsDownload(true);
 								}}
 								asChild
 							>
-								<Button className="bg-[#F5F5F5] text-primary-foreground">
+								<Button
+									disabled={isDownloading}
+									className="bg-[#F5F5F5] text-primary-foreground"
+								>
 									Download
-									<Image
-										src={DownloadIcon}
-										alt="Download Icon"
-										className="ml-4"
-									/>
-									
+									{isDownloading ? (
+										<ReloadIcon className="ml-4 h-4 w-4 animate-spin" />
+									) : (
+										<Image
+											src={DownloadIcon}
+											alt="Download Icon"
+											className="ml-4"
+										/>
+									)}
 								</Button>
-							</PopoverTrigger> */}
+							</PopoverTrigger>
 							<PopoverContent
 								className="w-auto p-0"
 								align="start"
