@@ -174,7 +174,7 @@ const TransactionsContent = () => {
 								>
 									Download
 									{isDownloading ? (
-										<ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+										<ReloadIcon className="ml-4 h-4 w-4 animate-spin" />
 									) : (
 										<Image
 											src={DownloadIcon}
