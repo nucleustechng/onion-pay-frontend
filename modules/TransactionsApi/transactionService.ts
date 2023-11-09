@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import XLSX from "xlsx";
 
 const token = Cookies.get("token");
 
@@ -32,34 +33,37 @@ export const downnloadTransactions = async (payload: {
 	start: number;
 	end: number;
 }) => {
-	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}/api/v1/download-records`,
-		payload,
-		{
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
+	try {
+		const response = await axios.post(
+			`${process.env.NEXT_PUBLIC_URL}/api/v1/download-records`,
+			payload,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`, // Make sure to define 'token' variable
+				},
+				responseType: "blob", // Set response type to blob to handle binary data
+			}
+		);
+
+		if (response && response.headers && response.headers["content-type"]) {
+			const blob = new Blob([response.data], {
+				type: response.headers["content-type"],
+			});
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = "data.xlsx"; // Specify the file name for download
+			a.click();
+			window.URL.revokeObjectURL(url); // Clean up the URL object to free resources
+		} else {
+			console.error("Invalid response format:", response);
+			toast.error("Error downloading transactions. Please try again later.");
 		}
-	);
-	if (data?.success == false) {
-		toast.error(data?.reason);
-	} else {
-		const url = window.URL.createObjectURL(new Blob([data]));
-		const link = document.createElement("a");
-		link.href = url;
-		link.setAttribute("download", `FileName.xlsx`);
-
-		// Append to html link element page
-		document.body.appendChild(link);
-
-		// Start download
-		link.click();
-
-		// Clean up and remove the link
-		link?.parentNode?.removeChild(link);
+		return response?.data;
+	} catch (error) {
+		console.error("Error downloading transactions:", error);
+		toast.error("Error downloading transactions. Please try again later.");
 	}
-
-	return data;
 };
 
 export const filterTransactions = async (payload: {

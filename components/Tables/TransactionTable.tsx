@@ -72,7 +72,7 @@ export function TransactionTable({ transactions, showMore, isLoading }: Props) {
 			<div className="rounded-md border">
 				<Table
 					className={
-						transactions?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
+						transactions?.length <= 25 || isLoading ? "h-auto" : "h-[600px]"
 					}
 				>
 					<TableHeader

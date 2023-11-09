@@ -84,10 +84,9 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 			</div>
 			<div className="rounded-md border">
 				<Table
-					className="relative"
-					// className={
-					// 	paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
-					// }
+					className={`relative ${
+						paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
+					}`}
 				>
 					<TableHeader
 						className={`  h-[48px] sticky top-0 border-foreground border-b`}
