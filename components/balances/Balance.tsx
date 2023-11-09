@@ -1,5 +1,5 @@
 import NextImage from "next/image";
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
@@ -15,7 +15,7 @@ import CloseIcon from "../../Assets/icon/CloseIcon.svg";
 // import DocumentModal from "./modals/DocumentModal";
 // import IdentificationModal from "./modals/IdentificationModal";
 // import AddressModal from "./modals/Address";
-import Webcam from "react-webcam";
+// import Webcam from "react-webcam";
 import { Button } from "../../@/components/ui/button";
 import { ArrowRightIcon, CalendarIcon, ChevronLeftIcon } from "lucide-react";
 import {
@@ -45,39 +45,54 @@ import axios from "axios";
 const Balance = () => {
 	// const [showModal, setShowModal] = useState<boolean>(false);
 	// One
-	const webcamRef = useRef<Webcam>(null);
-	const [capturedImage, setCapturedImage] = useState<any>();
-	const [imageToDisplay, setImageToDisplay] = useState<any>();
+	// const webcamRef = useRef<Webcam>(null);
+	// const [capturedImage, setCapturedImage] = useState<any>();
+	// const [imageToDisplay, setImageToDisplay] = useState<any>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
 
-	const hiddenSelfieInput: any = React.useRef(null);
+	const hiddenSelfieInput: any = useRef(null);
 	const handleSelfieClick = () => {
 		hiddenSelfieInput.current?.click();
 	};
+	const [selfie, setSelfie] = useState<any>();
 
-	function dataURLtoFile(dataURL: any, filename: any) {
-		const arr = dataURL.split(",");
-		const mime = arr[0].match(/:(.*?);/)[1];
-		const bstr = atob(arr[1]);
-		let n = bstr.length;
-		const u8arr = new Uint8Array(n);
+	const selfieChange = (e: any) => {
+		if (e.target.files && e.target.files.length > 0) {
+			const selectedFile = e.target.files[0];
 
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n);
+			setSelfie(selectedFile);
+
+			// setSelectedImage(selectedFile);
+			// setBusinessInfo(prevState => ({
+			//     ...prevState,
+			//     file: selectedFile
+			// }));
 		}
+	};
 
-		return new File([u8arr], filename, { type: mime });
-	}
+	// function dataURLtoFile(dataURL: any, filename: any) {
+	// 	const arr = dataURL.split(",");
+	// 	const mime = arr[0].match(/:(.*?);/)[1];
+	// 	const bstr = atob(arr[1]);
+	// 	let n = bstr.length;
+	// 	const u8arr = new Uint8Array(n);
 
-	const captureImage = useCallback(() => {
-		const imageSrc = webcamRef.current?.getScreenshot();
-		setImageToDisplay(imageSrc);
-		if (imageSrc) {
-			const file = dataURLtoFile(imageSrc, "captured_image.jpg");
-			setCapturedImage(file);
-		}
-	}, []);
+	// 	while (n--) {
+	// 		u8arr[n] = bstr.charCodeAt(n);
+	// 	}
+
+	// 	return new File([u8arr], filename, { type: mime });
+	// }
+
+	// const captureImage = useCallback(() => {
+	// 	const imageSrc = webcamRef.current?.getScreenshot();
+	// 	setImageToDisplay(imageSrc);
+	// 	if (imageSrc) {
+	// 		const file = dataURLtoFile(imageSrc, "captured_image.jpg");
+	// 		setCapturedImage(file);
+	// 	}
+	// }, []);
 
 	// Two
 
@@ -249,8 +264,8 @@ const Balance = () => {
 			const token = Cookies.get("token");
 			const formDataObject = new FormData();
 
-			if (capturedImage) {
-				formDataObject.append("selfie", capturedImage);
+			if (selfie) {
+				formDataObject.append("selfie", selfie);
 			}
 			if (signature) {
 				formDataObject.append("signature", signature);
@@ -306,7 +321,7 @@ const Balance = () => {
 			if (data.success === true) {
 				setIsLoading(false);
 				closeModal();
-				setCapturedImage("");
+				setSelfie("");
 				setIdType("");
 				setIdNumber("");
 				setDate("");
@@ -485,7 +500,7 @@ const Balance = () => {
 													</div>
 													<div className="">
 														<h1 className="text-base text-[#1B1A1A] text-center font-WorkSans font-medium leading-5">
-															Take a selfie
+															Upload a selfie
 														</h1>
 													</div>
 												</div>
@@ -493,19 +508,21 @@ const Balance = () => {
 											<div className="">
 												<div>
 													<div className="flex justify-center mt-6">
-														<div className="flex justify-center w-full bg-[#1B1A1A]">
+														<div className="flex justify-center w-full ">
 															<div className="flex flex-col">
-																<h1 className="text-white text-center text-sm font-WorkSans font-normal leading-4 mt-4">
+																{/* <h1 className="text-white text-center text-sm font-WorkSans font-normal leading-4 mt-4">
 																	Fit your face in the space bellow
-																</h1>
+																</h1> */}
 																<div className="relative w-[14.9rem] h-[22rem] border-[#FF9635] border-[0.0625rem] rounded-full overflow-hidden mt-4">
-																	<NextImage
-																		src={imageToDisplay}
-																		width={238.4}
-																		height={352}
-																		className="object-cover w-full h-full"
-																		alt="Captured"
-																	/>
+																	{selfie && (
+																		<NextImage
+																			src={URL.createObjectURL(selfie)}
+																			width={238.4}
+																			height={352}
+																			className="object-cover w-full h-full flex items-center justify-center"
+																			alt="Captured"
+																		/>
+																	)}
 																	{/* {imageToDisplay ? (
 																	
 																	) : (
@@ -522,7 +539,7 @@ const Balance = () => {
 														</div>
 													</div>
 													<div className="flex justify-center mt-6">
-														{!capturedImage ? (
+														{!selfie ? (
 															<Button
 																onClick={handleSelfieClick}
 																className="w-full text-white"
@@ -532,18 +549,24 @@ const Balance = () => {
 																	type="file"
 																	name="file"
 																	className="hidden"
-																
-																	onChange={imageChange2}
+																	onChange={selfieChange}
 																	ref={hiddenSelfieInput}
 																/>
 															</Button>
 														) : (
 															<div className="flex flex-col w-full gap-4">
 																<Button
-																	onClick={captureImage}
+																	onClick={handleSelfieClick}
 																	className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 "
 																>
-																	Retake Photo
+																	Upload
+																	<input
+																		type="file"
+																		name="file"
+																		className="hidden"
+																		onChange={selfieChange}
+																		ref={hiddenSelfieInput}
+																	/>
 																</Button>
 																<Button
 																	onClick={() => setSteps(1)}
