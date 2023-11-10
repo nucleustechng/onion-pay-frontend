@@ -15,9 +15,11 @@ import PricingSection from "../components/pagesections/PricingSection";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import useAuth from "../useAuth";
 
 export default function Home() {
 	const router = useRouter();
+	useAuth();
 	useEffect(() => {
 		const verify = Cookies.get("token");
 
