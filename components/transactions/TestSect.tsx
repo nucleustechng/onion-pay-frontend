@@ -28,6 +28,10 @@ import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
 const TransactionsContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
 	const [isDownload, setIsDownload] = useState<boolean>(false);
+	const [filterMore, setFilterMore] = useState<any>({
+		start: null,
+		end: null,
+	});
 	// const { ExcelDownloder, Type } = useExcelDownloder();
 
 	type ICardItem = {
@@ -80,10 +84,12 @@ const TransactionsContent = () => {
 				// Convert start and end dates to timestamps
 				const startTimestamp = Date.parse(date.from);
 				const endTimestamp = Date.parse(selectedDate.to);
+				setFilterMore({ start: startTimestamp, end: endTimestamp });
 				if (isDownload) {
 					downloadTransactions({ start: startTimestamp, end: endTimestamp });
 				} else {
 					filterByDate({ start: startTimestamp, end: endTimestamp });
+					setFilterMore({ start: startTimestamp, end: endTimestamp });
 				}
 				setTimeout(() => {
 					setDate({
@@ -199,15 +205,17 @@ const TransactionsContent = () => {
 					</div>
 				</div>
 				{/* <DataTableDemo /> */}
-				<TransactionTable
-					isLoading={isLoading}
-					transactions={transactions}
-					showMore={(index: number) => {
-						openModal();
-						setSelectedIndex(index);
-					}}
-				/>
-
+				<div>
+					<TransactionTable
+						isLoading={isLoading}
+						transactions={transactions}
+						showMore={(index: number) => {
+							openModal();
+							setSelectedIndex(index);
+						}}
+						filterValues={filterMore}
+					/>
+				</div>
 				<Transition
 					appear
 					show={isOpen}

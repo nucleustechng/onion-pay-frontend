@@ -8,57 +8,32 @@ import {
 	TableHeader,
 	TableRow,
 } from "../../@/components/ui/table";
-// import { Button } from "../../@/components/ui/button";
+import { Button } from "../../@/components/ui/button";
 import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
+import { useTransactionHooks } from "../transactions/useTransactionHooks";
 // import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
 	transactions: any[];
 	showMore: (index: number) => void;
 	isLoading: boolean;
+	filterValues: { start: number; end: number };
 };
 
-export function TransactionTable({ transactions, showMore, isLoading }: Props) {
-	// const [queryValue, setQueryValue] = useState("");
-	// const arrayLength = transactions?.length;
-	// let firstIndex: number;
+export function TransactionTable({
+	transactions,
+	showMore,
+	isLoading,
+	filterValues,
+}: Props) {
+	const arrayLength = transactions?.length;
+	const lastIndex = arrayLength - 1;
 
-	// if (arrayLength >= 150) {
-	// 	firstIndex = arrayLength - 100;
-	// } else if (arrayLength >= 100) {
-	// 	firstIndex = arrayLength - 50;
-	// } else {
-	// 	// Handle cases where the array length is less than 100
-	// 	firstIndex = 0; // Set the index to 0 or handle it based on your specific requirement
-	// }
-	// const lastIndex = arrayLength - 1;
-	// const {
-	// 	handleLoadMore,
-	// 	isLoadingMore,
-	// 	byBusinessData,
-	// 	setBusinessId,
-	// 	businessId,
-	// } = useTransactionHooks();
-
-	// const {
-	// 	data: transactionsData,
-	// 	isSuccess,
-	// 	isLoading: isMoreLoading,
-	// 	refetch,
-	// } = useLoadMoreTransactionsQuery(queryValue);
-
-	// const handleButtonClick = () => {
-	// 	// Update the query value (if needed)
-	// 	const newQueryValue = transactions[lastIndex]?.r_id; // Set the new value here
-	// 	setQueryValue(newQueryValue);
-
-	// 	// Call the refetch function with the updated query value to trigger the data request
-	// 	refetch();
-	// };
-	// console.log("Transactions dara", transactionsData);
+	const { handleFilterMore, isFilteringMore, handleLoadMore, isLoadingMore } =
+		useTransactionHooks();
 	return (
-		<div className="w-full  h-full overflow-auto">
+		<div className="w-full  h-full">
 			<div className="flex items-center py-4">
 				{/* <Input
 					placeholder="Filter by businessId..."
@@ -72,7 +47,7 @@ export function TransactionTable({ transactions, showMore, isLoading }: Props) {
 			<div className="rounded-md border">
 				<Table
 					className={
-						transactions?.length <= 25 || isLoading ? "h-auto" : "h-[600px]"
+						transactions?.length <= 25 || isLoading ? "h-auto" : "h-[590px]"
 					}
 				>
 					<TableHeader
@@ -179,14 +154,25 @@ export function TransactionTable({ transactions, showMore, isLoading }: Props) {
 					>
 						Previous
 					</Button> */}
-					{/* <Button
+					<Button
 						variant="outline"
 						className="w-[100px]"
-						// onClick={() => handleLoadMore(transactions[lastIndex]?.r_id)}
-						// disabled={isLoadingMore}
+						onClick={() => {
+							if (filterValues.start && filterValues.end) {
+								const payload = {
+									start: filterValues.start,
+									end: filterValues.end,
+									last: transactions[lastIndex]?.r_id,
+								};
+								handleFilterMore(payload);
+							} else {
+								handleLoadMore(transactions[lastIndex]?.r_id);
+							}
+						}}
+						disabled={filterValues ? isFilteringMore : isLoadingMore}
 					>
 						Next
-					</Button> */}
+					</Button>
 				</div>
 			</div>
 		</div>
