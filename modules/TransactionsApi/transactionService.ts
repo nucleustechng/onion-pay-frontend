@@ -16,9 +16,27 @@ export const getTransactions = async () => {
 	return data?.records;
 };
 
-export const getLoadMoreTransactions = async (payload: { r_id: string }) => {
+export const getLoadMoreTransactions = async (payload: { last: string }) => {
 	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}api/v1/more-transaction-record/${payload}`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/more-transaction-records`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
+export const getFilterMoreTransactions = async (payload: {
+	start: number;
+	end: number;
+	last: string;
+}) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/filter-transactions`,
+		payload,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,
