@@ -35,7 +35,7 @@ export const getFilterMoreTransactions = async (payload: {
 	last: string;
 }) => {
 	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}/api/v1/filter-transactions`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/filter-more-transactions`,
 		payload,
 		{
 			headers: {
