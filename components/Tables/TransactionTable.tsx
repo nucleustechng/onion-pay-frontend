@@ -12,6 +12,7 @@ import { Button } from "../../@/components/ui/button";
 import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
 import { useTransactionHooks } from "../transactions/useTransactionHooks";
+import { useQueryClient } from "@tanstack/react-query";
 // import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
@@ -27,11 +28,19 @@ export function TransactionTable({
 	isLoading,
 	filterValues,
 }: Props) {
+	const queryClient = useQueryClient();
+
 	const arrayLength = transactions?.length;
 	const lastIndex = arrayLength - 1;
 
-	const { handleFilterMore, isFilteringMore, handleLoadMore, isLoadingMore } =
-		useTransactionHooks();
+	const {
+		handleFilterMore,
+		isFilteringMore,
+		handleLoadMore,
+		isLoadingMore,
+		setPageNumber,
+		pageNumber,
+	} = useTransactionHooks();
 	return (
 		<div className="w-full  h-full">
 			<div className="flex items-center py-4">
@@ -146,14 +155,18 @@ export function TransactionTable({
 					of {transactions?.length} row(s) selected.
 				</div>
 				<div className="space-x-2">
-					{/* <Button
+					<Button
 						variant="outline"
-						size="sm"
-						// onClick={() => handleLoadMore(transactions[firstIndex]?.r_id)}
-						// disabled={!table.getCanPreviousPage()}
+						className="w-[100px]"
+						onClick={() => {
+							if (pageNumber > 0) {
+								queryClient.invalidateQueries({ queryKey: ["transactions"] });
+								setPageNumber(pageNumber - 1);
+							}
+						}}
 					>
 						Previous
-					</Button> */}
+					</Button>
 					<Button
 						variant="outline"
 						className="w-[100px]"
@@ -167,6 +180,7 @@ export function TransactionTable({
 								handleFilterMore(payload);
 							} else {
 								handleLoadMore(transactions[lastIndex]?.r_id);
+								setPageNumber(pageNumber + 1);
 							}
 						}}
 						disabled={filterValues ? isFilteringMore : isLoadingMore}

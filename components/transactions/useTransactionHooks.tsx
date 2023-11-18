@@ -6,9 +6,11 @@ import {
 	getFilterMoreTransactions,
 	getLoadMoreTransactions,
 } from "../../modules/TransactionsApi/transactionService";
+import { useState } from "react";
 
 export function useTransactionHooks() {
 	const queryClient = useQueryClient();
+	const [pageNumber, setPageNumber] = useState<number>(0);
 	const { mutate: filterMoreMutation, isPending: isFilteringMore } =
 		useMutation({
 			mutationFn: getFilterMoreTransactions,
@@ -29,13 +31,40 @@ export function useTransactionHooks() {
 	const { mutate: loadMoreMutation, isPending: isLoadingMore } = useMutation({
 		mutationFn: getLoadMoreTransactions,
 		onSuccess: ({ success, records, more }) => {
+			function paginateArray<T>(array: T[], itemsPerPage: number): T[][] {
+				const pages: T[][] = [];
+
+				for (let i = 0; i < array.length; i += itemsPerPage) {
+					const page = array.slice(i, i + itemsPerPage);
+					pages.push(page);
+				}
+
+				return pages;
+			}
 			if (more && success) {
 				queryClient.setQueryData(["transactions"], (prevData: any) => {
-					return [...prevData, ...records];
+					const updateData = [...prevData, ...records];
+					const itemsPerPage = 50;
+
+					const paginatedPages = paginateArray(updateData, itemsPerPage);
+
+					queryClient.setQueryData(
+						["transactions"],
+						paginatedPages[pageNumber]
+					);
 				});
 			} else if (!more && success) {
 				queryClient.setQueryData(["transactions"], (prevData: any) => {
-					return [...prevData, ...records];
+					const updateData = [...prevData, ...records];
+					const itemsPerPage = 50;
+
+					const paginatedPages = paginateArray(updateData, itemsPerPage);
+					queryClient.setQueryData(
+						["transactions"],
+						paginatedPages[pageNumber]
+					);
+
+					console.log("Paginated pages", paginatedPages);
 				});
 
 				toast.error("No more transactions to load");
@@ -102,5 +131,7 @@ export function useTransactionHooks() {
 		handleFilterMore,
 		handleLoadMore,
 		isLoadingMore,
+		setPageNumber,
+		pageNumber,
 	};
 }
