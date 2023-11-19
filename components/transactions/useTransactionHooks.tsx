@@ -63,8 +63,6 @@ export function useTransactionHooks() {
 						["transactions"],
 						paginatedPages[pageNumber]
 					);
-
-					console.log("Paginated pages", paginatedPages);
 				});
 
 				toast.error("No more transactions to load");
