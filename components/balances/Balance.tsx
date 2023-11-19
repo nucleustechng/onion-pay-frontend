@@ -41,9 +41,10 @@ import Loader from "../Loader";
 // import { upgradeWalletTest } from "../../modules/upgradeWallet";
 import Cookies from "js-cookie";
 import axios from "axios";
+import FundBalanceModal from "./modals/FundBalanceModal";
 
 const Balance = () => {
-	// const [showModal, setShowModal] = useState<boolean>(false);
+	const [showModal, setShowModal] = useState<boolean>(false);
 	// One
 	// const webcamRef = useRef<Webcam>(null);
 	// const [capturedImage, setCapturedImage] = useState<any>();
@@ -362,12 +363,17 @@ const Balance = () => {
 				</div>
 				<div className="flex items-center justify-between pb-2">
 					<div>
-						<h1 className="text-[1.25rem] text-[#1B1A1A]">NGN balance</h1>
+						<h1 className="text-[24px] text-[#1B1A1A] font-semibold font-WorkSans">
+							<span style={{ fontSize: "16px", marginRight: "4px" }}>
+								&#8358;
+							</span>
+							<span>{walletBalance.slice(1)}</span>
+						</h1>
 					</div>
-					{/* <div className="flex items-center gap-4">
-						<button className="w-[8.3rem] h-11 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-5 bg-[#F5F5F5] rounded-[0.32rem]">
+					<div className="flex items-center gap-4">
+						{/* <button className="w-[8.3rem] h-11 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-5 bg-[#F5F5F5] rounded-[0.32rem]">
 							Set low limit
-						</button>
+						</button> */}
 						<button
 							className="w-[8.65rem] h-11 text-sm text-white font-WorkSans font-normal leading-5 bg-[#3063E9] rounded-[0.32rem]"
 							onClick={() => {
@@ -376,39 +382,10 @@ const Balance = () => {
 						>
 							Fund balance
 						</button>
-					</div> */}
+					</div>
 				</div>
 				<hr className="border-[#898989]" />
-				<div>
-					<div className="flex items-center px-4 justify-between h-[3.8rem]">
-						<h1 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							Name
-						</h1>
-						<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							{walletName}
-						</h2>
-					</div>
-					<hr className="border-[#F5F5F5]" />
 
-					<div className="flex items-center px-4 justify-between h-[3.8rem]">
-						<h1 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							Balance
-						</h1>
-						<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							{walletBalance}
-						</h2>
-					</div>
-					<hr className="border-[#F5F5F5]" />
-					<div className="flex items-center px-4 justify-between h-[3.8rem]">
-						<h1 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							Account Number
-						</h1>
-						<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
-							{walletNumber}
-						</h2>
-					</div>
-					<hr className="border-[#F5F5F5]" />
-				</div>
 				<div
 					onClick={openModal}
 					className="flex items-center gap-2 cursor-pointer mt-5"
@@ -429,12 +406,14 @@ const Balance = () => {
 						className="w-5 h-5 text-primary"
 					/>
 				</div>
-				{/* <div>
+				<div>
 					<FundBalanceModal
 						isVisible={showModal}
+						walletName={walletName}
+						walletNumber={walletNumber}
 						onClose={async () => setShowModal(false)}
 					/>
-				</div> */}
+				</div>
 			</div>
 			{/* Modals */}
 			{/* Step 1 */}

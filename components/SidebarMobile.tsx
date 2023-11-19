@@ -102,7 +102,7 @@ const SideBarMobile = () => {
 			{/*  */}
 			<div className="flex lg:hidden h-full overflow-y-auto  ">
 				<div className="flex flex-col w-60 bg-white">
-					<div className="flex items-center justify-between px-5 py-5">
+					<div className="flex items-center justify-between  px-5 ">
 						<div>
 							<Image
 								src={Logo}
