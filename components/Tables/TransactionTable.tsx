@@ -56,7 +56,7 @@ export function TransactionTable({
 		<div className="w-full  h-full">
 			<div className="flex items-center py-4 mx-3 space-x-2">
 				<Input
-					placeholder="Filter by transaction ID,name,..."
+					placeholder="Filter by transaction ID,name,account number,..."
 					className="max-w-sm px-4 "
 					value={searchTerm}
 					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
