@@ -84,9 +84,9 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 			</div>
 			<div className="rounded-md border">
 				<Table
-					className={`relative ${
-						paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
-					}`}
+				// className={`relative ${
+				// 	paymentLinks?.length === 0 || isLoading ? "h-auto" : "h-[600px]"
+				// }`}
 				>
 					<TableHeader
 						className={`  h-[48px] sticky top-0 border-foreground border-b`}
@@ -110,7 +110,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 							</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className=" overflow-y-auto">
+					<TableBody className="overflow-y-auto">
 						{isLoading ? (
 							<TableRow className="h-32">
 								<TableCell
@@ -140,7 +140,7 @@ export function PaymentLinkTable({ paymentLinks, isLoading }: Props) {
 							paymentLinks?.map((paymentlink: any, index: number) => (
 								<TableRow
 									key={paymentlink?.p_id}
-									className="cursor-pointer hover:bg-[#E7EDFF]"
+									className="cursor-pointer hover:bg-[#E7EDFF] h-32"
 								>
 									<TableCell className="font-WorkSans font-normal h-[80px]">
 										{paymentlink?.title ? paymentlink?.title : "N/A"}

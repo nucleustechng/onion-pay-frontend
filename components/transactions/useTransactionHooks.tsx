@@ -5,6 +5,7 @@ import {
 	filterTransactions,
 	getFilterMoreTransactions,
 	getLoadMoreTransactions,
+	searchFilterTransactions,
 } from "../../modules/TransactionsApi/transactionService";
 import { useState } from "react";
 
@@ -75,12 +76,27 @@ export function useTransactionHooks() {
 	});
 	const { mutate: filterMutation, isPending: isFiltering } = useMutation({
 		mutationFn: filterTransactions,
-
 		onSuccess: ({ success, records }) => {
 			if (success) {
 				queryClient.setQueryData(["transactions"], () => {
 					return [...records];
 				});
+			}
+		},
+		onError: ({ message }) => {
+			toast.error(message);
+		},
+	});
+
+	const { mutate: searchFilterMutation, isPending: isSearching } = useMutation({
+		mutationFn: searchFilterTransactions,
+		onSuccess: ({ success, records, reason }) => {
+			if (success === true) {
+				queryClient.setQueryData(["transactions"], () => {
+					return [...records];
+				});
+			} else {
+				toast.error(reason);
 			}
 		},
 		onError: ({ message }) => {
@@ -120,6 +136,9 @@ export function useTransactionHooks() {
 		loadMoreMutation({ last });
 	};
 
+	const handleSearchFilter = (terms: string) => {
+		searchFilterMutation({ terms });
+	};
 	return {
 		filterByDate,
 		isFiltering,
@@ -131,5 +150,7 @@ export function useTransactionHooks() {
 		isLoadingMore,
 		setPageNumber,
 		pageNumber,
+		handleSearchFilter,
+		isSearching,
 	};
 }

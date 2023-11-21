@@ -251,6 +251,7 @@ const Balance = () => {
 	);
 
 	const { data: walletData } = useLoadWalletQuery();
+	console.log("walletData", walletData);
 
 	const walletBalance = walletData
 		? walletData["wallet"]?.balance_string
