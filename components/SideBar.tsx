@@ -53,6 +53,8 @@ import Loader from "./Loader";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CloseIcon from "../Assets/icon/CloseIcon.svg";
+import { useLoadWalletQuery } from "../modules/WalletApi";
+import { Badge } from "../@/components/ui/badge";
 
 const SideBar = () => {
 	const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
@@ -102,7 +104,9 @@ const SideBar = () => {
 	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
 	const { data: settingsData, isSuccess: settingSuccess } =
 		useLoadSettingsQuery();
+	const { data: walletData } = useLoadWalletQuery();
 
+	const walletTier = walletData["wallet"]?.tier;
 	useEffect(() => {
 		// businessUpdated ? setRefetch(true) :   setRefetch(false)
 		if (settingSuccess && settingsData.success == true) {
@@ -414,9 +418,20 @@ const SideBar = () => {
 						</div>
 					</div>
 					<div className="h-[24rem]">
+						<div className="flex items-center justify-between mb-4 px-4">
+							{/* <h1>CEO</h1> */}
+							<Badge
+								variant="outline"
+								color="#3063E9"
+								className="font-WorkSans font-bold border-solid px-3 py-1 text-sm"
+							>
+								Tier {walletTier}
+							</Badge>
+						</div>
 						<h1 className="flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm">
 							Menu
 						</h1>
+
 						<div className="flex flex-col gap-2 lg:gap-1">
 							{/* <div>
                         <HomeItem/>  
