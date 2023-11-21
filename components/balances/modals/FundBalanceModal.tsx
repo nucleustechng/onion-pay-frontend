@@ -28,7 +28,7 @@ const FundBalanceModal = ({
 				id="wrapper"
 				onClick={handleClose}
 			>
-				<div className="w-[28rem] lg:w-[33.01rem] h-[23.14rem] rounded-[0.63rem] bg-white ">
+				<div className="w-[28rem] lg:w-[33.01rem] h-[28.14rem] rounded-[0.63rem] bg-white ">
 					<div className="mx-6 my-6">
 						<div className="flex items-center justify-between mb-8">
 							<h1 className="text-lg text-[#262626] font-WorkSans font-medium leading-5">
@@ -73,6 +73,15 @@ const FundBalanceModal = ({
 										</h1>
 										<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
 											{walletNumber}
+										</h2>
+									</div>
+									<hr className="border-[#898989] " />
+									<div className="flex items-center justify-between">
+										<h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
+											Bank Name
+										</h1>
+										<h2 className="text-sm text-[#262626] font-WorkSans font-normal leading-5">
+											9 Payment Service Bank
 										</h2>
 									</div>
 									<hr className="border-[#898989] " />
