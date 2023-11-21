@@ -106,7 +106,7 @@ const SideBar = () => {
 		useLoadSettingsQuery();
 	const { data: walletData } = useLoadWalletQuery();
 
-	const walletTier = walletData["wallet"]?.tier;
+	const walletTier = walletData ? walletData["wallet"]?.tier : "--";
 	useEffect(() => {
 		// businessUpdated ? setRefetch(true) :   setRefetch(false)
 		if (settingSuccess && settingsData.success == true) {
@@ -406,8 +406,8 @@ const SideBar = () => {
 		<div>
 			<ToastContainer />
 			{/*  */}
-			<div className="hidden md:flex lg:flex  h-screen lg:h-screen  ">
-				<div className="flex flex-col w-60 h-screen">
+			<div className="hidden md:flex lg:flex  h-screen lg:h-screen pb-[20px] ">
+				<div className="flex flex-col w-60 h-screen overflow-y-auto scrollbar-hide">
 					<div className="flex items-center pl-5 mt-6 mb-16 lg:pl-5 lg:mb-16 lg:mt-6 w-[14rem] h-6">
 						<div>
 							<Image

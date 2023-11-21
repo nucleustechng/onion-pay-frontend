@@ -19,6 +19,8 @@ import { useToggleModeMutation } from "../modules/Environment/switchEnvironment"
 import { useLoadDevSettingsQuery } from "../modules/ApiKeys/generateApiKeys";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLoadWalletQuery } from "../modules/WalletApi";
+import { Badge } from "../@/components/ui/badge";
 
 const SideBarMobile = () => {
 	const dispatch = useAppDispatch();
@@ -74,7 +76,9 @@ const SideBarMobile = () => {
 	}, [switchIsSuccess]);
 
 	const [businessData, setBusinessData] = useState<any>();
+	const { data: walletData } = useLoadWalletQuery();
 
+	const walletTier = walletData ? walletData["wallet"]?.tier : "--";
 	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
 	const { data: settingsData, isSuccess: settingSuccess } =
 		useLoadSettingsQuery();
@@ -100,8 +104,8 @@ const SideBarMobile = () => {
 		>
 			<ToastContainer />
 			{/*  */}
-			<div className="flex lg:hidden h-full overflow-y-auto  ">
-				<div className="flex flex-col w-60 bg-white">
+			<div className="flex lg:hidden h-screen pb-[20px]  ">
+				<div className="flex flex-col w-60 bg-white overflow-y-auto scrollbar-hide">
 					<div className="flex items-center justify-between  px-5 ">
 						<div>
 							<Image
@@ -122,7 +126,17 @@ const SideBarMobile = () => {
 							/>
 						</div>
 					</div>
-					<div className="h-[24rem]">
+					<div className="h-[24rem] ">
+						<div className="flex items-center justify-between mb-4 px-4">
+							{/* <h1>CEO</h1> */}
+							<Badge
+								variant="outline"
+								color="#3063E9"
+								className="font-WorkSans font-bold border-solid px-3 py-1 text-sm"
+							>
+								Tier {walletTier}
+							</Badge>
+						</div>
 						<h1 className="flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm">
 							Menu
 						</h1>
