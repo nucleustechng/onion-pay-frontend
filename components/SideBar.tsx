@@ -425,7 +425,7 @@ const SideBar = () => {
 								color="#3063E9"
 								className="font-WorkSans font-bold border-solid px-3 py-1 text-sm"
 							>
-								Tier {walletTier}
+								Tier {walletTier} Wallet
 							</Badge>
 						</div>
 						<h1 className="flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm">
