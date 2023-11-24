@@ -150,7 +150,7 @@ export function TransactionTable({
 									</TableCell> */}
 									<TableCell
 										className={`font-WorkSans font-semibold h-[60px] ${
-											transaction?.debit ? "text-[#61A72C]" : "text-red-500"
+											transaction?.debit ? "text-red-500" : " text-[#61A72C]"
 										}`}
 									>
 										{transaction?.amount_string

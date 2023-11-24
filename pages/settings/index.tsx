@@ -268,6 +268,12 @@ const Settings = () => {
 								{businessData?.walletNumber ? businessData?.walletNumber : "--"}
 							</h2>
 						</div>
+						<div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
+							<h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
+								Wallet Tier {businessData?.tier ? businessData?.tier : "--"}
+							</h1>
+							<h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4"></h2>
+						</div>
 						<hr className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6" />
 
 						<div
