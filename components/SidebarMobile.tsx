@@ -20,7 +20,14 @@ import { useLoadDevSettingsQuery } from "../modules/ApiKeys/generateApiKeys";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLoadWalletQuery } from "../modules/WalletApi";
-import { Badge } from "../@/components/ui/badge";
+// import { Badge } from "../@/components/ui/badge";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "../@/components/ui/tooltip";
+import { Button } from "../@/components/ui/button";
 
 const SideBarMobile = () => {
 	const dispatch = useAppDispatch();
@@ -129,13 +136,33 @@ const SideBarMobile = () => {
 					<div className="h-[24rem] ">
 						<div className="flex items-center justify-between mb-4 px-4">
 							{/* <h1>CEO</h1> */}
-							<Badge
+							{/* <Badge
 								variant="outline"
 								color="#3063E9"
 								className="font-WorkSans font-bold border-solid px-3 py-1 text-sm"
 							>
 								Tier {walletTier} Wallet
-							</Badge>
+							</Badge> */}
+							<TooltipProvider>
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											variant="outline"
+											color="#3063E9"
+											className="font-WorkSans font-bold border-solid px-3 py-1 text-sm"
+										>
+											Tier {walletTier} Wallet
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent>
+										<p>
+											{walletTier === 1
+												? "Single Inflow Limit: N50,000 Cumulative Balance Limit: N300,000"
+												: "Single Inflow Limit: N5,000,000 Unlimited Cumulative Balance"}
+										</p>
+									</TooltipContent>
+								</Tooltip>
+							</TooltipProvider>
 						</div>
 						<h1 className="flex pl-7 mb-4 lg:flex text-[#898989] lg:pl-5 lg:mb-4 lg:text-sm">
 							Menu
