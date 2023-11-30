@@ -42,6 +42,9 @@ import Loader from "../Loader";
 import Cookies from "js-cookie";
 import axios from "axios";
 import FundBalanceModal from "./modals/FundBalanceModal";
+import { BalanceTable } from "../Tables/BalanceTable";
+import { useQuery } from "@tanstack/react-query";
+import { getBalances } from "../../modules/balancesApi";
 
 const Balance = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
@@ -342,6 +345,11 @@ const Balance = () => {
 		}
 	};
 
+	const { data: balances, isLoading: isBalanceLoading } = useQuery({
+		queryKey: ["balances"],
+		queryFn: getBalances,
+	});
+
 	return (
 		<div className="">
 			<div className=" mx-6 mt-6">
@@ -388,7 +396,7 @@ const Balance = () => {
 
 				<div
 					onClick={openModal}
-					className="flex items-center gap-2 cursor-pointer mt-5"
+					className="flex items-center gap-2 cursor-pointer mt-5 mb-5"
 				>
 					<div className="flex items-center gap-1">
 						<NextImage
@@ -406,6 +414,11 @@ const Balance = () => {
 						className="w-5 h-5 text-primary"
 					/>
 				</div>
+				<BalanceTable
+					balances={balances}
+					showMore={() => {}}
+					isLoading={isBalanceLoading}
+				/>
 				<div>
 					<FundBalanceModal
 						isVisible={showModal}
