@@ -396,7 +396,7 @@ const Balance = () => {
 
 				<div
 					onClick={openModal}
-					className="flex items-center gap-2 cursor-pointer mt-5"
+					className="flex items-center gap-2 cursor-pointer mt-5 mb-5"
 				>
 					<div className="flex items-center gap-1">
 						<NextImage

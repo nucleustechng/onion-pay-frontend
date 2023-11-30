@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 // import { Input } from "../../@/components/ui/input";
 import {
 	Table,
@@ -8,14 +8,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "../../@/components/ui/table";
-import { Button } from "../../@/components/ui/button";
+// import { Button } from "../../@/components/ui/button";
 import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
-import { useTransactionHooks } from "../transactions/useTransactionHooks";
-import { useQueryClient } from "@tanstack/react-query";
-import { Input } from "../../@/components/ui/input";
-import { SearchIcon } from "lucide-react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+// import { useTransactionHooks } from "../transactions/useTransactionHooks";
+// import { useQueryClient } from "@tanstack/react-query";
+// import { Input } from "../../@/components/ui/input";
+// import { SearchIcon } from "lucide-react";
+// import { ReloadIcon } from "@radix-ui/react-icons";
 // import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
@@ -27,31 +27,31 @@ type Props = {
 
 export function BalanceTable({
 	balances,
-	showMore,
+	// showMore,
 	isLoading,
-	filterValues,
-}: Props) {
-	const queryClient = useQueryClient();
+}: // filterValues,
+Props) {
+	// const queryClient = useQueryClient();
 
-	const arrayLength = balances?.length;
-	const lastIndex = arrayLength - 1;
-	const [searchTerm, setSearchTerm] = useState<string>("");
-	const {
-		handleFilterMore,
-		isFilteringMore,
-		handleLoadMore,
-		isLoadingMore,
-		setPageNumber,
-		pageNumber,
-		handleSearchFilter,
-		isSearching,
-	} = useTransactionHooks();
+	// const arrayLength = balances?.length;
+	// const lastIndex = arrayLength - 1;
+	// const [searchTerm, setSearchTerm] = useState<string>("");
+	// const {
+	// 	handleFilterMore,
+	// 	isFilteringMore,
+	// 	handleLoadMore,
+	// 	isLoadingMore,
+	// 	setPageNumber,
+	// 	pageNumber,
+	// 	handleSearchFilter,
+	// 	isSearching,
+	// } = useTransactionHooks();
 
-	useEffect(() => {
-		if (searchTerm === "") {
-			queryClient.invalidateQueries({ queryKey: ["transactions"] });
-		}
-	}, [searchTerm]);
+	// useEffect(() => {
+	// 	if (searchTerm === "") {
+	// 		queryClient.invalidateQueries({ queryKey: ["transactions"] });
+	// 	}
+	// }, [searchTerm]);
 	return (
 		<div className="w-full  h-full">
 			{/* <div className="flex items-center py-4 mx-3 space-x-2">
@@ -87,14 +87,14 @@ export function BalanceTable({
 					>
 						<TableRow>
 							<TableHead className="w-auto text-[#898989] font-medium ">
-								Amount (NGN)
+								Amount
 							</TableHead>
 							<TableHead className="w-auto text-[#898989] font-medium ">
 								Business ID
 							</TableHead>
-							{/* <TableHead className="w-auto text-[#898989] font-medium ">
-								Transaction ID
-							</TableHead> */}
+							<TableHead className="w-auto text-[#898989] font-medium ">
+								Credit
+							</TableHead>
 							<TableHead className="w-auto text-[#898989] font-medium ">
 								Debit
 							</TableHead>
@@ -128,31 +128,33 @@ export function BalanceTable({
 									className="p-0"
 								>
 									<div className="flex justify-center items-center  ">
-										<h1 className="text-xl">You have no transactions!</h1>
+										<h1 className="text-xl">
+											You have no balances for the specified date range!
+										</h1>
 									</div>
 								</TableCell>
 							</TableRow>
 						) : (
-							balances?.map((balance: any, index: number) => (
+							balances?.map((balance: any) => (
 								<TableRow
 									// onClick={() => showMore(index)}
 									key={balance?.b_id}
 									className="cursor-pointer hover:bg-[#E7EDFF]"
 								>
 									<TableCell className="font-WorkSans font-normal h-[60px]">
-										{balance?.balance ? balance?.balance : "N/A"}
+										₦ {balance?.balance ? balance?.balance : "N/A"}
 									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[60px]">
 										{balance?.b_id ? balance?.b_id : "N/A"}
 									</TableCell>
-									{/* <TableCell className="font-WorkSans font-normal h-[60px] truncate">
-										{transaction?.t_id}
-									</TableCell> */}
+									<TableCell className="font-WorkSans font-normal h-[60px] truncate">
+										₦ {balance?.credit}
+									</TableCell>
 									<TableCell
 										className={`font-WorkSans font-semibold h-[60px] text-[#61A72C]"
 										`}
 									>
-										{balance?.debit ? balance?.debit : "N/A"}
+										₦ {balance?.debit}
 									</TableCell>
 									{/* <TableCell className={`font-WorkSans font-normal h-[60px] `}>
 										{transaction?.fee_string ? transaction?.fee_string : "N/A"}
@@ -167,13 +169,12 @@ export function BalanceTable({
 				</Table>
 			</div>
 			<div className="flex items-center justify-end space-x-2 py-4">
-				<div className="flex-1 text-sm text-muted-foreground">
-					{/* Show selected rows count */}
+				{/* <div className="flex-1 text-sm text-muted-foreground">
 					{balances?.filter((balance) => balance.isSelected).length} of{" "}
 					{balances?.length} row(s) selected.
-				</div>
+				</div> */}
 				<div className="space-x-2">
-					<Button
+					{/* <Button
 						variant="outline"
 						className="w-[100px]"
 						onClick={() => {
@@ -184,7 +185,7 @@ export function BalanceTable({
 						}}
 					>
 						Previous
-					</Button>
+					</Button> */}
 					{/* <Button
 						variant="outline"
 						className="w-[100px]"
