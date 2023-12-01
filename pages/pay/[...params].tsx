@@ -11,7 +11,7 @@ const Invoice = () => {
 	const router = useRouter();
 	const { params } = router.query;
 
-	const merchantId = params && params[1];
+	// const merchantId = params && params[1];
 	const invoiceId = params && params[2];
 
 	const targetInvoiceId = invoiceId;
@@ -34,7 +34,7 @@ const Invoice = () => {
 
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
-		tranref: "invoice-" + merchantId + "-" + invoiceId + "-" + myTimeStamp,
+		tranref: "invoice-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
 		amount: retreivedInvoice?.amount + 50,

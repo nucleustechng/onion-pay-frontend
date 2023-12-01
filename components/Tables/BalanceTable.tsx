@@ -147,11 +147,11 @@ Props) {
 									<TableCell className="font-WorkSans font-normal h-[60px]">
 										{balance?.b_id ? balance?.b_id : "N/A"}
 									</TableCell>
-									<TableCell className="font-WorkSans font-normal h-[60px] truncate">
+									<TableCell className="font-WorkSans font-normal h-[60px] text-[#61A72C] truncate">
 										₦ {balance?.credit}
 									</TableCell>
 									<TableCell
-										className={`font-WorkSans font-semibold h-[60px] text-[#61A72C]"
+										className={`font-WorkSans font-semibold h-[60px] text-red-500"
 										`}
 									>
 										₦ {balance?.debit}
