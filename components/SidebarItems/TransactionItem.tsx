@@ -15,10 +15,11 @@ const TransactionItem = () => {
 	};
 	const transactionsRoute = router.pathname == "/transactions";
 	const refundsRoute = router.pathname == "/transactions/refunds";
-	const chargebacksRoute = router.pathname === "/transactions/chargebacks";
+	// const chargebacksRoute = router.pathname === "/transactions/chargebacks";
+	const payoutRoute = router.pathname === "/transactions/payouts";
 
-	const isTransactionRoute = refundsRoute || chargebacksRoute;
-	const isActiveRoute = transactionsRoute || refundsRoute || chargebacksRoute;
+	const isTransactionRoute = refundsRoute || payoutRoute;
+	const isActiveRoute = transactionsRoute || refundsRoute || payoutRoute;
 
 	useEffect(() => {
 		if (!isActiveRoute) {
@@ -84,7 +85,7 @@ const TransactionItem = () => {
 					<ul
 						className={`${
 							transaction
-								? "flex flex-col h-12 translate-x-0 ease-in-out duration-500"
+								? "flex flex-col h-16 translate-x-0 ease-in-out duration-500"
 								: "overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500"
 						}   gap-[0.63rem]  mb-0 ${
 							transaction ? "mt-[1.8rem]" : "mt-[1.2rem]"
@@ -100,6 +101,19 @@ const TransactionItem = () => {
 																		} font-WorkSans font-normal leading-4`}
 							>
 								Transactions
+							</li>
+						</Link>
+
+						<Link href="/transactions/payouts">
+							<li
+								className={`text-sm 
+                                   ${
+																			payoutRoute
+																				? "text-primary"
+																				: "text-[#262626]"
+																		} font-WorkSans font-normal leading-4`}
+							>
+								Payouts
 							</li>
 						</Link>
 						<Link href="/transactions/refunds">
