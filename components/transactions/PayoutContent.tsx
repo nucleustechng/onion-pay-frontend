@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
-import { TransactionTable } from "../Tables/TransactionTable";
+// import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
 import Header from "../Header";
@@ -11,27 +11,28 @@ import Header from "../Header";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { setShowSidebar } from "../../redux/sidebarSlice";
 import { useQuery } from "@tanstack/react-query";
-import { getTransactions } from "../../modules/TransactionsApi/transactionService";
+import { getDebitTrans } from "../../modules/TransactionsApi/transactionService";
 import { formatDate } from "../../@/lib/utils";
-import { Button } from "../../@/components/ui/button";
-import DownloadIcon from "../../Assets/icon/Download.svg";
-import { useTransactionHooks } from "./useTransactionHooks";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "../../@/components/ui/popover";
-import { Calendar } from "../../@/components/ui/calendar";
-import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
+// import { Button } from "../../@/components/ui/button";
+// import DownloadIcon from "../../Assets/icon/Download.svg";
+// import { useTransactionHooks } from "./useTransactionHooks";
+// import {
+// 	Popover,
+// 	PopoverContent,
+// 	PopoverTrigger,
+// } from "../../@/components/ui/popover";
+// import { Calendar } from "../../@/components/ui/calendar";
+// import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { PayoutTable } from "../Tables/PayoutTable";
 // import { useExcelDownloder } from "react-xls";
 
-const TransactionsContent = () => {
+const PayoutContent = () => {
 	const [selectedIndex, setSelectedIndex] = useState<any>();
-	const [isDownload, setIsDownload] = useState<boolean>(false);
-	const [filterMore, setFilterMore] = useState<any>({
-		start: null,
-		end: null,
-	});
+	// const [isDownload, setIsDownload] = useState<boolean>(false);
+	// const [filterMore, setFilterMore] = useState<any>({
+	// 	start: null,
+	// 	end: null,
+	// });
 	// const { ExcelDownloder, Type } = useExcelDownloder();
 
 	type ICardItem = {
@@ -52,54 +53,53 @@ const TransactionsContent = () => {
 	}
 
 	const sidebarShow = useAppSelector(
-		(state: RootState) => state.sidebar.sidebarShow
+		(state: RootState) => state?.sidebar?.sidebarShow
 	);
 
 	const { data: transactions, isLoading } = useQuery({
-		queryKey: ["transactions"],
-		queryFn: getTransactions,
+		queryKey: ["debits"],
+		queryFn: getDebitTrans,
 	});
 
-	const { filterByDate, downloadTransactions, isDownloading } =
-		useTransactionHooks();
+	// const { filterByDate, downloadTransactions } = useTransactionHooks();
 
-	const [date, setDate] = useState<any>({
-		from: null,
-		to: null,
-	});
-	const handleDate = (selectedDate: any) => {
-		if (date.from === null) {
-			// Selecting start date
-			setDate((prevState: any) => ({ ...prevState, from: selectedDate.from }));
-		} else {
-			// Selecting end date
-			if (date.from === selectedDate.to) {
-				// Resetting from date
-				setDate((prevState: any) => ({ ...prevState, from: null }));
-			} else {
-				// Setting to date and making filter request
-				setDate((prevState: any) => ({ ...prevState, to: selectedDate.to }));
+	// const [date, setDate] = useState<any>({
+	// 	from: null,
+	// 	to: null,
+	// });
+	// const handleDate = (selectedDate: any) => {
+	// 	if (date.from === null) {
+	// 		// Selecting start date
+	// 		setDate((prevState: any) => ({ ...prevState, from: selectedDate.from }));
+	// 	} else {
+	// 		// Selecting end date
+	// 		if (date.from === selectedDate.to) {
+	// 			// Resetting from date
+	// 			setDate((prevState: any) => ({ ...prevState, from: null }));
+	// 		} else {
+	// 			// Setting to date and making filter request
+	// 			setDate((prevState: any) => ({ ...prevState, to: selectedDate.to }));
 
-				// Call your filter function with start and end dates
-				// Convert start and end dates to timestamps
-				const startTimestamp = Date.parse(date.from);
-				const endTimestamp = Date.parse(selectedDate.to);
-				setFilterMore({ start: startTimestamp, end: endTimestamp });
-				if (isDownload) {
-					downloadTransactions({ start: startTimestamp, end: endTimestamp });
-				} else {
-					filterByDate({ start: startTimestamp, end: endTimestamp });
-					setFilterMore({ start: startTimestamp, end: endTimestamp });
-				}
-				setTimeout(() => {
-					setDate({
-						from: null,
-						end: null,
-					});
-				}, 1000);
-			}
-		}
-	};
+	// 			// Call your filter function with start and end dates
+	// 			// Convert start and end dates to timestamps
+	// 			const startTimestamp = Date.parse(date.from);
+	// 			const endTimestamp = Date.parse(selectedDate.to);
+	// 			setFilterMore({ start: startTimestamp, end: endTimestamp });
+	// 			if (isDownload) {
+	// 				downloadTransactions({ start: startTimestamp, end: endTimestamp });
+	// 			} else {
+	// 				filterByDate({ start: startTimestamp, end: endTimestamp });
+	// 				setFilterMore({ start: startTimestamp, end: endTimestamp });
+	// 			}
+	// 			setTimeout(() => {
+	// 				setDate({
+	// 					from: null,
+	// 					end: null,
+	// 				});
+	// 			}, 1000);
+	// 		}
+	// 	}
+	// };
 
 	// const formattedTransactions = transactions?.map((transaction: any) => {
 	// 	return {
@@ -134,7 +134,7 @@ const TransactionsContent = () => {
 		<div className="flex flex-col h-screen overflow-y-auto">
 			{/* Header */}
 			<div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-				<Header mainText="Collections" />
+				<Header mainText="Payouts" />
 
 				{!sidebarShow ? (
 					<div
@@ -152,20 +152,12 @@ const TransactionsContent = () => {
 			{/* Table */}
 			<div className="flex-1 pr-0 md:pr-6">
 				<div className="flex justify-start md:justify-end pl-2 md:pl-0">
-					<div className="flex items-center gap-4">
+					{/* <div className="flex items-center gap-4">
 						<Popover>
 							<PopoverTrigger asChild>
-								<Button
-									// variant={"outline"}
-									className="bg-[#F5F5F5] text-primary-foreground"
-								>
+								<Button className="bg-[#F5F5F5] text-primary-foreground">
 									Filter By Date
 									<CalendarIcon className="ml-2 h-4 w-4" />
-									{/* {date?.from ? (
-									format(date?.from, "PPP")
-								) : (
-									<span>Pick a date</span>
-								)}  */}
 								</Button>
 							</PopoverTrigger>
 							<PopoverTrigger
@@ -202,18 +194,18 @@ const TransactionsContent = () => {
 								/>
 							</PopoverContent>
 						</Popover>
-					</div>
+					</div> */}
 				</div>
 				{/* <DataTableDemo /> */}
 				<div>
-					<TransactionTable
+					<PayoutTable
 						isLoading={isLoading}
 						transactions={transactions}
 						showMore={(index: number) => {
 							openModal();
 							setSelectedIndex(index);
 						}}
-						filterValues={filterMore}
+						// filterValues={filterMore}
 					/>
 				</div>
 				<Transition
@@ -305,6 +297,18 @@ const TransactionsContent = () => {
 												}
 											/>
 											<CardItem
+												mainHeader="From account"
+												subText={
+													transactions && transactions[selectedIndex]?.from
+												}
+											/>
+											<CardItem
+												mainHeader="To account"
+												subText={
+													transactions && transactions[selectedIndex]?.to
+												}
+											/>
+											<CardItem
 												mainHeader="Date"
 												subText={
 													transactions &&
@@ -352,4 +356,4 @@ const TransactionsContent = () => {
 	);
 };
 
-export default TransactionsContent;
+export default PayoutContent;

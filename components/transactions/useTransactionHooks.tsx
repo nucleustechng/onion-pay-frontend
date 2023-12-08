@@ -4,6 +4,7 @@ import {
 	downnloadTransactions,
 	filterTransactions,
 	getFilterMoreTransactions,
+	getLoadMoreDebitTrans,
 	getLoadMoreTransactions,
 	searchFilterTransactions,
 } from "../../modules/TransactionsApi/transactionService";
@@ -74,6 +75,48 @@ export function useTransactionHooks() {
 			// toast({ title: reason, variant: "destructive" });
 		},
 	});
+
+	const { mutate: loadMoreDebitMutation, isPending: isLoadingMoreDebit } =
+		useMutation({
+			mutationFn: getLoadMoreDebitTrans,
+			onSuccess: ({ success, records, more }) => {
+				function paginateArray<T>(array: T[], itemsPerPage: number): T[][] {
+					const pages: T[][] = [];
+
+					for (let i = 0; i < array.length; i += itemsPerPage) {
+						const page = array.slice(i, i + itemsPerPage);
+						pages.push(page);
+					}
+
+					return pages;
+				}
+				if (more && success) {
+					queryClient.setQueryData(["debits"], (prevData: any) => {
+						const updateData = [...prevData, ...records];
+						const itemsPerPage = 50;
+
+						const paginatedPages = paginateArray(updateData, itemsPerPage);
+
+						queryClient.setQueryData(["debits"], paginatedPages[pageNumber]);
+					});
+				} else if (!more && success) {
+					queryClient.setQueryData(["debits"], (prevData: any) => {
+						const updateData = [...prevData, ...records];
+						const itemsPerPage = 50;
+
+						const paginatedPages = paginateArray(updateData, itemsPerPage);
+						queryClient.setQueryData(["debits"], paginatedPages[pageNumber]);
+					});
+
+					toast.error("No more transactions to load");
+				}
+			},
+			onError: () => {
+				console.error(`Error loading`);
+				// toast({ title: reason, variant: "destructive" });
+			},
+		});
+
 	const { mutate: filterMutation, isPending: isFiltering } = useMutation({
 		mutationFn: filterTransactions,
 		onSuccess: ({ success, records }) => {
@@ -136,6 +179,10 @@ export function useTransactionHooks() {
 		loadMoreMutation({ last });
 	};
 
+	const handleLoadMoreDebit = (last: string) => {
+		loadMoreDebitMutation({ last });
+	};
+
 	const handleSearchFilter = (terms: string) => {
 		searchFilterMutation({ terms });
 	};
@@ -152,5 +199,7 @@ export function useTransactionHooks() {
 		pageNumber,
 		handleSearchFilter,
 		isSearching,
+		isLoadingMoreDebit,
+		handleLoadMoreDebit,
 	};
 }

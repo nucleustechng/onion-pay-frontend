@@ -6,7 +6,19 @@ const token = Cookies.get("token");
 
 export const getTransactions = async () => {
 	const { data } = await axios.get(
-		`${process.env.NEXT_PUBLIC_URL}/api/v1/transaction-records`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/credit-records`,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data?.records;
+};
+
+export const getDebitTrans = async () => {
+	const { data } = await axios.get(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/debit-records`,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -19,6 +31,19 @@ export const getTransactions = async () => {
 export const getLoadMoreTransactions = async (payload: { last: string }) => {
 	const { data } = await axios.post(
 		`${process.env.NEXT_PUBLIC_URL}/api/v1/more-transaction-records`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
+export const getLoadMoreDebitTrans = async (payload: { last: string }) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/more-debit-records`,
 		payload,
 		{
 			headers: {

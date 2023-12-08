@@ -3,9 +3,9 @@ import React from "react";
 // import Refunds from '../components/refunds/Refunds'
 // import TransactionSect from "../../components/transactions/TransactionSect";
 import useAuth from "../../useAuth";
-import TransactionsContent from "../../components/transactions/TransactionsContent";
+import PayoutContent from "../../components/transactions/PayoutContent";
 
-const Transactions = () => {
+const Payout = () => {
 	useAuth();
 	// Create a client
 
@@ -14,9 +14,9 @@ const Transactions = () => {
 			{/* <TransactionSect/> */}
 			{/* <Refunds/> */}
 			{/* <ChargeBacks/> */}
-			<TransactionsContent />
+			<PayoutContent />
 		</div>
 	);
 };
 
-export default Transactions;
+export default Payout;
