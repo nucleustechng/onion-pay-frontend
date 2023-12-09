@@ -66,7 +66,7 @@ const TransactionItem = () => {
 							</div>
 							<div className="flex items-center justify-between w-[9rem]">
 								<h1 className="text-[#262626] text-base font-WorkSans">
-									Collections
+									Transactions
 								</h1>
 								<FontAwesomeIcon
 									icon={faChevronDown}
@@ -100,7 +100,7 @@ const TransactionItem = () => {
 																				: "text-[#262626]"
 																		} font-WorkSans font-normal leading-4`}
 							>
-								Transactions
+								Collections
 							</li>
 						</Link>
 
