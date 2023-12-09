@@ -134,7 +134,7 @@ const TransactionsContent = () => {
 		<div className="flex flex-col h-screen overflow-y-auto">
 			{/* Header */}
 			<div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-				<Header mainText="Collections" />
+				<Header mainText="Transactions" />
 
 				{!sidebarShow ? (
 					<div
