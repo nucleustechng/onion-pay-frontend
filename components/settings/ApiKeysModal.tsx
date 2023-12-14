@@ -11,6 +11,7 @@ import {
 import { useUpdateWebhookMutation } from "../../modules/Webhook/webhookApi";
 import Input from "../input fields/Input";
 import Loader from "../Loader";
+import { UpdateFee } from "./UpdateFee";
 
 type Props = {
 	isVisible: boolean;
@@ -139,12 +140,12 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 		<div>
 			<ToastContainer />
 			<div
-				className="fixed inset-0 bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center overflow-y-scroll"
+				className="fixed inset-0  bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center "
 				id="wrapper"
 				onClick={handleClose}
 			>
 				{/* h-[57.2rem] */}
-				<div className="w-[22rem] md:w-[33rem] h-[53rem] mt-36 mb-6 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white">
+				<div className="w-[22rem] md:w-[33rem] h-full md:h-[850px] overflow-auto mt-36 md:mt-[400px] mb-6  pb-20 md:pb-8 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white scrollbar-hide">
 					<div className="flex flex-col mx-6 mt-6 ">
 						<div className="flex items-center justify-between">
 							<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
@@ -196,6 +197,14 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 						</div>
 					</div>
 					<hr className="w-auto  border-primary border-[0.0625rem] mx-6 my-6" />
+					<div className="mx-6 flex flex-col gap-6">
+						<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
+							Update fee payment
+						</h1>
+						<UpdateFee />
+					</div>
+					<hr className="w-auto  border-primary border-[0.0625rem] mx-6 my-6" />
+
 					<div className="mx-6">
 						<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
 							Update webhook

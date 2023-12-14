@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { Input } from "../../@/components/ui/input";
 import {
 	Table,
@@ -13,9 +13,9 @@ import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
 import { useTransactionHooks } from "../transactions/useTransactionHooks";
 import { useQueryClient } from "@tanstack/react-query";
-// import { Input } from "../../@/components/ui/input";
-// import { SearchIcon } from "lucide-react";
-// import { ReloadIcon } from "@radix-ui/react-icons";
+import { Input } from "../../@/components/ui/input";
+import { SearchIcon } from "lucide-react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 // import { useLoadMoreTransactionsQuery } from "../../modules/TransactionsApi/transactionsApi";
 
 type Props = {
@@ -35,7 +35,7 @@ Props) {
 
 	const arrayLength = transactions?.length;
 	const lastIndex = arrayLength - 1;
-	// const [searchTerm, setSearchTerm] = useState<string>("");
+	const [searchTerm, setSearchTerm] = useState<string>("");
 	const {
 		// handleFilterMore,
 		// isFilteringMore,
@@ -43,18 +43,18 @@ Props) {
 		isLoadingMoreDebit,
 		setPageNumber,
 		pageNumber,
-		// handleSearchFilter,
-		// isSearching,
+		handleDebitSearch,
+		isDebitSearching,
 	} = useTransactionHooks();
 
-	// useEffect(() => {
-	// 	if (searchTerm === "") {
-	// 		queryClient.invalidateQueries({ queryKey: ["transactions"] });
-	// 	}
-	// }, [searchTerm]);
+	useEffect(() => {
+		if (searchTerm === "") {
+			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+		}
+	}, [searchTerm]);
 	return (
 		<div className="w-full  h-full">
-			{/* <div className="flex items-center py-4 mx-3 space-x-2">
+			<div className="flex items-center py-4 mx-3 space-x-2">
 				<Input
 					placeholder="Filter by transaction ID,name,account number,..."
 					className="max-w-sm px-4 "
@@ -66,16 +66,16 @@ Props) {
 				<Button
 					type="submit"
 					className="text-white"
-					onClick={() => handleSearchFilter(searchTerm)}
-					disabled={isSearching}
+					onClick={() => handleDebitSearch(searchTerm)}
+					disabled={isDebitSearching}
 				>
-					{isSearching ? (
+					{isDebitSearching ? (
 						<ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
 					) : (
 						<SearchIcon />
 					)}
 				</Button>
-			</div> */}
+			</div>
 			<div className="rounded-md border">
 				<Table
 					className={
