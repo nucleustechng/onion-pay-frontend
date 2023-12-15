@@ -124,9 +124,22 @@ export const filterTransactions = async (payload: {
 	return data;
 };
 
-export const searchFilterTransactions = async (payload: { terms: string }) => {
+export const searchDebitTransactions = async (payload: { terms: string }) => {
 	const { data } = await axios.post(
-		`${process.env.NEXT_PUBLIC_URL}/api/v1/filter-records`,
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/search-debit-records`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
+export const searchCreditTransactions = async (payload: { terms: string }) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/search-credit-records`,
 		payload,
 		{
 			headers: {

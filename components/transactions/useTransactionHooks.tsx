@@ -6,7 +6,8 @@ import {
 	getFilterMoreTransactions,
 	getLoadMoreDebitTrans,
 	getLoadMoreTransactions,
-	searchFilterTransactions,
+	searchCreditTransactions,
+	searchDebitTransactions,
 } from "../../modules/TransactionsApi/transactionService";
 import { useState } from "react";
 
@@ -131,21 +132,39 @@ export function useTransactionHooks() {
 		},
 	});
 
-	const { mutate: searchFilterMutation, isPending: isSearching } = useMutation({
-		mutationFn: searchFilterTransactions,
-		onSuccess: ({ success, records, reason }) => {
-			if (success === true) {
-				queryClient.setQueryData(["transactions"], () => {
-					return [...records];
-				});
-			} else {
-				toast.error(reason);
-			}
-		},
-		onError: ({ message }) => {
-			toast.error(message);
-		},
-	});
+	const { mutate: searchCreditMutation, isPending: isCreditSearching } =
+		useMutation({
+			mutationFn: searchCreditTransactions,
+			onSuccess: ({ success, records, reason }) => {
+				if (success === true) {
+					queryClient.setQueryData(["transactions"], () => {
+						return [...records];
+					});
+				} else {
+					toast.error(reason);
+				}
+			},
+			onError: ({ message }) => {
+				toast.error(message);
+			},
+		});
+
+	const { mutate: searchDebitMutation, isPending: isDebitSearching } =
+		useMutation({
+			mutationFn: searchDebitTransactions,
+			onSuccess: ({ success, records, reason }) => {
+				if (success === true) {
+					queryClient.setQueryData(["debits"], () => {
+						return [...records];
+					});
+				} else {
+					toast.error(reason);
+				}
+			},
+			onError: ({ message }) => {
+				toast.error(message);
+			},
+		});
 
 	const { mutate: downloadMutation, isPending: isDownloading } = useMutation({
 		mutationFn: downnloadTransactions,
@@ -183,8 +202,11 @@ export function useTransactionHooks() {
 		loadMoreDebitMutation({ last });
 	};
 
-	const handleSearchFilter = (terms: string) => {
-		searchFilterMutation({ terms });
+	const handleCreditSearch = (terms: string) => {
+		searchCreditMutation({ terms });
+	};
+	const handleDebitSearch = (terms: string) => {
+		searchDebitMutation({ terms });
 	};
 	return {
 		filterByDate,
@@ -197,8 +219,10 @@ export function useTransactionHooks() {
 		isLoadingMore,
 		setPageNumber,
 		pageNumber,
-		handleSearchFilter,
-		isSearching,
+		handleCreditSearch,
+		handleDebitSearch,
+		isCreditSearching,
+		isDebitSearching,
 		isLoadingMoreDebit,
 		handleLoadMoreDebit,
 	};

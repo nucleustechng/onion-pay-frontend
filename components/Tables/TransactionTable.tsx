@@ -43,8 +43,8 @@ export function TransactionTable({
 		isLoadingMore,
 		setPageNumber,
 		pageNumber,
-		handleSearchFilter,
-		isSearching,
+		handleCreditSearch,
+		isCreditSearching,
 	} = useTransactionHooks();
 
 	useEffect(() => {
@@ -66,10 +66,10 @@ export function TransactionTable({
 				<Button
 					type="submit"
 					className="text-white"
-					onClick={() => handleSearchFilter(searchTerm)}
-					disabled={isSearching}
+					onClick={() => handleCreditSearch(searchTerm)}
+					disabled={isCreditSearching}
 				>
-					{isSearching ? (
+					{isCreditSearching ? (
 						<ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
 					) : (
 						<SearchIcon />
