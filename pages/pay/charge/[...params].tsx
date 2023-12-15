@@ -7,6 +7,7 @@ import {
 	useLoadOrderQuery,
 	useVerifyPaymentQuery,
 } from "../../../modules/Client/usersApi";
+import { usePaymentHooks } from "../../../components/payments/usePaymentHooks";
 
 type OrderData = {
 	success: boolean;
@@ -33,6 +34,7 @@ const DirectCharge = () => {
 	const { params } = router.query;
 	const orderId = params ? params[0] : "";
 	const myButtonRef: any = useRef();
+	const { handleLoadPaymentFees, amountToPay } = usePaymentHooks();
 
 	const { data: orderData, isSuccess } = useLoadOrderQuery<OrderData | any>(
 		orderId
@@ -65,19 +67,27 @@ const DirectCharge = () => {
 	]);
 
 	useEffect(() => {
+		handleLoadPaymentFees({
+			amount: orderData["order"]?.amount,
+			id: orderId,
+			o_type: "c",
+		});
+	}, [orderData]);
+
+	useEffect(() => {
 		if (myButtonRef && orderData) {
 			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
 		}
 	}, [orderData]);
 
 	// const timestamp = params![1];
-	const newAmount = orderData && orderData["order"]?.amount;
+	// const newAmount = orderData && orderData["order"]?.amount;
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
 		tranref: "charge-" + orderId,
 		currency: "NGN",
 		country: "NG",
-		amount: newAmount + 50,
+		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: redirect_url,

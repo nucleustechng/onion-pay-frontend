@@ -25,7 +25,7 @@ const Link = () => {
 			id: pageId,
 			o_type: "l",
 		});
-	}, []);
+	}, [paymentLinksArray]);
 
 	const myTimeStamp = new Date().getTime().toString();
 	const options = {

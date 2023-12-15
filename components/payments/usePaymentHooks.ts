@@ -11,6 +11,7 @@ export function usePaymentHooks() {
 		mutationFn: loadFeePayment,
 		onSuccess: ({ success, amount }) => {
 			if (success) {
+				console.log("Amou");
 				setAmountToPay(amount);
 			}
 		},
@@ -24,7 +25,7 @@ export function usePaymentHooks() {
 		id: string;
 		amount: number;
 	}) => {
-		loadFeePayMutation(payload);
+		loadFeePayMutation({ ...payload });
 	};
 
 	return {

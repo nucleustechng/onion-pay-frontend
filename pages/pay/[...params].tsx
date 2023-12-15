@@ -4,9 +4,12 @@ import { useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import SeerbitCheckout from "seerbit-reactjs";
 import { useLoadSingleInvoiceQuery } from "../../modules/InvoicesApi";
+import { usePaymentHooks } from "../../components/payments/usePaymentHooks";
 
 const Invoice = () => {
 	const myButtonRef: any = useRef();
+
+	const { handleLoadPaymentFees, amountToPay } = usePaymentHooks();
 
 	const router = useRouter();
 	const { params } = router.query;
@@ -15,9 +18,17 @@ const Invoice = () => {
 	const invoiceId = params && params[2];
 
 	const targetInvoiceId = invoiceId;
+
 	const { data: invoiceData } = useLoadSingleInvoiceQuery(targetInvoiceId);
 
 	const retreivedInvoice = invoiceData && invoiceData["invoice"];
+	useEffect(() => {
+		handleLoadPaymentFees({
+			amount: retreivedInvoice?.amount,
+			id: targetInvoiceId as string,
+			o_type: "i",
+		});
+	}, [invoiceData]);
 	// useEffect(() => {
 	// 	if (isSuccess && invoiceData?.success == true) {
 	// 		setInvoicesArray(invoiceData["invoices"]);
@@ -37,7 +48,7 @@ const Invoice = () => {
 		tranref: "invoice-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: retreivedInvoice?.amount + 50,
+		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: "https://onionpay.io/",
