@@ -275,12 +275,11 @@ const Settings = () => {
 						</div>
 						<hr className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6" />
 
-						<Link
-							href="/settings/developer"
-							className="w-[10rem] h-11 border-[0.0625rem] border-primary rounded-[0.313rem] cursor-pointer"
-						>
-							<div className=" flex justify-center items-center h-11 text-sm text-primary font-WorkSans font-normal leading-4">
-								<h1>API KEYS & Webhook</h1>
+						<Link href="/settings/developer">
+							<div className="w-[10rem] h-11 border-[0.0625rem] border-primary rounded-[0.313rem] cursor-pointer">
+								<div className=" flex justify-center items-center h-11 text-sm text-primary font-WorkSans font-normal leading-4">
+									<h1>API KEYS & Webhook</h1>
+								</div>
 							</div>
 						</Link>
 					</div>
