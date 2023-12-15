@@ -87,7 +87,7 @@ export function SwitchForm({ clientPaysFee }: Props) {
 								/> */}
 					</div>
 					<h1 className="text-[#1B1A1A] text-base font-WorkSans font-normal">
-						Client pay (Beta)
+						Client pays fee (Beta)
 					</h1>
 				</div>
 			</div>
