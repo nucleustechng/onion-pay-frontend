@@ -4,10 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 
 import SeerbitCheckout from "seerbit-reactjs";
 import { useLoadPaymentPagesQuery } from "../../../modules/PaymentPages";
+import { usePaymentHooks } from "../../../components/payments/usePaymentHooks";
 // import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
 
 const Link = () => {
 	const myButtonRef: any = useRef(null);
+	const { handleLoadPaymentFees, amountToPay } = usePaymentHooks();
 
 	const [paymentLinksArray, setPaymentLinksArray] = useState<any>([]);
 
@@ -17,6 +19,13 @@ const Link = () => {
 
 	// const merchantId = paymentLinksArray?.m_id;
 	const pageId = paymentLinksArray?.p_id;
+	useEffect(() => {
+		handleLoadPaymentFees({
+			amount: paymentLinksArray?.amount,
+			id: pageId,
+			o_type: "l",
+		});
+	}, []);
 
 	const myTimeStamp = new Date().getTime().toString();
 	const options = {
@@ -24,7 +33,7 @@ const Link = () => {
 		tranref: "link-" + pageId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: paymentLinksArray?.amount + 50,
+		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: paymentLinksArray?.redirect_url,
