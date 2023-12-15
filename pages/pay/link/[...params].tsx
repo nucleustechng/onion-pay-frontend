@@ -1,32 +1,26 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef } from "react";
 import SeerbitCheckout from "seerbit-reactjs";
-import { useLoadPaymentPagesQuery } from "../../../modules/PaymentPages";
 import { usePaymentHooks } from "../../../components/payments/usePaymentHooks";
-// import { useLoadInvoicesQuery } from '../../modules/Invoices/invoiceApi'
+import { loadPaymentLink } from "../../../modules/pay/paymentService";
+import { useQuery } from "@tanstack/react-query";
 
 const Link = () => {
 	const myButtonRef: any = useRef(null);
-	const { handleLoadPaymentFees, amountToPay } = usePaymentHooks();
-
-	const [paymentLinksArray, setPaymentLinksArray] = useState<any>([]);
+	const { handleLoadPaymentFees, data } = usePaymentHooks();
 
 	const router = useRouter();
 	const { params } = router.query;
 	const myLink = params && params[0];
+	const { data: paymentLink } = useQuery({
+		queryKey: ["paymentlink"],
+		queryFn: () => loadPaymentLink(myLink as string),
+		enabled: !!myLink?.trim(),
+	});
 
-	// const merchantId = paymentLinksArray?.m_id;
-	const pageId = paymentLinksArray?.p_id;
-	useEffect(() => {
-		handleLoadPaymentFees({
-			amount: paymentLinksArray?.amount,
-			id: pageId,
-			o_type: "l",
-		});
-	}, [paymentLinksArray]);
-
+	const pageId = paymentLink?.p_id;
+	const amountToPay = data && data?.amount;
 	const myTimeStamp = new Date().getTime().toString();
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
@@ -36,24 +30,24 @@ const Link = () => {
 		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
-		callbackurl: paymentLinksArray?.redirect_url,
+		callbackurl: paymentLink?.redirect_url,
 	};
 
-	const { data: paymentLinkData, isSuccess } = useLoadPaymentPagesQuery(myLink);
-
+	// Effect for handling payment fees
 	useEffect(() => {
-		if (isSuccess && paymentLinkData.success == true) {
-			setPaymentLinksArray(paymentLinkData?.page);
-		} else {
-			console.log("An error occured");
-		}
-	}, [isSuccess, paymentLinkData]);
+		handleLoadPaymentFees({
+			amount: paymentLink?.amount,
+			id: pageId as string,
+			o_type: "l",
+		});
+	}, [paymentLink, pageId]);
 
+	// Effect for triggering checkout when amountToPay changes
 	useEffect(() => {
-		if (myButtonRef && paymentLinksArray) {
-			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
+		if (myButtonRef && amountToPay && paymentLink) {
+			myButtonRef.current.checkout(); // Trigger the checkout function when both paymentLink and amountToPay have values
 		}
-	}, [paymentLinksArray]);
+	}, [amountToPay, paymentLink]);
 
 	return (
 		<div className="flex justify-center">

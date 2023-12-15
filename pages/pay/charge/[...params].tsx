@@ -1,84 +1,52 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef } from "react";
 import SeerbitCheckout from "seerbit-reactjs";
-import {
-	useLoadOrderQuery,
-	useVerifyPaymentQuery,
-} from "../../../modules/Client/usersApi";
 import { usePaymentHooks } from "../../../components/payments/usePaymentHooks";
-
-type OrderData = {
-	success: boolean;
-	order: {
-		amount: string;
-		amount_string: string;
-		customer: {
-			phone: string;
-			name: string;
-			email: string;
-		};
-		customizations: {
-			description: string;
-			logo: string;
-			title: string;
-		};
-		o_id: string;
-	};
-	business_name: string;
-};
+import { loadOrder, verifyPayment } from "../../../modules/pay/paymentService";
+import { useQuery } from "@tanstack/react-query";
 
 const DirectCharge = () => {
 	const router = useRouter();
 	const { params } = router.query;
 	const orderId = params ? params[0] : "";
 	const myButtonRef: any = useRef();
-	const { handleLoadPaymentFees, amountToPay } = usePaymentHooks();
+	const { handleLoadPaymentFees, data } = usePaymentHooks();
+	const { data: orderData } = useQuery({
+		queryKey: ["order"],
+		queryFn: () => loadOrder(orderId as string),
+		enabled: !!orderId?.trim(),
+	});
 
-	const { data: orderData, isSuccess } = useLoadOrderQuery<OrderData | any>(
-		orderId
-	);
-	const { data: verifyPayData, isSuccess: verifyPaySuccess } =
-		useVerifyPaymentQuery<any>(orderId);
-
-	const [amount, setAmount] = useState<number>(0);
-	const [redirect_url, setRedirectUrl] = useState<string>("");
+	const { data: verifyPayData } = useQuery({
+		queryKey: ["verifypay"],
+		queryFn: () => verifyPayment(orderId as string),
+		enabled: !!orderId?.trim(),
+	});
 
 	useEffect(() => {
-		if (verifyPaySuccess && verifyPayData.success) {
+		if (verifyPayData.success) {
 			if (verifyPayData?.paid == true) {
 				router.push("/pay/charge/direct");
 			}
 		}
-		if (isSuccess && orderData.success) {
-			setAmount(orderData["order"]?.amount);
-			setRedirectUrl(orderData ? orderData["order"]?.redirect_url : "");
-		}
-	}, [
-		isSuccess,
-		orderData,
-		verifyPaySuccess,
-		verifyPayData,
-		amount,
-		redirect_url,
-		params,
-		router,
-	]);
+	}, [verifyPayData, params, router]);
 
 	useEffect(() => {
 		handleLoadPaymentFees({
-			amount: orderData["order"]?.amount,
+			amount: orderData?.amount,
 			id: orderId,
 			o_type: "c",
 		});
-	}, [orderData]);
+	}, [orderData, orderId]);
+
+	const amountToPay = data && data?.amount;
 
 	useEffect(() => {
-		if (myButtonRef && orderData) {
+		if (myButtonRef && orderData && amountToPay) {
 			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
 		}
-	}, [orderData]);
+	}, [orderData, amountToPay]);
 
 	// const timestamp = params![1];
 	// const newAmount = orderData && orderData["order"]?.amount;
@@ -90,7 +58,7 @@ const DirectCharge = () => {
 		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
-		callbackurl: redirect_url,
+		callbackurl: orderData?.redirect_url,
 	};
 
 	return (

@@ -10,22 +10,22 @@ const useAuth = () => {
 		queryKey: ["user"],
 		queryFn: getUser,
 	});
-	const protectedRoutes = [
-		"/transactions",
-		"/transfers",
-		"/settings",
-		"/payments",
-		"/business",
-		"/balances",
-	];
+	// const protectedRoutes = [
+	// 	"/transactions",
+	// 	"/transfers",
+	// 	"/settings",
+	// 	"/payments",
+	// 	"/business",
+	// 	"/balances",
+	// ];
 
 	// Check if the current route is a protected route
-	const isProtectedRoute = protectedRoutes.includes(router.pathname);
+	// const isProtectedRoute = protectedRoutes.includes(router.pathname);
 
 	useEffect(() => {
 		const verify = Cookies.get("token");
 
-		if (!verify && isProtectedRoute) {
+		if (!verify) {
 			router.push("/auth/signin");
 		}
 		if (userInfo?.verified === false) {
