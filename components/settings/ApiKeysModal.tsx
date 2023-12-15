@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CloseIcon from "../../Assets/icon/CloseIcon.svg";
+// import CloseIcon from "../../Assets/icon/CloseIcon.svg";
 import CopyIcon from "../../Assets/icon/CopyIcon.svg";
 import {
 	useGenerateKeysMutation,
@@ -11,15 +11,16 @@ import {
 import { useUpdateWebhookMutation } from "../../modules/Webhook/webhookApi";
 import Input from "../input fields/Input";
 import Loader from "../Loader";
-import { UpdateFee } from "./UpdateFee";
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/router";
+import { SwitchForm } from "./SwitchForm";
 
 type Props = {
-	isVisible: boolean;
-	onClose: () => {};
-	businessName: string;
+	businessName?: string;
 };
 
-const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
+const ApiKeysModal = ({ businessName }: Props) => {
+	const router = useRouter();
 	const {
 		data: settingsData,
 		isSuccess: settingSuccess,
@@ -91,13 +92,6 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 		}
 	}, [webhookSuccess]);
 
-	const handleClose = (e: any) => {
-		if (e.target.id === "wrapper") {
-			onClose();
-		}
-	};
-	if (!isVisible) return null;
-
 	interface IApiKey {
 		title: string;
 		devKey: string;
@@ -107,7 +101,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 			<h1 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
 				{title}
 			</h1>
-			<div className="flex items-center w-[19rem] md:w-[29rem] lg:w-[30rem] h-[3.125rem] mt-[0.375rem] border-[0.0625rem] border-[#CACACA] rounded-[0.313rem]">
+			<div className="flex items-center w-[19rem] md:w-[29rem] lg:w-[44rem] h-[3.125rem] mt-[0.375rem] border-[0.0625rem] border-[#CACACA] rounded-[0.313rem]">
 				<h1 className="w-[15rem] md:w-[22rem] break-words ml-2 md:ml-6 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
 					{devKey}
 				</h1>
@@ -140,30 +134,32 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 		<div>
 			<ToastContainer />
 			<div
-				className="fixed inset-0  bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-40 flex justify-center items-center "
+				className="w-full h-screen overflow-auto scrollbar-hide pb-20 "
 				id="wrapper"
-				onClick={handleClose}
 			>
 				{/* h-[57.2rem] */}
-				<div className="w-[22rem] md:w-[33rem] h-full md:h-[850px] overflow-auto mt-36 md:mt-[400px] mb-6  pb-20 md:pb-8 md:mb-[30rem] lg:mb-0 rounded-[0.63rem] bg-white scrollbar-hide">
-					<div className="flex flex-col mx-6 mt-6 ">
+
+				<div className="">
+					<div className="flex flex-col  mx-6  mt-6 ">
+						<div
+							className="flex items-center gap-1 mb-12 text-primary text-base font-normal font-WorkSans"
+							onClick={() => router.back()}
+						>
+							<ChevronLeftIcon className="w-[24px] h-[24px]" />
+							Back
+						</div>
 						<div className="flex items-center justify-between">
 							<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
 								API Keys for {businessName}
 							</h1>
-							<div
-								className="cursor-pointer"
-								onClick={() => {
-									onClose();
-								}}
-							>
+							{/* <div className="cursor-pointer">
 								<Image
 									src={CloseIcon}
 									alt="Close Icon"
 								/>
-							</div>
+							</div> */}
 						</div>
-						<div className="flex flex-col gap-6 mt-7">
+						<div className="flex flex-col gap-6 mt-7 ">
 							<ApiKeyContainer
 								title="Test Secret Key"
 								devKey={apiKeys?.test_sec_key}
@@ -181,7 +177,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 								devKey={apiKeys?.live_pub_key}
 							/>
 						</div>
-						<div className="flex justify-end">
+						<div className="flex justify-end  w-[19rem] md:w-[29rem] lg:w-[44rem]">
 							<div
 								onClick={handleGenerateKeysClick}
 								className="flex justify-center items-center w-[10.525rem] h-11 cursor-pointer bg-primary rounded-[0.313rem] mt-6"
@@ -201,7 +197,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 						<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
 							Update fee payment
 						</h1>
-						<UpdateFee />
+						<SwitchForm clientPaysFee={apiKeys?.client_pays_fee} />
 					</div>
 					<hr className="w-auto  border-primary border-[0.0625rem] mx-6 my-6" />
 
@@ -212,7 +208,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 						<div className="mt-6 flex flex-col gap-4">
 							<Input
 								type="text"
-								width="w-[19rem] md:w-[29rem] lg:w-[30rem]"
+								width=" w-[19rem] md:w-[29rem] lg:w-[44rem]"
 								name="url"
 								placeholder="URL"
 								label="URL"
@@ -226,7 +222,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 							/>
 							<Input
 								type="text"
-								width="w-[19rem] md:w-[29rem] lg:w-[30rem]"
+								width=" w-[19rem] md:w-[29rem] lg:w-[44rem]"
 								name="auth_token"
 								placeholder="Authentication token"
 								label="Authentication token"
@@ -238,7 +234,7 @@ const ApiKeysModal = ({ isVisible, onClose, businessName }: Props) => {
 									});
 								}}
 							/>
-							<div className="flex justify-end">
+							<div className="flex justify-end  w-[19rem] md:w-[29rem] lg:w-[44rem]">
 								<div
 									onClick={handleUpdateWebhook}
 									className="flex justify-center items-center w-[10.525rem] h-11 cursor-pointer bg-primary rounded-[0.313rem] mt-2"

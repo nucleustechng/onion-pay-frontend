@@ -3,51 +3,53 @@ import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import SeerbitCheckout from "seerbit-reactjs";
-import { useLoadSingleInvoiceQuery } from "../../modules/InvoicesApi";
+import { usePaymentHooks } from "../../components/payments/usePaymentHooks";
+import { useQuery } from "@tanstack/react-query";
+import { loadSingleInvoice } from "../../modules/pay/paymentService";
 
 const Invoice = () => {
 	const myButtonRef: any = useRef();
 
+	const { handleLoadPaymentFees, data } = usePaymentHooks();
+
 	const router = useRouter();
 	const { params } = router.query;
-
-	// const merchantId = params && params[1];
 	const invoiceId = params && params[2];
 
 	const targetInvoiceId = invoiceId;
-	const { data: invoiceData } = useLoadSingleInvoiceQuery(targetInvoiceId);
+	const { data: invoiceData } = useQuery({
+		queryKey: ["invoice"],
+		queryFn: () => loadSingleInvoice(invoiceId as string),
+		enabled: !!invoiceId?.trim(),
+	});
 
-	const retreivedInvoice = invoiceData && invoiceData["invoice"];
-	// useEffect(() => {
-	// 	if (isSuccess && invoiceData?.success == true) {
-	// 		setInvoicesArray(invoiceData["invoices"]);
-	// 	} else {
-	// 		console.log("An error occured");
-	// 	}
-	// }, [isSuccess, invoicesArray, invoiceData]);
-
-	// const targetInvoice = invoicesArray.find(
-	// 	(invoice: { i_id: string | undefined }) => invoice?.i_id == targetInvoiceId
-	// );
+	useEffect(() => {
+		handleLoadPaymentFees({
+			amount: invoiceData?.amount,
+			id: targetInvoiceId as string,
+			o_type: "i",
+		});
+	}, [invoiceData, targetInvoiceId]);
 
 	const myTimeStamp = new Date().getTime().toString();
+	const amountToPay = data && data?.amount;
 
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
 		tranref: "invoice-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: retreivedInvoice?.amount + 50,
+		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: "https://onionpay.io/",
 	};
 
 	useEffect(() => {
-		if (myButtonRef && retreivedInvoice) {
+		if (myButtonRef && invoiceData && amountToPay) {
 			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
 		}
-	}, [retreivedInvoice]);
+	}, [invoiceData, amountToPay]);
 
 	return (
 		<div className="flex justify-center">

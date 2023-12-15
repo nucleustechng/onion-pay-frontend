@@ -15,13 +15,12 @@ import {
 } from "../../modules/LoadSettings/settingsApi";
 import UpdateDetailsModal from "../../components/settings/UpdateDetailsModal";
 import useAuth from "../../useAuth";
-import ApiKeysModal from "../../components/settings/ApiKeysModal";
+import Link from "next/link";
 
 const Settings = () => {
 	useAuth();
 
 	const [showModal, setShowModal] = useState<boolean>(false);
-	const [showApiKeyModal, setShowApisKeyModal] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 	const sidebarShow = useAppSelector(
@@ -276,14 +275,14 @@ const Settings = () => {
 						</div>
 						<hr className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] border-primary border-[0.0625rem] my-6" />
 
-						<div
+						<Link
+							href="/settings/developer"
 							className="w-[10rem] h-11 border-[0.0625rem] border-primary rounded-[0.313rem] cursor-pointer"
-							onClick={() => setShowApisKeyModal(true)}
 						>
 							<div className=" flex justify-center items-center h-11 text-sm text-primary font-WorkSans font-normal leading-4">
 								<h1>API KEYS & Webhook</h1>
 							</div>
-						</div>
+						</Link>
 					</div>
 
 					{/* <div className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] flex justify-between items-center mb-6'>
@@ -326,13 +325,13 @@ const Settings = () => {
 					r_bvn={businessData?.bvn}
 				/>
 			</div>
-			<div>
+			{/* <div>
 				<ApiKeysModal
 					isVisible={showApiKeyModal}
 					onClose={async () => setShowApisKeyModal(false)}
 					businessName={businessData?.name}
 				/>
-			</div>
+			</div> */}
 		</div>
 	);
 };
