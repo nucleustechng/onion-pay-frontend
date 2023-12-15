@@ -30,7 +30,6 @@ export const loadPaymentLink = async (link: string) => {
 			},
 		}
 	);
-	console.log("response", data?.page);
 	return data?.page;
 };
 

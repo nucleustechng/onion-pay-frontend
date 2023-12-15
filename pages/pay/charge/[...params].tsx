@@ -25,7 +25,7 @@ const DirectCharge = () => {
 	});
 
 	useEffect(() => {
-		if (verifyPayData.success) {
+		if (verifyPayData?.success) {
 			if (verifyPayData?.paid == true) {
 				router.push("/pay/charge/direct");
 			}

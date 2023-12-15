@@ -22,35 +22,34 @@ const Invoice = () => {
 		queryFn: () => loadSingleInvoice(invoiceId as string),
 		enabled: !!invoiceId?.trim(),
 	});
-	// const { data: invoiceData } = useLoadSingleInvoiceQuery(targetInvoiceId);
 
-	// const retreivedInvoice = invoiceData && invoiceData["invoice"];
 	useEffect(() => {
 		handleLoadPaymentFees({
 			amount: invoiceData?.amount,
 			id: targetInvoiceId as string,
 			o_type: "i",
 		});
-	}, [invoiceData]);
+	}, [invoiceData, targetInvoiceId]);
 
 	const myTimeStamp = new Date().getTime().toString();
+	const amountToPay = data && data?.amount;
 
 	const options = {
 		public_key: process.env.NEXT_PUBLIC_KEY,
 		tranref: "invoice-" + invoiceId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",
-		amount: data?.amount,
+		amount: amountToPay,
 		setAmountByCustomer: false,
 		tokenize: false,
 		callbackurl: "https://onionpay.io/",
 	};
 
 	useEffect(() => {
-		if (myButtonRef && invoiceData) {
+		if (myButtonRef && invoiceData && amountToPay) {
 			myButtonRef.current.checkout(); // Trigger the checkout function when the component is mounted
 		}
-	}, [invoiceData]);
+	}, [invoiceData, amountToPay]);
 
 	return (
 		<div className="flex justify-center">
