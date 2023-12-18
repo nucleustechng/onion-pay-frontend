@@ -23,7 +23,8 @@ const Link = () => {
 	const amountToPay = data && data?.amount;
 	const myTimeStamp = new Date().getTime().toString();
 	const options = {
-		public_key: process.env.NEXT_PUBLIC_KEY,
+		// public_key: process.env.NEXT_PUBLIC_KEY,
+		public_key: "SBPUBK_Z56RA0CEOSPOP99016FHMATGIWZ2HMD4",
 		tranref: "link-" + pageId + "-" + myTimeStamp,
 		currency: "NGN",
 		country: "NG",

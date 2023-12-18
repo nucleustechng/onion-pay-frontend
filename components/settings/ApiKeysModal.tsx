@@ -66,6 +66,8 @@ const ApiKeysModal = ({ businessName }: Props) => {
 		{ data: updatedData, isSuccess: webhookSuccess, isLoading: webhookLoading },
 	] = useUpdateWebhookMutation();
 
+	console.log("apikeys", apiKeys);
+
 	const handleUpdateWebhook = async () => {
 		console.log("updateWebhook", updateWebhookDetails);
 		try {
@@ -142,7 +144,7 @@ const ApiKeysModal = ({ businessName }: Props) => {
 				<div className="">
 					<div className="flex flex-col  mx-6  mt-6 ">
 						<div
-							className="flex items-center gap-1 mb-12 text-primary text-base font-normal font-WorkSans"
+							className="flex items-center gap-1 mb-12 text-primary text-base font-normal font-WorkSans cursor-pointer"
 							onClick={() => router.back()}
 						>
 							<ChevronLeftIcon className="w-[24px] h-[24px]" />
@@ -197,7 +199,7 @@ const ApiKeysModal = ({ businessName }: Props) => {
 						<h1 className="text-lg text-[#1B1A1A] font-WorkSans font-semibold leading-5">
 							Update fee payment
 						</h1>
-						<SwitchForm clientPaysFee={apiKeys?.client_pays_fee} />
+						<SwitchForm />
 					</div>
 					<hr className="w-auto  border-primary border-[0.0625rem] mx-6 my-6" />
 
