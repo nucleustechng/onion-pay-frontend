@@ -278,7 +278,7 @@ const Settings = () => {
 						<Link href="/settings/developer">
 							<div className="w-[10rem] h-11 border-[0.0625rem] border-primary rounded-[0.313rem] cursor-pointer">
 								<div className=" flex justify-center items-center h-11 text-sm text-primary font-WorkSans font-normal leading-4">
-									<h1>API KEYS & Webhook</h1>
+									<h1>Developer settings</h1>
 								</div>
 							</div>
 						</Link>

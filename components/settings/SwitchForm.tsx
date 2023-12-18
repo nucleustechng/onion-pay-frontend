@@ -1,20 +1,26 @@
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { updateFee } from "../../modules/LoadSettings/settingService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLoadDevSettingsQuery } from "../../modules/ApiKeys/generateApiKeys";
 
-type Props = {
-	clientPaysFee: boolean;
-};
-
-export function SwitchForm({ clientPaysFee }: Props) {
+export function SwitchForm() {
 	// const form = useForm<z.infer<typeof FormSchema>>({
 	// 	resolver: zodResolver(FormSchema),
 	// 	defaultValues: {
 	// 		client_pays_fee: clientPaysFee,
 	// 	},
 	// });
-	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(clientPaysFee);
+	const { data: settingsData, isSuccess: settingSuccess } =
+		useLoadDevSettingsQuery();
+	useEffect(() => {
+		if (settingSuccess) {
+			setIsSwitchOn(settingsData["business"]?.client_pays_fee);
+		}
+	}, [settingSuccess]);
+	const [isSwitchOn, setIsSwitchOn] = useState<boolean>(
+		settingsData && settingsData["business"]?.client_pays_fee
+	);
 
 	const { mutate: updateFeeMutation } = useMutation({
 		mutationFn: updateFee,
