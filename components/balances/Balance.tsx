@@ -45,13 +45,65 @@ import FundBalanceModal from "./modals/FundBalanceModal";
 import { BalanceTable } from "../Tables/BalanceTable";
 import { useQuery } from "@tanstack/react-query";
 import { getBalances } from "../../modules/balancesApi";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import useBalanceHooks from "./useBalanceHooks";
+import DownloadIcon from "../../Assets/icon/Download.svg";
 
 const Balance = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
+	// const [isDownload, setIsDownload] = useState<boolean>(true);
+
 	// One
 	// const webcamRef = useRef<Webcam>(null);
 	// const [capturedImage, setCapturedImage] = useState<any>();
 	// const [imageToDisplay, setImageToDisplay] = useState<any>();
+	const { downloadBalanceHistory, isDownloading } = useBalanceHooks();
+
+	const [downloadDate, setDownloadDate] = useState<any>({
+		from: null,
+		to: null,
+	});
+	const handleDownloadDate = (selectedDate: any) => {
+		if (downloadDate.from === null) {
+			// Selecting start date
+			setDownloadDate((prevState: any) => ({
+				...prevState,
+				from: selectedDate.from,
+			}));
+		} else {
+			// Selecting end date
+			if (downloadDate.from === selectedDate.to) {
+				// Resetting from date
+				setDownloadDate((prevState: any) => ({ ...prevState, from: null }));
+			} else {
+				// Setting to date and making filter request
+				setDownloadDate((prevState: any) => ({
+					...prevState,
+					to: selectedDate.to,
+				}));
+
+				// Call your filter function with start and end dates
+				// Convert start and end dates to timestamps
+				const startTimestamp = Date.parse(downloadDate.from);
+				const endTimestamp = Date.parse(selectedDate.to);
+				// setFilterMore({ start: startTimestamp, end: endTimestamp });
+				// if (isDownload) {
+				downloadBalanceHistory({ start: startTimestamp, end: endTimestamp });
+				// }
+				// else {
+				// 	filterByDate({ start: startTimestamp, end: endTimestamp });
+				// 	setFilterMore({ start: startTimestamp, end: endTimestamp });
+				// }
+				setTimeout(() => {
+					setDownloadDate({
+						from: null,
+						end: null,
+					});
+				}, 1000);
+			}
+		}
+	};
+
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
 
@@ -378,18 +430,79 @@ const Balance = () => {
 							<span>{walletBalance.slice(1)}</span>
 						</h1>
 					</div>
-					<div className="flex items-center gap-4">
-						{/* <button className="w-[8.3rem] h-11 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-5 bg-[#F5F5F5] rounded-[0.32rem]">
+					<div className="flex items-center gap-4 md:gap-6">
+						<div className="flex items-center gap-4">
+							{/* <button className="w-[8.3rem] h-11 text-sm text-[#1B1A1A] font-WorkSans font-normal leading-5 bg-[#F5F5F5] rounded-[0.32rem]">
 							Set low limit
 						</button> */}
-						<button
-							className="w-[8.65rem] h-11 text-sm text-white font-WorkSans font-normal leading-5 bg-[#3063E9] rounded-[0.32rem]"
-							onClick={() => {
-								setShowModal(true);
-							}}
-						>
-							Fund balance
-						</button>
+							<Button
+								className="hidden md:flex text-sm text-white font-WorkSans font-normal leading-5 bg-[#3063E9]"
+								onClick={() => {
+									setShowModal(true);
+								}}
+							>
+								Fund balance
+							</Button>
+							<Button
+								className="flex md:hidden text-sm text-white font-WorkSans font-normal leading-5 bg-[#3063E9]"
+								onClick={() => {
+									setShowModal(true);
+								}}
+							>
+								Fund
+							</Button>
+						</div>
+						<div className="flex items-center gap-4">
+							<Popover>
+								{/* <PopoverTrigger asChild>
+									<Button
+										// variant={"outline"}
+										className="bg-[#F5F5F5] text-primary-foreground"
+									>
+										Filter By Date
+										<CalendarIcon className="ml-2 h-4 w-4" />
+										{date?.from ? (
+									format(date?.from, "PPP")
+								) : (
+									<span>Pick a date</span>
+								)} 
+									</Button>
+								</PopoverTrigger> */}
+								<PopoverTrigger
+									// onClick={() => {
+									// 	setIsDownload(true);
+									// }}
+									asChild
+								>
+									<Button
+										disabled={isDownloading}
+										className="bg-[#F5F5F5] text-primary-foreground"
+									>
+										Download
+										{isDownloading ? (
+											<ReloadIcon className="ml-4 h-4 w-4 animate-spin" />
+										) : (
+											<NextImage
+												src={DownloadIcon}
+												alt="Download Icon"
+												className="ml-4"
+											/>
+										)}
+									</Button>
+								</PopoverTrigger>
+								<PopoverContent
+									className="w-auto p-0"
+									align="start"
+								>
+									<Calendar
+										mode="range"
+										selected={downloadDate}
+										onSelect={handleDownloadDate}
+										initialFocus
+									/>
+								</PopoverContent>
+							</Popover>
+						</div>
 					</div>
 				</div>
 				<hr className="border-[#898989]" />

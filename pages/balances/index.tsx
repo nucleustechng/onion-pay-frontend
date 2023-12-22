@@ -9,7 +9,7 @@ const Balances = () => {
 	return (
 		<div>
 			<div className="flex">
-				<div className="w-[30rem] md:w-[48rem] xl:w-[71.5rem]">
+				<div className="w-full">
 					<div>
 						<Balance />
 					</div>

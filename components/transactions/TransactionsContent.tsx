@@ -289,6 +289,13 @@ const TransactionsContent = () => {
 													transactions && transactions[selectedIndex]?.t_id
 												}
 											/>
+											<CardItem
+												mainHeader="External reference"
+												subText={
+													transactions &&
+													(transactions[selectedIndex]?.reference ?? "N/A")
+												}
+											/>
 											{transactions && !transactions[selectedIndex]?.debit && (
 												<CardItem
 													mainHeader="Transaction reference"
