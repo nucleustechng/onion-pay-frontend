@@ -11,6 +11,9 @@ import {
 // import { Button } from "../../@/components/ui/button";
 import { formatDate } from "../../@/lib/utils";
 import Loader from "../Loader";
+import { Button } from "../../@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
+import useBalanceHooks from "../balances/useBalanceHooks";
 // import { useTransactionHooks } from "../transactions/useTransactionHooks";
 // import { useQueryClient } from "@tanstack/react-query";
 // import { Input } from "../../@/components/ui/input";
@@ -31,21 +34,21 @@ export function BalanceTable({
 	isLoading,
 }: // filterValues,
 Props) {
-	// const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-	// const arrayLength = balances?.length;
-	// const lastIndex = arrayLength - 1;
+	const arrayLength = balances?.length;
+	const lastIndex = arrayLength - 1;
 	// const [searchTerm, setSearchTerm] = useState<string>("");
-	// const {
-	// 	handleFilterMore,
-	// 	isFilteringMore,
-	// 	handleLoadMore,
-	// 	isLoadingMore,
-	// 	setPageNumber,
-	// 	pageNumber,
-	// 	handleSearchFilter,
-	// 	isSearching,
-	// } = useTransactionHooks();
+	const {
+		// handleFilterMore,
+		// isFilteringMore,
+		handleLoadMore,
+		isLoadingMore,
+		setPageNumber,
+		pageNumber,
+		// handleSearchFilter,
+		// isSearching,
+	} = useBalanceHooks();
 
 	// useEffect(() => {
 	// 	if (searchTerm === "") {
@@ -169,43 +172,43 @@ Props) {
 				</Table>
 			</div>
 			<div className="flex items-center justify-end space-x-2 py-4">
-				{/* <div className="flex-1 text-sm text-muted-foreground">
+				<div className="flex-1 text-sm text-muted-foreground">
 					{balances?.filter((balance) => balance.isSelected).length} of{" "}
 					{balances?.length} row(s) selected.
-				</div> */}
+				</div>
 				<div className="space-x-2">
-					{/* <Button
+					<Button
 						variant="outline"
 						className="w-[100px]"
 						onClick={() => {
 							if (pageNumber > 0) {
-								queryClient.invalidateQueries({ queryKey: ["transactions"] });
+								queryClient.invalidateQueries({ queryKey: ["balances"] });
 								setPageNumber(pageNumber - 1);
 							}
 						}}
 					>
 						Previous
-					</Button> */}
-					{/* <Button
+					</Button>
+					<Button
 						variant="outline"
 						className="w-[100px]"
 						onClick={() => {
-							if (filterValues.start && filterValues.end) {
-								const payload = {
-									start: filterValues.start,
-									end: filterValues.end,
-									last: transactions[lastIndex]?.r_id,
-								};
-								handleFilterMore(payload);
-							} else {
-								handleLoadMore(transactions[lastIndex]?.r_id);
-								setPageNumber(pageNumber + 1);
-							}
+							// if (filterValues.start && filterValues.end) {
+							// 	const payload = {
+							// 		start: filterValues.start,
+							// 		end: filterValues.end,
+							// 		last: transactions[lastIndex]?.r_id,
+							// 	};
+							// 	handleFilterMore(payload);
+							// } else {
+							handleLoadMore(balances[lastIndex]?.c_id);
+							setPageNumber(pageNumber + 1);
+							// }
 						}}
-						disabled={filterValues ? isFilteringMore : isLoadingMore}
+						disabled={isLoadingMore}
 					>
 						Next
-					</Button> */}
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -17,6 +17,20 @@ export const getBalances = async () => {
 	return data?.balances;
 };
 
+export const getLoadmoreBalances = async (payload: { last: string }) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/more-balances`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	console.log("balances: ", data);
+	return data;
+};
+
 export const downnloadBalances = async (payload: {
 	start: number;
 	end: number;
