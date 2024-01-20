@@ -12,21 +12,21 @@ import ApiSection from "../components/pagesections/ApiSection/ApiSection";
 import JoinSection from "../components/pagesections/JoinSection/JoinSection";
 import Link from "next/link";
 import PricingSection from "../components/pagesections/PricingSection";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import useAuth from "../useAuth";
+// import Cookies from "js-cookie";
+// import { useEffect } from "react";
+// import { useRouter } from "next/router";
+// import useAuth from "../useAuth";
 
 export default function Home() {
-	const router = useRouter();
-	useAuth();
-	useEffect(() => {
-		const verify = Cookies.get("token");
+	// const router = useRouter();
+	// useAuth();
+	// useEffect(() => {
+	// 	const verify = Cookies.get("token");
 
-		if (verify) {
-			router.push("/transactions");
-		}
-	}, []);
+	// 	if (verify) {
+	// 		router.push("/transactions");
+	// 	}
+	// }, []);
 	return (
 		<>
 			<div>
