@@ -13,11 +13,11 @@ const PricingSection = () => {
 		"text-[#1B1A1A] text-sm font-WorkSans font-normal leading-4 text-left md:text-right";
 	const pricingSpanStyle = "text-[1.75rem] leading-8 text-primary";
 	const services = [
-		"Wallet to float account",
+		// "Wallet to float account",
 		"Wallet to bank account (pay out)",
-		"Float account to wallet",
+		// "Float account to wallet",
 		`Virtual account (inflow) – pay with transfer`,
-		"Disbursement service (pay out)",
+		// "Disbursement service (pay out)",
 		"Web payment gateway (card processing)",
 	];
 	const ListComponent = ({ text }: Props) => (
@@ -37,7 +37,7 @@ const PricingSection = () => {
 	);
 	return (
 		<div className="flex justify-center mt-6">
-			<div className="w-[21.875rem] lg:w-[71.2rem] h-auto pb-6 lg:h-[28.5rem] bg-[#E7EDFF] rounded-[0.625rem]">
+			<div className="w-[21.875rem] lg:w-[71.2rem] h-auto pb-6 lg:h-auto bg-[#E7EDFF] rounded-[0.625rem]">
 				<div className="flex justify-between items-center  px-6 pt-6">
 					<h1 className={`${headingStyle}`}>Service</h1>
 					<h2 className={`${headingStyle} hidden md:flex`}>Pricing (VAT)</h2>
@@ -55,83 +55,83 @@ const PricingSection = () => {
 						</div>
 					</div>
 					<div className="flex flex-col gap-6">
-						<h1 className={`${pricingTextStyle}`}>
+						{/* <h1 className={`${pricingTextStyle}`}>
 							<span className={`${pricingSpanStyle}`}>0.5%</span> capped at{" "}
 							<span className={`${pricingSpanStyle}`}>₦100.</span>
-						</h1>
+						</h1> */}
 						<h1 className={`${pricingTextStyle}`}>
-							<span className={`${pricingSpanStyle}`}>₦50</span> per
+							<span className={`${pricingSpanStyle}`}>₦35</span> per
 							transaction.
 						</h1>
-						<h1 className={`${pricingTextStyle}`}>
+						{/* <h1 className={`${pricingTextStyle}`}>
 							<span className={`${pricingSpanStyle}`}>₦50</span> per
 							transaction.
-						</h1>
+						</h1> */}
 						<h1 className={`${pricingTextStyle}`}>
 							<span className={`${pricingSpanStyle}`}>1%</span> of transaction
-							value, capped at{" "}
-							<span className={`${pricingSpanStyle}`}>₦500</span> per
+							value, minimum ₦15 capped at{" "}
+							<span className={`${pricingSpanStyle}`}>₦515</span> per
 							transaction.
 						</h1>
-						<h1 className={`${pricingTextStyle}`}>
-							<span className={`${pricingSpanStyle}`}>₦50</span> per
+						{/* <h1 className={`${pricingTextStyle}`}>
+							<span className={`${pricingSpanStyle}`}>₦35</span> per
 							transaction.
-						</h1>
+						</h1> */}
 						<h1 className={`${pricingTextStyle}`}>
-							<span className={`${pricingSpanStyle}`}>1.5%</span> of transaction
-							value capped at{" "}
-							<span className={`${pricingSpanStyle}`}>₦2,000.</span>
+							<span className={`${pricingSpanStyle}`}>1%</span> of transaction
+							minimum ₦15 capped at{" "}
+							<span className={`${pricingSpanStyle}`}>₦515</span>
 						</h1>
 					</div>
 				</div>
 				<div className="flex flex-col mt-6  lg:hidden ">
 					<div className="mx-6">
 						<div className="flex flex-col gap-10">
-							<div className="flex flex-col gap-[0.375rem]">
+							{/* <div className="flex flex-col gap-[0.375rem]">
 								<ListComponent text="Wallet to float account" />
 								<h1 className={`${pricingTextStyle}`}>
 									<span className={`${pricingSpanStyle}`}>0.5%</span> capped at{" "}
 									<span className={`${pricingSpanStyle}`}>N100.</span>
 								</h1>
-							</div>
+							</div> */}
 							<div className="flex flex-col gap-[0.375rem]">
 								<ListComponent text="Wallet to bank account (pay out)" />
 								<h1 className={`${pricingTextStyle}`}>
-									<span className={`${pricingSpanStyle}`}>N25</span> per
+									<span className={`${pricingSpanStyle}`}>₦35</span> per
 									transaction.
 								</h1>
 							</div>
-							<div className="flex flex-col gap-[0.375rem]">
+							{/* <div className="flex flex-col gap-[0.375rem]">
 								<ListComponent text="Float account to wallet" />
 								<h1 className={`${pricingTextStyle}`}>
 									<span className={`${pricingSpanStyle}`}>N25</span> per
 									transaction.
 								</h1>
-							</div>
+							</div> */}
 							<div className="flex flex-col gap-[0.375rem]">
 								<ListComponent
 									text={`Virtual account (inflow) – pay with transfer`}
 								/>
 								<h1 className={`${pricingTextStyle}`}>
 									<span className={`${pricingSpanStyle}`}>1%</span> of
-									transaction value, capped at{" "}
-									<span className={`${pricingSpanStyle}`}>N500</span> per
+									transaction value, minimum ₦15 capped at{" "}
+									<span className={`${pricingSpanStyle}`}>₦515</span> per
 									transaction.
 								</h1>
 							</div>
-							<div className="flex flex-col gap-[0.375rem]">
+							{/* <div className="flex flex-col gap-[0.375rem]">
 								<ListComponent text="Disbursement service (pay out)" />
 								<h1 className={`${pricingTextStyle}`}>
 									<span className={`${pricingSpanStyle}`}>N25</span> per
 									transaction.
 								</h1>
-							</div>
+							</div> */}
 							<div className="flex flex-col gap-[0.375rem]">
 								<ListComponent text="Web payment gateway (card processing)" />
 								<h1 className={`${pricingTextStyle}`}>
-									<span className={`${pricingSpanStyle}`}>1.5%</span> of
-									transaction value capped at{" "}
-									<span className={`${pricingSpanStyle}`}>N3,000.</span>
+									<span className={`${pricingSpanStyle}`}>1%</span> of
+									transaction minimum ₦15 capped at{" "}
+									<span className={`${pricingSpanStyle}`}>₦515</span>
 								</h1>
 							</div>
 						</div>
