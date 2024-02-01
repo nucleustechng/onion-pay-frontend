@@ -98,9 +98,9 @@ Props) {
 							<TableHead className="w-auto text-[#898989] font-medium ">
 								Amount
 							</TableHead>
-							{/* <TableHead className="w-auto text-[#898989] font-medium ">
-								Fee
-							</TableHead> */}
+							<TableHead className="w-auto text-[#898989] font-medium ">
+								Status
+							</TableHead>
 							<TableHead className="w-auto pr-20 text-[#898989] font-medium ">
 								Date
 							</TableHead>
@@ -157,9 +157,42 @@ Props) {
 											? transaction?.amount_string
 											: "N/A"}
 									</TableCell>
-									{/* <TableCell className={`font-WorkSans font-normal h-[60px] `}>
-										{transaction?.fee_string ? transaction?.fee_string : "N/A"}
-									</TableCell> */}
+									<TableCell
+										className={`font-WorkSans font-normal h-[60px] ${
+											transaction?.status === "00" && "text-[#61A72C]"
+										} ${transaction?.status === "S20" && "text-[#FF9635]"}
+										${transaction?.status === "S12" && "text-[#F31212]"}
+										`}
+									>
+										<div className="bg-transparent flex items-center  gap-2">
+											{transaction?.status === "00" ? "Successful" : null}
+											{transaction?.status === "00" ? (
+												<svg
+													width="14"
+													height="14"
+													viewBox="0 0 14 14"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<rect
+														width="14"
+														height="14"
+														rx="7"
+														fill="#61A72C"
+													/>
+													<path
+														d="M3.04102 6.68555L5.93762 9.52908L10.8346 4.59727"
+														stroke="white"
+														stroke-width="1.16386"
+														stroke-linecap="round"
+													/>
+												</svg>
+											) : null}
+
+											{transaction?.status === "S20" ? "Pending" : null}
+											{transaction?.status === "S12" ? "Failed" : null}
+										</div>
+									</TableCell>
 									<TableCell className="font-WorkSans font-normal h-[60px]">
 										{transaction?.on ? formatDate(transaction?.on) : "N/A"}
 									</TableCell>
