@@ -15,7 +15,7 @@ import Input from "../../components/input fields/Input";
 import { toast } from "react-toastify";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
-const airtime = () => {
+const Airtime = () => {
 	let [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
@@ -238,4 +238,4 @@ const airtime = () => {
 	);
 };
 
-export default airtime;
+export default Airtime;
