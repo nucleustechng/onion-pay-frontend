@@ -4,6 +4,35 @@ import { toast } from "react-toastify";
 
 const token = Cookies.get("token");
 
+export const getMobileOperators = async () => {
+	const { data } = await axios.get(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/get-mobile-operators`,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data?.data;
+};
+
+export const buyAirtime = async (payload: {
+	phone_number: string;
+	amount: number;
+	mobile_operator_id: string;
+}) => {
+	const { data } = await axios.post(
+		`${process.env.NEXT_PUBLIC_URL}/api/v1/buy-airtime`,
+		payload,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}
+	);
+	return data;
+};
+
 export const getTransactions = async () => {
 	const { data } = await axios.get(
 		`${process.env.NEXT_PUBLIC_URL}/api/v1/credit-records`,
