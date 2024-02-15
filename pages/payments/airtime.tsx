@@ -14,6 +14,11 @@ import {
 import Input from "../../components/input fields/Input";
 import { toast } from "react-toastify";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+import { RootState } from "../../redux/store";
+import { setShowSidebar } from "../../redux/sidebarSlice";
+import Image from "next/image";
+import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 
 const Airtime = () => {
 	let [isOpen, setIsOpen] = useState(false);
@@ -62,10 +67,29 @@ const Airtime = () => {
 		amount: 0,
 		mobile_operator_id: "",
 	});
+
+	const dispatch = useAppDispatch();
+	const sidebarShow = useAppSelector(
+		(state: RootState) => state.sidebar.sidebarShow
+	);
 	return (
 		<div>
-			<div>
-				<Header mainText="Airtime purchase" />
+			<div className="px-6 lg:px-0">
+				<div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
+					<Header mainText="Airtime purchase" />
+
+					{!sidebarShow ? (
+						<div
+							className="flex md:hidden lg:hidden"
+							onClick={() => dispatch(setShowSidebar(true))}
+						>
+							<Image
+								src={Hamburger}
+								alt="Hamburger Icon"
+							/>
+						</div>
+					) : null}
+				</div>
 
 				<div className="w-[21rem] md:w-[27.65rem]">
 					<h1 className="text-[2rem] text-[#262626] font-WorkSans font-normal leading-9">
@@ -201,7 +225,7 @@ const Airtime = () => {
 														type="number"
 														inputMode="numeric"
 														placeholder="0.00"
-														className="flex px-5 items-center border-[0.07rem] outline-none  border-solid border-[#CACACA] rounded-[0.315rem] w-[19rem] md:w-[29.9rem] h-[3.15rem]"
+														className="flex px-5 items-center border-[0.07rem] outline-none  border-solid border-[#CACACA] rounded-[0.315rem] w-full h-[3.15rem]"
 													/>
 												</div>
 											</div>
