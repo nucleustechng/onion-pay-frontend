@@ -50,7 +50,7 @@ const Navbar = () => {
 		},
 		{
 			title: "Developer",
-			link: "https://ultra-organization.gitbook.io/onion-pay",
+			link: "https://documenter.getpostman.com/view/3501578/2s9YC7TBk1",
 		},
 	];
 
