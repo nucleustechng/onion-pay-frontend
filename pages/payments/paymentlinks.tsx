@@ -32,7 +32,7 @@ const Paymentlinks = () => {
 		<div className="">
 			{/* Header */}
 			<div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-				<Header mainText="Payment  Links" />
+				<Header mainText="Payment Links" />
 
 				{!sidebarShow ? (
 					<div
