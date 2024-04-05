@@ -408,6 +408,10 @@ const SideBar = () => {
 		}
 	};
 
+	useEffect(() => {
+		console.log(businessData?.hasWallet);
+	}, [businessData]);
+
 	return (
 		<div>
 			<ToastContainer />
