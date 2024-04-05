@@ -180,11 +180,12 @@ const SideBarMobile = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{businessData?.hasWallet === false && (
-								<div>
-									<BusinessItem />
-								</div>
-							)}
+							{businessData?.hasWallet === false ||
+								(businessData?.hasWallet === undefined && (
+									<div>
+										<BusinessItem />
+									</div>
+								))}
 						</div>
 					</div>
 					<div
