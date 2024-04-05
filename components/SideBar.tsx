@@ -409,7 +409,7 @@ const SideBar = () => {
 	};
 
 	useEffect(() => {
-		console.log(businessData?.hasWallet);
+		console.log("hasWallet", businessData?.hasWallet);
 	}, [businessData]);
 
 	return (
@@ -478,11 +478,12 @@ const SideBar = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{businessData?.hasWallet === false && (
-								<div>
-									<BusinessItem />
-								</div>
-							)}
+							{businessData?.hasWallet === false ||
+								(undefined && (
+									<div>
+										<BusinessItem />
+									</div>
+								))}
 						</div>
 					</div>
 					<div
