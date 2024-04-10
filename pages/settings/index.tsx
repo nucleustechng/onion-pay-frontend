@@ -112,6 +112,7 @@ const Settings = () => {
 			refetch();
 		}
 	}, [businessUpdated, refetch, updatedImage]);
+	console.log("businessdata", businessData);
 
 	return (
 		<div className="">

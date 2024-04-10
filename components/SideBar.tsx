@@ -474,12 +474,22 @@ const SideBar = () => {
 							<div>
 								<PaymentItem />
 							</div>
-							{businessData?.hasWallet === false ||
+							{/* {businessData?.hasWallet === false ||
 								(businessData?.hasWallet === undefined && (
 									<div>
 										<BusinessItem />
 									</div>
-								))}
+								))} */}
+							{businessData?.hasWallet === false ? (
+								<div>
+									<BusinessItem />
+								</div>
+							) : null}
+							{businessData?.hasWallet === undefined ? (
+								<div>
+									<BusinessItem />
+								</div>
+							) : null}
 						</div>
 					</div>
 					<div
