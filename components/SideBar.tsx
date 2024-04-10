@@ -408,8 +408,6 @@ const SideBar = () => {
 		}
 	};
 
-	console.log("Wallet", businessData?.hasWallet);
-
 	return (
 		<div>
 			<ToastContainer />
