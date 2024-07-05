@@ -18,6 +18,7 @@ import Invoices from "../../Assets/icons/commerce/Invoices.svg";
 import Inquiry from "../../Assets/icons/contact/Inquiry.svg";
 import Account from "../../Assets/icons/contact/Account.svg";
 import Transactions from "../../Assets/icons/contact/Transactions.svg";
+import { routes } from "../../lib/constants";
 
 const Navbar = () => {
 	const [toggleNav, setToggleNav] = useState<boolean>(false);
@@ -39,7 +40,7 @@ const Navbar = () => {
 		},
 		{
 			title: "Commerce",
-			link: "/detail-invoices",
+			link: routes.commerce,
 			onHover: (index: any) => {
 				if (index === 1) {
 					setShowInvoice(!showInvoice);
@@ -50,8 +51,12 @@ const Navbar = () => {
 		},
 		{
 			title: "Developer",
-			link: "https://documenter.getpostman.com/view/3501578/2s9YC7TBk1",
+			link: routes.developer,
 		},
+		// {
+		// 	title: "Corporate account",
+		// 	link: routes.corporate_account,
+		// },
 	];
 
 	const Payment = () => {
@@ -214,7 +219,7 @@ const Navbar = () => {
 							/>
 						</Link>
 						<div className="flex flex-col relative">
-							<ul className="hidden lg:flex items-center justify-between w-[20rem]">
+							<ul className="hidden lg:flex items-center justify-between w-fit gap-4">
 								{linkItems.map((item, index) => (
 									<Link
 										href={item.link}

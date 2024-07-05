@@ -46,7 +46,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "../@/components/ui/popover";
-import { cn } from "../@/lib/utils";
+import { checkFileSize, cn } from "../@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "../@/components/ui/calendar";
 import Loader from "./Loader";
@@ -106,28 +106,19 @@ const SideBar = () => {
 	}, [switchIsSuccess]);
 
 	const [businessData, setBusinessData] = useState<any>();
-
-	// const {data:generateKeyData,isSuccess} = useGenerateKeysQuery()
 	const { data: settingsData, isSuccess: settingSuccess } =
 		useLoadSettingsQuery();
 	const { data: walletData } = useLoadWalletQuery();
-
 	const walletTier = walletData ? walletData["wallet"]?.tier : "--";
+
 	useEffect(() => {
-		// businessUpdated ? setRefetch(true) :   setRefetch(false)
 		if (settingSuccess && settingsData.success == true) {
 			setBusinessData(settingsData["business"]);
 		} else {
-			console.log("An error occured");
+			console.log("An error occurred");
 		}
 	}, [settingSuccess, settingsData]);
 
-	/// New
-
-	// One
-	// const webcamRef = useRef<Webcam>(null);
-	// const [capturedImage, setCapturedImage] = useState<any>();
-	// const [imageToDisplay, setImageToDisplay] = useState<any>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [steps, setSteps] = useState<number>(0);
 
@@ -140,45 +131,16 @@ const SideBar = () => {
 	const selfieChange = (e: any) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const selectedFile = e.target.files[0];
-
-			setSelfie(selectedFile);
-
-			// setSelectedImage(selectedFile);
-			// setBusinessInfo(prevState => ({
-			//     ...prevState,
-			//     file: selectedFile
-			// }));
+			if (checkFileSize(selectedFile)) {
+				setSelfie(selectedFile);
+			} else {
+				toast.error("File size should not be more than 150KB");
+			}
 		}
 	};
 
-	// function dataURLtoFile(dataURL: any, filename: any) {
-	// 	const arr = dataURL.split(",");
-	// 	const mime = arr[0].match(/:(.*?);/)[1];
-	// 	const bstr = atob(arr[1]);
-	// 	let n = bstr.length;
-	// 	const u8arr = new Uint8Array(n);
-
-	// 	while (n--) {
-	// 		u8arr[n] = bstr.charCodeAt(n);
-	// 	}
-
-	// 	return new File([u8arr], filename, { type: mime });
-	// }
-
-	// const captureImage = useCallback(() => {
-	// 	const imageSrc = webcamRef.current?.getScreenshot();
-	// 	setImageToDisplay(imageSrc);
-	// 	if (imageSrc) {
-	// 		const file = dataURLtoFile(imageSrc, "captured_image.jpg");
-	// 		setCapturedImage(file);
-	// 	}
-	// }, []);
-
-	// Two
-
 	const [fileAdded2, setFileAdded2] = useState<boolean>(false);
 	const [fileAdded3, setFileAdded3] = useState<boolean>(false);
-
 	const [utilityBill, setUtilityBill] = useState(null);
 	const [signature, setSignature] = useState(null);
 
@@ -187,20 +149,15 @@ const SideBar = () => {
 		hiddenFileInput2.current?.click();
 	};
 
-	//   const [selectedImage2, setSelectedImage2] = useState<any>();
-
-	// This function will be triggered when the file field change
 	const imageChange2 = (e: any) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const selectedFile = e.target.files[0];
-			setFileAdded2(true);
-			setUtilityBill(selectedFile);
-
-			// setSelectedImage(selectedFile);
-			// setBusinessInfo(prevState => ({
-			//     ...prevState,
-			//     file: selectedFile
-			// }));
+			if (checkFileSize(selectedFile)) {
+				setFileAdded2(true);
+				setUtilityBill(selectedFile);
+			} else {
+				toast.error("File size should not be more than 150KB");
+			}
 		}
 	};
 
@@ -209,24 +166,18 @@ const SideBar = () => {
 		hiddenFileInput3.current?.click();
 	};
 
-	//   const [selectedImage2, setSelectedImage2] = useState<any>();
-
-	// This function will be triggered when the file field change
 	const imageChange3 = (e: any) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const selectedFile = e.target.files[0];
-			setFileAdded3(true);
-			setSignature(selectedFile);
-
-			// setSelectedImage(selectedFile);
-			// setBusinessInfo(prevState => ({
-			//     ...prevState,
-			//     file: selectedFile
-			// }));
+			if (checkFileSize(selectedFile)) {
+				setFileAdded3(true);
+				setSignature(selectedFile);
+			} else {
+				toast.error("File size should not be more than 150KB");
+			}
 		}
 	};
 
-	// Three
 	const [fileAdded1, setFileAdded1] = useState<boolean>(false);
 	const [document, setDocument] = useState(null);
 	const [date, setDate] = useState<any>();
@@ -238,38 +189,17 @@ const SideBar = () => {
 		hiddenFileInput1.current?.click();
 	};
 
-	//   const [selectedImage1, setSelectedImage1] = useState<any>();
-
-	// This function will be triggered when the file field change
 	const imageChange1 = (e: any) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const selectedFile = e.target.files[0];
-
-			setFileAdded1(true);
-			setDocument(selectedFile);
+			if (checkFileSize(selectedFile)) {
+				setFileAdded1(true);
+				setDocument(selectedFile);
+			} else {
+				toast.error("File size should not be more than 150KB");
+			}
 		}
 	};
-
-	// const hiddenFileInput2: any = React.useRef(null);
-	// const handleClick2 = () => {
-	// 	hiddenFileInput2.current?.click();
-	// };
-
-	//   const [selectedImage2, setSelectedImage2] = useState<any>();
-
-	// This function will be triggered when the file field change
-	// const imageChange2 = (e: any) => {
-	// 	if (e.target.files && e.target.files.length > 0) {
-	// 		const selectedFile = e.target.files[0];
-	// 		setFileAdded2(true);
-
-	// 		// setSelectedImage(selectedFile);
-	// 		// setBusinessInfo(prevState => ({
-	// 		//     ...prevState,
-	// 		//     file: selectedFile
-	// 		// }));
-	// 	}
-	// };
 
 	const handleIdTypeChange = (value: string) => {
 		setIdType(value);
@@ -285,7 +215,6 @@ const SideBar = () => {
 		setDate1(e.getTime());
 	};
 
-	// Four
 	const [address, setAddress] = useState({
 		houseNumber: 0,
 		streetName: "",
@@ -294,26 +223,12 @@ const SideBar = () => {
 		state: "",
 		nearestLandmark: "",
 	});
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, name } = e.target;
 		setAddress({ ...address, [name]: value });
 	};
 
-	// const [upgradeWallet, { data: upgradeWalletData, isSuccess, isLoading }] =
-	// 	useUpgradeWalletMutation();
-	// console.log("data", upgradeWalletData);
-	// useEffect(() => {
-	// 	if (isSuccess && upgradeWalletData?.success == true) {
-	// 		toast.success(upgradeWalletData?.reason);
-	// 		// nextFunc();
-	// 	} else if (isSuccess && upgradeWalletData?.success == false) {
-	// 		toast.error(upgradeWalletData?.reason);
-	// 	} else {
-	// 		toast.error(upgradeWalletData?.reason);
-	// 	}
-	// }, [isSuccess]);
-
-	//  Step 1
 	let [isOpen, setIsOpen] = useState(false);
 
 	function closeModal() {
@@ -324,7 +239,6 @@ const SideBar = () => {
 		setIsOpen(true);
 	}
 
-	// const FundBalanceModal = dynamic(() => import("./modals/FundBalanceModal"));
 	const upgradeWallet = async () => {
 		setIsLoading(true);
 		try {
