@@ -14,7 +14,7 @@ const DragAndDropFileInput: React.FC<DragAndDropFileInputProps> = ({
 		() => `fileInput-${Math.random().toString(36).substring(2, 15)}`
 	);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+	console.log(previewUrl);
 	useEffect(() => {
 		if (file) {
 			const url = URL.createObjectURL(file);

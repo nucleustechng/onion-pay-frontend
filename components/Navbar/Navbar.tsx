@@ -53,10 +53,10 @@ const Navbar = () => {
 			title: "Developer",
 			link: routes.developer,
 		},
-		{
-			title: "Corporate account",
-			link: routes.corporate_account,
-		},
+		// {
+		// 	title: "Corporate account",
+		// 	link: routes.corporate_account,
+		// },
 	];
 
 	const Payment = () => {
