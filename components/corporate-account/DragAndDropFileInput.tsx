@@ -89,7 +89,7 @@ const DragAndDropFileInput: React.FC<DragAndDropFileInputProps> = ({
 				<span className="text-black"> or drag and drop</span>
 			</div>
 			<p className="text-sm text-[#7A8094]">
-				must be a PNG or JPEG (max of 10MB)
+				must be a PNG or JPEG (max of 150KB)
 			</p>
 			{/* {previewUrl && (
 				<div className="mt-4">
