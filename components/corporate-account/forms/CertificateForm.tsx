@@ -9,7 +9,7 @@ const CertificateForm = () => {
 		"Utility Bill",
 		"Proof of address verification",
 		"SCUML certificate",
-		"Regulatory license fintech",
+		"Regulatory license fintech (optional)",
 	];
 	const [files, setFiles] = useState<(File | null)[]>(
 		Array(labels.length).fill(null)
@@ -39,7 +39,10 @@ const CertificateForm = () => {
 							key={index}
 							className="flex flex-col gap-2"
 						>
-							<Label>{labels[index]}*</Label>
+							<Label>
+								{labels[index]}
+								{index > 3 ? " (optional)" : ""}*
+							</Label>
 							<DragAndDropFileInput
 								file={file}
 								onFileChange={(file: any) => handleFileChange(index, file)}
@@ -50,7 +53,7 @@ const CertificateForm = () => {
 				<div className="flex items-center justify-between pb-4 pt-8 lg:pt-20">
 					<Button
 						className="w-[124px] border-primary bg-[#E7EDFF] text-primary"
-						type="submit"
+						type="button"
 						variant="outline"
 					>
 						Previous

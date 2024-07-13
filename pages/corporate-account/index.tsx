@@ -45,9 +45,9 @@ export default function CorporateAccount() {
 							onClick={() => handleTabClick(0)}
 							className={`flex items-center justify-start w-full border-r border-r-[#CACACA] ${
 								activeTab === 0 ? "bg-[#E7EDFF]" : ""
-							} h-[39px] px-4 py-[10px] cursor-pointer`}
+							} h-[40px] px-4 py-[10px] cursor-pointer`}
 						>
-							<p className="text-base text-black font-WorkSans font-semibold">
+							<p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
 								1. Organization information
 							</p>
 						</div>
@@ -55,9 +55,9 @@ export default function CorporateAccount() {
 							onClick={() => handleTabClick(1)}
 							className={`flex items-center justify-start w-full border-r border-r-[#CACACA] ${
 								activeTab === 1 ? "bg-[#E7EDFF]" : ""
-							} h-[39px] px-4 py-[10px] cursor-pointer`}
+							} h-[40px] px-4 py-[10px] cursor-pointer`}
 						>
-							<p className="text-base text-black font-WorkSans font-semibold">
+							<p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
 								2. Certificates
 							</p>
 						</div>
@@ -65,14 +65,14 @@ export default function CorporateAccount() {
 							onClick={() => handleTabClick(2)}
 							className={`flex items-center justify-start w-full border-r border-r-[#CACACA] ${
 								activeTab === 2 ? "bg-[#E7EDFF]" : ""
-							} h-[39px] px-4 py-[10px] cursor-pointer`}
+							} h-[40px] px-4 py-[10px] cursor-pointer`}
 						>
-							<p className="text-base text-black font-WorkSans font-semibold">
+							<p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
 								3. Signatories
 							</p>
 						</div>
 					</div>
-					<div>
+					<div className="w-full">
 						{activeTab === 0 && <OrganizationForm />}
 						{activeTab === 1 && <CertificateForm />}
 						{activeTab === 2 && <SignatoryForm />}

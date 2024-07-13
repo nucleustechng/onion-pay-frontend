@@ -7,103 +7,132 @@ import { Button } from "../../../@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	// FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
 } from "../../../@/components/ui/form";
 import { Input } from "../../../@/components/ui/input";
-// import { ProfileIcon } from "@/lib/constants/icons";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "../../../@/components/ui/select";
-// import { PlusIcon } from "lucide-react";
 
 const formSchema = z.object({
-	businessName: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	registrationNumber: z.string().min(2, {
+		message: "Registration Number must be at least 2 characters.",
 	}),
-	tradeName: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-
-	phoneNumber: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	phone: z.string().min(2, {
+		message: "Phone must be at least 2 characters.",
 	}),
 	email: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Email must be at least 2 characters.",
 	}),
-	webAddress: z.string(),
-	postalAddress: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	website: z.string().min(2, {
+		message: "Website must be at least 2 characters.",
 	}),
 	address: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Address must be at least 2 characters.",
 	}),
-	taxId: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	postalAddress: z.string().min(2, {
+		message: "Postal Address must be at least 2 characters.",
 	}),
-
+	taxIDNo: z.string().min(2, {
+		message: "Tax ID No must be at least 2 characters.",
+	}),
+	businessName: z.string().min(2, {
+		message: "Business Name must be at least 2 characters.",
+	}),
 	industrialSector: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Industrial Sector must be at least 2 characters.",
 	}),
-	companyRegDate: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	contactPersonFirstName: z.string().min(2, {
+		message: "Contact Person First Name must be at least 2 characters.",
+	}),
+	contactPersonLastName: z.string().min(2, {
+		message: "Contact Person Last Name must be at least 2 characters.",
 	}),
 	businessType: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	firstName: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	lastName: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Business Type must be at least 2 characters.",
 	}),
 	natureOfBusiness: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Nature of Business must be at least 2 characters.",
 	}),
 	dateIncorporated: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+		message: "Date Incorporated must be at least 2 characters.",
 	}),
-	commencementDate: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	businessCommencementDate: z.string().min(2, {
+		message: "Business Commencement Date must be at least 2 characters.",
 	}),
 });
+
+const formFields = [
+	{ name: "registrationNumber", label: "Registration Number", type: "text" },
+	{ name: "phone", label: "Phone", type: "text" },
+	{ name: "email", label: "Email", type: "text" },
+	{ name: "website", label: "Website", type: "text" },
+	{ name: "address", label: "Address", type: "text" },
+	{ name: "postalAddress", label: "Postal Address", type: "text" },
+	{ name: "taxIDNo", label: "Tax ID No", type: "text" },
+	{ name: "businessName", label: "Business Name", type: "text" },
+	{
+		name: "industrialSector",
+		label: "Industrial Sector",
+		type: "select",
+		options: ["Sector1", "Sector2", "Sector3"],
+	},
+	{
+		name: "contactPersonFirstName",
+		label: "Contact Person First Name",
+		type: "text",
+	},
+	{
+		name: "contactPersonLastName",
+		label: "Contact Person Last Name",
+		type: "text",
+	},
+	{
+		name: "businessType",
+		label: "Business Type",
+		type: "select",
+		options: ["Type1", "Type2", "Type3"],
+	},
+	{
+		name: "natureOfBusiness",
+		label: "Nature of Business",
+		type: "select",
+		options: ["Nature1", "Nature2", "Nature3"],
+	},
+	{ name: "dateIncorporated", label: "Date Incorporated", type: "date" },
+	{
+		name: "businessCommencementDate",
+		label: "Business Commencement Date",
+		type: "date",
+	},
+];
 
 export function OrganizationForm() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			address: "",
-			businessName: "",
-			businessType: "",
-			commencementDate: "",
-			companyRegDate: "",
-			dateIncorporated: "",
+			registrationNumber: "",
+			phone: "+234",
 			email: "",
-			firstName: "",
-			lastName: "",
-			industrialSector: "",
-			natureOfBusiness: "",
-			phoneNumber: "",
+			website: "",
+			address: "",
 			postalAddress: "",
-			taxId: "",
-			tradeName: "",
-			webAddress: "",
+			taxIDNo: "",
+			businessName: "",
+			industrialSector: "",
+			contactPersonFirstName: "",
+			contactPersonLastName: "",
+			businessType: "",
+			natureOfBusiness: "",
+			dateIncorporated: "",
+			businessCommencementDate: "",
 		},
 	});
 
-	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
 		console.log(values);
 	}
+
 	return (
 		<div className="bg-[#F5F5F5] px-4 py-4 rounded-[10px]">
 			<Form {...form}>
@@ -111,472 +140,53 @@ export function OrganizationForm() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-4"
 				>
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="businessName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Name of business <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
+					{formFields.map((field) => (
+						<FormField
+							key={field.name}
+							control={form.control}
+							name={field.name as keyof z.infer<typeof formSchema>}
+							render={({ field: formField }) => (
+								<FormItem>
+									<FormLabel className="text-primary-black">
+										{field.label} <span className="text-red-500">*</span>
+									</FormLabel>
+									<FormControl>
+										{field.type === "select" ? (
+											<select
+												{...formField}
+												defaultValue={formField.value || ""}
+												onChange={(e) => formField.onChange(e.target.value)}
+												className="block w-full px-3 py-2  bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+											>
+												<option
+													value=""
+													disabled
+												>
+													Select {field.label}
+												</option>
+												{field.options?.map((option) => (
+													<option
+														key={option}
+														value={option}
+													>
+														{option}
+													</option>
+												))}
+											</select>
+										) : (
 											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
+												placeholder={`Enter ${field.label}`}
+												{...formField}
+												type={field.type}
 											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="tradeName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Trade <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="phoneNumber"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Phone number <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Email address <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="email"
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="webAddress"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Web address <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="url"
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="postalAddress"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Postal address <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="text"
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="address"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Address <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="text"
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="taxId"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Tax ID No <span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="industrialSector"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Industrial sector
-										</FormLabel>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue
-														className="text-black"
-														placeholder="Select a category"
-													/>
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												<SelectItem value="m@example.com">
-													m@example.com
-												</SelectItem>
-												<SelectItem value="m@google.com">
-													m@google.com
-												</SelectItem>
-												<SelectItem value="m@support.com">
-													m@support.com
-												</SelectItem>
-											</SelectContent>
-										</Select>
-
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="companyRegDate"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Company registration date{" "}
-											<span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="date"
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="businessType"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Business type
-										</FormLabel>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Select a subcategory" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												<SelectItem value="m@example.com">
-													m@example.com
-												</SelectItem>
-												<SelectItem value="m@google.com">
-													m@google.com
-												</SelectItem>
-												<SelectItem value="m@support.com">
-													m@support.com
-												</SelectItem>
-											</SelectContent>
-										</Select>
-
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
-
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="firstName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Contact person first name{" "}
-											<span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="lastName"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Contact person last name{" "}
-											<span className="text-red-500">*</span>
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
-					<section className="w-full flex items-center gap-4">
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="natureOfBusiness"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Nature of Business
-										</FormLabel>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger>
-													<SelectValue placeholder="Select a subcategory" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												<SelectItem value="m@example.com">
-													m@example.com
-												</SelectItem>
-												<SelectItem value="m@google.com">
-													m@google.com
-												</SelectItem>
-												<SelectItem value="m@support.com">
-													m@support.com
-												</SelectItem>
-											</SelectContent>
-										</Select>
-
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="dateIncorporated"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Date incorporated
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="date"
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-						<div className="w-full">
-							<FormField
-								control={form.control}
-								name="commencementDate"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="text-primary-black">
-											Business commencement date
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder=""
-												{...field}
-												type="date"
-												// icon={<ProfileIcon />}
-											/>
-										</FormControl>
-										{/* <FormDescription>
-								This is your public display name.
-							</FormDescription> */}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					</section>
+										)}
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					))}
 					<div className="flex items-center justify-end pb-4 pt-8 lg:pt-20">
-						{/* <Button
-							className="w-[124px]"
-							type="submit"
-							variant="outline"
-						>
-							Cancel
-						</Button> */}
 						<Button
 							className="w-[124px] text-white"
 							type="submit"
