@@ -385,7 +385,7 @@ const SideBar = () => {
               <div>
                 <PaymentItem />
               </div>
-			  <div>
+              <div>
                 <CorporateItem />
               </div>
               {/* {businessData?.hasWallet === false ||

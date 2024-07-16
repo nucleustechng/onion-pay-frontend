@@ -99,10 +99,7 @@ const TransactionsContent = () => {
         }, 1000);
       }
     }
-
   };
-
- 
 
   // const formattedTransactions = transactions?.map((transaction: any) => {
   // 	return {
@@ -135,7 +132,6 @@ const TransactionsContent = () => {
 
   return (
     <div className="flex flex-col h-screen overflow-y-auto">
-
       {/* Header */}
       <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
         <Header mainText="Transactions" />
@@ -215,7 +211,11 @@ const TransactionsContent = () => {
           />
         </div>
         <Transition appear show={isOpen} as={Fragment}>
-          <HeadlessDialog as="div" className="relative z-10" onClose={closeModal}>
+          <HeadlessDialog
+            as="div"
+            className="relative z-10"
+            onClose={closeModal}
+          >
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

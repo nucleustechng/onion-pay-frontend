@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CertificateForm from "../../components/corporate-account/forms/CertificateForm";
 import { OrganizationForm } from "../../components/corporate-account/forms/OrganizationForm";
 import { SignatoryForm } from "../../components/corporate-account/forms/SignatoryForm";
@@ -6,20 +6,31 @@ import { useQuery } from "@tanstack/react-query";
 import { useBusiness } from "../../modules/services/businessService";
 
 export default function CorporateAccount() {
-  const [activeTab, setActiveTab] = useState(0);
+
+ 
+
+  const { getBusinessInfo } = useBusiness();
+
+  const { data: businessData } = useQuery({
+    queryKey: ["business"],
+    queryFn: getBusinessInfo,
+  });
+
+  
+
+  const currentStep = businessData && businessData?.step;
+
+  const [activeTab, setActiveTab] = useState(currentStep);
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
-
-  const {getBusinessInfo} = useBusiness()
-
-  const { data:businessData } = useQuery({ queryKey: ['business'], queryFn: getBusinessInfo })
-
-  console.log(businessData)
+  useEffect(() => {
+    setActiveTab(currentStep)
+  },[businessData])
 
   return (
-    <div>
+    <div className="h-screen overflow-auto">
       <div className="h-auto mt-32 mb-[20px] lg:mb-[50px]">
         {/* <div className="lg:flex lg:justify-between">
           <div className="flex flex-col gap-6 w-[10rem] lg:w-[534px] mx-4 md:pt-32 md:ml-[5rem] lg:ml-[4rem] xl:ml-[9.375rem]">
@@ -76,7 +87,7 @@ export default function CorporateAccount() {
             </div>
           </div>
           <div className="w-full">
-            {activeTab === 0 && <OrganizationForm />}
+            {activeTab === 0 && <OrganizationForm nextStep={(value) => setActiveTab(value)} />}
             {activeTab === 1 && <CertificateForm />}
             {activeTab === 2 && <SignatoryForm />}
           </div>

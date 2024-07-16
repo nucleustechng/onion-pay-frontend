@@ -1,20 +1,23 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { IOrganisationInfo } from "../../types";
 
-export function useBusiness() {
-  const getBusinessInfo = async () => {
+export function useCorporate() {
+  const addOrganisationInfo = async (payload: IOrganisationInfo) => {
     try {
       let token = Cookies.get("token");
 
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_URL}/api/v1/dashboard`,
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_URL}/api/v1/corporate-accounts/organisation-info`,
+        payload,
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       );
-      return data?.business;
+      return data;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         const axiosError = error;
@@ -42,6 +45,6 @@ export function useBusiness() {
   };
 
   return {
-    getBusinessInfo,
+    addOrganisationInfo,
   };
 }

@@ -23,7 +23,6 @@ const Layout = ({ children }: any) => {
     router.pathname.includes("/transfers") ||
     router.pathname.includes("/corporate");
 
-
   return (
     <div>
       {!showmerchantLayout && (

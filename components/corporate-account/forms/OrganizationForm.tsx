@@ -13,6 +13,10 @@ import {
   FormMessage,
 } from "../../../@/components/ui/form";
 import { Input } from "../../../@/components/ui/input";
+import { useCorporate } from "../../../modules/services/corporateService";
+import { useMutation } from "@tanstack/react-query";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { toast } from "react-toastify";
 
 const formSchema = z.object({
   registrationNumber: z.string().min(2, {
@@ -75,7 +79,7 @@ const formFields = [
     name: "industrialSector",
     label: "Industrial Sector",
     type: "select",
-    options: ["Sector1", "Sector2", "Sector3"],
+    options: ["primary", "secondary", "Sector3"],
   },
   {
     name: "contactPersonFirstName",
@@ -91,13 +95,13 @@ const formFields = [
     name: "businessType",
     label: "Business Type",
     type: "select",
-    options: ["Type1", "Type2", "Type3"],
+    options: ["Sole_Proprietorship", "Type2", "Type3"],
   },
   {
     name: "natureOfBusiness",
     label: "Nature of Business",
     type: "select",
-    options: ["Nature1", "Nature2", "Nature3"],
+    options: ["manufacturing", "Nature2", "Nature3"],
   },
   { name: "dateIncorporated", label: "Date Incorporated", type: "date" },
   {
@@ -107,7 +111,11 @@ const formFields = [
   },
 ];
 
-export function OrganizationForm() {
+type Props = {
+  nextStep: (step:number) => void;
+}
+
+export function OrganizationForm({nextStep}:Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -129,7 +137,24 @@ export function OrganizationForm() {
     },
   });
 
+  const { addOrganisationInfo} = useCorporate()
+  const {mutate,isPending} = useMutation({
+    onSuccess:({success,reason}) => {
+      if (success) {
+
+        nextStep(1)
+      } else {
+        toast.error(reason)
+      }
+    },
+    onError: () => {
+
+    },
+    mutationFn: addOrganisationInfo,
+  })
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    mutate(values);
     console.log(values);
   }
 
@@ -179,7 +204,7 @@ export function OrganizationForm() {
           ))}
           <div className="flex items-center justify-end pb-4 pt-8 lg:pt-20">
             <Button className="w-[124px] text-white" type="submit">
-              Next
+              {isPending ? <ReloadIcon className="animate-spin"/> : "Next"}
             </Button>
           </div>
         </form>

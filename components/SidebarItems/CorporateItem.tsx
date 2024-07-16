@@ -7,10 +7,8 @@ import PaymentIcon from "../../Assets/icon/Payment.svg";
 const CorporateItem = () => {
   const router = useRouter();
   // const transfersRoute = router.pathname == '/payments/transfers'
-  const corporateaccountRoute =  "/corporate-account";
+  const corporateaccountRoute = "/corporate-account";
   const isActiveRoute = corporateaccountRoute === router.pathname;
-
-  
 
   return (
     <div>
@@ -20,9 +18,7 @@ const CorporateItem = () => {
             </div>
         </div> */}
       <div>
-        <Link
-          href={corporateaccountRoute}
-        >
+        <Link href={corporateaccountRoute}>
           <div className="flex justify-center h-6 lg:w-60">
             <div
               className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${
@@ -50,11 +46,9 @@ const CorporateItem = () => {
                 <h1 className="text-[#262626] text-base font-WorkSans">
                   Corporate account
                 </h1>
-              
               </div>
             </div>
           </div>
-          
         </Link>
       </div>
     </div>

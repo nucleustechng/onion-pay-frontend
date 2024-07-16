@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import DragAndDropFileInput from "../DragAndDropFileInput";
 import { Label } from "../../../@/components/ui/label";
 import { Button } from "../../../@/components/ui/button";
+import { useBusiness } from "../../../modules/services/businessService";
+import { useQuery } from "@tanstack/react-query";
 
 const CertificateForm = () => {
   const labels = [
@@ -26,6 +28,15 @@ const CertificateForm = () => {
     // Handle form submission and process files
     console.log("Uploaded files:", files);
   };
+
+  const { getBusinessInfo } = useBusiness();
+
+  const { data: businessData } = useQuery({
+    queryKey: ["business"],
+    queryFn: getBusinessInfo,
+  });
+
+  console.log(businessData);
 
   return (
     <div className="bg-[#F5F5F5] px-4 py-4 rounded-[10px]">
