@@ -6,9 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useBusiness } from "../../modules/services/businessService";
 
 export default function CorporateAccount() {
-
- 
-
   const { getBusinessInfo } = useBusiness();
 
   const { data: businessData } = useQuery({
@@ -16,9 +13,7 @@ export default function CorporateAccount() {
     queryFn: getBusinessInfo,
   });
 
-  
-
-  const currentStep = businessData && businessData?.step;
+  const currentStep = businessData ? businessData?.step : 0;
 
   const [activeTab, setActiveTab] = useState(currentStep);
 
@@ -26,8 +21,8 @@ export default function CorporateAccount() {
     setActiveTab(index);
   };
   useEffect(() => {
-    setActiveTab(currentStep)
-  },[businessData])
+    setActiveTab(currentStep);
+  }, [businessData]);
 
   return (
     <div className="h-screen overflow-auto">
@@ -87,8 +82,10 @@ export default function CorporateAccount() {
             </div>
           </div>
           <div className="w-full">
-            {activeTab === 0 && <OrganizationForm nextStep={(value) => setActiveTab(value)} />}
-            {activeTab === 1 && <CertificateForm />}
+            {activeTab === 0 && (
+              <OrganizationForm nextStep={(value) => setActiveTab(value)} />
+            )}
+            {activeTab === 1 && <CertificateForm nextStep={(value) => setActiveTab(value)} />}
             {activeTab === 2 && <SignatoryForm />}
           </div>
         </div>

@@ -3,9 +3,17 @@ import DragAndDropFileInput from "../DragAndDropFileInput";
 import { Label } from "../../../@/components/ui/label";
 import { Button } from "../../../@/components/ui/button";
 import { useBusiness } from "../../../modules/services/businessService";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useCorporate } from "../../../modules/services/corporateService";
+import { toast } from "react-toastify";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { checkFileSize } from "../../../@/lib/utils";
 
-const CertificateForm = () => {
+type Props = {
+  nextStep: (step: number) => void;
+};
+
+const CertificateForm = ({nextStep}:Props) => {
   const labels = [
     "CAC certificate",
     "Utility Bill",
@@ -13,19 +21,45 @@ const CertificateForm = () => {
     "SCUML certificate",
     "Regulatory license fintech (optional)",
   ];
+
+  const queryClient = useQueryClient();
+
+  const { uploadCertificates } = useCorporate();
+  const { mutate, isPending } = useMutation({
+    onSuccess: ({ success, reason }) => {
+      if (success) {
+        queryClient.invalidateQueries({
+          queryKey: ["business"],
+        });
+        nextStep(1);
+      } else {
+        toast.error(reason);
+      }
+    },
+    onError: () => {},
+    mutationFn: uploadCertificates,
+  });
+
   const [files, setFiles] = useState<(File | null)[]>(
     Array(labels.length).fill(null),
   );
 
   const handleFileChange = (index: number, file: File | null) => {
-    const newFiles = [...files];
-    newFiles[index] = file;
-    setFiles(newFiles);
+    if (checkFileSize(file)) {
+
+      const newFiles = [...files];
+      newFiles[index] = file;
+      setFiles(newFiles);
+    } else {
+      toast.error("File size should not be more than 150KB");
+
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission and process files
+    mutate({ cacCertificate:files[0],utilityBill:files[1],proofOfAddressVerification:files[2],scumlCertificate:files[0],regulatoryLicenseFintech:files[4] }); //
     console.log("Uploaded files:", files);
   };
 
@@ -60,11 +94,12 @@ const CertificateForm = () => {
             className="w-[124px] border-primary bg-[#E7EDFF] text-primary"
             type="button"
             variant="outline"
+            onClick={() => nextStep(0)}
           >
             Previous
           </Button>
           <Button className="w-[124px] text-white" type="submit">
-            Next
+            {isPending ? <ReloadIcon className="animate-spin"/> : `Next`}
           </Button>
         </div>
       </form>

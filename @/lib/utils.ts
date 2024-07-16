@@ -31,7 +31,11 @@ export const formatDate = (dateString: string) => {
   return formattedDate;
 };
 
-export function checkFileSize(file: File) {
-  const sizeInKB = file.size / 1024;
-  return sizeInKB <= 150;
+export function checkFileSize(file: File | null) {
+  if (file){
+    const sizeInKB = file.size / 1024;
+    return sizeInKB <= 150;
+  } else {
+    return;
+  }
 }

@@ -15,3 +15,11 @@ export interface IOrganisationInfo {
   dateIncorporated: string;
   businessCommencementDate: string;
 }
+
+export interface ICertificateUpload {
+  cacCertificate: any;
+  proofOfAddressVerification: any;
+  utilityBill: any;
+  scumlCertificate?: any;
+  regulatoryLicenseFintech?: any;
+}

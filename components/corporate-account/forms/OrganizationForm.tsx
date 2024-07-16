@@ -14,7 +14,7 @@ import {
 } from "../../../@/components/ui/form";
 import { Input } from "../../../@/components/ui/input";
 import { useCorporate } from "../../../modules/services/corporateService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { toast } from "react-toastify";
 
@@ -112,10 +112,10 @@ const formFields = [
 ];
 
 type Props = {
-  nextStep: (step:number) => void;
-}
+  nextStep: (step: number) => void;
+};
 
-export function OrganizationForm({nextStep}:Props) {
+export function OrganizationForm({ nextStep }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -137,25 +137,26 @@ export function OrganizationForm({nextStep}:Props) {
     },
   });
 
-  const { addOrganisationInfo} = useCorporate()
-  const {mutate,isPending} = useMutation({
-    onSuccess:({success,reason}) => {
-      if (success) {
+  const queryClient = useQueryClient();
 
-        nextStep(1)
+  const { addOrganisationInfo } = useCorporate();
+  const { mutate, isPending } = useMutation({
+    onSuccess: ({ success, reason }) => {
+      if (success) {
+        queryClient.invalidateQueries({
+          queryKey: ["business"],
+        });
+        nextStep(1);
       } else {
-        toast.error(reason)
+        toast.error(reason);
       }
     },
-    onError: () => {
-
-    },
+    onError: () => {},
     mutationFn: addOrganisationInfo,
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutate(values);
-    console.log(values);
   }
 
   return (
@@ -204,7 +205,7 @@ export function OrganizationForm({nextStep}:Props) {
           ))}
           <div className="flex items-center justify-end pb-4 pt-8 lg:pt-20">
             <Button className="w-[124px] text-white" type="submit">
-              {isPending ? <ReloadIcon className="animate-spin"/> : "Next"}
+              {isPending ? <ReloadIcon className="animate-spin" /> : "Next"}
             </Button>
           </div>
         </form>
