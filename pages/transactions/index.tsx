@@ -5,18 +5,22 @@ import React from "react";
 import useAuth from "../../useAuth";
 import TransactionsContent from "../../components/transactions/TransactionsContent";
 
-const Transactions = () => {
-	useAuth();
-	// Create a client
 
-	return (
-		<div>
-			{/* <TransactionSect/> */}
-			{/* <Refunds/> */}
-			{/* <ChargeBacks/> */}
-			<TransactionsContent />
-		</div>
-	);
+
+const Transactions = () => {
+  useAuth();
+ 
+  // Create a client
+
+  return (
+    <div>
+      {/* <TransactionSect/> */}
+      {/* <Refunds/> */}
+      {/* <ChargeBacks/> */}
+      <TransactionsContent />
+     
+    </div>
+  );
 };
 
 export default Transactions;

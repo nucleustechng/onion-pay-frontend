@@ -1,36 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 // import { AppThunk } from './redux-hooks/hooks'
-import type { RootState } from './store'
-
+import type { RootState } from "./store";
 
 // authSlice.ts
-
 
 // import { AppThunk } from ''
 
 interface AuthState {
-  isAuthenticated: boolean
+  isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-}
+};
 
 const loginSlice = createSlice({
-  name: 'login',
+  name: "login",
   initialState,
   reducers: {
     setAuthenticated(state) {
-      state.isAuthenticated = true
+      state.isAuthenticated = true;
     },
     setUnauthenticated(state) {
-      state.isAuthenticated = false
+      state.isAuthenticated = false;
     },
   },
-})
+});
 
-export const { setAuthenticated, setUnauthenticated } = loginSlice.actions
-
+export const { setAuthenticated, setUnauthenticated } = loginSlice.actions;
 
 // export const checkAuthentication = (): AppThunk => async (dispatch) => {
 //   // read authentication token from cookie or localStorage
@@ -47,6 +44,6 @@ export const { setAuthenticated, setUnauthenticated } = loginSlice.actions
 //   }
 // }
 
-export const selectLogin = (state: RootState) => state.login
+export const selectLogin = (state: RootState) => state.login;
 
-export default loginSlice.reducer
+export default loginSlice.reducer;

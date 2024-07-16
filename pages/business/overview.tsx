@@ -1,21 +1,19 @@
-import React from 'react'
-import MyOverview from '../../components/subaccounts/Overview'
-import useAuth from '../../useAuth'
-
-
+import React from "react";
+import MyOverview from "../../components/subaccounts/Overview";
+import useAuth from "../../useAuth";
 
 const Overview = () => {
-  useAuth()
+  useAuth();
 
   return (
     <div>
-        <div>
-            <div className='w-[30rem] xl:w-[74rem]'>
-                <MyOverview/>
-            </div>
+      <div>
+        <div className="w-[30rem] xl:w-[74rem]">
+          <MyOverview />
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Overview
+export default Overview;

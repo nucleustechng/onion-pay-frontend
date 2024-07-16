@@ -6,17 +6,17 @@ import useAuth from "../../useAuth";
 import PayoutContent from "../../components/transactions/PayoutContent";
 
 const Payout = () => {
-	useAuth();
-	// Create a client
+  useAuth();
+  // Create a client
 
-	return (
-		<div>
-			{/* <TransactionSect/> */}
-			{/* <Refunds/> */}
-			{/* <ChargeBacks/> */}
-			<PayoutContent />
-		</div>
-	);
+  return (
+    <div>
+      {/* <TransactionSect/> */}
+      {/* <Refunds/> */}
+      {/* <ChargeBacks/> */}
+      <PayoutContent />
+    </div>
+  );
 };
 
 export default Payout;

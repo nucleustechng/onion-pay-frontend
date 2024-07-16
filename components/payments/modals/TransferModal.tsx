@@ -6,102 +6,102 @@ import React, { useState } from "react";
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg";
 import { useAppDispatch } from "../../../redux/redux-hooks/hooks";
 import {
-	setBankAccount,
-	setOnionPay,
+  setBankAccount,
+  setOnionPay,
 } from "../../../redux/Modal-Processes/paymentSlice";
 
 interface Props {
-	isVisible: boolean;
-	onClose: () => {};
-	handlerFunc: () => void;
+  isVisible: boolean;
+  onClose: () => {};
+  handlerFunc: () => void;
 }
 
 const TransferModal = ({ isVisible, onClose, handlerFunc }: Props) => {
-	const [active, setActive] = useState<number>();
-	const dispatch = useAppDispatch();
-	// const isBankAccount = useAppSelector((state) => state.payment.isBankAccount)
-	// const [isBankAccount,setBankAccount] = useState<boolean>(false)
-	// const [isMobileMoney,setMobileMoney] = useState<boolean>(false)
-	// const [isOnionPay,setOnionPay] = useState<boolean>(false)
+  const [active, setActive] = useState<number>();
+  const dispatch = useAppDispatch();
+  // const isBankAccount = useAppSelector((state) => state.payment.isBankAccount)
+  // const [isBankAccount,setBankAccount] = useState<boolean>(false)
+  // const [isMobileMoney,setMobileMoney] = useState<boolean>(false)
+  // const [isOnionPay,setOnionPay] = useState<boolean>(false)
 
-	const handleActive = (activeTab: number) => {
-		active === activeTab ? setActive(0) : setActive(activeTab);
-	};
-	const handleClose = (e: any) => {
-		if (e.target.id === "wrapper") {
-			onClose();
-		}
-	};
+  const handleActive = (activeTab: number) => {
+    active === activeTab ? setActive(0) : setActive(activeTab);
+  };
+  const handleClose = (e: any) => {
+    if (e.target.id === "wrapper") {
+      onClose();
+    }
+  };
 
-	if (!isVisible) return null;
-	return (
-		<div>
-			<div
-				className="fixed inset-0  bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center"
-				id="wrapper"
-				onClick={handleClose}
-			>
-				<div className="w-[20rem] md:w-[27.7rem] h-[32.75rem] md:mb-72 lg:mb-0 rounded-[0.63rem] bg-white">
-					<div className="mx-6 my-6">
-						<div className="flex items-center justify-between">
-							<h1 className="text-lg text-[#262626] font-WorkSans font-semibold leading-5">
-								Make a Transfer
-							</h1>
-							<div>
-								<Image
-									src={CloseIcon}
-									className="cursor-pointer"
-									onClick={() => {
-										onClose();
-									}}
-									alt="Close Icon"
-								/>
-							</div>
-						</div>
-						<div className="mt-6">
-							<h1 className="text-xl text-center text-[#262626] font-WorkSans font-semibold  leading-6">
-								How would you like to make your Transfer?
-							</h1>
-						</div>
-						<div className="flex flex-col gap-4 mt-6">
-							{/* First Card */}
-							<div
-								className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${
-									active === 1 ? "border-[#3063E9]" : "border-[#CACACA]"
-								} border-solid cursor-pointer rounded-[0.313rem]`}
-								onClick={() => {
-									handleActive(1);
-									dispatch(setBankAccount(true));
-									dispatch(setOnionPay(false));
-								}}
-							>
-								<div className="mx-6 my-3 md:my-6">
-									<div className="flex items-center justify-between mb-3">
-										<h1 className="text-xl text-[#262626] font-WorkSans font-semibold leading-6">
-											Transfer to Bank Account
-										</h1>
-										<div className="flex justify-end w-6 h-6">
-											{active === 1 ? (
-												<FontAwesomeIcon
-													icon={faCheckCircle}
-													className="text-2xl  text-[#3063E9]"
-												/>
-											) : (
-												<FontAwesomeIcon
-													icon={faCircle}
-													className="text-2xl  text-[#CACACA] "
-												/>
-											)}
-										</div>
-									</div>
-									<p className="text-base  text-[#262626] font-WorkSans font-normal leading-5">
-										Send money directly from your Onion Pay wallet to a Bank
-										Account instantly.
-									</p>
-								</div>
-							</div>
-							{/* Second card */}
-							{/* <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
+  if (!isVisible) return null;
+  return (
+    <div>
+      <div
+        className="fixed inset-0  bg-[#262626] bg-opacity-50 backdrop-blur-[0.05rem] z-50 flex justify-center items-center"
+        id="wrapper"
+        onClick={handleClose}
+      >
+        <div className="w-[20rem] md:w-[27.7rem] h-[32.75rem] md:mb-72 lg:mb-0 rounded-[0.63rem] bg-white">
+          <div className="mx-6 my-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-lg text-[#262626] font-WorkSans font-semibold leading-5">
+                Make a Transfer
+              </h1>
+              <div>
+                <Image
+                  src={CloseIcon}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    onClose();
+                  }}
+                  alt="Close Icon"
+                />
+              </div>
+            </div>
+            <div className="mt-6">
+              <h1 className="text-xl text-center text-[#262626] font-WorkSans font-semibold  leading-6">
+                How would you like to make your Transfer?
+              </h1>
+            </div>
+            <div className="flex flex-col gap-4 mt-6">
+              {/* First Card */}
+              <div
+                className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${
+                  active === 1 ? "border-[#3063E9]" : "border-[#CACACA]"
+                } border-solid cursor-pointer rounded-[0.313rem]`}
+                onClick={() => {
+                  handleActive(1);
+                  dispatch(setBankAccount(true));
+                  dispatch(setOnionPay(false));
+                }}
+              >
+                <div className="mx-6 my-3 md:my-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h1 className="text-xl text-[#262626] font-WorkSans font-semibold leading-6">
+                      Transfer to Bank Account
+                    </h1>
+                    <div className="flex justify-end w-6 h-6">
+                      {active === 1 ? (
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="text-2xl  text-[#3063E9]"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faCircle}
+                          className="text-2xl  text-[#CACACA] "
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-base  text-[#262626] font-WorkSans font-normal leading-5">
+                    Send money directly from your Onion Pay wallet to a Bank
+                    Account instantly.
+                  </p>
+                </div>
+              </div>
+              {/* Second card */}
+              {/* <div className={`w-[24.69rem] h-[8.85rem] border-[0.063rem] ${active === 2 ? 'border-[#3063E9]' : 'border-[#CACACA]'} border-solid cursor-pointer rounded-[0.313rem]`} onClick={()=>{
                             handleActive(2)
                             active === 2 ? dispatch(setMobileMoney(true)) : dispatch(setMobileMoney(false))
                             }}>
@@ -117,59 +117,56 @@ const TransferModal = ({ isVisible, onClose, handlerFunc }: Props) => {
                             </div>
                         </div> */}
 
-							{/* Third card */}
-							<div
-								className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${
-									active === 2 ? "border-[#3063E9]" : "border-[#CACACA]"
-								} border-solid cursor-pointer rounded-[0.313rem]`}
-								onClick={() => {
-									handleActive(2);
-									dispatch(setOnionPay(true));
-									dispatch(setBankAccount(false));
-								}}
-							>
-								<div className="mx-6 my-3 md:my-6">
-									<div className="flex items-center justify-between mb-3">
-										<h1 className="text-xl text-[#262626] font-WorkSans font-semibold leading-6">
-											Transfer to Onion Pay Wallet
-										</h1>
-										<div className="flex justify-end w-6 h-6">
-											{active === 2 ? (
-												<FontAwesomeIcon
-													icon={faCheckCircle}
-													className="text-2xl  text-[#3063E9]"
-												/>
-											) : (
-												<FontAwesomeIcon
-													icon={faCircle}
-													className="text-2xl  text-[#CACACA] "
-												/>
-											)}
-										</div>
-									</div>
-									<p className="text-base  text-[#262626] font-WorkSans font-normal leading-5">
-										Send money from your Onion Pay Wallet to another using a
-										Wallet ID.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div
-							className="flex justify-center mt-6"
-							onClick={handlerFunc}
-						>
-							<button
-								disabled={active ? false : true}
-								className="w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5"
-							>
-								Start Transfer
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+              {/* Third card */}
+              <div
+                className={`w-[17rem] md:w-[24.69rem] h-[8.85rem] border-[0.063rem] ${
+                  active === 2 ? "border-[#3063E9]" : "border-[#CACACA]"
+                } border-solid cursor-pointer rounded-[0.313rem]`}
+                onClick={() => {
+                  handleActive(2);
+                  dispatch(setOnionPay(true));
+                  dispatch(setBankAccount(false));
+                }}
+              >
+                <div className="mx-6 my-3 md:my-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h1 className="text-xl text-[#262626] font-WorkSans font-semibold leading-6">
+                      Transfer to Onion Pay Wallet
+                    </h1>
+                    <div className="flex justify-end w-6 h-6">
+                      {active === 2 ? (
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="text-2xl  text-[#3063E9]"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faCircle}
+                          className="text-2xl  text-[#CACACA] "
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-base  text-[#262626] font-WorkSans font-normal leading-5">
+                    Send money from your Onion Pay Wallet to another using a
+                    Wallet ID.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mt-6" onClick={handlerFunc}>
+              <button
+                disabled={active ? false : true}
+                className="w-[24.69rem] h-11 bg-[#3063E9] rounded-[0.313rem] text-base text-white font-WorkSans font-normal leading-5"
+              >
+                Start Transfer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default TransferModal;

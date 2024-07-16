@@ -1,1 +1,1 @@
-declare module 'seerbit-reactjs'
+declare module "seerbit-reactjs";
