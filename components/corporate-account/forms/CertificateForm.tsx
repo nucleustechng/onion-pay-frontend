@@ -13,7 +13,7 @@ type Props = {
   nextStep: (step: number) => void;
 };
 
-const CertificateForm = ({nextStep}:Props) => {
+const CertificateForm = ({ nextStep }: Props) => {
   const labels = [
     "CAC certificate",
     "Utility Bill",
@@ -46,20 +46,24 @@ const CertificateForm = ({nextStep}:Props) => {
 
   const handleFileChange = (index: number, file: File | null) => {
     if (checkFileSize(file)) {
-
       const newFiles = [...files];
       newFiles[index] = file;
       setFiles(newFiles);
     } else {
       toast.error("File size should not be more than 150KB");
-
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission and process files
-    mutate({ cacCertificate:files[0],utilityBill:files[1],proofOfAddressVerification:files[2],scumlCertificate:files[0],regulatoryLicenseFintech:files[4] }); //
+    mutate({
+      cacCertificate: files[0],
+      utilityBill: files[1],
+      proofOfAddressVerification: files[2],
+      scumlCertificate: files[0],
+      regulatoryLicenseFintech: files[4],
+    }); //
     console.log("Uploaded files:", files);
   };
 
@@ -99,7 +103,7 @@ const CertificateForm = ({nextStep}:Props) => {
             Previous
           </Button>
           <Button className="w-[124px] text-white" type="submit">
-            {isPending ? <ReloadIcon className="animate-spin"/> : `Next`}
+            {isPending ? <ReloadIcon className="animate-spin" /> : `Next`}
           </Button>
         </div>
       </form>

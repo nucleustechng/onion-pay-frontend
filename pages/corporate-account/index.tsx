@@ -85,7 +85,9 @@ export default function CorporateAccount() {
             {activeTab === 0 && (
               <OrganizationForm nextStep={(value) => setActiveTab(value)} />
             )}
-            {activeTab === 1 && <CertificateForm nextStep={(value) => setActiveTab(value)} />}
+            {activeTab === 1 && (
+              <CertificateForm nextStep={(value) => setActiveTab(value)} />
+            )}
             {activeTab === 2 && <SignatoryForm />}
           </div>
         </div>

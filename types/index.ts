@@ -23,3 +23,28 @@ export interface ICertificateUpload {
   scumlCertificate?: any;
   regulatoryLicenseFintech?: any;
 }
+
+export interface ISignatories {
+  lastName: string;
+  firstName: string;
+  otherNames: string;
+  address: string;
+  gender: "Male" | "Female";
+  dateOfBirth: string; // Format: YYYY-MM-DD
+  phoneNo: string;
+  nextOfKinName: string;
+  nextOfKinPhoneNumber: string;
+  bankVerificationNumber: string;
+  email: string;
+  nationality: string;
+  otherNationalityType?: string; // Optional, only required if nationality is Non_Nigerian
+  pep: "Yes" | "No";
+  nationalIdentityNo: string;
+  utilityBill: any; // Optional
+  customerPassport: any; // Optional
+  idCardFront: any; // Optional
+  signature: any; // Optional
+  idCardBack?: any; // Optional
+  proofOfAddressVerification?: string; // Optional
+  residentPermit?: string; // Optional
+}
