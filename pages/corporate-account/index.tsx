@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useBusiness } from "../../modules/services/businessService";
-import { DirectoryForm, OrganizationForm, SignatoryForm } from "../../components/corporate-account/forms";
+import {
+  DirectoryForm,
+  OrganizationForm,
+  SignatoryForm,
+} from "../../components/corporate-account/forms";
 import CertificateForm from "../../components/corporate-account/forms/CertificateForm";
-
 
 export default function CorporateAccount() {
   const { getBusinessInfo } = useBusiness();
@@ -93,14 +96,29 @@ export default function CorporateAccount() {
           </div>
           <div className="w-full">
             {activeTab === 0 && (
-              <OrganizationForm nextStep={(value:number) => setActiveTab(value)} business={businessData} />
+              <OrganizationForm
+                nextStep={(value: number) => setActiveTab(value)}
+                business={businessData}
+              />
             )}
             {activeTab === 1 && (
-              <CertificateForm nextStep={(value:number) => setActiveTab(value)} business={businessData} />
+              <CertificateForm
+                nextStep={(value: number) => setActiveTab(value)}
+                business={businessData}
+              />
             )}
-            {activeTab === 2 && <DirectoryForm business={businessData} nextStep={(value:number) => setActiveTab(value)} />}
-            {activeTab === 3 && <SignatoryForm business={businessData} nextStep={(value:number) => setActiveTab(value)} />}
-
+            {activeTab === 2 && (
+              <DirectoryForm
+                business={businessData}
+                nextStep={(value: number) => setActiveTab(value)}
+              />
+            )}
+            {activeTab === 3 && (
+              <SignatoryForm
+                business={businessData}
+                nextStep={(value: number) => setActiveTab(value)}
+              />
+            )}
           </div>
         </div>
       </div>

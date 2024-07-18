@@ -23,21 +23,43 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
-  firstName: z.string().min(2, { message: "First Name must be at least 2 characters." }),
-  lastName: z.string().min(2, { message: "Last Name must be at least 2 characters." }),
-  otherNames: z.string().min(2, { message: "Other Names must be at least 2 characters." }),
-  address: z.string().min(2, { message: "Address must be at least 2 characters." }),
-  gender: z.enum(["Male", "Female"], { required_error: "Gender must be selected." }),
+  firstName: z
+    .string()
+    .min(2, { message: "First Name must be at least 2 characters." }),
+  lastName: z
+    .string()
+    .min(2, { message: "Last Name must be at least 2 characters." }),
+  otherNames: z
+    .string()
+    .min(2, { message: "Other Names must be at least 2 characters." }),
+  address: z
+    .string()
+    .min(2, { message: "Address must be at least 2 characters." }),
+  gender: z.enum(["Male", "Female"], {
+    required_error: "Gender must be selected.",
+  }),
   dateOfBirth: z.string().min(1, { message: "Date of Birth must be entered." }),
-  phoneNo: z.string().min(2, { message: "Phone Number must be at least 2 characters." }),
-  nextOfKinName: z.string().min(2, { message: "Next of Kin Name must be at least 2 characters." }),
-  nextOfKinPhoneNumber: z.string().min(2, { message: "Next of Kin Phone Number must be at least 2 characters." }),
-  bankVerificationNumber: z.string().min(2, { message: "Bank Verification Number must be at least 2 characters." }),
+  phoneNo: z
+    .string()
+    .min(2, { message: "Phone Number must be at least 2 characters." }),
+  nextOfKinName: z
+    .string()
+    .min(2, { message: "Next of Kin Name must be at least 2 characters." }),
+  nextOfKinPhoneNumber: z.string().min(2, {
+    message: "Next of Kin Phone Number must be at least 2 characters.",
+  }),
+  bankVerificationNumber: z.string().min(2, {
+    message: "Bank Verification Number must be at least 2 characters.",
+  }),
   email: z.string().email({ message: "Invalid email address." }),
   nationality: z.string().min(1, { message: "Nationality must be selected." }),
   otherNationalityType: z.string().optional(),
-  pep: z.enum(["Yes", "No"], { required_error: "PEP status must be selected." }),
-  nationalIdentityNo: z.string().min(2, { message: "National Identity Number must be at least 2 characters." }),
+  pep: z.enum(["Yes", "No"], {
+    required_error: "PEP status must be selected.",
+  }),
+  nationalIdentityNo: z.string().min(2, {
+    message: "National Identity Number must be at least 2 characters.",
+  }),
 });
 
 const formFields = [
@@ -45,26 +67,47 @@ const formFields = [
   { name: "lastName", label: "Last Name", type: "text" },
   { name: "otherNames", label: "Other Names", type: "text" },
   { name: "address", label: "Address", type: "text" },
-  { name: "gender", label: "Gender", type: "select", options: ["Male", "Female"] },
+  {
+    name: "gender",
+    label: "Gender",
+    type: "select",
+    options: ["Male", "Female"],
+  },
   { name: "dateOfBirth", label: "Date of Birth", type: "date" },
   { name: "phoneNo", label: "Phone Number", type: "text" },
   { name: "nextOfKinName", label: "Next of Kin Name", type: "text" },
-  { name: "nextOfKinPhoneNumber", label: "Next of Kin Phone Number", type: "text" },
-  { name: "bankVerificationNumber", label: "Bank Verification Number", type: "text" },
+  {
+    name: "nextOfKinPhoneNumber",
+    label: "Next of Kin Phone Number",
+    type: "text",
+  },
+  {
+    name: "bankVerificationNumber",
+    label: "Bank Verification Number",
+    type: "text",
+  },
   { name: "email", label: "Email", type: "text" },
-  { name: "nationality", label: "Nationality", type: "select", options: ["Nigerian", "Non-Nigerian"] },
+  {
+    name: "nationality",
+    label: "Nationality",
+    type: "select",
+    options: ["Nigerian", "Non-Nigerian"],
+  },
   { name: "pep", label: "PEP Status", type: "select", options: ["Yes", "No"] },
-  { name: "nationalIdentityNo", label: "National Identity Number", type: "text" },
+  {
+    name: "nationalIdentityNo",
+    label: "National Identity Number",
+    type: "text",
+  },
 ];
 
 type Props = {
   nextStep: (step: number) => void;
-  business:any
-
+  business: any;
 };
 
-export function DirectoryForm({ nextStep,business }: Props) {
-    console.log(business)
+export function DirectoryForm({ nextStep, business }: Props) {
+  console.log(business);
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -184,7 +227,7 @@ export function DirectoryForm({ nextStep,business }: Props) {
                       />
                     )}
                   </FormControl>
-                  <FormMessage  />
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -210,8 +253,12 @@ export function DirectoryForm({ nextStep,business }: Props) {
           </div>
 
           <div className="flex items-center justify-end pb-4 pt-8 lg:pt-20">
-            <Button type='submit' disabled={isPending} className="w-[124px] text-white" >
-              {isPending ? <ReloadIcon className="animate-spin"/> : `Next`}
+            <Button
+              type="submit"
+              disabled={isPending}
+              className="w-[124px] text-white"
+            >
+              {isPending ? <ReloadIcon className="animate-spin" /> : `Next`}
             </Button>
           </div>
         </form>

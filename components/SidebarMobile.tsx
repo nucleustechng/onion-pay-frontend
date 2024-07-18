@@ -28,7 +28,7 @@ import {
   TooltipTrigger,
 } from "../@/components/ui/tooltip";
 import { Button } from "../@/components/ui/button";
-import CorporateItem from "./SidebarItems/CorporateItem";
+import CorporateItem from "./SidebarItems/CorporateIt";
 
 const SideBarMobile = () => {
   const dispatch = useAppDispatch();

@@ -113,11 +113,11 @@ const formFields = [
 
 type Props = {
   nextStep: (step: number) => void;
-  business:any
+  business: any;
 };
 
-export function OrganizationForm({ nextStep,business }: Props) {
-  console.log(business)
+export function OrganizationForm({ nextStep, business }: Props) {
+  console.log(business);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

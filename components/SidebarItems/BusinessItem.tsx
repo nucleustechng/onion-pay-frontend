@@ -54,22 +54,9 @@ const BusinessItem = () => {
                 <h1 className="text-[#262626] text-base font-WorkSans">
                   Business
                 </h1>
-                {/* <FontAwesomeIcon icon={faChevronDown} className={`w-5 h-5 ${account ? 'rotate-180 ease-in-out duration-500 cursor-pointer' : 'rotate-0 duration-500 ease-in-out cursor-pointer'}`}
-                                    onClick={()=>{
-                                        dropAccount()
-                                    }}
-                                    /> */}
               </div>
             </div>
           </div>
-          <ul
-            className={`${account ? "flex flex-col h-16 translate-x-0 ease-in-out duration-500" : "overflow-hidden p-0 h-0 ease-in-out -translate-x-28 duration-500"}   gap-[0.63rem]  mb-0 mt-[0.5rem] mx-6`}
-          >
-            {/* <Link href='/business/overview'><li className={`text-sm 
-                                   ${overviewRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Overview</li></Link> */}
-            {/* <Link href='/business'><li className={`text-sm 
-                                   ${businessRoute ? 'text-primary' : 'text-[#262626]'} font-WorkSans font-normal leading-4`}>Business</li></Link>  */}
-          </ul>
         </Link>
       </div>
     </div>

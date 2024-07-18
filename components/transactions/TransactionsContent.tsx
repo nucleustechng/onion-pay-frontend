@@ -6,7 +6,6 @@ import React, { Fragment, useState } from "react";
 import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
-import Header from "../Header";
 // import { Button } from "../../@/components/ui/button";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { setShowSidebar } from "../../redux/sidebarSlice";
@@ -23,6 +22,7 @@ import {
 } from "../../@/components/ui/popover";
 import { Calendar } from "../../@/components/ui/calendar";
 import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
+import Header from "../new/Header";
 // import { useExcelDownloder } from "react-xls";
 
 const TransactionsContent = () => {
@@ -131,10 +131,11 @@ const TransactionsContent = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-y-auto">
+    <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
       {/* Header */}
-      <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-        <Header mainText="Transactions" />
+      <Header mainText="Transactions" />
+
+      {/* <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
 
         {!sidebarShow ? (
           <div
@@ -144,10 +145,10 @@ const TransactionsContent = () => {
             <Image src={Hamburger} alt="Hamburger Icon" />
           </div>
         ) : null}
-      </div>
+      </div> */}
 
       {/* Table */}
-      <div className="flex-1 pr-0 md:pr-6">
+      <div className="flex-1">
         <div className="flex justify-start md:justify-end pl-2 md:pl-0">
           <div className="flex items-center gap-4">
             <Popover>

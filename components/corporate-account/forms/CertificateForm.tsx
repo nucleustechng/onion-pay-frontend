@@ -11,12 +11,11 @@ import { checkFileSize } from "../../../@/lib/utils";
 
 type Props = {
   nextStep: (step: number) => void;
-  business:any
-
+  business: any;
 };
 
-const CertificateForm = ({ nextStep ,business}: Props) => {
-  console.log(business)
+const CertificateForm = ({ nextStep, business }: Props) => {
+  console.log(business);
   const labels = [
     "CAC certificate",
     "Utility Bill",
@@ -67,7 +66,6 @@ const CertificateForm = ({ nextStep ,business}: Props) => {
       scumlCertificate: files[0],
       regulatoryLicenseFintech: files[4],
     }); //
-  
   };
 
   const { getBusinessInfo } = useBusiness();

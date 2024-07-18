@@ -61,7 +61,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../@/components/ui/tooltip";
-import CorporateItem from "./SidebarItems/CorporateItem";
+import CorporateItem from "./SidebarItems/CorporateIt";
 
 const SideBar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
@@ -388,7 +388,7 @@ const SideBar = () => {
               <div>
                 <CorporateItem />
               </div>
-              
+
               {/* {businessData?.hasWallet === false ||
 								(businessData?.hasWallet === undefined && (
 									<div>

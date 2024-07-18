@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
-import Footer from "../components/Footer/Footer";
-import Navbar from "../components/Navbar/Navbar";
-import SideBar from "../components/SideBar";
-import SideBarMobile from "../components/SidebarMobile";
+import Sidebar from "../components/new/Sidebar";
+// import Footer from "../components/Footer/Footer";
+// import Navbar from "../components/Navbar/Navbar";
+// import SideBar from "../components/SideBar";
+// import SideBarMobile from "../components/SidebarMobile";
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
@@ -24,8 +25,14 @@ const Layout = ({ children }: any) => {
     router.pathname.includes("/corporate");
 
   return (
-    <div>
-      {!showmerchantLayout && (
+    <div className="w-screen">
+      <div className=" flex ">
+        <div className="">
+          <Sidebar />
+        </div>
+        <div className="w-full ">{children}</div>
+      </div>
+      {/* {!showmerchantLayout && (
         <div>
           <Navbar />
           <div>{children}</div>
@@ -51,7 +58,7 @@ const Layout = ({ children }: any) => {
             {children}
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
