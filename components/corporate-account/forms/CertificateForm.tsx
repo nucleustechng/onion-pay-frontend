@@ -11,9 +11,12 @@ import { checkFileSize } from "../../../@/lib/utils";
 
 type Props = {
   nextStep: (step: number) => void;
+  business:any
+
 };
 
-const CertificateForm = ({ nextStep }: Props) => {
+const CertificateForm = ({ nextStep ,business}: Props) => {
+  console.log(business)
   const labels = [
     "CAC certificate",
     "Utility Bill",
@@ -31,7 +34,7 @@ const CertificateForm = ({ nextStep }: Props) => {
         queryClient.invalidateQueries({
           queryKey: ["business"],
         });
-        nextStep(1);
+        nextStep(2);
       } else {
         toast.error(reason);
       }
@@ -64,7 +67,7 @@ const CertificateForm = ({ nextStep }: Props) => {
       scumlCertificate: files[0],
       regulatoryLicenseFintech: files[4],
     }); //
-    console.log("Uploaded files:", files);
+  
   };
 
   const { getBusinessInfo } = useBusiness();

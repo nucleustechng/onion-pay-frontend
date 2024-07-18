@@ -388,6 +388,7 @@ const SideBar = () => {
               <div>
                 <CorporateItem />
               </div>
+              
               {/* {businessData?.hasWallet === false ||
 								(businessData?.hasWallet === undefined && (
 									<div>

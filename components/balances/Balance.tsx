@@ -424,7 +424,7 @@ const Balance = () => {
               <span style={{ fontSize: "16px", marginRight: "4px" }}>
                 &#8358;
               </span>
-              <span>{walletBalance.slice(1)}</span>
+              <span>{walletBalance ? walletBalance?.slice(1) : "****"}</span>
             </h1>
           </div>
           <div className="flex items-center gap-4 md:gap-6">

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CertificateForm from "../../components/corporate-account/forms/CertificateForm";
-import { OrganizationForm } from "../../components/corporate-account/forms/OrganizationForm";
-import { SignatoryForm } from "../../components/corporate-account/forms/SignatoryForm";
 import { useQuery } from "@tanstack/react-query";
 import { useBusiness } from "../../modules/services/businessService";
+import { DirectoryForm, OrganizationForm, SignatoryForm } from "../../components/corporate-account/forms";
+import CertificateForm from "../../components/corporate-account/forms/CertificateForm";
+
 
 export default function CorporateAccount() {
   const { getBusinessInfo } = useBusiness();
@@ -25,7 +25,7 @@ export default function CorporateAccount() {
   }, [businessData]);
 
   return (
-    <div className="h-screen overflow-auto">
+    <div className="flex-1 h-screen overflow-y-auto">
       <div className="h-auto mt-32 mb-[20px] lg:mb-[50px]">
         {/* <div className="lg:flex lg:justify-between">
           <div className="flex flex-col gap-6 w-[10rem] lg:w-[534px] mx-4 md:pt-32 md:ml-[5rem] lg:ml-[4rem] xl:ml-[9.375rem]">
@@ -77,18 +77,30 @@ export default function CorporateAccount() {
               } h-[40px] px-4 py-[10px] cursor-pointer`}
             >
               <p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
-                3. Signatories
+                3. Directories
+              </p>
+            </div>
+            <div
+              onClick={() => handleTabClick(3)}
+              className={`flex items-center justify-start w-full border-r border-r-[#CACACA] ${
+                activeTab === 3 ? "bg-[#E7EDFF]" : ""
+              } h-[40px] px-4 py-[10px] cursor-pointer`}
+            >
+              <p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
+                4. Directories
               </p>
             </div>
           </div>
           <div className="w-full">
             {activeTab === 0 && (
-              <OrganizationForm nextStep={(value) => setActiveTab(value)} />
+              <OrganizationForm nextStep={(value:number) => setActiveTab(value)} business={businessData} />
             )}
             {activeTab === 1 && (
-              <CertificateForm nextStep={(value) => setActiveTab(value)} />
+              <CertificateForm nextStep={(value:number) => setActiveTab(value)} business={businessData} />
             )}
-            {activeTab === 2 && <SignatoryForm />}
+            {activeTab === 2 && <DirectoryForm business={businessData} nextStep={(value:number) => setActiveTab(value)} />}
+            {activeTab === 3 && <SignatoryForm business={businessData} nextStep={(value:number) => setActiveTab(value)} />}
+
           </div>
         </div>
       </div>

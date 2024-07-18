@@ -60,10 +60,11 @@ const formFields = [
 type Props = {
   nextStep: (step: number) => void;
   business:any
+
 };
 
-export function SignatoryForm({ nextStep,business }: Props) {
-  console.log(business)
+export function DirectoryForm({ nextStep,business }: Props) {
+    console.log(business)
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -96,18 +97,18 @@ export function SignatoryForm({ nextStep,business }: Props) {
     residentPermit: null,
   });
 
-  const { addSignatories } = useCorporate();
+  const { addDirectories } = useCorporate();
   const { mutate, isPending } = useMutation({
     onSuccess: ({ success, reason }) => {
       if (success) {
         queryClient.invalidateQueries({ queryKey: ["business"] });
-        nextStep(4);
+        nextStep(3);
       } else {
         toast.error(reason);
       }
     },
     onError: () => {},
-    mutationFn: addSignatories,
+    mutationFn: addDirectories,
   });
 
   const onFileChange = (file: File | null, field: keyof typeof files) => {
@@ -183,7 +184,7 @@ export function SignatoryForm({ nextStep,business }: Props) {
                       />
                     )}
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage  />
                 </FormItem>
               )}
             />

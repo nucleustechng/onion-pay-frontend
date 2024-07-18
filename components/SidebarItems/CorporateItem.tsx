@@ -19,7 +19,7 @@ const CorporateItem = () => {
         </div> */}
       <div>
         <Link href={corporateaccountRoute}>
-          <div className="flex justify-center h-6 lg:w-60">
+          <div className="flex justify-center h-11 lg:w-60">
             <div
               className={`w-[0.26rem] h-11 rounded-tr-lg rounded-br-lg ${
                 isActiveRoute ? "bg-primary" : "bg-transparent"
