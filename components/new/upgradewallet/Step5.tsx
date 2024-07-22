@@ -9,7 +9,6 @@ interface Step4Props {
   progress: number;
   setSteps: (step: number) => void;
   closeModal: () => void;
-  
 }
 
 const Step5: React.FC<Step4Props> = ({ progress, setSteps, closeModal }) => (

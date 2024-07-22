@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
 import Logo from "../../Assets/logo/OnionPayLogo.svg";
@@ -16,13 +15,13 @@ import BusinessItem from "../SidebarItems/BusinessItem";
 import CorporateItem from "../SidebarItems/CorporateItem";
 import PaymentItem from "../SidebarItems/PaymentItem";
 import LogOutIcon from "../../Assets/icon/LogOut.svg";
-import CustomToggle from "../CustomToggle";
+// import CustomToggle from "../CustomToggle";
 import { ArrowUpIcon } from "lucide-react";
 import SettingsItem from "../SidebarItems/SettingsItem";
 import LogoutConfirmation from "../LogoutConfirmation";
 import { useQuery } from "@tanstack/react-query";
-import { querykeys } from "../../lib/constants";
-import { useBusiness } from "../../modules/services/useBusiness";
+// import { querykeys } from "../../lib/constants";
+// import { useBusiness } from "../../modules/services/useBusiness";
 import { useSetting } from "../../modules/services/useSetting";
 import { Transition, Dialog } from "@headlessui/react";
 import UpgradeWalletForm from "./upgradewallet/UpgradeWalletForm";
@@ -30,7 +29,7 @@ import UpgradeWalletForm from "./upgradewallet/UpgradeWalletForm";
 type Props = {};
 
 export default function Sidebar({}: Props) {
-  const { getBusinessInfo } = useBusiness();
+  // const { getBusinessInfo } = useBusiness();
   const { getSettings } = useSetting();
   let [isOpen, setIsOpen] = useState(false);
 
@@ -52,10 +51,10 @@ export default function Sidebar({}: Props) {
     queryFn: () => getSettings(),
   });
 
-  const { data } = useQuery({
-    queryKey: ["business"],
-    queryFn: () => getBusinessInfo(),
-  });
+  // const { data } = useQuery({
+  //   queryKey: ["business"],
+  //   queryFn: () => getBusinessInfo(),
+  // });
 
   return (
     <div className="hidden md:flex flex-col w-[280px] h-screen  pt-0  border border-r-[1px] overflow-y-auto">

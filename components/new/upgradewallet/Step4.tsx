@@ -10,14 +10,13 @@ interface Step4Props {
   // setAddress: ({houseNumber,streetName,city,localGovernment,nearestLandmark,state}:{houseNumber:string,streetName:string,city:string,localGovernment:string,state:string,nearestLandmark:string}) => void;
   handleAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void; // Add your form submission logic here
-
 }
 
 const Step4: React.FC<Step4Props> = ({
   setSteps,
   closeModal,
   handleAddressChange,
-  handleSubmit
+  handleSubmit,
 }) => (
   <div>
     <div className="flex justify-between items-center">

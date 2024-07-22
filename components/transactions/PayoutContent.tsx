@@ -1,14 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 // import { PlusIcon } from "@radix-ui/react-icons";
 import { ArrowDownIcon, ArrowUpIcon, XIcon } from "lucide-react";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { Fragment, useState } from "react";
 // import { TransactionTable } from "../Tables/TransactionTable";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { RootState } from "../../redux/store";
+// import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+// import { RootState } from "../../redux/store";
 // import { Button } from "../../@/components/ui/button";
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
-import { setShowSidebar } from "../../redux/sidebarSlice";
+// import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+// import { setShowSidebar } from "../../redux/sidebarSlice";
 import { useQuery } from "@tanstack/react-query";
 import { getDebitTrans } from "../../modules/TransactionsApi/transactionService";
 import { formatDate } from "../../@/lib/utils";
@@ -40,7 +40,7 @@ const PayoutContent = () => {
     subText: string;
   };
 
-  const dispatch: any = useAppDispatch();
+  // const dispatch: any = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,9 +52,9 @@ const PayoutContent = () => {
     setIsOpen(true);
   }
 
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state?.sidebar?.sidebarShow,
-  );
+  // const sidebarShow = useAppSelector(
+  //   (state: RootState) => state?.sidebar?.sidebarShow,
+  // );
 
   const { data: transactions, isLoading } = useQuery({
     queryKey: ["debits"],

@@ -18,6 +18,7 @@ const BusinessItem = () => {
 
   const isAccountRoute = businessRoute;
   const isActiveRoute = overviewRoute || businessRoute;
+  console.log(account);
 
   useEffect(() => {
     if (!isActiveRoute) {

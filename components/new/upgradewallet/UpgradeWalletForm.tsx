@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { checkFileSize } from "../../../@/lib/utils";
 import { toast } from "react-toastify";
 import Step1 from "./Step1";
@@ -133,7 +133,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
       setProgress(100);
       if (success) {
         toast.success(
-          "Upgrade request successful. An email will be sent when your wallet is upgraded."
+          "Upgrade request successful. An email will be sent when your wallet is upgraded.",
         );
         setStep(5); // Move to the next step when progress reaches 100%
       } else {
@@ -223,15 +223,9 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
           setSteps={setStep}
           closeModal={handleCloseModal}
           progress={progress}
-        
         />
       )}
-      {step === 5 && (
-        <Step6
-          setSteps={setStep}
-          closeModal={handleCloseModal}
-        />
-      )}
+      {step === 5 && <Step6 setSteps={setStep} closeModal={handleCloseModal} />}
     </div>
   );
 };
