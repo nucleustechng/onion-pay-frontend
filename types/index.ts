@@ -73,3 +73,36 @@ export interface IDirectories {
   proofOfAddressVerification?: any | null; // Optional
   residentPermit?: any | null; // Optional
 }
+
+
+interface Address {
+  houseNumber: string;
+  streetName: string;
+  city: string;
+  localGovernment: string;
+  state: string;
+  nearestLandmark: string;
+}
+
+interface DocumentDetails {
+  selfie: File | null;
+  signature: File | null;
+  utilityBill: File | null;
+  document: File | null;
+}
+
+interface IDDetails {
+  idType: string;
+  idIssueDate: any; // Unix timestamp in milliseconds
+  idExpiryDate: any; // Unix timestamp in milliseconds
+  idNumber: string;
+}
+
+export interface IUpgradeWalletFormData {
+  documentDetails: DocumentDetails;
+  idDetails: IDDetails;
+  address: Address;
+
+}
+
+

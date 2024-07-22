@@ -6,7 +6,6 @@ import React, { Fragment, useState } from "react";
 // import { TransactionTable } from "../Tables/TransactionTable";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import { RootState } from "../../redux/store";
-import Header from "../Header";
 // import { Button } from "../../@/components/ui/button";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import { setShowSidebar } from "../../redux/sidebarSlice";
@@ -24,6 +23,7 @@ import { formatDate } from "../../@/lib/utils";
 // import { Calendar } from "../../@/components/ui/calendar";
 // import { CalendarIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { PayoutTable } from "../Tables/PayoutTable";
+import Header from "../new/Header";
 // import { useExcelDownloder } from "react-xls";
 
 const PayoutContent = () => {
@@ -133,18 +133,7 @@ const PayoutContent = () => {
   return (
     <div className="flex flex-col h-screen overflow-y-auto">
       {/* Header */}
-      <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-        <Header mainText="Payouts" />
-
-        {!sidebarShow ? (
-          <div
-            className="flex md:hidden lg:hidden"
-            onClick={() => dispatch(setShowSidebar(true))}
-          >
-            <Image src={Hamburger} alt="Hamburger Icon" />
-          </div>
-        ) : null}
-      </div>
+      <Header mainText="Payouts" />
 
       {/* Table */}
       <div className="flex-1 pr-0 md:pr-6">

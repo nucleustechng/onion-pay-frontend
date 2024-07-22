@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DragAndDropFileInput from "../DragAndDropFileInput";
 import { Label } from "../../../@/components/ui/label";
 import { Button } from "../../../@/components/ui/button";
-import { useBusiness } from "../../../modules/services/businessService";
+import { useBusiness } from "../../../modules/services/useBusiness";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCorporate } from "../../../modules/services/corporateService";
 import { toast } from "react-toastify";

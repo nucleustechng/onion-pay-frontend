@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useBusiness } from "../../modules/services/businessService";
+import { useBusiness } from "../../modules/services/useBusiness";
 import {
   DirectoryForm,
   OrganizationForm,
@@ -16,41 +16,26 @@ export default function CorporateAccount() {
     queryFn: getBusinessInfo,
   });
 
-  const currentStep = businessData ? businessData?.step : 0;
-
-  const [activeTab, setActiveTab] = useState(currentStep);
+  const currentStep = businessData?.step ?? 0;
+  const [activeTab, setActiveTab] = useState<number>(currentStep);
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
+
   useEffect(() => {
-    setActiveTab(currentStep);
+    if (businessData && businessData.step !== undefined) {
+      setActiveTab(businessData.step);
+    } else {
+      setActiveTab(0);
+    }
   }, [businessData]);
+
+  console.log("step", activeTab);
 
   return (
     <div className="flex-1 h-screen overflow-y-auto">
       <div className="h-auto mt-32 mb-[20px] lg:mb-[50px]">
-        {/* <div className="lg:flex lg:justify-between">
-          <div className="flex flex-col gap-6 w-[10rem] lg:w-[534px] mx-4 md:pt-32 md:ml-[5rem] lg:ml-[4rem] xl:ml-[9.375rem]">
-            <h1 className="text-[4rem] md:text-[5rem] text-[#303778] font-SpaceGrotesk font-bold leading-[4.5rem] md:leading-[80px]">
-              Open a corporate account
-            </h1>
-            <p className="w-[22rem] md:w-[26.125rem] h-[1.875rem] text-xl md:text-2xl text-[#1B1A1A] font-WorkSans font-normal leading-[1.875rem]">
-              Make transfers to bank accounts from your Onion Pay dashboard.
-            </p>
-            <Link href="/auth/signup" className="mt-20 md:mt-28">
-              <ButtonIcon
-                width="w-[10.2rem]"
-                height="h-11"
-                mainText="Get started"
-                backgroundColor="bg-primary"
-                color="text-white"
-                textSize="text-base"
-              />
-            </Link>
-          </div>
-        </div> */}
-
         <div className="">
           <div className="flex items-center pb-4">
             <div
