@@ -44,15 +44,15 @@ export function useBusiness() {
   };
 
   const upgradeWallet = async ({
-     address,documentDetails,idDetails
-  }:IUpgradeWalletFormData) => {
-   
+    address,
+    documentDetails,
+    idDetails,
+  }: IUpgradeWalletFormData) => {
     try {
       const token = Cookies.get("token");
-      console.log("documentDetails",documentDetails)
-      console.log("idDetails",idDetails)
-      console.log("address",address)
-
+      console.log("documentDetails", documentDetails);
+      console.log("idDetails", idDetails);
+      console.log("address", address);
 
       const formDataObject = new FormData();
 
@@ -81,7 +81,7 @@ export function useBusiness() {
         formDataObject.append("idNumber", idDetails.idNumber);
       }
       if (address) {
-        formDataObject.append("houseNumber", address?.houseNumber);
+        formDataObject.append("houseNumber", address?.houseNumber.toString());
       }
       if (address) {
         formDataObject.append("streetName", address?.streetName);
@@ -112,7 +112,6 @@ export function useBusiness() {
 
       return data;
     } catch (error) {
- 
       console.error("Error occurred during upgrade request:", error);
       toast.error("An error occurred. Please try again later.");
     }
@@ -120,6 +119,6 @@ export function useBusiness() {
 
   return {
     getBusinessInfo,
-    upgradeWallet
+    upgradeWallet,
   };
 }

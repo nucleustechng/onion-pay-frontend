@@ -22,21 +22,27 @@ interface Step3Props {
   closeModal: () => void;
 }
 
-const Step3: React.FC<Step3Props> = ({
+export default function Step3({
   setSteps,
   closeModal,
   handleIdTypeChange,
   setExpiryDate,
   setIdNumber,
   setIssueDate,
-}) => (
+}:Step3Props){
+
+  
+  
+
+  
+  return (
   <div>
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-6">
         <ChevronLeftIcon
           className="cursor-pointer"
           onClick={() => setSteps(1)}
-        />
+          />
         <h1 className="text-lg text-[#262626] font-WorkSans font-medium leading-5">
           Upgrade your wallet
         </h1>
@@ -47,7 +53,7 @@ const Step3: React.FC<Step3Props> = ({
           className="cursor-pointer"
           onClick={closeModal}
           alt="Close Icon"
-        />
+          />
       </div>
     </div>
     <div className="flex items-center gap-[2.3rem] md:gap-[4.2rem] mt-6">
@@ -91,7 +97,7 @@ const Step3: React.FC<Step3Props> = ({
             name="idNumber"
             onChange={(e: any) => setIdNumber(e.target.value)}
             className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
-          />
+            />
         </div>
         <div className="flex flex-col gap-2 mt-6">
           <Label className="text-[#262626] text-sm font-WorkSans font-normal leading-4">
@@ -104,7 +110,7 @@ const Step3: React.FC<Step3Props> = ({
             name="idIssueDate"
             onChange={(e: any) => setIssueDate(e.target.value)}
             className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
-          />
+            />
         </div>
         <div className="flex flex-col gap-2 mt-6">
           <Label className="text-[#262626] text-sm font-WorkSans font-normal leading-4">
@@ -117,13 +123,13 @@ const Step3: React.FC<Step3Props> = ({
             name="idExpiryDate"
             onChange={(e: any) => setExpiryDate(e.target.value)}
             className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
-          />
+            />
         </div>
         <div className="flex justify-end">
           <Button
             onClick={() => setSteps(3)}
             className="w-[94px] text-white mt-6"
-          >
+            >
             Next
             <ArrowRightIcon className="w-5 h-5 ml-2" />
           </Button>
@@ -132,5 +138,6 @@ const Step3: React.FC<Step3Props> = ({
     </div>
   </div>
 );
+}
 
-export default Step3;
+

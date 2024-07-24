@@ -33,7 +33,11 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
     state: "",
     nearestLandmark: "",
   });
-
+  
+  const dateIssue = new Date(issueDate)
+  const timestampIssue = dateIssue.getTime();
+  const dateExpiry = new Date(expiryDate)
+  const timestampExpiry = dateExpiry.getTime();
   const [progress, setProgress] = useState(0);
 
   const hiddenSelfieInput = useRef<HTMLInputElement>(null);
@@ -162,8 +166,8 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
         selfie: selfie,
       },
       idDetails: {
-        idExpiryDate: expiryDate,
-        idIssueDate: issueDate,
+        idExpiryDate: timestampExpiry,
+        idIssueDate: timestampIssue,
         idNumber: idNumber,
         idType,
       },

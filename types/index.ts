@@ -74,7 +74,6 @@ export interface IDirectories {
   residentPermit?: any | null; // Optional
 }
 
-
 interface Address {
   houseNumber: string;
   streetName: string;
@@ -102,7 +101,4 @@ export interface IUpgradeWalletFormData {
   documentDetails: DocumentDetails;
   idDetails: IDDetails;
   address: Address;
-
 }
-
-
