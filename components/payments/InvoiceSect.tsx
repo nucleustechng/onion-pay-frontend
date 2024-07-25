@@ -1,13 +1,13 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import HelpButton from "../HelpButton";
 // import SearchIcon from "../../Assets/icon/Search.svg";
 // import CreateInvoiceModal from './modals/CreateInvoiceModal'
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { setShowSidebar } from "../../redux/sidebarSlice";
+// import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+import { useAppSelector } from "../../redux/redux-hooks/hooks";
+// import { setShowSidebar } from "../../redux/sidebarSlice";
 import { RootState } from "../../redux/store";
 import CreateInvoiceModal from "../transactions/modals/CreateInvoiceModal";
 import CompleteInvoiceModal from "../transactions/modals/CompleteInvoiceModal";
@@ -15,6 +15,7 @@ import { useLoadInvoicesQuery } from "../../modules/Invoices/invoiceApi";
 import InvoiceHeader from "./InvoiceHeader";
 import InvoiceTable from "./InvoiceTable";
 import Loader from "../Loader";
+import Header from "../new/Header";
 
 const InvoiceSect = () => {
   const [outputData, setOutputData] = useState("");
@@ -24,10 +25,10 @@ const InvoiceSect = () => {
   };
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state.sidebar.sidebarShow,
-  );
+  // const dispatch = useAppDispatch();
+  // const sidebarShow = useAppSelector(
+  //   (state: RootState) => state.sidebar.sidebarShow,
+  // );
   const isSecondStep = useAppSelector(
     (state: RootState) => state.invoice.isSecondStep,
   );
@@ -53,20 +54,8 @@ const InvoiceSect = () => {
   return (
     <div>
       {invoicesArray?.length == 0 ? (
-        <div className="w-[23rem] sm:w-[45rem] md:w-[32rem] lg:w-[60rem] xl:w-[70rem] mt-6 mx-6">
-          <div className="flex justify-between items-center mr-9 mb-12">
-            <h1 className="text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]">
-              Invoices
-            </h1>
-            {!sidebarShow ? (
-              <div
-                className="md:hidden"
-                onClick={() => dispatch(setShowSidebar(true))}
-              >
-                <Image src={Hamburger} alt="Hamburger Icon" />
-              </div>
-            ) : null}
-          </div>
+        <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+          <Header mainText="Invoices" />
           {/* Button to add subaccounts */}
           {/* <div className='flex justify-end'>
     <div className='flex items-center justify-center gap-3 w-[12.75rem] h-11 mr-9 md:mr-0 bg-primary rounded-[0.33rem] mt-10 cursor-pointer'  onClick={()=>{
@@ -123,23 +112,12 @@ const InvoiceSect = () => {
           </div>
         </div>
       ) : (
-        <div className="w-screen md:w-[32rem] lg:w-[72rem] mt-5 lg:mx-6 lg:mt-7">
-          <div className="flex flex-col lg:flex lg:justify-between lg:flex-row">
-            <div className="flex justify-between items-center mb-6 px-5 lg:px-0 lg:mb-0">
-              <h1 className="inline-flex text-[2rem] lg:flex text-[#262626] lg:text-[2rem] font-WorkSans font-medium leading-9">
-                Invoices
-              </h1>
-              {!sidebarShow && (
-                <div
-                  className="md:hidden"
-                  onClick={() => dispatch(setShowSidebar(true))}
-                >
-                  <Image src={Hamburger} alt="Hamburger Icon" />
-                </div>
-              )}
-            </div>
-            {/* Small screen search input */}
-            {/* <div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
+        <div className="w-full">
+          <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+            <Header mainText="Invoices" />
+            <div className="flex flex-col lg:flex lg:justify-between lg:flex-row">
+              {/* Small screen search input */}
+              {/* <div className="relative w-screen h-11 px-5 sm:w-[35rem] flex items-center  rounded-[0.65rem] md:hidden lg:hidden">
 							<div className="absolute  pl-[0.7rem] ">
 								<Image
 									src={SearchIcon}
@@ -153,8 +131,8 @@ const InvoiceSect = () => {
 								placeholder="Search"
 							/>
 						</div> */}
-            <div className="flex flex-row gap-3 mt-4 md:pl-5 lg:gap-3 lg:mt-0">
-              {/* <div className="hidden md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
+              <div className="flex flex-row gap-3 mt-4 md:pl-5 lg:gap-3 lg:mt-0">
+                {/* <div className="hidden md:flex  md:items-center md:w-[15rem] md:h-11  lg:w-[18.75rem] lg:h-11 lg:flex lg:items-center  lg:rounded-[0.65rem]">
 								<div className="absolute  pl-[0.7rem] ">
 									<Image
 										src={SearchIcon}
@@ -168,83 +146,83 @@ const InvoiceSect = () => {
 									placeholder="Search"
 								/>
 							</div> */}
-              <div className="">
-                {/* <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[9.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                <div className="">
+                  {/* <div className='flex justify-center items-center w-[3.7rem] h-9 ml-5 md:w-[9.4rem] md:h-11 lg:ml-0 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center gap-3 md:gap-7 lg:gap-7'>
                       <h1 className='hidden md:inline-flex md:text-sm lg:inline-flex lg:text-sm'>Last 7days</h1>
                       <FontAwesomeIcon className='inline-flex md:hidden lg:hidden w-5 h-5 ' icon={faCalendar}/>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5  text-sm'/>
                     </div>
                   </div> */}
-              </div>
-              <div className=" ">
-                {/* <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
+                </div>
+                <div className=" ">
+                  {/* <div className='w-[3.7rem] h-9 md:w-[9.4rem]  md:h-11 lg:w-[9.4rem] lg:h-11 rounded-[0.32rem] bg-[#F5F5F5]'>
                     <div className='flex items-center justify-center pt-2 gap-3 md:pt-3 md:gap-20 lg:gap-20'>
                       <h1 className='text-sm'>All</h1>
                       <FontAwesomeIcon icon={faChevronDown} className='w-5 h-5  text-sm'/>
                     </div>
                   </div> */}
-              </div>
-              {/* Create invoice button for small screens */}
-              <div className="flex justify-start lg:hidden cursor-pointer">
-                <div
-                  onClick={() => {
-                    setShowModal(true);
-                  }}
-                  className="flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
+                </div>
+                {/* Create invoice button for small screens */}
+                <div className="flex justify-start lg:hidden cursor-pointer">
+                  <div
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
+                    className="flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
                     w-[12rem] h-9 text-sm md:w-[12rem] md:h-11
                     lg:hidden font-WorkSans font-normal leading-4"
-                >
-                  Create an Invoice
-                  <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
+                  >
+                    Create an Invoice
+                    <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="hidden lg:flex lg:justify-start lg:mt-12 cursor-pointer">
-            <div
-              onClick={() => {
-                setShowModal(true);
-              }}
-              className="flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
+            <div className="hidden lg:flex lg:justify-start lg:mt-12 cursor-pointer">
+              <div
+                onClick={() => {
+                  setShowModal(true);
+                }}
+                className="flex justify-center items-center gap-4 rounded-[0.32rem] text-white bg-[#3063E9]
             w-[10rem] h-9 text-sm
             lg:w-[13.4rem] lg:h-11 lg:text-base font-WorkSans font-normal leading-4"
-            >
-              Create an Invoice
-              <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
-            </div>
-          </div>
-          <div className="fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]">
-            <HelpButton />
-          </div>
-          <div className="w-[23rem] ml-4 md:ml-0 md:w-[32rem] xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10">
-            <div className="relative">
-              <div className="sticky top-0 z-10 bg-white">
-                <InvoiceHeader />
+              >
+                Create an Invoice
+                <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
               </div>
-              {isLoading ? (
-                <div className="  h-56 flex justify-center items-center">
-                  <Loader width="w-16" height="h-16" />
+            </div>
+            <div className="fixed mr-3 left-auto top-3/4 right-0 lg:mr-7 z-40 mt-[8.5rem]">
+              <HelpButton />
+            </div>
+            <div className="w-[23rem] ml-4 md:ml-0 md:w-[32rem] xl:w-[71.5rem] h-[35rem] overflow-y-auto scrollbar-hide mt-10">
+              <div className="relative">
+                <div className="sticky top-0 z-10 bg-white">
+                  <InvoiceHeader />
                 </div>
-              ) : (
-                <div className="mt-5">
-                  {invoicesArray.map((invoice: any, index: any) => (
-                    <div key={invoice.i_id}>
-                      <InvoiceTable
-                        clientName={invoicesArray[index]["client"]?.full_name}
-                        email={invoicesArray[index]["client"]?.email}
-                        status={invoice.paid ? "Successful" : "Pending..."}
-                        amount={invoice.amount_string}
-                        date={invoice.paid_on ? invoice.paid_on : "--"}
-                        createdOn={
-                          invoice.created_on ? invoice.created_on : "--"
-                        }
-                        paymentId={invoice.i_id}
-                      />
-                    </div>
-                  ))}
-                  {/* {invoicesArray.map((invoice:any,index:number) => (
+                {isLoading ? (
+                  <div className="  h-56 flex justify-center items-center">
+                    <Loader width="w-16" height="h-16" />
+                  </div>
+                ) : (
+                  <div className="mt-5">
+                    {invoicesArray.map((invoice: any, index: any) => (
+                      <div key={invoice.i_id}>
+                        <InvoiceTable
+                          clientName={invoicesArray[index]["client"]?.full_name}
+                          email={invoicesArray[index]["client"]?.email}
+                          status={invoice.paid ? "Successful" : "Pending..."}
+                          amount={invoice.amount_string}
+                          date={invoice.paid_on ? invoice.paid_on : "--"}
+                          createdOn={
+                            invoice.created_on ? invoice.created_on : "--"
+                          }
+                          paymentId={invoice.i_id}
+                        />
+                      </div>
+                    ))}
+                    {/* {invoicesArray.map((invoice:any,index:number) => (
                       <div key={index}>
                           <TransactionTable 
                           status={invoice.paid ? 'Successful' : 'Pending...'}
@@ -254,22 +232,23 @@ const InvoiceSect = () => {
                           />
                       </div>
                       ))} */}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div>
             <div>
-              <CreateInvoiceModal
-                onSubmit={handleDataSubmit}
-                isVisible={isSecondStep ? false : showModal}
-                onClose={async () => setShowModal(false)}
-              />
-              <CompleteInvoiceModal
-                data={outputData}
-                isVisible={!isSecondStep ? false : showModal}
-                onClose={async () => setShowModal(false)}
-              />
+              <div>
+                <CreateInvoiceModal
+                  onSubmit={handleDataSubmit}
+                  isVisible={isSecondStep ? false : showModal}
+                  onClose={async () => setShowModal(false)}
+                />
+                <CompleteInvoiceModal
+                  data={outputData}
+                  isVisible={!isSecondStep ? false : showModal}
+                  onClose={async () => setShowModal(false)}
+                />
+              </div>
             </div>
           </div>
         </div>

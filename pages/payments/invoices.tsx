@@ -8,7 +8,7 @@ const Invoices = () => {
   return (
     <div>
       <div>
-        <div className="w-[20rem] md:w-[32rem] lg:w-[74rem]">
+        <div>
           <InvoiceSect />
         </div>
       </div>

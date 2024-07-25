@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../components/Header";
 import { Button } from "../../@/components/ui/button";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
@@ -14,11 +13,12 @@ import {
 import Input from "../../components/input fields/Input";
 import { toast } from "react-toastify";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { RootState } from "../../redux/store";
-import { setShowSidebar } from "../../redux/sidebarSlice";
-import Image from "next/image";
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+// import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+// import { RootState } from "../../redux/store";
+// import { setShowSidebar } from "../../redux/sidebarSlice";
+// import Image from "next/image";
+// import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+import Header from "../../components/new/Header";
 
 const Airtime = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -68,25 +68,14 @@ const Airtime = () => {
     mobile_operator_id: "",
   });
 
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state.sidebar.sidebarShow,
-  );
+  // const dispatch = useAppDispatch();
+  // const sidebarShow = useAppSelector(
+  //   (state: RootState) => state.sidebar.sidebarShow,
+  // );
   return (
     <div>
-      <div className="px-6 lg:px-0">
-        <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-          <Header mainText="Airtime purchase" />
-
-          {!sidebarShow ? (
-            <div
-              className="flex md:hidden lg:hidden"
-              onClick={() => dispatch(setShowSidebar(true))}
-            >
-              <Image src={Hamburger} alt="Hamburger Icon" />
-            </div>
-          ) : null}
-        </div>
+      <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+        <Header mainText="Airtime purchase" />
 
         <div className="w-[21rem] md:w-[27.65rem]">
           <h1 className="text-[2rem] text-[#262626] font-WorkSans font-normal leading-9">
@@ -97,7 +86,7 @@ const Airtime = () => {
           onClick={() => {
             openModal();
           }}
-          className="mr-2 md:mr-0 ml-2 md:ml-0 mt-6"
+          className="w-fit mr-0 md:mr-0 ml-0 md:ml-0 mt-6"
         >
           <h1 className="text-base font-WorkSans font-normal text-white">
             Buy Airtime

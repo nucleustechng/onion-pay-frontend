@@ -33,10 +33,10 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
     state: "",
     nearestLandmark: "",
   });
-  
-  const dateIssue = new Date(issueDate)
+
+  const dateIssue = new Date(issueDate);
   const timestampIssue = dateIssue.getTime();
-  const dateExpiry = new Date(expiryDate)
+  const dateExpiry = new Date(expiryDate);
   const timestampExpiry = dateExpiry.getTime();
   const [progress, setProgress] = useState(0);
 
@@ -212,6 +212,10 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
           setExpiryDate={setExpiryDate}
           setIdNumber={setIdNumber}
           setIssueDate={setIssueDate}
+          expiryDate={expiryDate}
+          idNumber={idNumber}
+          idType={idType}
+          issueDate={issueDate}
         />
       )}
       {step === 3 && (
@@ -220,6 +224,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
           closeModal={handleCloseModal}
           handleAddressChange={handleAddressChange}
           handleSubmit={handleSubmit}
+          address={address}
         />
       )}
       {step === 4 && (
