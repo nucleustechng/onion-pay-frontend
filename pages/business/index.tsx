@@ -1,16 +1,14 @@
-import React from 'react'
-import BusinessSect from '../../components/subaccounts/BusinessSect'
-import useAuth from '../../useAuth'
-
-
+import React from "react";
+import BusinessSect from "../../components/subaccounts/BusinessSect";
+import useAuth from "../../useAuth";
 
 const Businness = () => {
-  useAuth()
+  useAuth();
   return (
     <div>
-        <BusinessSect/>
+      <BusinessSect />
     </div>
-  )
-}
+  );
+};
 
-export default Businness
+export default Businness;

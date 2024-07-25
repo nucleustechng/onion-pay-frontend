@@ -5,33 +5,33 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "./modules/user/userService";
 
 const useAuth = () => {
-	const router = useRouter();
-	const { data: userInfo } = useQuery({
-		queryKey: ["user"],
-		queryFn: getUser,
-	});
-	// const protectedRoutes = [
-	// 	"/transactions",
-	// 	"/transfers",
-	// 	"/settings",
-	// 	"/payments",
-	// 	"/business",
-	// 	"/balances",
-	// ];
+  const router = useRouter();
+  const { data: userInfo } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
+  // const protectedRoutes = [
+  // 	"/transactions",
+  // 	"/transfers",
+  // 	"/settings",
+  // 	"/payments",
+  // 	"/business",
+  // 	"/balances",
+  // ];
 
-	// Check if the current route is a protected route
-	// const isProtectedRoute = protectedRoutes.includes(router.pathname);
+  // Check if the current route is a protected route
+  // const isProtectedRoute = protectedRoutes.includes(router.pathname);
 
-	useEffect(() => {
-		const verify = Cookies.get("token");
+  useEffect(() => {
+    const verify = Cookies.get("token");
 
-		if (!verify) {
-			router.push("/auth/signin");
-		}
-		if (userInfo?.verified === false) {
-			router.push("/auth/verifyemail");
-		}
-	}, []);
+    if (!verify) {
+      router.push("/auth/signin");
+    }
+    if (userInfo?.verified === false) {
+      router.push("/auth/verifyemail");
+    }
+  }, []);
 };
 
 export default useAuth;

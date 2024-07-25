@@ -2,65 +2,65 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "js-cookie";
 
 export const transfersApi = createApi({
-	reducerPath: "transationsApi",
-	baseQuery: fetchBaseQuery({
-		baseUrl: process.env.NEXT_PUBLIC_URL,
-		prepareHeaders: (headers) => {
-			// Get the token from local storage
-			const token = Cookies.get("token");
+  reducerPath: "transationsApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_URL,
+    prepareHeaders: (headers) => {
+      // Get the token from local storage
+      const token = Cookies.get("token");
 
-			// If the token is present, set the authorization header
-			if (token) {
-				headers.set("Authorization", `Bearer ${token}`);
-			}
+      // If the token is present, set the authorization header
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
 
-			return headers;
-		},
-	}),
-	endpoints: (builder) => ({
-		transfer: builder.mutation({
-			query: (body: {
-				isWallet: boolean;
-				acc_num: string;
-				acc_bank: string;
-				amount: number;
-				recepient_name: string;
-			}) => {
-				return {
-					url: "/api/v1/transfer",
-					method: "post",
-					body,
-				};
-			},
-		}),
-		transferInternal: builder.mutation({
-			query: (body: {
-				isWallet: boolean;
-				acc_num: string;
-				acc_bank: string;
-				amount: number;
-			}) => {
-				return {
-					url: "/api/v1/transfer",
-					method: "post",
-					body,
-				};
-			},
-		}),
-		loadTransferFee: builder.mutation({
-			query: (body: { amount: number; external: boolean }) => {
-				return {
-					url: "/api/v1/transfer-fee",
-					method: "post",
-					body,
-				};
-			},
-		}),
-	}),
+      return headers;
+    },
+  }),
+  endpoints: (builder) => ({
+    transfer: builder.mutation({
+      query: (body: {
+        isWallet: boolean;
+        acc_num: string;
+        acc_bank: string;
+        amount: number;
+        recepient_name: string;
+      }) => {
+        return {
+          url: "/api/v1/transfer",
+          method: "post",
+          body,
+        };
+      },
+    }),
+    transferInternal: builder.mutation({
+      query: (body: {
+        isWallet: boolean;
+        acc_num: string;
+        acc_bank: string;
+        amount: number;
+      }) => {
+        return {
+          url: "/api/v1/transfer",
+          method: "post",
+          body,
+        };
+      },
+    }),
+    loadTransferFee: builder.mutation({
+      query: (body: { amount: number; external: boolean }) => {
+        return {
+          url: "/api/v1/transfer-fee",
+          method: "post",
+          body,
+        };
+      },
+    }),
+  }),
 });
 
 export const {
-	useTransferMutation,
-	useTransferInternalMutation,
-	useLoadTransferFeeMutation,
+  useTransferMutation,
+  useTransferInternalMutation,
+  useLoadTransferFeeMutation,
 } = transfersApi;

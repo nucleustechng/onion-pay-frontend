@@ -3,28 +3,28 @@ import type { RootState } from "./store";
 
 // Define a type for the slice state
 interface PasswordResetState {
-	email: string;
-	resetPassBoolean: boolean;
+  email: string;
+  resetPassBoolean: boolean;
 }
 
 // Define the initial state using that type
 const initialState: PasswordResetState = {
-	email: "",
-	resetPassBoolean: false,
+  email: "",
+  resetPassBoolean: false,
 };
 
 export const passwordResetSlice = createSlice({
-	name: "email",
-	// `createSlice` will infer the state type from the `initialState` argument
-	initialState,
-	reducers: {
-		setMyEmail: (state, action) => {
-			state.email = action.payload;
-		},
-		setResetPassBoolean: (state, action) => {
-			state.resetPassBoolean = action.payload;
-		},
-	},
+  name: "email",
+  // `createSlice` will infer the state type from the `initialState` argument
+  initialState,
+  reducers: {
+    setMyEmail: (state, action) => {
+      state.email = action.payload;
+    },
+    setResetPassBoolean: (state, action) => {
+      state.resetPassBoolean = action.payload;
+    },
+  },
 });
 
 export const { setMyEmail, setResetPassBoolean } = passwordResetSlice.actions;

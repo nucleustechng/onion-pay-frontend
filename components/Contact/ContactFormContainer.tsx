@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
 
-
-
-const ContactFormContainer = ({children}:any) => {
+const ContactFormContainer = ({ children }: any) => {
   return (
     <div>
-        <div className='
-        '>
-          {children}
-        </div>
+      <div
+        className="
+        "
+      >
+        {children}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactFormContainer
+export default ContactFormContainer;

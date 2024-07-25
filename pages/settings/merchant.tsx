@@ -1,17 +1,15 @@
-import React from 'react'
-import MerchantSettings from '../../components/settings/MerchantSettings'
-import useAuth from '../../useAuth'
+import React from "react";
+import MerchantSettings from "../../components/settings/MerchantSettings";
+import useAuth from "../../useAuth";
 
-
-
-const  MerchantSetting = () => {
-  useAuth()
+const MerchantSetting = () => {
+  useAuth();
 
   return (
     <div>
-        <MerchantSettings/>
+      <MerchantSettings />
     </div>
-  )
-}
+  );
+};
 
-export default MerchantSetting
+export default MerchantSetting;

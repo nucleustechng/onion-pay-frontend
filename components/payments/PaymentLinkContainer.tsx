@@ -24,7 +24,7 @@ const PaymentLinkContainer = ({ link }: Props) => {
         className="text-gray-500 hover:text-gray-600"
         onClick={copyToClipboard}
       >
-        <FontAwesomeIcon icon={faCopy}  />
+        <FontAwesomeIcon icon={faCopy} />
       </button>
       {copied && <span className="text-[#15ed32]">Copied!</span>}
     </div>
