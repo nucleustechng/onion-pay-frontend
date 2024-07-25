@@ -7,13 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "../../@/components/ui/button";
-import Header from "../../components/Header";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { RootState } from "../../redux/store";
-import { setShowSidebar } from "../../redux/sidebarSlice";
-import Image from "next/image";
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+// import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+// import { RootState } from "../../redux/store";
+// import { setShowSidebar } from "../../redux/sidebarSlice";
+// import Image from "next/image";
+// import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import SingleChargeModal from "../../components/payments/modals/SingleChargeModal";
+import Header from "../../components/new/Header";
 
 const Paymentlinks = () => {
   useAuth();
@@ -22,32 +22,21 @@ const Paymentlinks = () => {
     queryFn: getPaymentPages,
   });
 
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state.sidebar.sidebarShow,
-  );
+  // const dispatch = useAppDispatch();
+  // const sidebarShow = useAppSelector(
+  //   (state: RootState) => state.sidebar.sidebarShow,
+  // );
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="">
-      {/* Header */}
-      <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-        <Header mainText="Payment Links" />
+    <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+      <Header mainText="Payment links" />
 
-        {!sidebarShow ? (
-          <div
-            className="flex md:hidden lg:hidden"
-            onClick={() => dispatch(setShowSidebar(true))}
-          >
-            <Image src={Hamburger} alt="Hamburger Icon" />
-          </div>
-        ) : null}
-      </div>
       <Button
         onClick={() => {
           setShowModal(true);
         }}
-        className="mr-2 md:mr-0 ml-2 md:ml-0"
+        className="w-fit mr-2 md:mr-0 ml-2 md:ml-0"
       >
         <h1 className="text-base font-WorkSans font-normal text-white">
           New payment link

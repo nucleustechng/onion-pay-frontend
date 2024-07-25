@@ -1,24 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 // import Image from 'next/image'
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { setShowSidebar } from "../../redux/sidebarSlice";
-import { RootState } from "../../redux/store";
 // import DownloadIcon from '../../Assets/icon/Download.svg'
 import SingleAccountModal from "./modals/bankaccount/SingleAccountModal";
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import ExternalTransferModal from "./modals/bankaccount/ExternalTransferModal";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
+import Header from "../new/Header";
 
 const TransfersEmpty = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   // const [secondStep, setSecondStep] = useState<number>(1);
   // const [isSecondStep,setSecondStep] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state.sidebar.sidebarShow,
-  );
+
   // const bankAccount = useAppSelector(
   // 	(state: RootState) => state.payment.isBankAccount
   // );
@@ -35,23 +28,11 @@ const TransfersEmpty = () => {
 
   return (
     <div>
-      <div>
-        <div className="w-[22rem] md:w-[32rem] lg:w-[72rem] mt-6 mx-4 lg:mx-6">
-          <div className="flex flex-col gap-5 lg:gap-0 lg:flex-row lg:justify-between lg:items-center ">
-            <div className="flex justify-between items-center mx-4 mb-12 w-auto">
-              <h1 className="text-[#262626] text-xl md:text-[2rem] lg:text-[2rem] font-WorkSans font-medium leading-9">
-                Transfers
-              </h1>
-              {!sidebarShow ? (
-                <div
-                  className="lg:hidden"
-                  onClick={() => dispatch(setShowSidebar(true))}
-                >
-                  <Image src={Hamburger} alt="Hamburger Icon" />
-                </div>
-              ) : null}
-            </div>
-            {/* <div className='flex items-center gap-4'>
+      <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+        <Header mainText="Transfers" />
+
+        <div className="">
+          {/* <div className='flex items-center gap-4'>
                 <div className='flex justify-center items-center w-[7rem] lg:w-[9.4rem] h-11  rounded-[0.32rem] bg-[#F5F5F5]'>
                 <div className='flex items-center gap-3 lg:gap-7'>
                   <h1 className='text-sm'>Last 7days</h1>
@@ -65,7 +46,7 @@ const TransfersEmpty = () => {
                 </div>
               </div>
                 </div> */}
-          </div>
+
           <div>
             <div className="flex items-center justify-end mt-12">
               <div className="flex gap-4">

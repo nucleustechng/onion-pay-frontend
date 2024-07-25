@@ -7,6 +7,7 @@ import {
   SignatoryForm,
 } from "../../components/corporate-account/forms";
 import CertificateForm from "../../components/corporate-account/forms/CertificateForm";
+import Header from "../../components/new/Header";
 
 export default function CorporateAccount() {
   const { getBusinessInfo } = useBusiness();
@@ -31,13 +32,13 @@ export default function CorporateAccount() {
     }
   }, [businessData]);
 
-  console.log("step", activeTab);
-
   return (
-    <div className="flex-1 h-screen overflow-y-auto">
-      <div className="h-auto mt-32 mb-[20px] lg:mb-[50px]">
+    // <div className="flex-1 h-screen overflow-y-auto">
+    <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+      <Header mainText="Corporate account" />
+      <div className="h-auto  mb-[20px] lg:mb-[50px]">
         <div className="">
-          <div className="flex items-center pb-4">
+          <div className="flex items-center pb-4 overflow-x-auto">
             <div
               onClick={() => handleTabClick(0)}
               className={`flex items-center justify-start w-full border-r border-r-[#CACACA] ${
@@ -75,7 +76,7 @@ export default function CorporateAccount() {
               } h-[40px] px-4 py-[10px] cursor-pointer`}
             >
               <p className="text-xs lg:text-base text-black font-WorkSans font-semibold">
-                4. Directories
+                4. Signatories
               </p>
             </div>
           </div>

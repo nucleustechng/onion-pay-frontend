@@ -1,13 +1,12 @@
 import NextImage from "next/image";
 import React, { Fragment, useRef, useState } from "react";
-import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
-import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
-import { RootState } from "../../redux/store";
-import { setShowSidebar } from "../../redux/sidebarSlice";
+// import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
+// import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
+// import { RootState } from "../../redux/store";
+// import { setShowSidebar } from "../../redux/sidebarSlice";
 // import dynamic from "next/dynamic";
-import InfoCircle from "../../Assets/icon/InfoCircle.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 // import UpgradeWalletModal from "./modals/UpgradeWalletModal";
 import { useLoadWalletQuery } from "../../modules/WalletApi";
 import { Dialog, Transition } from "@headlessui/react";
@@ -48,6 +47,7 @@ import { getBalances } from "../../modules/balancesApi";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import useBalanceHooks from "./useBalanceHooks";
 import DownloadIcon from "../../Assets/icon/Download.svg";
+import Header from "../new/Header";
 
 const Balance = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -296,14 +296,9 @@ const Balance = () => {
     setIsOpen(false);
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector(
-    (state: RootState) => state.sidebar.sidebarShow,
-  );
+  // function openModal() {
+  //   setIsOpen(true);
+  // }
 
   const { data: walletData } = useLoadWalletQuery();
 
@@ -404,21 +399,9 @@ const Balance = () => {
 
   return (
     <div className="">
-      <div className=" mx-6 mt-6">
-        <div className="flex justify-between items-center mb-12">
-          <h1 className="text-[2rem] text-[#262626]  font-WorkSans font-medium leading-[2.4rem]">
-            Balance
-          </h1>
-          {!sidebarShow && (
-            <div
-              className="lg:hidden"
-              onClick={() => dispatch(setShowSidebar(true))}
-            >
-              <NextImage src={Hamburger} alt="Hamburger Icon" />
-            </div>
-          )}
-        </div>
-        <div className="flex items-center justify-between pb-2">
+      <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
+        <Header mainText="Balance" />
+        <div className="flex flex-wrap gap-4 items-center justify-between pb-2">
           <div>
             <h1 className="text-[24px] text-[#1B1A1A] font-semibold font-WorkSans">
               <span style={{ fontSize: "16px", marginRight: "4px" }}>
@@ -501,7 +484,7 @@ const Balance = () => {
         </div>
         <hr className="border-[#898989]" />
 
-        <div
+        {/* <div
           onClick={openModal}
           className="flex items-center gap-2 cursor-pointer mt-5 mb-5"
         >
@@ -520,7 +503,7 @@ const Balance = () => {
             icon={faArrowRight}
             className="w-5 h-5 text-primary"
           />
-        </div>
+        </div> */}
         <BalanceTable
           balances={balances}
           showMore={() => {}}

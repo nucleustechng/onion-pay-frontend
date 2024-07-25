@@ -135,18 +135,6 @@ const TransactionsContent = () => {
       {/* Header */}
       <Header mainText="Transactions" />
 
-      {/* <div className="flex items-center justify-between pr-2 md:pr-0 pl-2 md:pl-0">
-
-        {!sidebarShow ? (
-          <div
-            className="flex md:hidden lg:hidden"
-            onClick={() => dispatch(setShowSidebar(true))}
-          >
-            <Image src={Hamburger} alt="Hamburger Icon" />
-          </div>
-        ) : null}
-      </div> */}
-
       {/* Table */}
       <div className="flex-1">
         <div className="flex justify-start md:justify-end pl-2 md:pl-0">
