@@ -90,7 +90,7 @@ interface DocumentDetails {
   document: File | null;
 }
 
-interface IDDetails {
+interface IDetails {
   idType: string;
   idIssueDate: any; // Unix timestamp in milliseconds
   idExpiryDate: any; // Unix timestamp in milliseconds
@@ -99,6 +99,6 @@ interface IDDetails {
 
 export interface IUpgradeWalletFormData {
   documentDetails: DocumentDetails;
-  idDetails: IDDetails;
+  idDetails: IDetails;
   address: Address;
 }
