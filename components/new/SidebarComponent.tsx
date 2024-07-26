@@ -50,7 +50,7 @@ export default function SidebarComponent({}: Props) {
     queryKey: ["settings"],
     queryFn: () => getSettings(),
   });
-
+  // console.log(settings);
   // const { data } = useQuery({
   //   queryKey: ["business"],
   //   queryFn: () => getBusinessInfo(),

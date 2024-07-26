@@ -32,6 +32,9 @@ export const formatDate = (dateString: string) => {
 };
 
 export function checkFileSize(file: File | null) {
+  // return file?.name?.split('.').pop();
+  // console.log()
+
   if (file) {
     const sizeInKB = file.size / 1024;
     return sizeInKB <= 150;

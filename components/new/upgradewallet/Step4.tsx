@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg"; // Update path if necessary
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
@@ -11,7 +11,6 @@ interface Step4Props {
   setSteps: (step: number) => void;
   closeModal: () => void;
   handleAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: () => void; // Add your form submission logic here
   address: {
     houseNumber: number;
     streetName: string;
@@ -26,7 +25,7 @@ const Step4: React.FC<Step4Props> = ({
   setSteps,
   closeModal,
   handleAddressChange,
-  handleSubmit,
+ 
   address,
 }) => {
   const validateForm = () => {
@@ -59,12 +58,12 @@ const Step4: React.FC<Step4Props> = ({
 
     if (hasError) return;
 
-    handleSubmit();
+    setSteps(4)
   };
 
   return (
     <div>
-      <ToastContainer />
+
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-6">
           <ChevronLeftIcon

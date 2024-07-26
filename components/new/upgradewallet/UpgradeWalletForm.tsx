@@ -223,7 +223,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
           setSteps={setStep}
           closeModal={handleCloseModal}
           handleAddressChange={handleAddressChange}
-          handleSubmit={handleSubmit}
+         
           address={address}
         />
       )}
@@ -232,6 +232,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
           setSteps={setStep}
           closeModal={handleCloseModal}
           progress={progress}
+          handleSubmit={handleSubmit}
         />
       )}
       {step === 5 && <Step6 setSteps={setStep} closeModal={handleCloseModal} />}
