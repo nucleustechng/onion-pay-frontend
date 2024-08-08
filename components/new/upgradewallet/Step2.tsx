@@ -86,7 +86,7 @@ const Step2: React.FC<Step2Props> = ({
         <div className="flex flex-col items-center">
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             ref={hiddenSignatureInput}
             onChange={signatureChange}
             className="hidden"
@@ -109,7 +109,7 @@ const Step2: React.FC<Step2Props> = ({
         <div className="flex flex-col items-center">
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             ref={hiddenUtilityBillInput}
             onChange={utilitybillChange}
             className="hidden"
@@ -132,7 +132,7 @@ const Step2: React.FC<Step2Props> = ({
         <div className="flex flex-col items-center">
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             ref={hiddenDocumentInput}
             onChange={documentChange}
             className="hidden"

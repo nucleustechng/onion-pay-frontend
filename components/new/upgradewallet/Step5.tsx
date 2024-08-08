@@ -1,23 +1,28 @@
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg"; // Update path if necessary
 
 import { Progress } from "antd"; // Assuming you're using Ant Design for Progress component
-import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
+import {  ChevronLeftIcon } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../../../@/components/ui/button";
+// import { Button } from "../../../@/components/ui/button";
+import { useEffect } from "react";
 
-interface Step4Props {
+interface Step5Props {
   progress: number;
+  handleSubmit: () => void; // Add your form submission logic here
   setSteps: (step: number) => void;
   closeModal: () => void;
 }
 
-const Step5: React.FC<Step4Props> = ({ progress, setSteps, closeModal }) => (
-  <div>
+export default function Step5({ progress, setSteps, closeModal,handleSubmit }:Step5Props){
+  useEffect(() => {
+    handleSubmit()
+  },[])
+  return (<div>
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-6">
         <ChevronLeftIcon
           className="cursor-pointer"
-          onClick={() => setSteps(2)}
+          onClick={() => setSteps(3)}
         />
         <h1 className="text-lg text-[#262626] font-WorkSans font-medium leading-5">
           Upgrade your wallet
@@ -45,7 +50,7 @@ const Step5: React.FC<Step4Props> = ({ progress, setSteps, closeModal }) => (
       </div>
     </div>
     <div className="mt-6">
-      <Progress percent={progress} showInfo={false} strokeColor="#FF9635" />
+      <Progress percent={progress} showInfo={false} strokeColor="#3063E9" />
       <div className="flex justify-between mt-4">
         <h1 className="text-xs text-[#898989] font-WorkSans">
           Upload all files
@@ -55,13 +60,13 @@ const Step5: React.FC<Step4Props> = ({ progress, setSteps, closeModal }) => (
         </h1>
       </div>
     </div>
-    <div className="flex justify-end mt-6">
-      <Button onClick={() => setSteps(5)} className="w-[94px] text-white">
+    {/* <div className="flex justify-end mt-6">
+      <Button onClick={() => handleSubmit()} className="w-[94px] text-white">
         Next
         <ArrowRightIcon className="w-5 h-5 ml-2" />
       </Button>
-    </div>
-  </div>
-);
+    </div> */}
+  </div>)
+}
 
-export default Step5;
+

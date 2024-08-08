@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg"; // Update path if necessary
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
@@ -56,7 +56,7 @@ export default function Step3({
       toast.error("Please enter the issue date.");
       hasError = true;
     }
-    if (!expiryDate) {
+    if (idType !== "nic" && !expiryDate) {
       toast.error("Please enter the expiry date.");
       hasError = true;
     }
@@ -68,7 +68,7 @@ export default function Step3({
 
   return (
     <div>
-      <ToastContainer />
+
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-6">
           <ChevronLeftIcon
@@ -146,19 +146,21 @@ export default function Step3({
               className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
             />
           </div>
-          <div className="flex flex-col gap-2 mt-6">
-            <Label className="text-[#262626] text-sm font-WorkSans font-normal leading-4">
-              Expiry date
-            </Label>
-            <Input
-              type="date"
-              id="idExpiryDate"
-              placeholder=""
-              name="idExpiryDate"
-              onChange={(e: any) => setExpiryDate(e.target.value)}
-              className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
-            />
-          </div>
+          {idType !== "nic" && (
+            <div className="flex flex-col gap-2 mt-6">
+              <Label className="text-[#262626] text-sm font-WorkSans font-normal leading-4">
+                Expiry date
+              </Label>
+              <Input
+                type="date"
+                id="idExpiryDate"
+                placeholder=""
+                name="idExpiryDate"
+                onChange={(e: any) => setExpiryDate(e.target.value)}
+                className="w-full h-[3.13rem] border-solid border-[#CACACA] border-[0.063rem] rounded-[0.32rem] px-4 "
+              />
+            </div>
+          )}
           <div className="flex justify-end">
             <Button
               onClick={handleNextClick}
