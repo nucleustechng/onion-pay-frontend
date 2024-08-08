@@ -39,7 +39,7 @@ export const walletApi = createApi({
           state,
           nearestLandmark,
         } = payload;
-        console.log("formData: " + JSON.stringify(payload));
+        // console.log("formData: " + JSON.stringify(payload));
 
         const formDataObject = new FormData();
         formDataObject.append("selfie", selfie);
