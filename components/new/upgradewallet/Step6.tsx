@@ -46,13 +46,13 @@ const Step6: React.FC<Step6Props> = ({ setSteps, closeModal }) => (
       <h1 className="text-base text-[#1B1A1A] font-WorkSans font-medium leading-5">
         All done! Your documents have been uploaded.
       </h1>
-      <Image
+      {/* <Image
         src="/confirmation-icon.svg" // Adjust the path to your Confirmation Icon
         width={100}
         height={100}
         alt="Confirmation Icon"
         className="mt-6"
-      />
+      /> */}
       <Button onClick={closeModal} className="w-full text-white mt-6">
         Close
       </Button>

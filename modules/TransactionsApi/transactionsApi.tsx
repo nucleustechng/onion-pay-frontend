@@ -19,7 +19,7 @@ export const transationsApi = createApi({
   }),
   endpoints: (builder) => ({
     loadTransactions: builder.query<any, void>({
-      query: () => "api/v1/transaction-records",
+      query: () => "/api/v1/transaction-records",
     }),
     loadMoreTransactions: builder.query<string, any>({
       query: (r_id: string) => `/api/v1/more-transaction-records/${r_id}`,

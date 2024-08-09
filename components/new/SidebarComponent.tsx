@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // import Logo from "../../Assets/logo/OnionPayLogo.svg";
 import {
   Tooltip,
@@ -19,19 +19,25 @@ import LogOutIcon from "../../Assets/icon/LogOut.svg";
 import { ArrowUpIcon } from "lucide-react";
 import SettingsItem from "../SidebarItems/SettingsItem";
 import LogoutConfirmation from "../LogoutConfirmation";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 // import { querykeys } from "../../lib/constants";
 // import { useBusiness } from "../../modules/services/useBusiness";
 import { useSetting } from "../../modules/services/useSetting";
 import { Transition, Dialog } from "@headlessui/react";
 import UpgradeWalletForm from "./upgradewallet/UpgradeWalletForm";
+import CustomToggle from "../CustomToggle";
+import { toast } from "react-toastify";
 
 type Props = {};
 
 export default function SidebarComponent({}: Props) {
   // const { getBusinessInfo } = useBusiness();
-  const { getSettings } = useSetting();
+  const { getSettings,getDevSettings,switchEnvironment } = useSetting();
   let [isOpen, setIsOpen] = useState(false);
+  // const [isSwitchOn, setIsSwitchOn] = useState<boolean>(initialMode);
+  const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
+
+
 
   function closeModal() {
     setIsOpen(false);
@@ -40,6 +46,10 @@ export default function SidebarComponent({}: Props) {
   function openModal() {
     setIsOpen(true);
   }
+  function switch_onChange_handle(){
+    setIsSwitchOn((prevState) => !prevState);
+    mutate()
+  };
 
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const logoutUser = () => {
@@ -50,6 +60,31 @@ export default function SidebarComponent({}: Props) {
     queryKey: ["settings"],
     queryFn: () => getSettings(),
   });
+
+
+  const { data: devSettings } = useQuery({
+    queryKey: ["dev-settings"],
+    queryFn: () => getDevSettings(),
+  });
+
+  const {mutate} = useMutation({
+    mutationFn: switchEnvironment,
+    onSuccess: ({success,live}) => {
+        if (success === true) {
+          toast.success(live ? "Switched to live mode" : "Switched to test mode");
+          setIsSwitchOn(live);
+        } else {
+          toast.error("Failed to switch mode" );
+        }
+      },
+      onError: (error) => {
+        console.error("Error switching environment", error);
+      },
+  })
+
+useEffect(() => {
+  setIsSwitchOn(devSettings?.business?.live_mode)
+},[devSettings])
 
   // const { data } = useQuery({
   //   queryKey: ["business"],
@@ -97,17 +132,16 @@ export default function SidebarComponent({}: Props) {
         <div
           className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}
         >
-          <div className="flex justify-between items-center mx-6">
-            <h1 className="text-base text-[#1B1A1A] font-WorkSans font-normal leading-5">
-              {/* {isSwitchOn ? "Live Mode" : "Test Mode"} */}
-              Test Mode
-            </h1>
-            {/* <CustomToggle
+           <div className="flex justify-between items-center mx-6">
+              <h1 className="text-base text-[#1B1A1A] font-WorkSans font-normal leading-5">
+                {isSwitchOn ? "Live Mode" : "Test Mode"}
+              </h1>
+              <CustomToggle
                 value={isSwitchOn}
                 onChange={switch_onChange_handle}
-              /> */}
-          </div>
-          <hr className="border-solid border-[0.068rem] border-[#F5F0F3]" />
+              />
+            </div>
+            <hr className="border-solid border-[0.068rem] border-[#F5F0F3]" />
 
           <div
             onClick={openModal}

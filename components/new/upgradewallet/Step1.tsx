@@ -58,7 +58,7 @@ const Step1: React.FC<Step1Props> = ({
           <div className="relative">
             <input
               type="file"
-              accept="image/*"
+              accept="image/png, image/jpeg"
               ref={hiddenSelfieInput}
               onChange={(e) => {
                 selfieChange(e);
