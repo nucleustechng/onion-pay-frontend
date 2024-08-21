@@ -122,8 +122,8 @@ export default function SidebarComponent({}: Props) {
         <TransfersItem />
         <BalanceItem />
         <PaymentItem />
-        {!settings?.business?.hasWallet ? <BusinessItem /> : null}
-        {!settings?.business?.hasWallet ? <CorporateItem /> : null}
+        {/* {!settings?.business?.hasWallet ? <BusinessItem /> : null}
+        {!settings?.business?.hasWallet ? <CorporateItem /> : null} */}
       </div>
       <div>
         <div
