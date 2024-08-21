@@ -1,5 +1,5 @@
 import React from "react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CloseIcon from "../../../Assets/icon/CloseIcon.svg"; // Update path if necessary
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
@@ -25,7 +25,7 @@ const Step4: React.FC<Step4Props> = ({
   setSteps,
   closeModal,
   handleAddressChange,
- 
+
   address,
 }) => {
   const validateForm = () => {
@@ -58,12 +58,11 @@ const Step4: React.FC<Step4Props> = ({
 
     if (hasError) return;
 
-    setSteps(4)
+    setSteps(4);
   };
 
   return (
     <div>
-
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-6">
           <ChevronLeftIcon

@@ -17,10 +17,13 @@ import { Input } from "../../../@/components/ui/input";
 import React, { useState } from "react";
 import DragAndDropFileInput from "../DragAndDropFileInput";
 import { toast } from "react-toastify";
-import { checkFileSize } from "../../../@/lib/utils";
+import { checkFileSize, useWindowSize } from "../../../@/lib/utils";
 import { useCorporate } from "../../../modules/services/corporateService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/router";
+import { routes } from "../../../lib/constants";
+import Confetti from "react-confetti"; 
 
 const formSchema = z.object({
   firstName: z
@@ -106,9 +109,11 @@ type Props = {
   business: any;
 };
 
-export function SignatoryForm({ nextStep, business }: Props) {
+export function SignatoryForm({ business }: Props) {
   console.log(business);
   const queryClient = useQueryClient();
+  const [selectedNationality, setSelectedNationality] = useState<string>("");
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -141,11 +146,17 @@ export function SignatoryForm({ nextStep, business }: Props) {
   });
 
   const { addSignatories } = useCorporate();
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     onSuccess: ({ success, reason }) => {
       if (success) {
+        setShowConfetti(true); // Trigger confetti on success
         queryClient.invalidateQueries({ queryKey: ["business"] });
-        nextStep(4);
+        toast.success("Your request has been made, check your email");
+        setTimeout(() => {
+          setShowConfetti(false); // Stop confetti after some time
+          router.push(routes.transactions);
+        }, 3000); // Adjust time as needed
       } else {
         toast.error(reason);
       }
@@ -190,8 +201,13 @@ export function SignatoryForm({ nextStep, business }: Props) {
     console.log({ ...values, ...files });
   };
 
+  const { width, height } = useWindowSize();
+
   return (
     <div className="bg-[#F5F5F5] px-4 py-4 rounded-[10px]">
+         {showConfetti && (
+        <Confetti width={width} height={height} /> // Display confetti
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {formFields.map((field) => (
@@ -209,6 +225,12 @@ export function SignatoryForm({ nextStep, business }: Props) {
                       <select
                         {...formField}
                         className="block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        onChange={(e) => {
+                          formField.onChange(e);
+                          if (field.name === "nationality") {
+                            setSelectedNationality(e.target.value);
+                          }
+                        }}
                       >
                         <option value="" disabled>
                           Select {field.label}
@@ -232,6 +254,27 @@ export function SignatoryForm({ nextStep, business }: Props) {
               )}
             />
           ))}
+          {selectedNationality === "Non-Nigerian" && (
+            <FormField
+              control={form.control}
+              name="otherNationalityType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-primary-black">
+                    Other Nationality Type{" "}
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter Other Nationality Type"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {Object.keys(files).map((key) => (
               <FormItem key={key}>
