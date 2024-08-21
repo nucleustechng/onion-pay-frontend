@@ -109,6 +109,7 @@ type Props = {
 export function DirectoryForm({ nextStep, business }: Props) {
   console.log(business);
   const queryClient = useQueryClient();
+  const [selectedNationality, setSelectedNationality] = useState<string>("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -209,6 +210,12 @@ export function DirectoryForm({ nextStep, business }: Props) {
                       <select
                         {...formField}
                         className="block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                        onChange={(e) => {
+                          formField.onChange(e);
+                          if (field.name === "nationality") {
+                            setSelectedNationality(e.target.value);
+                          }
+                        }}
                       >
                         <option value="" disabled>
                           Select {field.label}
@@ -232,6 +239,28 @@ export function DirectoryForm({ nextStep, business }: Props) {
               )}
             />
           ))}
+
+          {selectedNationality === "Non-Nigerian" && (
+            <FormField
+              control={form.control}
+              name="otherNationalityType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-primary-black">
+                    Other Nationality Type{" "}
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter Other Nationality Type"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {Object.keys(files).map((key) => (
               <FormItem key={key}>

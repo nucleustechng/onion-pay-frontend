@@ -68,7 +68,6 @@ export default function Step3({
 
   return (
     <div>
-
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-6">
           <ChevronLeftIcon

@@ -32,12 +32,10 @@ type Props = {};
 
 export default function SidebarComponent({}: Props) {
   // const { getBusinessInfo } = useBusiness();
-  const { getSettings,getDevSettings,switchEnvironment } = useSetting();
+  const { getSettings, getDevSettings, switchEnvironment } = useSetting();
   let [isOpen, setIsOpen] = useState(false);
   // const [isSwitchOn, setIsSwitchOn] = useState<boolean>(initialMode);
   const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
-
-
 
   function closeModal() {
     setIsOpen(false);
@@ -46,10 +44,10 @@ export default function SidebarComponent({}: Props) {
   function openModal() {
     setIsOpen(true);
   }
-  function switch_onChange_handle(){
+  function switch_onChange_handle() {
     setIsSwitchOn((prevState) => !prevState);
-    mutate()
-  };
+    mutate();
+  }
 
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const logoutUser = () => {
@@ -61,30 +59,29 @@ export default function SidebarComponent({}: Props) {
     queryFn: () => getSettings(),
   });
 
-
   const { data: devSettings } = useQuery({
     queryKey: ["dev-settings"],
     queryFn: () => getDevSettings(),
   });
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationFn: switchEnvironment,
-    onSuccess: ({success,live}) => {
-        if (success === true) {
-          toast.success(live ? "Switched to live mode" : "Switched to test mode");
-          setIsSwitchOn(live);
-        } else {
-          toast.error("Failed to switch mode" );
-        }
-      },
-      onError: (error) => {
-        console.error("Error switching environment", error);
-      },
-  })
+    onSuccess: ({ success, live }) => {
+      if (success === true) {
+        toast.success(live ? "Switched to live mode" : "Switched to test mode");
+        setIsSwitchOn(live);
+      } else {
+        toast.error("Failed to switch mode");
+      }
+    },
+    onError: (error) => {
+      console.error("Error switching environment", error);
+    },
+  });
 
-useEffect(() => {
-  setIsSwitchOn(devSettings?.business?.live_mode)
-},[devSettings])
+  useEffect(() => {
+    setIsSwitchOn(devSettings?.business?.live_mode);
+  }, [devSettings]);
 
   // const { data } = useQuery({
   //   queryKey: ["business"],
@@ -125,23 +122,23 @@ useEffect(() => {
         <TransfersItem />
         <BalanceItem />
         <PaymentItem />
-        {!settings?.business?.hasWallet ? <BusinessItem /> : null}
-        {!settings?.business?.hasWallet ? <CorporateItem /> : null}
+        {/* {!settings?.business?.hasWallet ? <BusinessItem /> : null}
+        {!settings?.business?.hasWallet ? <CorporateItem /> : null} */}
       </div>
       <div>
         <div
           className={`flex flex-col lg:flex-col gap-[1.63rem] lg:h-32  mt-8 }`}
         >
-           <div className="flex justify-between items-center mx-6">
-              <h1 className="text-base text-[#1B1A1A] font-WorkSans font-normal leading-5">
-                {isSwitchOn ? "Live Mode" : "Test Mode"}
-              </h1>
-              <CustomToggle
-                value={isSwitchOn}
-                onChange={switch_onChange_handle}
-              />
-            </div>
-            <hr className="border-solid border-[0.068rem] border-[#F5F0F3]" />
+          <div className="flex justify-between items-center mx-6">
+            <h1 className="text-base text-[#1B1A1A] font-WorkSans font-normal leading-5">
+              {isSwitchOn ? "Live Mode" : "Test Mode"}
+            </h1>
+            <CustomToggle
+              value={isSwitchOn}
+              onChange={switch_onChange_handle}
+            />
+          </div>
+          <hr className="border-solid border-[0.068rem] border-[#F5F0F3]" />
 
           <div
             onClick={openModal}

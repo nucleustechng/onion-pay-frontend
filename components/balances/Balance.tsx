@@ -70,11 +70,6 @@ const Balance = () => {
     }
   };
 
-
-
- 
-
- 
   const { data: walletData } = useLoadWalletQuery();
 
   const walletBalance = walletData
@@ -83,7 +78,6 @@ const Balance = () => {
   const walletNumber = walletData ? walletData["wallet"]?.walletNumber : "--";
   const walletName = walletData ? walletData["wallet"]?.walletName : "---";
 
- 
   const { data: balances, isLoading: isBalanceLoading } = useQuery({
     queryKey: ["balances"],
     queryFn: getBalances,
@@ -210,7 +204,7 @@ const Balance = () => {
           />
         </div>
       </div>
-         </div>
+    </div>
   );
 };
 

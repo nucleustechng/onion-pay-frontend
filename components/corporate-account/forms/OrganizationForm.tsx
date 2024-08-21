@@ -64,6 +64,9 @@ const formSchema = z.object({
   businessCommencementDate: z.string().min(2, {
     message: "Business Commencement Date must be at least 2 characters.",
   }),
+  companyRegDate: z.string().min(2, {
+    message: "Company Reg Date must be at least 2 characters.",
+  }),
 });
 
 const formFields = [
@@ -104,6 +107,7 @@ const formFields = [
     options: ["manufacturing", "Nature2", "Nature3"],
   },
   { name: "dateIncorporated", label: "Date Incorporated", type: "date" },
+  { name: "companyRegDate", label: "Company Reg Date", type: "date" },
   {
     name: "businessCommencementDate",
     label: "Business Commencement Date",
