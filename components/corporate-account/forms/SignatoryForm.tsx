@@ -23,7 +23,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/router";
 import { routes } from "../../../lib/constants";
-import Confetti from "react-confetti"; 
+import Confetti from "react-confetti";
 
 const formSchema = z.object({
   firstName: z
@@ -205,7 +205,7 @@ export function SignatoryForm({ business }: Props) {
 
   return (
     <div className="bg-[#F5F5F5] px-4 py-4 rounded-[10px]">
-         {showConfetti && (
+      {showConfetti && (
         <Confetti width={width} height={height} /> // Display confetti
       )}
       <Form {...form}>
