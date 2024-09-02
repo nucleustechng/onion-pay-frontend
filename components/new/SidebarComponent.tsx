@@ -11,8 +11,8 @@ import { Button } from "../../@/components/ui/button";
 import TransactionItem from "../SidebarItems/TransactionItem";
 import TransfersItem from "../SidebarItems/TransfersItem";
 import BalanceItem from "../SidebarItems/BalanceItem";
-import BusinessItem from "../SidebarItems/BusinessItem";
-import CorporateItem from "../SidebarItems/CorporateItem";
+// import BusinessItem from "../SidebarItems/BusinessItem";
+// import CorporateItem from "../SidebarItems/CorporateItem";
 import PaymentItem from "../SidebarItems/PaymentItem";
 import LogOutIcon from "../../Assets/icon/LogOut.svg";
 // import CustomToggle from "../CustomToggle";
@@ -32,7 +32,7 @@ type Props = {};
 
 export default function SidebarComponent({}: Props) {
   // const { getBusinessInfo } = useBusiness();
-  const { getSettings, getDevSettings, switchEnvironment } = useSetting();
+  const { getDevSettings, switchEnvironment } = useSetting();
   let [isOpen, setIsOpen] = useState(false);
   // const [isSwitchOn, setIsSwitchOn] = useState<boolean>(initialMode);
   const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
@@ -54,10 +54,10 @@ export default function SidebarComponent({}: Props) {
     setShowLogoutModal(true);
   };
 
-  const { data: settings } = useQuery({
-    queryKey: ["settings"],
-    queryFn: () => getSettings(),
-  });
+  // const { data: settings } = useQuery({
+  //   queryKey: ["settings"],
+  //   queryFn: () => getSettings(),
+  // });
 
   const { data: devSettings } = useQuery({
     queryKey: ["dev-settings"],
@@ -122,8 +122,8 @@ export default function SidebarComponent({}: Props) {
         <TransfersItem />
         <BalanceItem />
         <PaymentItem />
-        {!settings?.business?.hasWallet ? <BusinessItem /> : null}
-        {!settings?.business?.hasWallet ? <CorporateItem /> : null}
+        {/* {!settings?.business?.hasWallet ? <BusinessItem /> : null}
+        {!settings?.business?.hasWallet ? <CorporateItem /> : null} */}
       </div>
       <div>
         <div

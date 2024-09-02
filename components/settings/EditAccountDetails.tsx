@@ -8,6 +8,7 @@ import Loader from "../Loader";
 import { setBusinessUpdated } from "../../redux/Modal-Processes/createBusinessSlice";
 import { useAppDispatch } from "../../redux/redux-hooks/hooks";
 import { useUpdateAccountDetailsMutation } from "../../modules/LoadSettings/settingsApi";
+import { useRouter } from "next/router";
 
 interface Props {
   isVisible: boolean;
@@ -43,6 +44,7 @@ const EditAccountDetails = ({
   r_dob,
 }: Props) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const [merchantInfo, setMerchantInfo] = useState<MerchantForm>({
@@ -94,9 +96,15 @@ const EditAccountDetails = ({
       address: r_address,
       dob: r_dob,
     });
+
     if (isSuccess) {
       dispatch(setBusinessUpdated(true));
       onClose();
+
+      // Redirect to "auth/verifyemail" if the email has changed
+      if (r_email !== merchantInfo.email) {
+        router.push("/auth/verifyemail");
+      }
     } else {
       dispatch(setBusinessUpdated(false));
     }
@@ -110,6 +118,8 @@ const EditAccountDetails = ({
     r_email,
     r_dob,
     r_phone,
+    merchantInfo.email,
+    router, // Don't forget to include router as a dependency
   ]);
 
   useEffect(() => {

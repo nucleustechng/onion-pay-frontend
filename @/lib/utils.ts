@@ -43,7 +43,6 @@ export function checkFileSize(file: File | null) {
   }
 }
 
-
 import { useState, useEffect } from "react";
 
 export function useWindowSize() {
@@ -75,5 +74,3 @@ export function useWindowSize() {
 
   return windowSize;
 }
-
-
