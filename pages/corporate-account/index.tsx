@@ -10,7 +10,6 @@ import CertificateForm from "../../components/corporate-account/forms/Certificat
 import Header from "../../components/new/Header";
 // import { useCorporate } from "../../modules/services/corporateService";
 
-
 export default function CorporateAccount() {
   const { getBusinessInfo } = useBusiness();
   // const { loadCountries } = useCorporate();
@@ -39,11 +38,9 @@ export default function CorporateAccount() {
     }
   }, [businessData]);
 
-
   return (
     // <div className="flex-1 h-screen overflow-y-auto">
     <div className="flex flex-col w-full h-screen overflow-y-auto px-2 lg:px-6">
-
       <Header mainText="Corporate account" />
       <div className="h-auto  mb-[20px] lg:mb-[50px]">
         <div className="">
