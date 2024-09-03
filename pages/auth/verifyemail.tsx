@@ -25,7 +25,6 @@ import { useRouter } from "next/router";
 const Verifyemail = () => {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const [useremail, setUserEmail] = useState<string>("");
-
   const router = useRouter();
   const [otp, setOtp] = useState<string>("");
 
@@ -88,6 +87,12 @@ const Verifyemail = () => {
   };
 
   useEffect(() => {
+  const email = localStorage.getItem("email") as string;
+
+    setUserEmail(email)
+  },[])
+
+  useEffect(() => {
     try {
       if (isSuccess && verifyEmailData?.success == true) {
         toast.success("Email has been verified");
@@ -114,6 +119,7 @@ const Verifyemail = () => {
       setUserEmail(loadEmailData?.email);
     }
   }, [loadEmailSuccess]);
+
 
   return (
     <div>

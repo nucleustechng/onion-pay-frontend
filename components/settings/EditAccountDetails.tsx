@@ -87,24 +87,29 @@ const EditAccountDetails = ({
   };
 
   useEffect(() => {
-    // setMerchantInfo({
-    //   f_name: r_f_name,
-    //   l_name: r_l_name,
-    //   o_name: r_o_name,
-    //   email: r_email,
-    //   phone: r_phone,
-    //   address: r_address,
-    //   dob: r_dob,
-    // });
+    setMerchantInfo({
+      f_name: r_f_name,
+      l_name: r_l_name,
+      o_name: r_o_name,
+      email: r_email,
+      phone: r_phone,
+      address: r_address,
+      dob: r_dob,
+    });
+  }, [r_f_name, r_l_name, r_o_name, r_address, r_email, r_dob, r_phone]);
 
+  useEffect(() => {
     if (isSuccess) {
       dispatch(setBusinessUpdated(true));
       onClose();
+      localStorage.setItem("email", merchantInfo?.email);
 
       // Redirect to "auth/verifyemail" if the email has changed
-      if (r_email !== merchantInfo.email) {
-        router.push("/auth/verifyemail");
-      }
+      setTimeout(() => {
+        if (r_email !== merchantInfo.email) {
+          router.push("/auth/verifyemail");
+        }
+      }, 5000);
     } else {
       dispatch(setBusinessUpdated(false));
     }
