@@ -87,15 +87,15 @@ const EditAccountDetails = ({
   };
 
   useEffect(() => {
-    setMerchantInfo({
-      f_name: r_f_name,
-      l_name: r_l_name,
-      o_name: r_o_name,
-      email: r_email,
-      phone: r_phone,
-      address: r_address,
-      dob: r_dob,
-    });
+    // setMerchantInfo({
+    //   f_name: r_f_name,
+    //   l_name: r_l_name,
+    //   o_name: r_o_name,
+    //   email: r_email,
+    //   phone: r_phone,
+    //   address: r_address,
+    //   dob: r_dob,
+    // });
 
     if (isSuccess) {
       dispatch(setBusinessUpdated(true));
