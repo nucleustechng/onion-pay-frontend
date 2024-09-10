@@ -66,12 +66,12 @@ export default function SidebarComponent({}: Props) {
 
   const { mutate } = useMutation({
     mutationFn: switchEnvironment,
-    onSuccess: ({ success, live }) => {
+    onSuccess: ({ success, live,msg }) => {
       if (success === true) {
         toast.success(live ? "Switched to live mode" : "Switched to test mode");
         setIsSwitchOn(live);
       } else {
-        toast.error("Failed to switch mode");
+        toast.error(msg);
       }
     },
     onError: (error) => {

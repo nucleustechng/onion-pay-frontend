@@ -146,7 +146,7 @@ const Navbar = () => {
                   ${
                     toggleNav
                       ? "right-20"
-                      : "left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[80rem] lg:left-[85rem] xl:left-[95rem] min-[280px]:left-[25rem] min-[412px]:left-[30rem]"
+                      : "left-[30.65rem] min-[492px]:left-[45rem] sm:left-[50rem] md:left-[80rem] lg:left-[85rem] xl:left-full min-[280px]:left-[25rem] min-[412px]:left-[30rem]"
                   }
                 `}
           >
