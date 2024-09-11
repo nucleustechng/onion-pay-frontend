@@ -27,12 +27,13 @@ import { Transition, Dialog } from "@headlessui/react";
 import UpgradeWalletForm from "./upgradewallet/UpgradeWalletForm";
 import CustomToggle from "../CustomToggle";
 import { toast } from "react-toastify";
+import BusinessItem from "../SidebarItems/BusinessItem";
 
 type Props = {};
 
 export default function SidebarComponent({}: Props) {
   // const { getBusinessInfo } = useBusiness();
-  const { getDevSettings, switchEnvironment } = useSetting();
+  const { getDevSettings, switchEnvironment,getSettings } = useSetting();
   let [isOpen, setIsOpen] = useState(false);
   // const [isSwitchOn, setIsSwitchOn] = useState<boolean>(initialMode);
   const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
@@ -54,10 +55,10 @@ export default function SidebarComponent({}: Props) {
     setShowLogoutModal(true);
   };
 
-  // const { data: settings } = useQuery({
-  //   queryKey: ["settings"],
-  //   queryFn: () => getSettings(),
-  // });
+  const { data: settings } = useQuery({
+    queryKey: ["settings"],
+    queryFn: () => getSettings(),
+  });
 
   const { data: devSettings } = useQuery({
     queryKey: ["dev-settings"],
@@ -122,8 +123,8 @@ export default function SidebarComponent({}: Props) {
         <TransfersItem />
         <BalanceItem />
         <PaymentItem />
-        {/* {!settings?.business?.hasWallet ? <BusinessItem /> : null}
-        {!settings?.business?.hasWallet ? <CorporateItem /> : null} */}
+        {!settings?.business?.hasWallet ? <BusinessItem /> : null}
+        {/* {!settings?.business?.hasWallet ? <CorporateItem /> : null} */}
       </div>
       <div>
         <div
