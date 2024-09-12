@@ -86,7 +86,26 @@ const MerchantSettings = () => {
     });
   }
 
+  function formatDateString(dateString:any) {
+    const date = new Date(dateString);
+  
+    if (isNaN(date.getTime())) {
+      return 'Invalid date string';
+    }
+  
+    // Extract the year, month, and day
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    // Return the formatted date in yyyy-MM-dd format
+    return `${year}-${month}-${day}`;
+  }
+
   const formattedDate = formatDate(merchantData?.dob);
+  const formattedDob = formatDateString(merchantData?.dob)
+  console.log(formattedDate);
+  // const formattedDate = new Date(merchantData?.dob)
 
   // useEffect(() => {
   //     if (isSuccess && generateKeyData.success == true){
@@ -264,7 +283,7 @@ const MerchantSettings = () => {
             r_l_name={merchantData?.l_name}
             r_address={merchantData?.address}
             r_email={merchantData?.email}
-            r_dob={merchantData?.dob}
+            r_dob={formattedDob}
             r_o_name={merchantData?.o_name}
             r_phone={merchantData?.phone}
           />
