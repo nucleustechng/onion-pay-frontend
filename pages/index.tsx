@@ -34,7 +34,7 @@ export default function Home() {
           className="relative z-20  bg-[#F5F5F5] w-full md:w-[72rem] lg:w-full
         lg:h-[53.75rem] pt-[1.875rem] 
         "
-        >
+        >     
           <div
             className="relative  h-[17.5rem] mt-[6rem]  ml-5 
             lg:ml-[6.75rem] xl:ml-[9.375rem] xl:mt-[12.65rem] xl:h-[9.875rem]
@@ -84,7 +84,7 @@ export default function Home() {
               <Image src={MoneyLight} loading="lazy" alt="Money Image" />
             </div>
           </div>
-          {/* Hero section text */}
+     
           <div
             className="flex flex-col w-[21.875rem] gap-[1.875rem] px-5 mt-6
             min-[492px]:w-[30rem] lg:px-[6.75rem] md:mt-1 md:w-[37.2rem] xl:px-[9.375rem] xl:w-[37.2rem]

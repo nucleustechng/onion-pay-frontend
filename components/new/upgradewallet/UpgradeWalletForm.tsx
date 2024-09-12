@@ -117,7 +117,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
   const handleCloseModal = () => {
     closeModal();
   };
-
+  
   const { mutate } = useMutation({
     mutationFn: upgradeWallet,
     onMutate: () => {
@@ -126,6 +126,8 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
         setProgress((prevProgress) => {
           if (prevProgress < 90) {
             return prevProgress + 10;
+          } else if (prevProgress >= 90 && prevProgress < 99) {
+            return prevProgress + 1; // Slowly increase progress beyond 90
           } else {
             clearInterval(interval);
             return prevProgress;
@@ -148,6 +150,7 @@ const UpgradeWalletForm: React.FC<Props> = ({ closeModal }) => {
       toast.error("There was an error processing your request.");
     },
   });
+  
 
   function handleSubmit() {
     mutate({
