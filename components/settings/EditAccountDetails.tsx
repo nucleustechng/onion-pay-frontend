@@ -65,22 +65,10 @@ const EditAccountDetails = ({
       ...merchantInfo,
       o_name: "--",
     });
-    console.log(merchantInfo.dob);
     try {
-      if (
-        merchantInfo.email &&
-        merchantInfo.address &&
-        merchantInfo.phone &&
-        merchantInfo.f_name &&
-        merchantInfo.l_name &&
-        merchantInfo.o_name &&
-        merchantInfo.dob
-      ) {
+ 
         await updateAccountDetails(merchantInfo);
-      } else {
-        console.log(merchantInfo);
-        toast.error("All fields are required");
-      }
+  
     } catch (err) {
       console.log(err);
     }
@@ -239,6 +227,7 @@ const EditAccountDetails = ({
                 <input
                   name="dob"
                   type="date"
+                  value={merchantInfo?.dob}
                   onChange={(e) => {
                     const inputDate = e.target.value; // Assuming e.target.value is in "YYYY-MM-DD" format
                     const timestamp = new Date(inputDate).getTime();
