@@ -7,7 +7,7 @@ export function useSetting() {
       let token = Cookies.get("token");
 
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_URL}/api/v1/settings`,
+        `${process.env.NEXT_PUBLIC_URL}api/v1/settings`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
