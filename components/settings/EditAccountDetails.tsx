@@ -29,7 +29,7 @@ type MerchantForm = {
   email: string;
   phone: string;
   address: string;
-  dob: string;
+  dob: any;
 };
 
 const EditAccountDetails = ({
@@ -66,8 +66,11 @@ const EditAccountDetails = ({
       o_name: "--",
     });
     try {
- 
-        await updateAccountDetails(merchantInfo);
+      const updatedMerchantInfo = {
+        ...merchantInfo,
+        dob: merchantInfo.dob ? new Date(merchantInfo.dob).getTime() : null, // Convert to timestamp
+      };
+        await updateAccountDetails(updatedMerchantInfo);
   
     } catch (err) {
       console.log(err);

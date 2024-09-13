@@ -47,7 +47,7 @@ export const settingsApi = createApi({
         email: string;
         phone: string;
         address: string;
-        dob: string;
+        dob: any;
       }) => {
         return {
           url: "/api/v1/update-account-details",
