@@ -48,7 +48,6 @@ const MerchantSettings = () => {
   const {data:settingsData,refetch} = useQuery({
     queryFn:getSettings,
     queryKey:[querykeys.settings],
-    refetchInterval: 1000, // Fetch every 60 second
   })
   const { data: bankDetailsData, isSuccess: bankDetailSuccess } =
     useLoadBankDetailsQuery();
