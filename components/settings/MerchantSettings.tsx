@@ -7,22 +7,25 @@ import { RootState } from "../../redux/store";
 import { setShowSidebar } from "../../redux/sidebarSlice";
 import Hamburger from "../../Assets/icon/HamburgerIcon.svg";
 import "react-toastify/dist/ReactToastify.css";
-import { useLoadSettingsQuery } from "../../modules/LoadSettings/settingsApi";
+// import { useLoadSettingsQuery } from "../../modules/LoadSettings/settingsApi";
 import { useAppDispatch, useAppSelector } from "../../redux/redux-hooks/hooks";
 import EditAccountDetails from "./EditAccountDetails";
-import { toast, ToastContainer } from "react-toastify";
+import {  ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditBankAccountDetails from "./EditBankAccountDetails";
 import {
   useLoadBankDetailsQuery,
   useLoadBanksQuery,
 } from "../../modules/BankAccountApi/bankaccountApi";
+import { useQuery } from "@tanstack/react-query";
+import { useSetting } from "../../modules/services/useSetting";
+import { querykeys } from "../../lib/constants";
 
 const MerchantSettings = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showBankModal, setShowBankModal] = useState<boolean>(false);
   const [banksArray, setBanksArray] = useState<any>();
-
+  const {getSettings} = useSetting()
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector(
     (state: RootState) => state.sidebar.sidebarShow,
@@ -34,14 +37,19 @@ const MerchantSettings = () => {
   const [bankDetails, setBankDetails] = useState<any>();
 
   // const  [apiKey,setApiKey]  = useState<string>('')
-  const [merchantData, setMerchantData] = useState<any>();
+  // const [merchantData, setMerchantData] = useState<any>();
 
   const { data: banksData, isSuccess } = useLoadBanksQuery();
-  const {
-    data: settingsData,
-    isSuccess: settingSuccess,
-    refetch,
-  } = useLoadSettingsQuery();
+  // const {
+  //   data: settingsData,
+  //   isSuccess: settingSuccess,
+  //   refetch,
+  // } = useLoadSettingsQuery();
+  const {data:settingsData,refetch} = useQuery({
+    queryFn:getSettings,
+    queryKey:[querykeys.settings],
+    refetchInterval: 1000, // Fetch every 60 second
+  })
   const { data: bankDetailsData, isSuccess: bankDetailSuccess } =
     useLoadBankDetailsQuery();
   // const [hasBusiness,setHasBusiness] = useState<boolean>(false);
@@ -53,14 +61,14 @@ const MerchantSettings = () => {
     }
   }, [isSuccess]);
 
-  useEffect(() => {
-    // businessUpdated ? setRefetch(true) :   setRefetch(false)
-    if (settingSuccess && settingsData.success == true) {
-      setMerchantData(settingsData["merchant"]);
-    } else {
-      toast.error(settingsData?.reason);
-    }
-  }, [settingSuccess, businessUpdated, settingsData]);
+  // useEffect(() => {
+  //   // businessUpdated ? setRefetch(true) :   setRefetch(false)
+  //   if (settingSuccess && settingsData.success == true) {
+  //     setMerchantData(settingsData["merchant"]);
+  //   } else {
+  //     toast.error(settingsData?.reason);
+  //   }
+  // }, [settingSuccess, businessUpdated, settingsData]);
   useEffect(() => {
     if (businessUpdated) {
       refetch();
@@ -101,9 +109,11 @@ const MerchantSettings = () => {
     // Return the formatted date in yyyy-MM-dd format
     return `${year}-${month}-${day}`;
   }
+  const merchant = settingsData?.merchant;
 
-  const formattedDate = formatDate(merchantData?.dob);
-  const formattedDob = formatDateString(merchantData?.dob)
+
+  const formattedDate = formatDate(merchant?.dob);
+  const formattedDob = formatDateString(merchant?.dob)
   // const formattedDate = new Date(merchantData?.dob)
 
   // useEffect(() => {
@@ -143,7 +153,7 @@ const MerchantSettings = () => {
             <div className="flex items-center gap-4">
               <div className="flex flex-col gap-1 md:gap-[0.375rem]">
                 <h1 className="text-sm md:text-base text-[#1B1A1A] font-WorkSans font-medium leading-5">
-                  {merchantData?.f_name} {merchantData?.l_name}
+                  {merchant?.f_name} {merchant?.l_name}
                 </h1>
                 {/* <h2 className='text-xs md:text-sm text-[#898989] font-WorkSans font-normal leading-4 '>ID: OP49867466389</h2> */}
               </div>
@@ -171,7 +181,7 @@ const MerchantSettings = () => {
                 Merchant name
               </h1>
               <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-                {merchantData?.f_name} {merchantData?.l_name}
+                {merchant?.f_name} {merchant?.l_name}
               </h2>
             </div>
             <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
@@ -180,7 +190,7 @@ const MerchantSettings = () => {
                 Merchant email
               </h1>
               <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-                {merchantData?.email ? merchantData?.email : "--"}
+                {merchant?.email ? merchant?.email : "--"}
               </h2>
             </div>
             <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
@@ -189,7 +199,7 @@ const MerchantSettings = () => {
                 Merchant phone
               </h1>
               <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-                {merchantData?.phone ? merchantData?.phone : "--"}
+                {merchant?.phone ? merchant?.phone : "--"}
               </h2>
             </div>
             <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
@@ -198,7 +208,7 @@ const MerchantSettings = () => {
                 Merchant address
               </h1>
               <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-                {merchantData?.address ? merchantData?.address : "--"}
+                {merchant?.address ? merchant?.address : "--"}
               </h2>
             </div>
             {/* <div  className='w-[25rem] sm:w-[37rem] md:w-[47rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center'>
@@ -220,7 +230,7 @@ const MerchantSettings = () => {
               NIN:
             </h1>
             <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-              {merchantData?.nin ? merchantData?.nin : "--"}
+              {merchant?.nin ? merchant?.nin : "--"}
             </h2>
           </div>
           <div className="w-[21rem] sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
@@ -278,13 +288,13 @@ const MerchantSettings = () => {
           <EditAccountDetails
             isVisible={showModal}
             onClose={async () => setShowModal(false)}
-            r_f_name={merchantData?.f_name}
-            r_l_name={merchantData?.l_name}
-            r_address={merchantData?.address}
-            r_email={merchantData?.email}
+            r_f_name={merchant?.f_name}
+            r_l_name={merchant?.l_name}
+            r_address={merchant?.address}
+            r_email={merchant?.email}
             r_dob={formattedDob}
-            r_o_name={merchantData?.o_name}
-            r_phone={merchantData?.phone}
+            r_o_name={merchant?.o_name}
+            r_phone={merchant?.phone}
           />
         )}
         {showBankModal && (
