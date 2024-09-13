@@ -232,23 +232,21 @@ const EditAccountDetails = ({
                   Date of birth
                 </h1>
                 <input
-                  name="dob"
-                  type="date"
-                  value={merchantInfo?.dob}
-                  onChange={(e) => {
-                    const inputDate = e.target.value; // Assuming e.target.value is in "YYYY-MM-DD" format
-                    const timestamp = new Date(inputDate).getTime();
-                    const newTimestamp = timestamp.toString();
-                    setMerchantInfo({ ...merchantInfo, dob: newTimestamp });
-                  }}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
-                  className="w-[19rem] md:w-[30rem] lg:w-[25rem] xl:w-[30rem] h-[3.125rem]
-                            focus:caret-primary  focus:border-primary outline-none 
-                            text-[#898989] font-WorkSans font-normal leading-4 p-6
-                            rounded-[0.313rem] border-[0.0625rem] border-[#CACACA]
-                            "
-                />
+  name="dob"
+  type="date"
+  value={merchantInfo?.dob ? new Date(merchantInfo.dob).toISOString().split('T')[0] : ""}
+  onChange={(e) => {
+    const inputDate = e.target.value; // e.g., "YYYY-MM-DD"
+    setMerchantInfo({ ...merchantInfo, dob: inputDate });
+  }}
+  onFocus={() => setIsFocused(true)}
+  onBlur={() => setIsFocused(false)}
+  className="w-[19rem] md:w-[30rem] lg:w-[25rem] xl:w-[30rem] h-[3.125rem]
+            focus:caret-primary  focus:border-primary outline-none 
+            text-[#898989] font-WorkSans font-normal leading-4 p-6
+            rounded-[0.313rem] border-[0.0625rem] border-[#CACACA]"
+/>
+
               </div>
             </div>
             <div className="flex items-center justify-end gap-4 mt-6">
