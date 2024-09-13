@@ -9,6 +9,8 @@ import { setBusinessUpdated } from "../../redux/Modal-Processes/createBusinessSl
 import { useAppDispatch } from "../../redux/redux-hooks/hooks";
 import { useUpdateAccountDetailsMutation } from "../../modules/LoadSettings/settingsApi";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
+import { querykeys } from "../../lib/constants";
 
 interface Props {
   isVisible: boolean;
@@ -46,7 +48,7 @@ const EditAccountDetails = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
+  const queryClient = useQueryClient();
   const [merchantInfo, setMerchantInfo] = useState<MerchantForm>({
     f_name: r_f_name,
     l_name: r_l_name,
@@ -94,7 +96,9 @@ const EditAccountDetails = ({
       dispatch(setBusinessUpdated(true));
       onClose();
       localStorage.setItem("email", merchantInfo?.email);
-
+      queryClient.invalidateQueries({
+        queryKey:[querykeys.settings]
+      })
       // Redirect to "auth/verifyemail" if the email has changed
       setTimeout(() => {
         if (r_email !== merchantInfo.email) {
