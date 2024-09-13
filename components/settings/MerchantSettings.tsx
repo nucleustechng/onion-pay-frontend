@@ -104,7 +104,6 @@ const MerchantSettings = () => {
 
   const formattedDate = formatDate(merchantData?.dob);
   const formattedDob = formatDateString(merchantData?.dob)
-  console.log(formattedDate);
   // const formattedDate = new Date(merchantData?.dob)
 
   // useEffect(() => {
