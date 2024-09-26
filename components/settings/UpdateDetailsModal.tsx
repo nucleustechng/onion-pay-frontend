@@ -204,9 +204,9 @@ const UpdateDetailsModal = ({
               <Input
                 name="bvn"
                 value={businessInfo.bvn}
-                onChange={(e) =>
-                  setBusinessInfo({ ...businessInfo, bvn: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setBusinessInfo({ ...businessInfo, bvn: e.target.value })
+                // }
                 placeholder=""
                 label="Bank Verification Number"
                 type="url"

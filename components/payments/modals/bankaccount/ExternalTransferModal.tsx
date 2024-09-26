@@ -15,8 +15,10 @@ import Loader from "../../../Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLoadBanksQuery } from "../../../../modules/BankAccountApi/bankaccountApi";
-import axios from "axios";
-import Cookies from "js-cookie";
+// import axios from "axios";
+// import Cookies from "js-cookie";
+import { useMutation } from "@tanstack/react-query";
+import { useTransfers } from "../../../../modules/services/useTransfers";
 
 interface Props {
   isVisible: boolean;
@@ -32,6 +34,7 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
     amount: number;
     recepient_name: string;
   }
+  const {retrieveAccountName} = useTransfers()
   const [bankCode, setBankCode] = useState<string>("");
   const [transferInfo, setTransferInfo] = useState<ITransferInfo>({
     isWallet: false,
@@ -46,6 +49,20 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
 
   const [transfer, { isSuccess, isLoading, data: transferData }] =
     useTransferMutation();
+    const {mutate} = useMutation({
+      mutationFn:retrieveAccountName,
+      onSuccess: ({success,name,reason}) => {
+        if (success) {
+      setTransferInfo({ ...transferInfo, recepient_name:name });
+
+        } else {
+          toast.error(reason);
+        }
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    })
 
   const [loadTransferFee, { data: transferFee }] = useLoadTransferFeeMutation();
   const { isWallet, acc_bank, acc_num, amount, recepient_name } = transferInfo;
@@ -94,37 +111,37 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
     loadTransferFee({ amount: transferInfo?.amount, external: true });
   }, [transferInfo]);
 
-  const fetchBankAccountName = async (
-    accountNumber: string,
-    bankCode: string,
-  ) => {
-    const token = Cookies.get("token");
-    setBankCode(bankCode);
-    try {
-      // Make a POST request to the endpoint with the accountNumber in the request body
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_URL}api/v1/bank-account-name`,
-        {
-          account_number: accountNumber,
-          bank: bankCode,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  // const fetchBankAccountName = async (
+  //   accountNumber: string,
+  //   bankCode: string,
+  // ) => {
+  //   const token = Cookies.get("token");
+  //   setBankCode(bankCode);
+  //   try {
+  //     // Make a POST request to the endpoint with the accountNumber in the request body
+  //     const { data } = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_URL}api/v1/bank-account-name`,
+  //       {
+  //         account_number: accountNumber,
+  //         bank: bankCode,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       },
+  //     );
 
-      // Handle the response data as needed
-      setTransferInfo({ ...transferInfo, recepient_name: data?.name });
-      return data;
-    } catch (error) {
-      toast.error("We had an issue retrieving the recepient name");
-      // Handle errors
-      console.error("Error fetching bank account name:", error);
-      throw error; // Rethrow the error for upper layers to handle if needed
-    }
-  };
+  //     // Handle the response data as needed
+  //     setTransferInfo({ ...transferInfo, recepient_name: data?.name });
+  //     return data;
+  //   } catch (error) {
+  //     toast.error("We had an issue retrieving the recepient name");
+  //     // Handle errors
+  //     console.error("Error fetching bank account name:", error);
+  //     throw error; // Rethrow the error for upper layers to handle if needed
+  //   }
+  // };
 
   const handleClose = (e: any) => {
     if (e.target.id === "wrapper") {
@@ -200,8 +217,9 @@ const ExternalTransferModal = ({ isVisible, onClose }: Props) => {
                             rounded-[0.313rem] border-[0.0625rem] border-[#CACACA] pl-4 
                             text-sm text-[#898989] font-WorkSans font-normal leading-4"
                   onChange={(e) => {
-                    fetchBankAccountName(transferInfo?.acc_num, e.target.value);
-
+                    // fetchBankAccountName(transferInfo?.acc_num, e.target.value);
+                    mutate({accountNumber:transferInfo?.acc_num,bankCode:e.target.value})
+                    setBankCode(e.target.value)
                     setTransferInfo({
                       ...transferInfo,
                       acc_bank: e.target.value,
