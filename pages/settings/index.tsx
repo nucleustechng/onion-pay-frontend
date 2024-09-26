@@ -16,6 +16,7 @@ import {
 import UpdateDetailsModal from "../../components/settings/UpdateDetailsModal";
 import useAuth from "../../useAuth";
 import Link from "next/link";
+import { ClipboardIcon } from "lucide-react";
 
 const Settings = () => {
   useAuth();
@@ -102,6 +103,7 @@ const Settings = () => {
   useEffect(() => {
     if (updateLogoSuccess && updateData?.success) {
       setUpdatedImage(true);
+      toast.success("Logo updated successfully!");
     } else {
       setUpdatedImage(false);
       toast.error(updateData?.reason);
@@ -113,6 +115,17 @@ const Settings = () => {
     }
   }, [businessUpdated, refetch, updatedImage]);
   console.log("businessdata", businessData);
+
+  const copyToClipboard = (text:string) => {
+    if (text) {
+
+      navigator.clipboard.writeText(text);
+      toast.success("Copied!!", { autoClose: 150 });
+    } else {
+      toast.error("Failed to copy.");
+    }
+
+  };
 
   return (
     <div className="">
@@ -252,13 +265,18 @@ const Settings = () => {
               </h2>
             </div>
             <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
-              <h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
-                Wallet number
-              </h1>
-              <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4">
-                {businessData?.walletNumber ? businessData?.walletNumber : "--"}
-              </h2>
-            </div>
+      <h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
+        Wallet number
+      </h1>
+      <div className="flex items-center">
+        <h2 className="text-sm text-[#1B1A1A] font-WorkSans font-normal leading-4 mr-2">
+          {businessData?.walletNumber ? businessData?.walletNumber : "--"}
+        </h2>
+        <button onClick={() => copyToClipboard(businessData?.walletNumber)} className="flex items-center space-x-2">
+          <ClipboardIcon className="w-5 h-5 text-gray-500 hover:text-gray-700 cursor-pointer" />
+        </button>
+      </div>
+    </div>
             <div className="w-auto sm:w-[37rem] md:w-[29rem] lg:w-[50rem] xl:w-[70rem] mb-6 flex justify-between items-center">
               <h1 className="text-sm text-[#898989] font-WorkSans font-normal leading-4">
                 Wallet Tier {businessData?.tier ? businessData?.tier : "--"}
